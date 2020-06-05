@@ -262,7 +262,7 @@ namespace BurningKnight.entity.creature.player {
 			var s = Speed;
 			var sp = 20;
 
-			if (!b.IceImmunity && i.Touching[(int) Tile.Ice]) {
+			if (((Player) Entity).Sliding || !b.IceImmunity && i.Touching[(int) Tile.Ice]) {
 				sp -= 19;
 				s *= 0.25f;
 			}

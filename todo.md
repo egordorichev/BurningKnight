@@ -5,9 +5,7 @@
 * moving platforms can get stuck (room where they move around center)
 
 twitch events {
- you place bombs every 3 seconds
  order 66
- you constantly SLIIIIIIIIIIIIIIIIIIIIIIIIDE
  
  + better announcement
  + delay between alerts

@@ -29,6 +29,8 @@ namespace BurningKnight.entity.twitch.happening {
 			Add("nerf", new ModifyMaxHpHappening(-2));
 			Add("rob", new ModifyCoinsHappening(-10));
 			Add("steal", new StealWeaponHappening());
+			Add("bomb", new BombingHappening());
+			Add("slide", new SlideHappening());
 
 			// Good
 			Add("give_artifact", new RandomTypedItemHappening(ItemType.Artifact));

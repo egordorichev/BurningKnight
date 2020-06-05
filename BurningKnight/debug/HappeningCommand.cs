@@ -3,6 +3,7 @@ using BurningKnight.entity.creature.player;
 using BurningKnight.entity.twitch.happening;
 using Lens;
 using Lens.util;
+using Lens.util.timer;
 
 namespace BurningKnight.debug {
 	public class HappeningCommand : ConsoleCommand {
@@ -20,7 +21,12 @@ namespace BurningKnight.debug {
 	      }
 
 	      try {
-					h.Happen(LocalPlayer.Locate(Engine.Instance.State.Area));
+		      var p = LocalPlayer.Locate(Engine.Instance.State.Area);
+					h.Happen(p);
+
+					Timer.Add(() => {
+						h.End(p);
+					}, h.GetVoteDelay());
 	      } catch (Exception e) {
 		      Log.Error(e);
 	      }

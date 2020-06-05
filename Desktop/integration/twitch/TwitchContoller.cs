@@ -23,6 +23,8 @@ namespace Desktop.integration.twitch {
 		private Player player;
 		private string question;
 		private string totalVotes;
+		private HappeningOption happeningRn;
+		private float voteDelay;
 		
 		public void Init() {
 			GenerateOptions();
@@ -90,16 +92,34 @@ namespace Desktop.integration.twitch {
 				return;
 			}
 			
+			if (happeningRn != null) {
+				voteDelay -= dt;
+				happeningRn.Happening.Update(dt);
+
+				
+				if (voteDelay <= 0) {
+					try {
+						happeningRn.Happening.End(last);
+						last = null;
+					} catch (Exception e) {
+						Log.Error(e);
+					}
+					
+					voteDelay = 0;
+					happeningRn = null;
+					GenerateOptions();
+				}
+			}
+
 			timeLeft -= dt / TotalTime;
 
 			if (timeLeft <= 0) {
 				ExecuteOrder66();
-				GenerateOptions();
 			}
 		}
 
 		public void Render() {
-			if (!(Engine.Instance.State is InGameState)) {
+			if (!(Engine.Instance.State is InGameState) || happeningRn != null) {
 				return;
 			}
 
@@ -128,6 +148,10 @@ namespace Desktop.integration.twitch {
 		}
 
 		public bool HandleMessage(ChatMessage chatMessage) {
+			if (happeningRn != null) {
+				return false;
+			}
+			
 			var message = chatMessage.Message;
 
 			if (!votersCache.Contains(chatMessage.Username)) {
@@ -167,6 +191,8 @@ namespace Desktop.integration.twitch {
 			return false;
 		}
 
+		private Player last;
+
 		private void ExecuteOrder66() {
 			var options = new List<HappeningOption>();
 			
@@ -203,6 +229,10 @@ namespace Desktop.integration.twitch {
 			}
 
 			TextParticle.Add(player, opt.Name);
+
+			last = player;
+			happeningRn = opt;
+			voteDelay = opt.Happening.GetVoteDelay();
 		}
 	}
 }
