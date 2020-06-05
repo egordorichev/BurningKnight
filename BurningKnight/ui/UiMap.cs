@@ -91,7 +91,7 @@ namespace BurningKnight.ui {
 				var room = (Room) rm;
 
 				if (rect.Intersects(room.Rect)) {
-					for (var yy = room.MapY; yy < room.MapY + room.MapH; yy++) {
+					for (var yy = room.MapY - 1; yy <= room.MapY + room.MapH; yy++) {
 						for (var xx = room.MapX; xx < room.MapX + room.MapW; xx++) {
 							var i = level.ToIndex(xx, yy);
 

@@ -1,23 +1,15 @@
-* treasure room still spawns with gold lamp
-
 * rekvi didnt have locks rendering
 * rekvi fps issues
 * moving platforms can get stuck (room where they move around center)
 
-twitch events {
- order 66
- 
- + better announcement
- + delay between alerts
-}
-
-* minimap doesnt show doors on top/bottom
-
+* better twitch announcement
 * maanex mob spawns suggestion
 
 # bugs
 * invis walls?
 * game did not let continue run after restarting the game
+* no tp is back
+* 2 treasure rooms (with brick? can block exit somehow??)
 
 # can wait
  * make d6 hard to get

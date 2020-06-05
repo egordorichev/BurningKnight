@@ -1236,5 +1236,8 @@
 	"minimap" : "Миникарта",
 	"quality" : "Качество",
 	"normal" : "Нормальное",
-	"potato" : "Картошка"
+	"potato" : "Картошка",
+
+	"happening_bk:bomb" : "Взрывная Атака",
+	"happening_bk:slide" : "Ледниковый Период"
 }
