@@ -19,7 +19,6 @@ twitch events {
 
 * low graphics settings
 * maanex mob spawns suggestion
-* single weapon but more hp lamp?
 
 # bugs
 * invis walls?

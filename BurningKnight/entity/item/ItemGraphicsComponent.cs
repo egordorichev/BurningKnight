@@ -77,7 +77,7 @@ namespace BurningKnight.entity.item {
 				Graphics.Render(s, position, angle, origin);
 				Graphics.Color = ColorUtils.WhiteColor;
 			} else {
-				if (!shadow && DebugWindow.ItemShader) {
+				if (!shadow && DebugWindow.ItemShader && !Settings.LowQuality) {
 					var shader = Shaders.Item;
 				
 					Shaders.Begin(shader);
@@ -87,7 +87,7 @@ namespace BurningKnight.entity.item {
 
 				Graphics.Render(s, position, angle, origin);
 
-				if (!shadow && DebugWindow.ItemShader) {
+				if (!shadow && DebugWindow.ItemShader && !Settings.LowQuality) {
 					Shaders.End();
 				}
 			}

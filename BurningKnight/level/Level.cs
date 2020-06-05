@@ -751,7 +751,7 @@ namespace BurningKnight.level {
 
 					if (tile > 0) {
 						if (t.Matches(TileFlags.FloorLayer)) {
-							if (active && CheckFlag(index, Flag.Burning) && Rnd.Chance(10)) {
+							if (!Settings.LowQuality && active && CheckFlag(index, Flag.Burning) && Rnd.Chance(10)) {
 								Area.Add(new FireParticle {
 									Position = new Vector2(x * 16 + Rnd.Float(-2, 18), y * 16 + Rnd.Float(-2, 18)),
 									XChange = 0.1f,
@@ -877,7 +877,7 @@ namespace BurningKnight.level {
 		private bool cleared;
 
 		public void RenderMess() {
-			if (!LevelLayerDebug.Mess) {
+			if (!LevelLayerDebug.Mess ) {
 				return;
 			}
 			
@@ -1057,7 +1057,7 @@ namespace BurningKnight.level {
 							
 							Graphics.Render(region, pos);
 
-							if (t == Tile.Water || t == Tile.Lava) {
+							if ((t == Tile.Water || t == Tile.Lava) && !Settings.LowQuality && !paused) {
 								if (t == Tile.Lava && Rnd.Chance(0.5f)) {
 									var p = Particles.Wrap(Particles.Lava(), Area, pos + Rnd.Vector(0, 16));
 									p.Particle.Velocity = MathUtils.CreateVector(Rnd.Float(-10, 10), -Rnd.Float(30, 45));
@@ -1065,7 +1065,7 @@ namespace BurningKnight.level {
 									p.Particle.T = 0;
 								}
 								
-								if (!paused && Get(index + width) == Tile.Chasm && Rnd.Chance(6)) {
+								if (Get(index + width) == Tile.Chasm && Rnd.Chance(6)) {
 									Area.Add(new WaterfallFx {
 										Position = pos + new Vector2(Rnd.Float(16), 16),
 										Lava = t == Tile.Lava

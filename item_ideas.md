@@ -1,5 +1,6 @@
 3/8
 
+* single weapon but more hp lamp?
 * picking up a heart might heal you for half a heart more   
 
 4/8

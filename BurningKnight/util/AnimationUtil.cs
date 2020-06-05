@@ -21,6 +21,10 @@ namespace BurningKnight.util {
 		}
 
 		public static void Poof(Vector2 where, int depth = 0) {
+			if (Settings.LowQuality) {
+				return;
+			}
+			
 			for (var i = 0; i < 4; i++) {
 				var part = new ParticleEntity(Particles.Dust());
 						
@@ -32,6 +36,10 @@ namespace BurningKnight.util {
 		}
 
 		public static void Confetti(Vector2 where) {
+			if (Settings.LowQuality) {
+				return;
+			}
+			
 			for (var i = 0; i < 15; i++) {
 				var p = Run.Level.Area.Add(new ConfettiParticle());
 				p.Center = where;
@@ -39,6 +47,10 @@ namespace BurningKnight.util {
 		}
 		
 		public static void Ash(Vector2 where, int depth = 0) {
+			if (Settings.LowQuality) {
+				return;
+			}
+			
 			for (var i = 0; i < 4; i++) {
 				var part = new ParticleEntity(Particles.Ash());
 						
