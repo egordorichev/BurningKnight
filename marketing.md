@@ -1,23 +1,13 @@
 # Release day
 
-* DO NOT FORGET TO UPDATE ITCH
-
-* Reddit
-* Blog Post on github (+ copy for the rexcellentgames.com)
-* Community Post on steam
-
-* Twitch-Streamers
-* Twitter (tag itch.op)
-* Imgur
-* Mailing List
-* Announcement in rexcellent discord
++ Reddit
 * Announcement in other discords (indikator, etc)
-* Key giveaways on discord
 * Steam Curators
 
 # A few days later
 
 * Twitter Key giveaways
+* Key giveaways on discord
 
 # Subredit advice
 
