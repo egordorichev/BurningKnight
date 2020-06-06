@@ -52,7 +52,7 @@ namespace BurningKnight.entity {
 		}
 
 		public override void Render() {
-			if (Settings.HideCursor || InGameState.ShouldHide) {
+			if (Settings.HideCursor) {
 				return;
 			}
 
