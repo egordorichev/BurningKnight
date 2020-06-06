@@ -7,11 +7,11 @@ namespace BurningKnight.level.paintings {
 		private static List<Info> paintings = new List<Info>();
 
 		static PaintingRegistry() {
-			Add("rexcellent", "egordorichev");
+			Add("rexcellent", "egordorichev", 0.1f);
 			Add("grannylisa", "DSF100");
-			Add("maanex", "DSF100");
+			Add("maanex", "DSF100", 0.1f);
 			Add("bk", "Mate");
-			Add("failpositive", "Jusiv_");
+			Add("failpositive", "Jusiv_", 0.1f);
 			Add("old_man", "???");
 			Add("arthouse", "xD");
 			Add("black", "!!!");
@@ -37,7 +37,7 @@ namespace BurningKnight.level.paintings {
 			Add("beet_boys", "Gaziter");
 			Add("moonshine", "Gaziter");
 			Add("void", "Gaziter");
-			Add("esty", "???");
+			Add("esty", "???", 0.1f);
 			
 			Add("nat", "MateCziner");
 			Add("totemori", "MateCziner");
@@ -76,7 +76,7 @@ namespace BurningKnight.level.paintings {
 			Add("too_late", "MateCziner");
 			Add("whipped_cream", "MateCziner");
 			Add("tofulama", "Didu");
-			Add("peasants", "Diego Rivera");
+			Add("peasants", "Diego Rivera", 0.1f);
 			Add("code", "egordorichev");
 		}
 		

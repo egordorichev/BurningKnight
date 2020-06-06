@@ -1,4 +1,5 @@
 * progress achievements (npc_party & fancy_hat) unlock after 1 progress
+* hub music not playing
 
 * floor gets black in some places? I guess missing textures (did the secret room floors mess it up?)
 * invis items back
