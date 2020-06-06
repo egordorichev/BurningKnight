@@ -58,6 +58,8 @@ using Timer = Lens.util.timer.Timer;
 
 namespace BurningKnight.state {
 	public class InGameState : GameState, Subscriber {
+		public static bool ShouldHide => Engine.Instance.State is InGameState st && st.Paused && !st.InStats && st.currentBack != st.graphicsBack;
+		
 		public static bool SkipPause;
 		public static Action<UiTable, string, string, int, Action> SetupLeaderboard;
 		public static bool IgnoreSave;
