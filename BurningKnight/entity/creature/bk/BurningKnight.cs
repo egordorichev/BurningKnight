@@ -674,6 +674,7 @@ namespace BurningKnight.entity.creature.bk {
 						p.Depth = Self.Depth;
 						p.CanBeReflected = false;
 						p.CanBeBroken = false;
+						p.Color = ProjectileColor.BkRed;
 
 						if (Self.timesRaged > 4) {
 							p.Controller += TargetProjectileController.Make(Self.Target, 0.5f);
