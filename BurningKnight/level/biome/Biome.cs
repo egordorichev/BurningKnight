@@ -159,5 +159,11 @@ namespace BurningKnight.level.biome {
 			
 			return GetDefaultStepSound(tile);
 		}
+		
+		private static Color mapColor = new Color(101, 115, 146);
+
+		public virtual Color GetMapColor() {
+			return mapColor;
+		}
 	}
 }

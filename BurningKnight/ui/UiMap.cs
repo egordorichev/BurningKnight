@@ -19,10 +19,8 @@ namespace BurningKnight.ui {
 		private const int W = 64;
 		private const int H = 64;
 
-		private static Vector2 scale = new Vector2(2f);
-		private static Vector2 bigScale = new Vector2(4f);
-		private static Color colorA = new Color(101, 115, 146);
-		private static Color colorB = new Color(66, 76, 110);
+		private static Vector2 scale = new Vector2(1f);
+		private static Vector2 bigScale = new Vector2(2f);
 
 		private static Vector2 centerOffset = new Vector2(W / 2, H / 2);
 		private static Vector2 size = new Vector2(W, H);
@@ -66,10 +64,10 @@ namespace BurningKnight.ui {
 			var y = (int) Math.Floor(fy);
 			var level = Run.Level;
 			
-			var sx = MathUtils.Clamp(0, level.Width - 1, x - W / 4);
-			var sy = MathUtils.Clamp(0, level.Height - 1, y - H / 4);
-			var tx = MathUtils.Clamp(0, level.Width - 1, x + W / 4);
-			var ty = MathUtils.Clamp(0, level.Height - 1, y + H / 4);
+			var sx = MathUtils.Clamp(0, level.Width - 1, x - W / 2);
+			var sy = MathUtils.Clamp(0, level.Height - 1, y - H / 2);
+			var tx = MathUtils.Clamp(0, level.Width - 1, x + W / 2);
+			var ty = MathUtils.Clamp(0, level.Height - 1, y + H / 2);
 			var rect = new Rect(sx, sy, tx, ty);
 
 			var r = (PixelPerfectGameRenderer) Engine.Instance.StateRenderer;
@@ -98,7 +96,7 @@ namespace BurningKnight.ui {
 							var i = level.ToIndex(xx, yy);
 
 							if (level.Explored[i] && !level.Get(i).IsWall() && xx >= sx && xx <= tx && yy >= sy && yy <= ty) {
-								Graphics.Render(slice, new Vector2((int) Math.Floor(X + W / 2 + (xx - fx) * 2) - 1, (int) Math.Floor(Y + H / 2 + (yy - fy) * 2) - 1), 0, Vector2.Zero, bigScale);
+								Graphics.Render(slice, new Vector2((int) Math.Floor(X + W / 2 + (xx - fx)) - 1, (int) Math.Floor(Y + H / 2 + (yy - fy)) - 1), 0, Vector2.Zero, bigScale);
 							}
 						}
 					}
@@ -106,6 +104,7 @@ namespace BurningKnight.ui {
 			}
 			
 			Graphics.Color = ColorUtils.WhiteColor;
+			Graphics.Color = Run.Level.Biome.GetMapColor();
 
 			foreach (var rm in level.Area.Tagged[Tags.Room]) {
 				var room = (Room) rm;
@@ -116,8 +115,7 @@ namespace BurningKnight.ui {
 							var i = level.ToIndex(xx, yy);
 
 							if (level.Explored[i] && !level.Get(i).IsWall() && xx >= sx && xx <= tx && yy >= sy && yy <= ty) {
-								Graphics.Color = ((xx + yy) % 2 == 0 ? colorA : colorB);
-								Graphics.Render(slice, new Vector2((int) Math.Floor(X + W / 2 + (xx - fx) * 2), (int) Math.Floor(Y + H / 2 + (yy - fy) * 2)), 0, Vector2.Zero, scale);
+								Graphics.Render(slice, new Vector2((int) Math.Floor(X + W / 2 + (xx - fx)), (int) Math.Floor(Y + H / 2 + (yy - fy))), 0, Vector2.Zero, scale);
 							}
 						}
 					}
@@ -152,12 +150,12 @@ namespace BurningKnight.ui {
 							}
 						}
 						
-						Graphics.Render(icon, new Vector2((int) Math.Floor(X + W * 0.5f + (room.MapX + room.MapW * 0.5f - fx) * 2), (int) Math.Floor(Y + H * 0.5f + (room.MapY + room.MapH * 0.5f - fy) * 2)), 0, icon.Center);
+						Graphics.Render(icon, new Vector2((int) Math.Floor(X + W * 0.5f + (room.MapX + room.MapW * 0.5f - fx)), (int) Math.Floor(Y + H * 0.5f + (room.MapY + room.MapH * 0.5f - fy))), 0, icon.Center);
 					}
 				}
 			}
 
-			//Graphics.Render(playerIcon, new Vector2(X + W / 2f, Y + H / 2f), 0, playerIcon.Center);
+			Graphics.Render(playerIcon, new Vector2(X + W / 2f, Y + H / 2f), 0, playerIcon.Center);
 
 			r.End();
 			

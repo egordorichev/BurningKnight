@@ -70,5 +70,11 @@ namespace BurningKnight.level.biome {
 		public override bool HasCobwebs() {
 			return false;
 		}
+		
+		private static Color mapColor = new Color(146, 161, 185);
+
+		public override Color GetMapColor() {
+			return mapColor;
+		}
 	}
 }
