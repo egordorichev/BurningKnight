@@ -2991,6 +2991,8 @@ namespace BurningKnight.state {
 				Player.DailyItems = null;
 			}
 
+			Tween.To(0, emeraldY, x => emeraldY = x, 0.4f, Ease.BackOut);
+			
 			GlobalSave.Put("run_count", GlobalSave.GetInt("run_count") + 1);
 
 
