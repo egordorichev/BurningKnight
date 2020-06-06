@@ -61,6 +61,10 @@ namespace Lens.input {
 			if (Attached != WasAttached) {
 				WasChanged = true;
 			}
+
+			if (PlayerIndex == PlayerIndex.One) {
+				// Log.Info($"X: (pressed) {WasPressed(Buttons.X)}, (down) {IsDown(Buttons.X)}");
+			}
 		}
 
 		public void Rumble(float strength, float time) {

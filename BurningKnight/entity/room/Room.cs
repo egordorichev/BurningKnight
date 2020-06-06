@@ -11,6 +11,7 @@ using BurningKnight.entity.events;
 using BurningKnight.entity.item;
 using BurningKnight.entity.projectile;
 using BurningKnight.entity.room.controllable;
+using BurningKnight.entity.room.controllable.platform;
 using BurningKnight.entity.room.controller;
 using BurningKnight.entity.room.input;
 using BurningKnight.level;
@@ -187,6 +188,13 @@ namespace BurningKnight.entity.room {
 		private void SpawnReward() {
 			if (Run.Depth < 1 || Type != RoomType.Regular || Rnd.Chance(30 - Run.Luck)) {
 				return;
+			}
+
+			foreach (var e in Tagged[Tags.LevelSave]) {
+				if (e is MovingPlatform) {
+					// To avoid it getting stuck
+					return;
+				}
 			}
 			
 			var where = new Dot(MapX + MapW / 2, MapY + MapH / 2);

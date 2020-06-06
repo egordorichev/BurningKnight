@@ -16,7 +16,7 @@ namespace BurningKnight.assets.input {
 
 		public static FileHandle BindingsHandle => new FileHandle($"{SaveManager.SaveDir}keybindings_{Version}.json");
 		
-		public const int Version = 1;
+		public const int Version = 2;
 
 		public const string Up = "up";
 		public const string Left = "left";

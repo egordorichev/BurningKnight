@@ -32,12 +32,13 @@ namespace BurningKnight.ui {
 
 		public override void OnClick() {
 			base.OnClick();
-			firstClickFrame = true;
 
 			if (Focused == this) {
-				Focused = null;
-				SetLabel();
+				// Focused = null;
+				// SetLabel();
 			} else {
+				firstFrame = true;
+				firstClickFrame = true;
 				Focused = this;
 				Label = $"{Locale.Get(Key)}: {Locale.Get("select")}";
 				RelativeCenterX = cx;
@@ -75,15 +76,31 @@ namespace BurningKnight.ui {
 			SetLabel();
 		}
 
+		private bool firstFrame;
+
 		public override void Update(float dt) {
 			base.Update(dt);
 
+			if (firstFrame) {
+				firstFrame = false;
+				return;
+			}
+
+			DoCheck();
+		}
+
+		public void DoCheck() {
+			if (firstFrame) {
+				return;
+			}
+			
 			if (Focused == this) {
 				if (Gamepad) {
 					if (GamepadComponent.Controller == null) {
 						Log.Error("Null controller");
 						return;
 					}
+
 					
 					foreach (var b in buttonsToCheck) {
 						if (GamepadComponent.Controller.WasPressed(b)) {

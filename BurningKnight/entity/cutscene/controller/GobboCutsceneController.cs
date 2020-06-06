@@ -3,6 +3,7 @@ using BurningKnight.entity.cutscene.entity;
 using BurningKnight.state;
 using BurningKnight.ui.dialog;
 using Lens;
+using Lens.assets;
 using Lens.graphics.gamerenderer;
 using Lens.util.camera;
 using Lens.util.timer;
@@ -53,7 +54,7 @@ namespace BurningKnight.entity.cutscene.controller {
 						dad.RunAway = true;
 
 						Timer.Add(() => {
-							State.Say("20 years later", () => {
+							State.Say(Locale.Get("20_years_later"), () => {
 								dad.Done = true;
 								gobbo = new Gobbo();
 								Area.Add(gobbo);

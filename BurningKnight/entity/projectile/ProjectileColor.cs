@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 namespace BurningKnight.entity.projectile {
 	public static class ProjectileColor {
 		public static Color Yellow = Palette.Default[30];
+		public static Color BkRed = new Color(1f, 0f, 0f);
 		public static Color Red = Palette.Default[0];
 		public static Color Green = Palette.Default[35];
 		public static Color Blue = Palette.Default[40];

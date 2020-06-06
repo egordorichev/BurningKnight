@@ -3,12 +3,19 @@ using BurningKnight.entity.buff;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.player;
 using Lens.entity;
+using Lens.graphics;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.creature.mob.jungle {
 	public class Bee : Mob {
 		protected float Speed = 1f;
 	
+		private static readonly Color color = ColorUtils.FromHex("#5ac54f");
+		
+		protected override Color GetBloodColor() {
+			return color;
+		}
+		
 		protected virtual string GetAnimation() {
 			return "bee";
 		}

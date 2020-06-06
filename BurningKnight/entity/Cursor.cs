@@ -1,4 +1,6 @@
 ﻿using BurningKnight.assets;
+using BurningKnight.entity.component;
+using BurningKnight.state;
 using Lens;
 using Lens.assets;
 using Lens.entity;
@@ -50,7 +52,7 @@ namespace BurningKnight.entity {
 		}
 
 		public override void Render() {
-			if (Settings.HideCursor) {
+			if (Settings.HideCursor || InGameState.ShouldHide) {
 				return;
 			}
 

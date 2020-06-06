@@ -58,6 +58,8 @@ using Timer = Lens.util.timer.Timer;
 
 namespace BurningKnight.state {
 	public class InGameState : GameState, Subscriber {
+		public static bool ShouldHide => Engine.Instance.State is InGameState st && st.Paused && !st.InStats && st.currentBack != st.graphicsBack;
+		
 		public static bool SkipPause;
 		public static Action<UiTable, string, string, int, Action> SetupLeaderboard;
 		public static bool IgnoreSave;
@@ -90,7 +92,7 @@ namespace BurningKnight.state {
 		private UiLabel killedLabel;
 		private UiLabel placeLabel;
 
-		private bool died;
+		public bool Died;
 		private Cursor cursor;
 		private float saveTimer;
 		private SaveIndicator indicator;
@@ -340,7 +342,7 @@ namespace BurningKnight.state {
 			SaveManager.Save(Area, SaveType.Global, old);
 			// SaveManager.Save(Area, SaveType.Secret);
 
-			if (!Run.StartedNew && !died && !Run.Won) {
+			if (!Run.StartedNew && !Died && !Run.Won) {
 				var d = (old ? Run.LastDepth : Run.Depth);
 				
 				if (d > 0) {
@@ -373,7 +375,7 @@ namespace BurningKnight.state {
 		protected override void OnPause() {
 			base.OnPause();
 			
-			if (died || InMenu || Run.Won) {
+			if (Died || InMenu || Run.Won) {
 				return;
 			}
 
@@ -431,7 +433,7 @@ namespace BurningKnight.state {
 
 			base.OnResume();
 
-			if (died || InMenu || Run.Won) {
+			if (Died || InMenu || Run.Won) {
 				return;
 			}
 
@@ -594,6 +596,8 @@ namespace BurningKnight.state {
 			}
 		}
 
+		private bool doCheck;
+
 		public override void Update(float dt) {
 			if (!unlockedHat) {
 				CheckCombo();
@@ -672,25 +676,26 @@ namespace BurningKnight.state {
 			
 			var gamepad = GamepadComponent.Current;
 
-			if (died && Input.WasPressed(Controls.QuickRestart)) {
+			if (Died && Input.WasPressed(Controls.QuickRestart)) {
 				overQuickBack?.OnClick();
 			}
 			
-			if (Paused || died || Run.Won) {
+			if ((Paused || Died || Run.Won) && UiControl.Focused == null) {
 				if (UiButton.SelectedInstance != null && (!UiButton.SelectedInstance.Active || !UiButton.SelectedInstance.IsOnScreen())) {
 					UiButton.SelectedInstance = null;
 					UiButton.Selected = -1;
 				}
 
+				var inControl = currentBack == gamepadBack || currentBack == keyboardBack;
 				
-				if (UiButton.SelectedInstance == null && (Input.WasPressed(Controls.UiDown, gamepad, true) || Input.WasPressed(Controls.UiUp, gamepad, true))) {
+				if (UiButton.SelectedInstance == null && (Input.WasPressed(Controls.UiDown, gamepad, true) || Input.WasPressed(Controls.UiUp, gamepad, true) || (inControl && (Input.WasPressed(Controls.UiLeft, gamepad, true) || Input.WasPressed(Controls.UiRight, gamepad, true))))) {
 					SelectFirst(true);
 
 					if (Settings.UiSfx) {
 						Audio.PlaySfx("ui_moving", 0.5f);
 					}
 				} else if (UiButton.Selected > -1) {
-					if (Input.WasPressed(Controls.UiDown, gamepad, true)) {
+					if (Input.WasPressed(Controls.UiDown, gamepad, true) || (inControl && Input.WasPressed(Controls.UiRight, gamepad, true))) {
 						UiButton sm = null;
 						var mn = UiButton.LastId;
 						
@@ -732,7 +737,7 @@ namespace BurningKnight.state {
 								}
 							}
 						}
-					} else if (Input.WasPressed(Controls.UiUp, gamepad, true)) {
+					} else if (Input.WasPressed(Controls.UiUp, gamepad, true) || (inControl && Input.WasPressed(Controls.UiLeft, gamepad, true))) {
 						UiButton sm = null;
 						var mn = -1;
 						
@@ -851,7 +856,7 @@ namespace BurningKnight.state {
 			}
 			
 			if (!Paused) {
-				if (!died && !Run.Won) {
+				if (!Died && !Run.Won) {
 					Run.Time += (float) Engine.GameTime.ElapsedGameTime.TotalSeconds;
 				}
 
@@ -873,6 +878,18 @@ namespace BurningKnight.state {
 					painting.Remove();
 				}
 			} else {
+				if (doCheck) {
+					if (UiControl.Focused != null) {
+						UiControl.Focused.DoCheck();
+
+						if (UiControl.Focused != null) {
+							UiControl.Focused.Cancel();
+						}
+					}
+
+					doCheck = false;
+				}
+
 				if (doneAnimatingPause) {
 					var did = false;
 
@@ -891,13 +908,13 @@ namespace BurningKnight.state {
 							}
 						}
 
-						if (!did && (Paused || died || Run.Won) && Input.WasPressed(Controls.UiBack, controller)) {
+						if (!did && (Paused || Died || Run.Won) && Input.WasPressed(Controls.UiBack, controller)) {
 							if (Settings.UiSfx) {
 								Audio.PlaySfx("ui_exit", 0.5f);
 							}
 
 							if (UiControl.Focused != null) {
-								UiControl.Focused.Cancel();
+								doCheck = true;
 							} else if (currentBack != null) {
 								currentBack.Click(currentBack);
 							} else {
@@ -907,7 +924,7 @@ namespace BurningKnight.state {
 					}
 				}
 
-				if (controller != null && !Paused && !died && !Run.Won) {
+				if (controller != null && !Paused && !Died && !Run.Won) {
 					var p = LocalPlayer.Locate(Area);
 					
 					if (p != null) {
@@ -1026,7 +1043,7 @@ namespace BurningKnight.state {
 			if (Input.Keyboard.WasPressed(Keys.NumPad9)) {
 				SaveManager.Delete(SaveType.Game, SaveType.Level, SaveType.Player);
 				Run.StartNew(1, Run.Type);
-				died = true;
+				Died = true;
 
 				Run.NextDepth = Run.Depth;
 
@@ -1325,6 +1342,8 @@ namespace BurningKnight.state {
 		}
 
 		public Action OnPauseCallback;
+		private UiMap map;
+		private UiLabel boardType;
 
 		private void SetupUi() {
 			TopUi.Add(new UiChat());
@@ -1357,7 +1376,7 @@ namespace BurningKnight.state {
 			var player = LocalPlayer.Locate(Area);
 
 			if (Run.Depth > 0) {
-				TopUi.Add(new UiMap(player));
+				TopUi.Add(map = new UiMap(player));
 			}	
 			
 			if (Assets.ImGuiEnabled) {
@@ -1592,7 +1611,7 @@ namespace BurningKnight.state {
 				Ui.Add(new UiBanner(Level.GetDepthString()));
 			}
 			
-			leaderMenu.Add(new UiLabel {
+			leaderMenu.Add(boardType = new UiLabel {
 				Label = $"{Locale.Get($"run_{Run.Type.ToString().ToLower()}")} {Locale.Get("leaderboard")}",
 				RelativeCenterX = Display.UiWidth * 0.5f,
 				RelativeCenterY = TitleY,
@@ -1632,7 +1651,7 @@ namespace BurningKnight.state {
 					
 					leaderStats.Clear();
 					offset = Math.Max(0, offset);
-				
+
 					SetupLeaderboard(leaderStats, s, choice.Options[choice.Option], offset, () => {
 						leaderStats.Prepare();
 
@@ -2020,6 +2039,8 @@ namespace BurningKnight.state {
 								var d = Run.Depth;
 								Run.RealDepth = -1;
 								Run.Depth = d;
+								Controls.BindDefault();
+								Controls.Save();
 								Settings.Generate();
 							} catch (Exception e) {
 								Log.Error(e);
@@ -2823,7 +2844,7 @@ namespace BurningKnight.state {
 		public Action ReturnFromLeaderboard;
 		private bool busy;
 
-		public void ShowLeaderboard(string board) {
+		public void ShowLeaderboard(string board, string name) {
 			if (busy) {
 				return;
 			}
@@ -2838,7 +2859,14 @@ namespace BurningKnight.state {
 			if (choice != null) {
 				choice.Option = 0;
 			}
+
+			if (name == "high_score") {
+				name = "regular";
+			} else if (name.StartsWith("daily")) {
+				name = "daily";
+			}
 			
+			boardType.Label = $"{Locale.Get($"run_{name}")} {Locale.Get("leaderboard")}";
 
 			leaderMenu.Enabled = true;
 			currentBack = leaderBack;
@@ -2917,7 +2945,7 @@ namespace BurningKnight.state {
 				statsStats.Add(Locale.Get("distance_traveled"), data["distance"].AsString);
 
 				statsStats.Add(Locale.Get("score"), score.ToString(), false, b => {
-					ShowLeaderboard("high_score");
+					ShowLeaderboard("high_score", "regular");
 
 					Tween.To(-Display.UiHeight, statsMenu.Y, x => statsMenu.Y = x, 0.6f).OnEnd = () => {
 						statsMenu.Enabled = false;
@@ -2972,6 +3000,12 @@ namespace BurningKnight.state {
 				Player.DailyItems = null;
 			}
 
+			if (map != null) {
+				map.Done = true;
+			}
+
+			Tween.To(0, emeraldY, x => emeraldY = x, 0.4f, Ease.BackOut);
+			
 			GlobalSave.Put("run_count", GlobalSave.GetInt("run_count") + 1);
 
 
@@ -3085,7 +3119,7 @@ namespace BurningKnight.state {
 			var board = Run.GetLeaderboardId();
 			
 			stats.Add(Locale.Get("score"), newHigh ? $"{Locale.Get("new_high_score")} {Run.Score}" : Run.Score.ToString(), newHigh, b => {
-				ShowLeaderboard(board);
+				ShowLeaderboard(board, board);
 
 				Tween.To(-Display.UiHeight, gameOverMenu.Y, x => gameOverMenu.Y = x, 0.6f).OnEnd = () => {
 					gameOverMenu.Enabled = false;
@@ -3176,7 +3210,7 @@ namespace BurningKnight.state {
 		}
 		
 		public void HandleDeath() {
-			died = true;
+			Died = true;
 				
 			new Thread(() => {
 				// SaveManager.Save(Area, SaveType.Statistics);
@@ -3200,7 +3234,7 @@ namespace BurningKnight.state {
 				return false;
 			}
 			
-			if (died || Run.Won) {
+			if (Died || Run.Won) {
 				return false;
 			}
 			

@@ -3,6 +3,7 @@ using BurningKnight.entity.component;
 using BurningKnight.level;
 using BurningKnight.level.entities;
 using Lens.entity;
+using Lens.graphics;
 using Lens.util.math;
 using Lens.util.tween;
 using Microsoft.Xna.Framework;
@@ -11,6 +12,12 @@ namespace BurningKnight.entity.creature.mob.castle {
 	public class Ghost : Mob {
 		public const float TargetRadius = 128f;
 		public const byte Alpha = 50;
+		
+		private static readonly Color color = ColorUtils.FromHex("#5ac54f");
+		
+		protected override Color GetBloodColor() {
+			return color;
+		}
 		
 		protected override void SetStats() {
 			base.SetStats();
