@@ -54,7 +54,7 @@ namespace BurningKnight.level.entities {
 				b = $"challenge_{challengeId}";
 			}
 
-			s.ShowLeaderboard(b);
+			s.ShowLeaderboard(b, board);
 			return true;
 		}
 

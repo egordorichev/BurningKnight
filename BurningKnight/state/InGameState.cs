@@ -1342,6 +1342,8 @@ namespace BurningKnight.state {
 		}
 
 		public Action OnPauseCallback;
+		private UiMap map;
+		private UiLabel boardType;
 
 		private void SetupUi() {
 			TopUi.Add(new UiChat());
@@ -1374,7 +1376,7 @@ namespace BurningKnight.state {
 			var player = LocalPlayer.Locate(Area);
 
 			if (Run.Depth > 0) {
-				TopUi.Add(new UiMap(player));
+				TopUi.Add(map = new UiMap(player));
 			}	
 			
 			if (Assets.ImGuiEnabled) {
@@ -1609,7 +1611,7 @@ namespace BurningKnight.state {
 				Ui.Add(new UiBanner(Level.GetDepthString()));
 			}
 			
-			leaderMenu.Add(new UiLabel {
+			leaderMenu.Add(boardType = new UiLabel {
 				Label = $"{Locale.Get($"run_{Run.Type.ToString().ToLower()}")} {Locale.Get("leaderboard")}",
 				RelativeCenterX = Display.UiWidth * 0.5f,
 				RelativeCenterY = TitleY,
@@ -1649,7 +1651,7 @@ namespace BurningKnight.state {
 					
 					leaderStats.Clear();
 					offset = Math.Max(0, offset);
-				
+
 					SetupLeaderboard(leaderStats, s, choice.Options[choice.Option], offset, () => {
 						leaderStats.Prepare();
 
@@ -2842,7 +2844,7 @@ namespace BurningKnight.state {
 		public Action ReturnFromLeaderboard;
 		private bool busy;
 
-		public void ShowLeaderboard(string board) {
+		public void ShowLeaderboard(string board, string name) {
 			if (busy) {
 				return;
 			}
@@ -2857,7 +2859,14 @@ namespace BurningKnight.state {
 			if (choice != null) {
 				choice.Option = 0;
 			}
+
+			if (name == "high_score") {
+				name = "regular";
+			} else if (name.StartsWith("daily")) {
+				name = "daily";
+			}
 			
+			boardType.Label = $"{Locale.Get($"run_{name}")} {Locale.Get("leaderboard")}";
 
 			leaderMenu.Enabled = true;
 			currentBack = leaderBack;
@@ -2936,7 +2945,7 @@ namespace BurningKnight.state {
 				statsStats.Add(Locale.Get("distance_traveled"), data["distance"].AsString);
 
 				statsStats.Add(Locale.Get("score"), score.ToString(), false, b => {
-					ShowLeaderboard("high_score");
+					ShowLeaderboard("high_score", "regular");
 
 					Tween.To(-Display.UiHeight, statsMenu.Y, x => statsMenu.Y = x, 0.6f).OnEnd = () => {
 						statsMenu.Enabled = false;
@@ -2989,6 +2998,10 @@ namespace BurningKnight.state {
 				Player.StartingWeapon = null;
 				Player.StartingLamp = null;
 				Player.DailyItems = null;
+			}
+
+			if (map != null) {
+				map.Done = true;
 			}
 
 			Tween.To(0, emeraldY, x => emeraldY = x, 0.4f, Ease.BackOut);
@@ -3106,7 +3119,7 @@ namespace BurningKnight.state {
 			var board = Run.GetLeaderboardId();
 			
 			stats.Add(Locale.Get("score"), newHigh ? $"{Locale.Get("new_high_score")} {Run.Score}" : Run.Score.ToString(), newHigh, b => {
-				ShowLeaderboard(board);
+				ShowLeaderboard(board, board);
 
 				Tween.To(-Display.UiHeight, gameOverMenu.Y, x => gameOverMenu.Y = x, 0.6f).OnEnd = () => {
 					gameOverMenu.Enabled = false;

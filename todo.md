@@ -1,7 +1,6 @@
 * progress achievements (npc_party & fancy_hat) unlock after 1 progress
 
 * twitch integration stopped working after a while?
-* show how many emeralds you got on death screen
 * floor gets black in some places? I guess missing textures (did the secret room floors mess it up?)
 * moving platforms can get covered up by room reward tiles
 * invis items back
