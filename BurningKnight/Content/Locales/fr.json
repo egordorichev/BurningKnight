@@ -162,7 +162,7 @@
 	"master_volume": "Volume Général",
 	"music": "Musique",
 	"sfx": "Effets sonores",
-	"graphics": "Graphiques",
+	"graphics": "Graphismes",
 	"audio": "Audio",
 	"ui_sfx": "Ui Effets sonores",
 	"on": "On",
@@ -1013,7 +1013,7 @@
 	"dad_0": "Hey fiston![dl] Je dois aller trouver [cl red]la Lampe [cl]. Je te laisse régner.",
 	"dad_1": "Si je ne reviens pas, ne viens pas me chercher. Salut!",
 	"son_0": "##NOOOOOOON##",
-	"gobbo_0": "Fiston, [cl green]mon père[cl] est partie il y a 20 ans. Je dois le retrouver.",
+	"gobbo_0": "Fiston, [cl green]mon père[cl] est parti il y a 20 ans. Je dois le retrouver.",
 	"gobbo_1": "Je te laisse régner. Salut!",
 	"dm_5": "Une nouvelle et ^^meilleure^^ [cl red]marionette[cl]![dl] ##MUHAHAHA##",
 	"dm_6": "M'entends-tu, [cl red]Limpor?",
@@ -1145,5 +1145,7 @@
 	"painting_beet_boys": "Beet Bois",
 	"painting_moonshine": "Moonshine",
 	"painting_void": "The Void",
-	"painting_peasants": "Peasants"
+	"painting_peasants": "Peasants",
+	"quality" : "Qualité",
+	"20_years_later" : "20 ans plus tard"
 }
