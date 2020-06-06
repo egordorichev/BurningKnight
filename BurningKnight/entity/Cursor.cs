@@ -1,4 +1,5 @@
 ﻿using BurningKnight.assets;
+using BurningKnight.entity.component;
 using Lens;
 using Lens.assets;
 using Lens.entity;

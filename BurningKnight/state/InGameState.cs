@@ -594,6 +594,8 @@ namespace BurningKnight.state {
 			}
 		}
 
+		private bool doCheck;
+
 		public override void Update(float dt) {
 			if (!unlockedHat) {
 				CheckCombo();
@@ -676,21 +678,22 @@ namespace BurningKnight.state {
 				overQuickBack?.OnClick();
 			}
 			
-			if (Paused || died || Run.Won) {
+			if ((Paused || died || Run.Won) && UiControl.Focused == null) {
 				if (UiButton.SelectedInstance != null && (!UiButton.SelectedInstance.Active || !UiButton.SelectedInstance.IsOnScreen())) {
 					UiButton.SelectedInstance = null;
 					UiButton.Selected = -1;
 				}
 
+				var inControl = currentBack == gamepadBack || currentBack == keyboardBack;
 				
-				if (UiButton.SelectedInstance == null && (Input.WasPressed(Controls.UiDown, gamepad, true) || Input.WasPressed(Controls.UiUp, gamepad, true))) {
+				if (UiButton.SelectedInstance == null && (Input.WasPressed(Controls.UiDown, gamepad, true) || Input.WasPressed(Controls.UiUp, gamepad, true) || (inControl && (Input.WasPressed(Controls.UiLeft, gamepad, true) || Input.WasPressed(Controls.UiRight, gamepad, true))))) {
 					SelectFirst(true);
 
 					if (Settings.UiSfx) {
 						Audio.PlaySfx("ui_moving", 0.5f);
 					}
 				} else if (UiButton.Selected > -1) {
-					if (Input.WasPressed(Controls.UiDown, gamepad, true)) {
+					if (Input.WasPressed(Controls.UiDown, gamepad, true) || (inControl && Input.WasPressed(Controls.UiRight, gamepad, true))) {
 						UiButton sm = null;
 						var mn = UiButton.LastId;
 						
@@ -732,7 +735,7 @@ namespace BurningKnight.state {
 								}
 							}
 						}
-					} else if (Input.WasPressed(Controls.UiUp, gamepad, true)) {
+					} else if (Input.WasPressed(Controls.UiUp, gamepad, true) || (inControl && Input.WasPressed(Controls.UiLeft, gamepad, true))) {
 						UiButton sm = null;
 						var mn = -1;
 						
@@ -873,6 +876,18 @@ namespace BurningKnight.state {
 					painting.Remove();
 				}
 			} else {
+				if (doCheck) {
+					if (UiControl.Focused != null) {
+						UiControl.Focused.DoCheck();
+
+						if (UiControl.Focused != null) {
+							UiControl.Focused.Cancel();
+						}
+					}
+
+					doCheck = false;
+				}
+
 				if (doneAnimatingPause) {
 					var did = false;
 
@@ -897,7 +912,7 @@ namespace BurningKnight.state {
 							}
 
 							if (UiControl.Focused != null) {
-								UiControl.Focused.Cancel();
+								doCheck = true;
 							} else if (currentBack != null) {
 								currentBack.Click(currentBack);
 							} else {
@@ -2020,6 +2035,8 @@ namespace BurningKnight.state {
 								var d = Run.Depth;
 								Run.RealDepth = -1;
 								Run.Depth = d;
+								Controls.BindDefault();
+								Controls.Save();
 								Settings.Generate();
 							} catch (Exception e) {
 								Log.Error(e);
