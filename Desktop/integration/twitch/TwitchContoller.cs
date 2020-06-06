@@ -77,7 +77,18 @@ namespace Desktop.integration.twitch {
 		public void Update(float dt) {
 			var state = Engine.Instance.State;
 
-			if (!(state is InGameState) || state.Paused) {
+			if (!(state is InGameState ig) || state.Paused) {
+				return;
+			}
+
+			if (ig.Died) {
+				happeningRn = null;
+
+				if (timeLeft < 1f) {
+					timeLeft = 1f;
+					GenerateOptions();
+				}
+				
 				return;
 			}
 
@@ -120,7 +131,7 @@ namespace Desktop.integration.twitch {
 		}
 
 		public void Render() {
-			if (!(Engine.Instance.State is InGameState)) {
+			if (!(Engine.Instance.State is InGameState ig) || ig.Died) {
 				return;
 			}
 

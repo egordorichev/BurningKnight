@@ -138,31 +138,35 @@ namespace Desktop.integration.twitch {
 		private List<string> messageIds = new List<string>();
 
 		private void OnSub(string who, string color) {
-			// Just to be safe from threading tbh
-			for (var i = 0; i < buffer.Count; i++) {
-				if (buffer[i].Nick == who) {
-					return;
+			try {
+				// Just to be safe from threading tbh
+				for (var i = 0; i < buffer.Count; i++) {
+					if (buffer[i].Nick == who) {
+						return;
+					}
 				}
-			}
-			
-			for (var i = 0; i < totalBuffer.Count; i++) {
-				if (totalBuffer[i].Nick == who) {
-					return;
+
+				for (var i = 0; i < totalBuffer.Count; i++) {
+					if (totalBuffer[i].Nick == who) {
+						return;
+					}
 				}
+
+				Log.Info($"{who} subscribed!");
+				Audio.PlaySfx("level_cleared");
+
+				buffer.Add(new Data {
+					Nick = who,
+					Color = color
+				});
+
+				totalBuffer.Add(new Data {
+					Nick = who,
+					Color = color
+				});
+			} catch (Exception e) {
+				Log.Error(e);
 			}
-			
-			Log.Info($"{who} subscribed!");
-			Audio.PlaySfx("level_cleared");
-			
-			buffer.Add(new Data {
-				Nick = who,
-				Color = color
-			});
-			
-			totalBuffer.Add(new Data {
-				Nick = who,
-				Color = color
-			});
 		}
 
 		private void OnMessageReceived(object sender, OnMessageReceivedArgs e) {
@@ -172,7 +176,6 @@ namespace Desktop.integration.twitch {
 				return;
 			}
 			
-
 			if (messageIds.Contains(e.ChatMessage.Id)) {
 				return;
 			}
@@ -307,7 +310,9 @@ namespace Desktop.integration.twitch {
 			var ingame = (InGameState) Engine.Instance.State;
 			var player = LocalPlayer.Locate(ingame.Area);
 				
-			foreach (var d in pets) {
+			for (var i = 0; i < pets.Count; i++) {
+				var d = pets[i];
+				
 				var p = new TwitchPet {
 					Nick = d.Nick,
 					Color = d.Color

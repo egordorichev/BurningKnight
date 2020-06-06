@@ -92,7 +92,7 @@ namespace BurningKnight.state {
 		private UiLabel killedLabel;
 		private UiLabel placeLabel;
 
-		private bool died;
+		public bool Died;
 		private Cursor cursor;
 		private float saveTimer;
 		private SaveIndicator indicator;
@@ -342,7 +342,7 @@ namespace BurningKnight.state {
 			SaveManager.Save(Area, SaveType.Global, old);
 			// SaveManager.Save(Area, SaveType.Secret);
 
-			if (!Run.StartedNew && !died && !Run.Won) {
+			if (!Run.StartedNew && !Died && !Run.Won) {
 				var d = (old ? Run.LastDepth : Run.Depth);
 				
 				if (d > 0) {
@@ -375,7 +375,7 @@ namespace BurningKnight.state {
 		protected override void OnPause() {
 			base.OnPause();
 			
-			if (died || InMenu || Run.Won) {
+			if (Died || InMenu || Run.Won) {
 				return;
 			}
 
@@ -433,7 +433,7 @@ namespace BurningKnight.state {
 
 			base.OnResume();
 
-			if (died || InMenu || Run.Won) {
+			if (Died || InMenu || Run.Won) {
 				return;
 			}
 
@@ -676,11 +676,11 @@ namespace BurningKnight.state {
 			
 			var gamepad = GamepadComponent.Current;
 
-			if (died && Input.WasPressed(Controls.QuickRestart)) {
+			if (Died && Input.WasPressed(Controls.QuickRestart)) {
 				overQuickBack?.OnClick();
 			}
 			
-			if ((Paused || died || Run.Won) && UiControl.Focused == null) {
+			if ((Paused || Died || Run.Won) && UiControl.Focused == null) {
 				if (UiButton.SelectedInstance != null && (!UiButton.SelectedInstance.Active || !UiButton.SelectedInstance.IsOnScreen())) {
 					UiButton.SelectedInstance = null;
 					UiButton.Selected = -1;
@@ -856,7 +856,7 @@ namespace BurningKnight.state {
 			}
 			
 			if (!Paused) {
-				if (!died && !Run.Won) {
+				if (!Died && !Run.Won) {
 					Run.Time += (float) Engine.GameTime.ElapsedGameTime.TotalSeconds;
 				}
 
@@ -908,7 +908,7 @@ namespace BurningKnight.state {
 							}
 						}
 
-						if (!did && (Paused || died || Run.Won) && Input.WasPressed(Controls.UiBack, controller)) {
+						if (!did && (Paused || Died || Run.Won) && Input.WasPressed(Controls.UiBack, controller)) {
 							if (Settings.UiSfx) {
 								Audio.PlaySfx("ui_exit", 0.5f);
 							}
@@ -924,7 +924,7 @@ namespace BurningKnight.state {
 					}
 				}
 
-				if (controller != null && !Paused && !died && !Run.Won) {
+				if (controller != null && !Paused && !Died && !Run.Won) {
 					var p = LocalPlayer.Locate(Area);
 					
 					if (p != null) {
@@ -1043,7 +1043,7 @@ namespace BurningKnight.state {
 			if (Input.Keyboard.WasPressed(Keys.NumPad9)) {
 				SaveManager.Delete(SaveType.Game, SaveType.Level, SaveType.Player);
 				Run.StartNew(1, Run.Type);
-				died = true;
+				Died = true;
 
 				Run.NextDepth = Run.Depth;
 
@@ -3210,7 +3210,7 @@ namespace BurningKnight.state {
 		}
 		
 		public void HandleDeath() {
-			died = true;
+			Died = true;
 				
 			new Thread(() => {
 				// SaveManager.Save(Area, SaveType.Statistics);
@@ -3234,7 +3234,7 @@ namespace BurningKnight.state {
 				return false;
 			}
 			
-			if (died || Run.Won) {
+			if (Died || Run.Won) {
 				return false;
 			}
 			
