@@ -1,14 +1,11 @@
 * progress achievements (npc_party & fancy_hat) unlock after 1 progress
-
 * floor gets black in some places? I guess missing textures (did the secret room floors mess it up?)
 * invis items back
-
 * controller aim asist
-* twitch chat reset leve after death
-* boss names unnder health bar?
 
 #
 
+* boss names unnder health bar?
 * rekvi didnt have locks rendering
 * rekvi fps issues
 
