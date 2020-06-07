@@ -19,6 +19,7 @@ using Lens.input;
 using Lens.util;
 using Lens.util.file;
 using Lens.util.math;
+using Lens.util.timer;
 
 namespace BurningKnight.entity.creature.player {
 	public class ConsumablesComponent : ItemComponent {
@@ -98,6 +99,8 @@ namespace BurningKnight.entity.creature.player {
 			return false;
 		}
 
+		private bool justPlayed;
+		
 		public override bool HandleEvent(Event e) {
 			if (e is ItemCheckEvent ev) {
 				var type = ev.Item.Type;
@@ -134,7 +137,11 @@ namespace BurningKnight.entity.creature.player {
 						case ItemType.Coin: {
 							switch (ev.Item.Id) {
 								case "bk:emerald": {
-									Audio.PlaySfx("item_emerald", 1f - Audio.Db3);
+									if (!justPlayed) {
+										Audio.PlaySfx("item_emerald", 1f - Audio.Db3);
+										justPlayed = true;
+										Timer.Add(() => justPlayed = false, 0.1f);
+									}
 									break;
 								}
 

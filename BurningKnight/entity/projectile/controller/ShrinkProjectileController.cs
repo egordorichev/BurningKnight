@@ -1,25 +1,24 @@
+using System;
+
 namespace BurningKnight.entity.projectile.controller {
 	public static class ShrinkProjectileController {
 		public static ProjectileUpdateCallback Make(float speed = 1f) {
 			var t = 0f;
-			var z = 0f;
+			var z = 0.05f;
 			var dmg = -1f;
-			var sc = -1f;
+			var sc = 2f;
 			
 			return (p, dt) => {
-				if (sc < 0) {
-					sc = p.Scale;
+				if (dmg < 0) {
+					// sc = p.Scale;
+					dmg = p.Damage;
 				}
 				
 				t += dt * speed;
 				z += dt;
-				
-				if (dmg < 0) {
-					dmg = p.Damage;
-				}
 
 				if (z >= 0.05f) {
-					var s = sc - t * 4f / p.Scale; // (p.Scale > 1 ? 1f / p.Scale : p.Scale);
+					var s = sc - t * 4f / Math.Max(1, p.Scale); // (p.Scale > 1 ? 1f / p.Scale : p.Scale);
 					z = 0;
 
 					p.AdjustScale(s);

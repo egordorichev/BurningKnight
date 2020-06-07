@@ -1,11 +1,7 @@
-* (ON4MIBLO, 8WFPHTK9) floor gets black in some places? I guess missing textures (did the secret room floors mess it up?)
 * invis items back
 * twitch integration cant be turned on (on pressing interact after pog it exits)
 * getting full achievement for getting 1 piece done
-* check megaphone + weird potion
 * orbitals still damage (bullet guy)
-
-* nerf round shield (gold tier, slow down or smth)
 * still can get not teleported to entrance (no entrance or smth?)
 * check why steam cloud doesnt download anything
 * controller aim asist

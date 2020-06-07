@@ -16,7 +16,7 @@ namespace BurningKnight.entity.projectile.controller {
 				}
 
 				if (z >= 0.05f) {
-					var s = Math.Min(2, t * 5f); // (p.Scale > 1 ? 1f / p.Scale : p.Scale);
+					var s = Math.Min(1, t * 5f); // (p.Scale > 1 ? 1f / p.Scale : p.Scale);
 					z -= 0.05f;
 
 					p.AdjustScale(s);
