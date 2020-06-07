@@ -200,7 +200,7 @@ namespace BurningKnight.entity.projectile {
 		}
 
 		public void AddLight(float radius, Color color) {
-			if (HasComponent<LightComponent>()) {
+			if (HasComponent<LightComponent>() || Area.Tagged[Tags.Projectile].Count > 40) {
 				return;
 			}
 			
