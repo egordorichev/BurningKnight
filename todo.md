@@ -2,7 +2,8 @@
 * invis items back
 * twitch integration cant be turned on (on pressing interact after pog it exits)
 * getting full achievement for getting 1 piece done
-
+* check megaphone + weird potion
+* orbitals still damage (bullet guy)
 
 * nerf round shield (gold tier, slow down or smth)
 * still can get not teleported to entrance (no entrance or smth?)
