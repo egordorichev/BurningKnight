@@ -125,9 +125,9 @@ namespace BurningKnight.entity.item.util {
 
 							if (health.ModifyHealth(-Damage, Owner)) {
 								Owner.GetComponent<AudioEmitterComponent>().EmitRandomizedPrefixed(Sound, 3);
+								OnHurt?.Invoke(this, ev.Entity);
 							}
 
-							OnHurt?.Invoke(this, ev.Entity);
 							hurt.Add(ev.Entity);
 						}
 					} else if (ev.Entity is ProjectileLevelBody && !HitWall) {

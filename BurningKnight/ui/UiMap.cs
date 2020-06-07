@@ -6,6 +6,7 @@ using BurningKnight.entity.room;
 using BurningKnight.level.rooms;
 using BurningKnight.level.tile;
 using BurningKnight.state;
+using BurningKnight.ui.dialog;
 using BurningKnight.util.geometry;
 using Lens;
 using Lens.entity;
@@ -57,7 +58,11 @@ namespace BurningKnight.ui {
 			if (!Settings.Minimap || Engine.Instance.State.Paused || Run.Type == RunType.Twitch) {
 				return;
 			}
-			
+
+			if (player.TryGetComponent<PlayerInputComponent>(out var inp) && inp.InDialog) {
+				return;
+			}
+
 			var fx = player.CenterX / 16;
 			var fy = player.CenterY / 16;
 			var x = (int) Math.Floor(fx);
