@@ -1,10 +1,29 @@
 using System;
 using System.Diagnostics;
+using System.IO;
+using System.Windows.Forms;
+using Desktop.integration.crash;
+using Lens.util;
 
 namespace Desktop {
 	public class Program {
+		private static void TryToRemove(string file) {
+			if (File.Exists(file)) {
+				try {
+					File.Delete(file);
+				} catch (Exception e) {
+					Console.WriteLine(e);
+				}
+			}
+		}
+		
 		[STAThread]
 		public static void Main() {
+			CrashReporter.Bind();
+
+			var array = new[] {3};
+			Console.WriteLine(array[4]);
+
 			if (!Environment.Is64BitOperatingSystem) {
 				Console.ForegroundColor = ConsoleColor.Red;
 				Console.WriteLine("Burning Knight can't run on 32 bit OS, sorry :(");
@@ -29,6 +48,9 @@ namespace Desktop {
 					}
 				}
 			}
+			
+			TryToRemove("burning_log.txt");
+			TryToRemove("crashes.txt");
 
 			using (var game = new DesktopApp()) {
 				game.Run();

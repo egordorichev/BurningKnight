@@ -363,7 +363,7 @@ namespace BurningKnight.entity.projectile {
 
 					var h = health.ModifyHealth(-Damage, Owner);
 
-					if (StarterOwner is Mob && StarterOwner == ev.Entity && Owner is Player && health.Dead) {
+					if (StarterOwner is Mob && StarterOwner == ev.Entity && Owner is Player && health.Dead && T >= 0.2f) {
 						Achievements.Unlock("bk:return_to_sender");
 					}
 					

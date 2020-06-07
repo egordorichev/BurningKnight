@@ -17,7 +17,7 @@ namespace Desktop {
 		private TwitchIntegration twitchIntegration;
 		
 		public DesktopApp() : base(Display.Width * 3, Display.Height * 3, !BK.Version.Dev) {
-			CrashReporter.Bind();
+			
 		}
 
 		protected override void Initialize() {

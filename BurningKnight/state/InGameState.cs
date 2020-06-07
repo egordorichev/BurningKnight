@@ -686,7 +686,7 @@ namespace BurningKnight.state {
 					UiButton.Selected = -1;
 				}
 
-				var inControl = currentBack == gamepadBack || currentBack == keyboardBack;
+				var inControl = (currentBack == gamepadBack && UiButton.SelectedInstance is UiControl) || currentBack == keyboardBack;
 				
 				if (UiButton.SelectedInstance == null && (Input.WasPressed(Controls.UiDown, gamepad, true) || Input.WasPressed(Controls.UiUp, gamepad, true) || (inControl && (Input.WasPressed(Controls.UiLeft, gamepad, true) || Input.WasPressed(Controls.UiRight, gamepad, true))))) {
 					SelectFirst(true);
@@ -2069,6 +2069,9 @@ namespace BurningKnight.state {
 					GoConfirm("reset_progress_dis", () => {
 						currentBack = settingsBack;
 						gameSettings.Enabled = true;
+						
+						Achievements.ItemBuffer.Clear();
+						Achievements.AchievementBuffer.Clear();
 						
 						new Thread(() => {
 							try {
