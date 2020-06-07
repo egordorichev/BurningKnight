@@ -200,10 +200,6 @@ namespace BurningKnight.entity.projectile {
 				CollisionFilterComponent.Add(p, (entity, with) => ((with is Creature && with != p.Owner) || ((Projectile) entity).BounceLeft == 0) ? CollisionResult.Disable : CollisionResult.Default);
 
 				p.Range = 5;
-				p.OnDeath = (pr, e, t) => {
-					pr.Item.Renderer.Hidden = false;
-					pr.Owner.GetComponent<AudioEmitterComponent>().EmitRandomized("item_axe_catch");
-				};
 
 				p.OnCollision = (projectile, e) => {
 					if (projectile.BounceLeft == 0) {
@@ -223,6 +219,13 @@ namespace BurningKnight.entity.projectile {
 							projectile.EntitiesHurt.Clear();
 							projectile.Controller += ReturnProjectileController.Make(projectile.Owner);
 
+							projectile.OnDeath?.Invoke(projectile, e, false);
+							
+							projectile.OnDeath = (pr, ee, t) => {
+								pr.Item.Renderer.Hidden = false;
+								pr.Owner.GetComponent<AudioEmitterComponent>().EmitRandomized("item_axe_catch");
+							};
+							
 							return true;
 						}
 					}
