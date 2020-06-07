@@ -1,3 +1,4 @@
+using System;
 using BurningKnight.assets;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.npc;
@@ -11,10 +12,19 @@ namespace BurningKnight.entity.twitch {
 	public class TwitchNpc : Npc {
 		static TwitchNpc() {
 			Dialogs.RegisterCallback("twitch_0", (d, c) => {
-				var id = GlobalSave.GetString("twitch_username");
-				
-				c.Dialog.Str.SetVariable("username", id);
-				return Dialogs.Get($"twitch_{(id == null ? 1 : 5)}");
+				try {
+					var id = GlobalSave.GetString("twitch_username");
+
+					if (id != null) {
+						c.Dialog.Str.SetVariable("username", id);
+					}
+
+					return Dialogs.Get($"twitch_{(id == null ? 1 : 5)}");
+				} catch (Exception e) {
+					Log.Error(e);
+				}
+
+				return null;
 			});
 			
 			Dialogs.RegisterCallback("twitch_2", (d, c) => {

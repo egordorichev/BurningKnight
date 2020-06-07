@@ -21,9 +21,6 @@ namespace Desktop {
 		public static void Main() {
 			CrashReporter.Bind();
 
-			var array = new[] {3};
-			Console.WriteLine(array[4]);
-
 			if (!Environment.Is64BitOperatingSystem) {
 				Console.ForegroundColor = ConsoleColor.Red;
 				Console.WriteLine("Burning Knight can't run on 32 bit OS, sorry :(");

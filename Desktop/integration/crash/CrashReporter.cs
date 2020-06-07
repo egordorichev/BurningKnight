@@ -36,8 +36,6 @@ namespace Desktop.integration.crash {
 
 			builder.AppendLine("--- Please report a screenshot of this dialog to help us fix the issue! <3 ---");
 
-			MessageBox.Show("test");
-			
 			var message = builder.ToString();
 			File.AppendAllText("crashes.txt", message);
 
