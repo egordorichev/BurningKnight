@@ -37,23 +37,29 @@ namespace Lens.util {
 		}
 
 		private static void Print(object message, ConsoleColor color, string type) {
-			var stackTrace = new StackTrace(true);
-			var frame = stackTrace.GetFrame(2);
-			var prev = stackTrace.GetFrame(3);
 
-			#if DEBUG
-				var text = $"{DateTime.Now:h:mm:ss} {Path.GetFileName(frame.GetFileName())}:{frame.GetMethod().Name}():{frame.GetFileLineNumber()} <= {Path.GetFileName(prev.GetFileName())}:{prev.GetMethod().Name}():{prev.GetFileLineNumber()} ";
-			#else 
+			try {
+				var stackTrace = new StackTrace(true);
+				var frame = stackTrace.GetFrame(2);
+				var prev = stackTrace.GetFrame(3);
+
+#if DEBUG
+				var text =
+					$"{DateTime.Now:h:mm:ss} {Path.GetFileName(frame.GetFileName())}:{frame.GetMethod().Name}():{frame.GetFileLineNumber()} <= {Path.GetFileName(prev.GetFileName())}:{prev.GetMethod().Name}():{prev.GetFileLineNumber()} ";
+#else
 				var text = $"{DateTime.Now:h:mm:ss} {frame.GetMethod().Name}() <= {prev.GetMethod().Name}() ";
-			#endif
+#endif
 
-			writer?.Write($"{type} {text}");
-			writer?.WriteLine(message == null ? "null" : message.ToString());
-			
-			Console.ForegroundColor = color;
-			Console.Write($"{message} ");
-			Console.ForegroundColor = ConsoleColor.Gray;
-			Console.WriteLine(text);
+				writer?.Write($"{type} {text}");
+				writer?.WriteLine(message == null ? "null" : message.ToString());
+
+				Console.ForegroundColor = color;
+				Console.Write($"{message} ");
+				Console.ForegroundColor = ConsoleColor.Gray;
+				Console.WriteLine(text);
+			} catch (Exception e) {
+				Console.WriteLine(e);
+			}
 		}
 	}
 }

@@ -54,6 +54,7 @@ namespace Lens.assets {
 				
 				if (Audio.SoundEffectInstance == null) {
 					Audio.SoundEffectInstance = new DynamicSoundEffectInstance(sampleRate, AudioChannels.Stereo);
+					Audio.SoundEffectInstance.BufferNeeded += Audio.SubmitBuffer;
 					Audio.SoundEffectInstance.Play();
 				}
 			}
