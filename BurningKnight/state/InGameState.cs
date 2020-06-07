@@ -894,7 +894,7 @@ namespace BurningKnight.state {
 					var did = false;
 
 					if (DialogComponent.Talking == null) {
-						if (Input.WasPressed(Controls.Pause, controller)) {
+						if (!(animating) && Input.WasPressed(Controls.Pause, controller)) {
 							if (SkipPause) {
 								SkipPause = false;
 							} else if (Paused) {
@@ -2853,6 +2853,7 @@ namespace BurningKnight.state {
 			}
 
 			busy = true;
+			animating = true;
 
 			if (loading != null) {
 				loading.Hide = false;
@@ -2877,21 +2878,24 @@ namespace BurningKnight.state {
 			
 			Tween.To(0, leaderMenu.Y, x => leaderMenu.Y = x, 1f, Ease.BackOut).OnEnd = () => {
 				SelectFirst();
-				d(board);
+				d?.Invoke(board);
+				animating = false;
 			};
 		}
 
 		private void HideLeaderboard() {
-			if (!busy) {
+			if (!busy || animating) {
 				return;
 			}
 
 			busy = false;
+			animating = true;
 			
 			Tween.To(Display.UiHeight * 2, leaderMenu.Y, x => leaderMenu.Y = x, 0.6f).OnEnd = () => {
 				SelectFirst();			
 				leaderMenu.Enabled = false;
 				ReturnFromLeaderboard?.Invoke();
+				animating = false;
 			};
 			
 			Paused = false;
@@ -2946,20 +2950,8 @@ namespace BurningKnight.state {
 				statsStats.Add(Locale.Get("scourge_stats"), data["scourge"].AsNumber.ToString());
 				statsStats.Add(Locale.Get("rooms_explored"), data["rooms"].AsString);
 				statsStats.Add(Locale.Get("distance_traveled"), data["distance"].AsString);
-
-				statsStats.Add(Locale.Get("score"), score.ToString(), false, b => {
-					ShowLeaderboard("high_score", "regular");
-
-					Tween.To(-Display.UiHeight, statsMenu.Y, x => statsMenu.Y = x, 0.6f).OnEnd = () => {
-						statsMenu.Enabled = false;
-					};
-
-					ReturnFromLeaderboard = () => {
-						statsMenu.Enabled = true;
-						currentBack = statsBack;
-						Tween.To(0, statsMenu.Y, x => statsMenu.Y = x, 1f, Ease.BackOut);
-					};
-				});
+				statsStats.Add(Locale.Get("score"), score.ToString());
+				
 			} catch (Exception e) {
 				statsStats.Add("Error", e.Message);
 				Log.Error(e);
@@ -2973,23 +2965,29 @@ namespace BurningKnight.state {
 			statsMenu.Enabled = true;
 			currentBack = statsBack;
 			statsMenu.Y = Display.UiHeight;
+			animating = true;
 			
 			Tween.To(0, statsMenu.Y, x => statsMenu.Y = x, 1f, Ease.BackOut).OnEnd = () => {
 				SelectFirst();
+				animating = false;
 			};
 		}
+		
+		private bool animating;
 
 		private void HideStats() {
-			if (!sbusy) {
+			if (!sbusy || animating) {
 				return;
 			}
 
 			sbusy = false;
+			animating = true;
 			
 			Tween.To(Display.UiHeight * 2, statsMenu.Y, x => statsMenu.Y = x, 0.6f).OnEnd = () => {
 				SelectFirst();			
 				statsMenu.Enabled = false;
 				ReturnFromStats?.Invoke();
+				animating = false;
 			};
 
 			Paused = false;
@@ -3095,7 +3093,7 @@ namespace BurningKnight.state {
 			
 			stats.Add(Locale.Get("lamp"), Locale.Get(lamp));
 			stats.Add(Locale.Get("time"), GetRunTime());
-			stats.Add(Locale.Get("depth"), Level.GetDepthString());
+			stats.Add(Locale.Get("depth"), Level.GetDepthString(true));
 			stats.Add(Locale.Get("coins_collected"), Run.Statistics.CoinsObtained.ToString());
 			stats.Add(Locale.Get("items_collected"), Run.Statistics.Items.Count.ToString());
 			stats.Add(Locale.Get("damage_taken"), Run.Statistics.DamageTaken.ToString());
@@ -3170,7 +3168,7 @@ namespace BurningKnight.state {
 					// fixme same seed the same time
 					root["seed"] = Run.Seed;
 					root["time"] = GetRunTime();
-					root["depth"] = Level.GetDepthString();
+					root["depth"] = Level.GetDepthString(true);
 					root["won"] = Run.Won;
 
 					root["lamp"] = lamp;

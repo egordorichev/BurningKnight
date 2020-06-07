@@ -1,9 +1,7 @@
 * (ON4MIBLO, 8WFPHTK9) floor gets black in some places? I guess missing textures (did the secret room floors mess it up?)
 * invis items back
-* If you get explosive bullets with the axe, it doesn't register hits anymore
 * twitch integration cant be turned on (on pressing interact after pog it exits)
-
-* top 3 runs can get blury (not always)
+* getting full achievement for getting 1 piece done
 
 * check why steam cloud doesnt download anything
 * controller aim asist
