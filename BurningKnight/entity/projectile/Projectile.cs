@@ -355,20 +355,23 @@ namespace BurningKnight.entity.projectile {
 					        && (
 						        !(Owner is Creature ac) 
 						        || !(ev.Entity is Creature bc) 
-						        || ac.IsFriendly() != bc.IsFriendly() 
+						        || (ac.IsFriendly() != bc.IsFriendly() || (bc.TryGetComponent<BuffsComponent>(out var bf) && bf.Has<CharmedBuff>())) 
 						        || bc is ShopKeeper || ac is Player
 					        )
 					    )
 				    )) && ev.Entity.TryGetComponent<HealthComponent>(out var health)) {
 
-					health.ModifyHealth(-Damage, Owner);
+					var h = health.ModifyHealth(-Damage, Owner);
 
-					if (StarterOwner is Mob && StarterOwner == ev.Entity && Owner is Player && health.Dead) {
+					if (StarterOwner is Mob && StarterOwner == ev.Entity && Owner is Player && health.Dead && T >= 0.2f) {
 						Achievements.Unlock("bk:return_to_sender");
 					}
 					
 					EntitiesHurt.Add(ev.Entity);
-					OnHurt?.Invoke(this, ev.Entity);
+
+					if (h) {
+						OnHurt?.Invoke(this, ev.Entity);
+					}
 				}
 
 				var mute = false;

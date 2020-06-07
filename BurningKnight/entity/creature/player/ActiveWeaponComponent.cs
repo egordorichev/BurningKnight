@@ -55,13 +55,13 @@ namespace BurningKnight.entity.creature.player {
 				
 				var b = GetComponent<BuffsComponent>();
 				
-				if (b.Has<FrozenBuff>() || b.Has<CharmedBuff>() || b.Has<InvisibleBuff>() || GetComponent<StateComponent>().StateInstance is Player.RollState) {
+				if (b.Has<FrozenBuff>() || b.Has<CharmedBuff>() || GetComponent<StateComponent>().StateInstance is Player.RollState) {
 					return;
 				}
 				
 				if ((Input.WasPressed(Controls.Use, controller) || (controller != null && (
 						controller.DPadDownCheck || controller.DPadLeftCheck || controller.DPadUpCheck || controller.DPadRightCheck                                                  
-				  ))) || ((Item.Automatic || timeSinceReady > 0.2f) && Input.IsDown(Controls.Use, controller) && ready)) {
+				  ))) || ((Item.Automatic || timeSinceReady > 0.2f || (controller != null && Input.IsDownOnController(Controls.Use, controller))) && Input.IsDown(Controls.Use, controller) && ready)) {
 				  
 					if (!Entity.TryGetComponent<PlayerInputComponent>(out var d) || d.InDialog) {
 						return;
@@ -73,6 +73,10 @@ namespace BurningKnight.entity.creature.player {
 					
 					if (Run.Depth == -2) {
 						GetComponent<DialogComponent>().Close();
+					}
+
+					if (b.Has<InvisibleBuff>()) {
+						b.Remove<InvisibleBuff>();
 					}
 					
 					Item.Use((Player) Entity);

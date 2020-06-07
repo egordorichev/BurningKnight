@@ -2,15 +2,14 @@ using System;
 using System.IO;
 using System.Reflection;
 using System.Text;
+using System.Windows.Forms;
 using Lens;
 using Lens.util;
 
 namespace Desktop.integration.crash {
 	public class CrashReporter {
 		public static void Bind() {
-			
-			var domain = AppDomain.CurrentDomain;
-			domain.UnhandledException += ExceptionHandler;
+			AppDomain.CurrentDomain.UnhandledException += ExceptionHandler;
 		}
 
 		private static void ExceptionHandler(object sender, UnhandledExceptionEventArgs args) {
@@ -35,13 +34,15 @@ namespace Desktop.integration.crash {
 			builder.AppendLine();
 			builder.AppendLine(e.StackTrace);
 
-			builder.AppendLine("--- Please report this to help us fix the issue! <3 ---");
+			builder.AppendLine("--- Please report a screenshot of this dialog to help us fix the issue! <3 ---");
 
 			var message = builder.ToString();
-			Log.Error(message);
-			
 			File.AppendAllText("crashes.txt", message);
+
+			Log.Error(message);
 			Log.Close();
+			
+			MessageBox.Show(message, "Error");
 		}
 
 		private static string GetMonoVersion() {

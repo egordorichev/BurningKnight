@@ -12,14 +12,14 @@ namespace Lens.input {
 		}
 
 		public static bool EnableImGuiFocus;
-		
+
 		public static KeyboardData Keyboard;
 		public static MouseData Mouse;
 		public static GamepadData[] Gamepads;
 		public static int Blocked;
-		
+
 		private static Dictionary<string, InputButton> Buttons = new Dictionary<string, InputButton>();
-		
+
 		public static void Init() {
 			Keyboard = new KeyboardData();
 			Mouse = new MouseData();
@@ -38,7 +38,7 @@ namespace Lens.input {
 
 		public static void Update(float dt) {
 			GamepadData.WasChanged = false;
-			
+
 			Keyboard.Update();
 			Mouse.Update();
 
@@ -50,46 +50,46 @@ namespace Lens.input {
 		public static void ClearBindings() {
 			Buttons.Clear();
 		}
-		
+
 		public static void Bind(string id, params Keys[] values) {
 			var button = Buttons.ContainsKey(id) ? Buttons[id] : new InputButton();
 
 			if (button.Keys == null) {
 				button.Keys = new List<Keys>();
 			}
-			
+
 			foreach (var key in values) {
 				button.Keys.Add(key);
 			}
-			
+
 			Buttons[id] = button;
 		}
-		
+
 		public static void Bind(string id, params Buttons[] values) {
 			var button = Buttons.ContainsKey(id) ? Buttons[id] : new InputButton();
 
 			if (button.Buttons == null) {
 				button.Buttons = new List<Buttons>();
 			}
-			
+
 			foreach (var b in values) {
 				button.Buttons.Add(b);
 			}
-			
+
 			Buttons[id] = button;
 		}
-		
+
 		public static void Bind(string id, params MouseButtons[] values) {
 			var button = Buttons.ContainsKey(id) ? Buttons[id] : new InputButton();
 
 			if (button.MouseButtons == null) {
 				button.MouseButtons = new List<MouseButtons>();
 			}
-			
+
 			foreach (var b in values) {
 				button.MouseButtons.Add(b);
 			}
-			
+
 			Buttons[id] = button;
 		}
 
@@ -109,7 +109,7 @@ namespace Lens.input {
 					}
 				}
 			}
-			
+
 			if (data != null && data.Attached && button.Buttons != null) {
 				foreach (var b in button.Buttons) {
 					if (data.Check(b, type)) {
@@ -117,7 +117,7 @@ namespace Lens.input {
 					}
 				}
 			}
-			
+
 			if (button.MouseButtons != null) {
 				foreach (var b in button.MouseButtons) {
 					if (Mouse.Check(b, type)) {
@@ -126,6 +126,22 @@ namespace Lens.input {
 				}
 			}
 
+			return false;
+		}
+
+		public static bool IsDownOnController(string id, GamepadData data) {
+			if (!Buttons.TryGetValue(id, out var button)) {
+				return false;
+			}
+			
+			if (data != null && data.Attached && button.Buttons != null) {
+				foreach (var b in button.Buttons) {
+					if (data.IsDown(b)) {
+						return true;
+					}
+				}
+			}
+			
 			return false;
 		}
 

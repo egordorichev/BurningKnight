@@ -686,7 +686,7 @@ namespace BurningKnight.state {
 					UiButton.Selected = -1;
 				}
 
-				var inControl = currentBack == gamepadBack || currentBack == keyboardBack;
+				var inControl = (currentBack == gamepadBack && UiButton.SelectedInstance is UiControl) || currentBack == keyboardBack;
 				
 				if (UiButton.SelectedInstance == null && (Input.WasPressed(Controls.UiDown, gamepad, true) || Input.WasPressed(Controls.UiUp, gamepad, true) || (inControl && (Input.WasPressed(Controls.UiLeft, gamepad, true) || Input.WasPressed(Controls.UiRight, gamepad, true))))) {
 					SelectFirst(true);
@@ -1249,6 +1249,8 @@ namespace BurningKnight.state {
 		private float emeraldY = -20;
 		
 		public override void RenderUi() {
+			base.RenderUi();
+			
 			if (!Settings.HideUi) {
 				if (Run.Depth == 0 || emeraldY > -20) {
 					var y = Run.Depth == 0 ? 0 : emeraldY;
@@ -1259,8 +1261,6 @@ namespace BurningKnight.state {
 					Graphics.Print(str, Font.Small, new Vector2(xx - 8 - Font.Small.MeasureString(str).Width, 9 + y));
 				}
 			}
-
-			base.RenderUi();
 
 			if (blackBarsSize > 0.01f) {
 				Graphics.Render(black, Vector2.Zero, 0, Vector2.Zero, new Vector2(Display.UiWidth + 1, blackBarsSize));
@@ -1376,7 +1376,7 @@ namespace BurningKnight.state {
 			var player = LocalPlayer.Locate(Area);
 
 			if (Run.Depth > 0) {
-				TopUi.Add(map = new UiMap(player));
+				Ui.Add(map = new UiMap(player));
 			}	
 			
 			if (Assets.ImGuiEnabled) {
@@ -2069,6 +2069,9 @@ namespace BurningKnight.state {
 					GoConfirm("reset_progress_dis", () => {
 						currentBack = settingsBack;
 						gameSettings.Enabled = true;
+						
+						Achievements.ItemBuffer.Clear();
+						Achievements.AchievementBuffer.Clear();
 						
 						new Thread(() => {
 							try {

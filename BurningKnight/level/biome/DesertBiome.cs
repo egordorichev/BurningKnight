@@ -26,5 +26,11 @@ namespace BurningKnight.level.biome {
 			base.ModifyRooms(rooms);
 			rooms.Add(new DesertWellRoom());
 		}*/
+		
+		private static Color mapColor = new Color(191, 111, 74);
+
+		public override Color GetMapColor() {
+			return mapColor;
+		}
 	}
 }

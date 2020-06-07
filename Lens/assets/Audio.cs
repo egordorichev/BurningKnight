@@ -51,9 +51,7 @@ namespace Lens.assets {
 		}
 
 		public static void StartThread() {
-			if (Assets.LoadMusic) {
-				new Thread(Update).Start();
-			}
+			
 		}
 		
 		internal static void Load() {
@@ -270,62 +268,52 @@ namespace Lens.assets {
 			}
 		}
 
-		private static void Update() {
-			while (true) {
-				if (quit) {
-					return;
-				}
-
-				try {
-					while (Playing.Count > 0 && SoundEffectInstance.PendingBufferCount < 3) {
-						for (var i = 0; i < BufferSize; i++) {
-							var ps = (uint) Math.Floor(position);
+		public static void SubmitBuffer(object o, EventArgs e) {
+			try {
+				for (var i = 0; i < BufferSize; i++) {
+					var ps = (uint) Math.Floor(position);
 							
-							for (var c = 0; c < Channels; c++) {
-								var floatSample = 0f;
+					for (var c = 0; c < Channels; c++) {
+						var floatSample = 0f;
 
-								for (var z = 0; z < Playing.Count; z++) {
-									floatSample += Playing[z].GetSample(ps, c) * SfxVolumeBuffer;
-								}
-
-								floatSample = MathUtils.Clamp(-1f, 1f, floatSample);
-
-								var shortSample =
-									(short) (floatSample >= 0.0f ? floatSample * short.MaxValue : floatSample * short.MinValue * -1);
-
-								var index = (i * Channels + c) * 2;
-
-								if (!BitConverter.IsLittleEndian) {
-									byteBuffer[index] = (byte) (shortSample >> 8);
-									byteBuffer[index + 1] = (byte) shortSample;
-								} else {
-									byteBuffer[index] = (byte) shortSample;
-									byteBuffer[index + 1] = (byte) (shortSample >> 8);
-								}
-							}
-
-							position += Speed;
-
-							if (Playing.Count == 1 && Playing[0].Repeat) {
-								var l = Playing[0].BufferLength;
-
-								if (position >= l) {
-									position -= l;
-								}
-							}
-							
-							if (position < 0) {
-								position = 0;
-							}
+						for (var z = 0; z < Playing.Count; z++) {
+							floatSample += Playing[z].GetSample(ps, c) * SfxVolumeBuffer;
 						}
 
-						SoundEffectInstance.SubmitBuffer(byteBuffer);
+						floatSample = MathUtils.Clamp(-1f, 1f, floatSample);
+
+						var shortSample =
+							(short) (floatSample >= 0.0f ? floatSample * short.MaxValue : floatSample * short.MinValue * -1);
+
+						var index = (i * Channels + c) * 2;
+
+						if (!BitConverter.IsLittleEndian) {
+							byteBuffer[index] = (byte) (shortSample >> 8);
+							byteBuffer[index + 1] = (byte) shortSample;
+						} else {
+							byteBuffer[index] = (byte) shortSample;
+							byteBuffer[index + 1] = (byte) (shortSample >> 8);
+						}
 					}
-				} catch (Exception e) {
-					Log.Error(e);
+
+					position += Speed;
+
+					if (Playing.Count == 1 && Playing[0].Repeat) {
+						var l = Playing[0].BufferLength;
+
+						if (position >= l) {
+							position -= l;
+						}
+					}
+							
+					if (position < 0) {
+						position = 0;
+					}
 				}
 
-				Thread.Sleep(50);
+				SoundEffectInstance.SubmitBuffer(byteBuffer);
+			} catch (Exception er) {
+				Log.Error(er);
 			}
 		}
 	}
