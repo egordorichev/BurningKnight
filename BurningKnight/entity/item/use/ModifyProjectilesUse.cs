@@ -93,7 +93,6 @@ namespace BurningKnight.entity.item.use {
 
 		private void ApplyBuff(Projectile projectile, string buff, bool explosive) {
 			if (explosive) {
-				projectile.Damage = 0;
 				projectile.Color = ProjectileColor.Brown;
 				projectile.OnDeath += (p, en, t) => {
 					ExplosionMaker.Make(p, 32, false, damage: 4, scale: 0.5f);

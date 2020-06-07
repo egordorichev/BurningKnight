@@ -55,10 +55,8 @@ namespace BurningKnight.level {
 			}
 
 			if (Run.Depth > 0) {
-				if (GlobalSave.IsTrue("saved_npc")) {
-					for (var i = 0; i < Rnd.Int(1, Run.Depth); i++) {
-						ItemsToSpawn.Add("bk:emerald");
-					}
+				for (var i = 0; i < Rnd.Int(1, Run.Depth); i++) {
+					ItemsToSpawn.Add("bk:emerald");
 				}
 			}
 			

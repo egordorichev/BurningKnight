@@ -16,6 +16,10 @@ namespace BurningKnight.entity.creature.npc {
 		private int cost;
 		private int paid;
 		private bool shouldDissappear;
+
+		private int GetPrice() {
+			return Math.Max(3, cost - paid);
+		}
 		
 		public override void AddComponents() {
 			base.AddComponents();
@@ -35,7 +39,7 @@ namespace BurningKnight.entity.creature.npc {
 
 			dl.InitCallback = () => {
 				dl.Dialog.Str.AddIcon(CommonAse.Ui.GetSlice("coin"));
-				dl.Dialog.Str.SetVariable("need", cost - paid);
+				dl.Dialog.Str.SetVariable("need", GetPrice());
 			};
 			
 			AddComponent(new InteractableComponent(e => {
@@ -52,11 +56,11 @@ namespace BurningKnight.entity.creature.npc {
 						return Dialogs.Get("builder_1");
 					}
 
-					var amount = Math.Min(cost - paid, component.Coins);
+					var amount = Math.Min(GetPrice(), component.Coins);
 
 					paid += amount;
 					component.Coins -= amount;
-					dl.Dialog.Str.SetVariable("need", cost - paid);
+					dl.Dialog.Str.SetVariable("need", GetPrice());
 
 					if (paid >= cost) {
 						GlobalSave.Put("builder_paid", 0);

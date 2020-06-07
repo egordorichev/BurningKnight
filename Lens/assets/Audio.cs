@@ -270,48 +270,50 @@ namespace Lens.assets {
 
 		public static void SubmitBuffer(object o, EventArgs e) {
 			try {
-				for (var i = 0; i < BufferSize; i++) {
-					var ps = (uint) Math.Floor(position);
-							
-					for (var c = 0; c < Channels; c++) {
-						var floatSample = 0f;
+				while (SoundEffectInstance.PendingBufferCount < 3) {
+					for (var i = 0; i < BufferSize; i++) {
+						var ps = (uint) Math.Floor(position);
 
-						for (var z = 0; z < Playing.Count; z++) {
-							floatSample += Playing[z].GetSample(ps, c) * SfxVolumeBuffer;
+						for (var c = 0; c < Channels; c++) {
+							var floatSample = 0f;
+
+							for (var z = 0; z < Playing.Count; z++) {
+								floatSample += Playing[z].GetSample(ps, c) * SfxVolumeBuffer;
+							}
+
+							floatSample = MathUtils.Clamp(-1f, 1f, floatSample);
+
+							var shortSample =
+								(short) (floatSample >= 0.0f ? floatSample * short.MaxValue : floatSample * short.MinValue * -1);
+
+							var index = (i * Channels + c) * 2;
+
+							if (!BitConverter.IsLittleEndian) {
+								byteBuffer[index] = (byte) (shortSample >> 8);
+								byteBuffer[index + 1] = (byte) shortSample;
+							} else {
+								byteBuffer[index] = (byte) shortSample;
+								byteBuffer[index + 1] = (byte) (shortSample >> 8);
+							}
 						}
 
-						floatSample = MathUtils.Clamp(-1f, 1f, floatSample);
+						position += Speed;
 
-						var shortSample =
-							(short) (floatSample >= 0.0f ? floatSample * short.MaxValue : floatSample * short.MinValue * -1);
+						if (Playing.Count == 1 && Playing[0].Repeat) {
+							var l = Playing[0].BufferLength;
 
-						var index = (i * Channels + c) * 2;
+							if (position >= l) {
+								position -= l;
+							}
+						}
 
-						if (!BitConverter.IsLittleEndian) {
-							byteBuffer[index] = (byte) (shortSample >> 8);
-							byteBuffer[index + 1] = (byte) shortSample;
-						} else {
-							byteBuffer[index] = (byte) shortSample;
-							byteBuffer[index + 1] = (byte) (shortSample >> 8);
+						if (position < 0) {
+							position = 0;
 						}
 					}
 
-					position += Speed;
-
-					if (Playing.Count == 1 && Playing[0].Repeat) {
-						var l = Playing[0].BufferLength;
-
-						if (position >= l) {
-							position -= l;
-						}
-					}
-							
-					if (position < 0) {
-						position = 0;
-					}
+					SoundEffectInstance.SubmitBuffer(byteBuffer);
 				}
-
-				SoundEffectInstance.SubmitBuffer(byteBuffer);
 			} catch (Exception er) {
 				Log.Error(er);
 			}

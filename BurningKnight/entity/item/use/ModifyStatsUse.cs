@@ -17,6 +17,9 @@ namespace BurningKnight.entity.item.use {
 		public float FireRate;
 		public bool AddFireRate;
 		
+		public float RangedRate;
+		public bool AddRangedRate;
+		
 		public float Accuracy;
 		public bool AddAccuracy;
 		
@@ -57,6 +60,16 @@ namespace BurningKnight.entity.item.use {
 				}
 			}
 
+			if (Math.Abs(Math.Abs(RangedRate) - (AddRangedRate ? 0 : 1)) >= 0.01f) {
+				TextParticle.Add(entity, Locale.Get("fire_rate"), Math.Abs(RangedRate), true, RangedRate < 0);
+				
+				if (AddRangedRate) {
+					stats.RangedRate += RangedRate;
+				} else {
+					stats.RangedRate *= RangedRate;
+				}
+			}
+
 			if (Math.Abs(Math.Abs(Accuracy) - (AddAccuracy ? 0 : 1)) >= 0.01f) {
 				TextParticle.Add(entity, Locale.Get("accuracy"), Math.Abs(Accuracy), true, Accuracy < 0);
 
@@ -89,6 +102,9 @@ namespace BurningKnight.entity.item.use {
 
 			FireRate = settings["fire_rate"].Number(0);
 			AddFireRate = settings["add_fire_rate"].Bool(true);
+			
+			RangedRate = settings["ranged_rate"].Number(0);
+			AddRangedRate = settings["add_ranged_rate"].Bool(true);
 
 			Accuracy = settings["accuracy"].Number(0);
 			AddAccuracy = settings["add_accuracy"].Bool(true);
@@ -106,6 +122,9 @@ namespace BurningKnight.entity.item.use {
 			
 			root.InputFloat("Fire Rate", "fire_rate", 0);
 			root.Checkbox("Add Fire Rate", "add_fire_rate");
+			
+			root.InputFloat("Ranged Rate", "ranged_rate", 0);
+			root.Checkbox("Add Ranged Rate", "add_ranged_rate");
 			
 			root.InputFloat("Accuracy", "accuracy", 0);
 			root.Checkbox("Add Accuracy", "add_accuracy");

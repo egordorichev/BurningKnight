@@ -13,6 +13,7 @@ namespace BurningKnight.entity.component {
 		private float speed = 1;
 		private float damage = 1;
 		private float fireRate = 1;
+		private float rangedRate = 1;
 		private float accuracy = 1;
 		private float range = 1;
 
@@ -42,6 +43,11 @@ namespace BurningKnight.entity.component {
 			set => fireRate = MathUtils.Clamp(0.1f, 3f, value);
 		}
 		
+		public float RangedRate {
+			get => rangedRate;
+			set => rangedRate = MathUtils.Clamp(0.1f, 3f, value);
+		}
+		
 		public float Accuracy {
 			get => accuracy;
 			set => accuracy = MathUtils.Clamp(0.1f, 10f, value);
@@ -58,6 +64,7 @@ namespace BurningKnight.entity.component {
 			ImGui.InputFloat("Speed", ref speed);
 			ImGui.InputFloat("Damage", ref damage);
 			ImGui.InputFloat("Fire Rate", ref fireRate);
+			ImGui.InputFloat("Ranged Rate", ref rangedRate);
 			ImGui.InputFloat("Accuracy", ref accuracy);
 			ImGui.InputFloat("Range", ref range);
 			
