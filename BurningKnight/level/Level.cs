@@ -234,7 +234,7 @@ namespace BurningKnight.level {
 							rainSound.IsLooped = true;
 							rainSound.Play();
 
-							Tween.To(0.5f * Settings.MusicVolume, 0, x => rainSound.Volume = x, 0.5f).Delay = 3f;
+							Tween.To(0.5f * Settings.MusicVolume * Settings.MasterVolume, 0, x => rainSound.Volume = x, 0.5f).Delay = 3f;
 						}
 					}
 				}
@@ -266,7 +266,7 @@ namespace BurningKnight.level {
 
 		public void UpdateRainVolume() {
 			if (rainSound != null) {
-				rainSound.Volume = (Player.InBuilding ? 0.1f : 0.5f) * Settings.MusicVolume;
+				rainSound.Volume = (Player.InBuilding ? 0.1f : 0.5f) * Settings.MusicVolume * Settings.MasterVolume;
 			}
 		}
 
@@ -767,22 +767,13 @@ namespace BurningKnight.level {
 							if (t == Tile.PistonDown) {
 								RenderWall(x, y, index, tile, t, 0);
 							} else if (t != Tile.Chasm && t != Tile.SpikeOffTmp && t != Tile.SensingSpikeTmp) {
-								#if DEBUG
-								try {
-#endif
-									Graphics.Render((MatrixLeak[index] ? MatrixTileset : Tileset).Tiles[tile][
+									Graphics.Render((MatrixLeak[index] && t.Matches(Tile.FloorA, Tile.FloorB, Tile.FloorC, Tile.FloorD) ? MatrixTileset : Tileset).Tiles[tile][
 #if ART_DEBUG
 										0
 #else
 										Variants[index]
 #endif
 									], pos);
-#if DEBUG
-								} catch (Exception e) {
-									var variant = Variants[index];
-									Log.Error($"Variant: {variant}, {e}");
-								}
-#endif
 							}
 						}
 					}

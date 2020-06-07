@@ -516,7 +516,7 @@ namespace BurningKnight.state {
 						rainSound.IsLooped = true;
 						rainSound.Play();
 
-						Tween.To(0.5f * Settings.MusicVolume, 0, x => rainSound.Volume = x, 5f);
+						Tween.To(0.5f * Settings.MusicVolume * Settings.MasterVolume, 0, x => rainSound.Volume = x, 5f);
 					}
 				}
 				
@@ -2206,7 +2206,7 @@ namespace BurningKnight.state {
 
 		public void UpdateRainVolume() {
 			if (rainSound != null) {
-				rainSound.Volume = (Player.InBuilding ? 0.1f : 0.5f) * Settings.MusicVolume;
+				rainSound.Volume = (Player.InBuilding ? 0.1f : 0.5f) * Settings.MusicVolume * Settings.MasterVolume;
 			}
 
 			Run.Level.UpdateRainVolume();
