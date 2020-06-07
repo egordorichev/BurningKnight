@@ -396,8 +396,12 @@ namespace BurningKnight.entity.item {
 			if (Type != ItemType.Active || UseTime < 0) {
 				var s = dt;
 				
-				if (Owner != null && Owner.TryGetComponent<StatsComponent>(out var stats)) {
+				if (Type == ItemType.Weapon && Owner != null && Owner.TryGetComponent<StatsComponent>(out var stats)) {
 					s *= stats.FireRate;
+
+					if (Data.WeaponType == WeaponType.Ranged) {
+						s *= stats.RangedRate;
+					}
 				}
 				
 				Delay = Math.Max(0, Delay - s);

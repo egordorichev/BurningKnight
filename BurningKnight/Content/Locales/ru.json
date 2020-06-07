@@ -1233,12 +1233,11 @@
 	"no_emeralds": "Нет Изумрудов",
 	"bk:emerald_gun": "Изумрудный Пистоль",
 	"bk:emerald_gun_desc": "Самое дорогое оружие в стране",
-	"minimap" : "Миникарта",
-	"quality" : "Качество",
-	"normal" : "Нормальное",
-	"potato" : "Картошка",
-
-	"happening_bk:bomb" : "Взрывная Атака",
-	"happening_bk:slide" : "Ледниковый Период",
-	"20_years_later" : "20 лет спустя"
+	"minimap": "Миникарта",
+	"quality": "Качество",
+	"normal": "Нормальное",
+	"potato": "Картошка",
+	"happening_bk:bomb": "Взрывная Атака",
+	"happening_bk:slide": "Ледниковый Период",
+	"20_years_later": "20 лет спустя"
 }

@@ -1,5 +1,6 @@
 * (ON4MIBLO, 8WFPHTK9) floor gets black in some places? I guess missing textures (did the secret room floors mess it up?)
 * invis items back
+* builder can ask for 0 coins
 * I can't shoot bullets after getting megaphone
 * If you get explosive bullets with the axe, it doesn't register hits anymore
 * twitch integration cant be turned on (on pressing interact after pog it exits)
