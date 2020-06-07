@@ -282,7 +282,7 @@ namespace BurningKnight.entity.projectile {
 				}
 			}
 
-			if (entity == Owner && (!HurtsEveryone || T < 1f)) {
+			if ((entity == Owner || (Owner is Pet pt && entity == pt.Owner) || (Owner is Orbital o && entity == o.Owner)) && (!HurtsEveryone || T < 1f)) {
 				return false;
 			}
 
@@ -308,10 +308,6 @@ namespace BurningKnight.entity.projectile {
 
 			if (CanHitOwner && entity == Owner) {
 				return true;
-			}
-
-			if ((Owner is Pet tp && tp.Owner == entity) || (Owner is Orbital or && or.Owner == entity)) {
-				return false;
 			}
 
 			if (entity is Creature && !HurtsEveryone && Owner is Mob == entity is Mob) {
@@ -350,7 +346,8 @@ namespace BurningKnight.entity.projectile {
 
 				if (((HurtsEveryone && (ev.Entity != Owner || T > 1f)) || (
 					    (CanHitOwner && ev.Entity == Owner && T > 0.3f) 
-					    || (ev.Entity != Owner 
+					    || (ev.Entity != Owner && (!(Owner is Pet pt) || pt.Owner != ev.Entity)
+					                           && (!(Owner is Orbital or) || or.Owner != ev.Entity)
 					        && !(Owner is RoomControllable && ev.Entity is Mob) 
 					        && (
 						        !(Owner is Creature ac) 

@@ -23,7 +23,7 @@ namespace BurningKnight.entity.creature.mob.castle {
 			AddAnimation("crab");
 			SetMaxHp(3);
 			
-			Become<IdleState>();
+			Become<WaitState>();
 
 			var body = new RectBodyComponent(3, 13, 12, 1);
 			AddComponent(body);
@@ -33,9 +33,23 @@ namespace BurningKnight.entity.creature.mob.castle {
 			AddDrops(new SingleDrop("bk:crabs_claw", 0.01f));
 		}
 
+		protected override void OnTargetChange(Entity target) {
+			base.OnTargetChange(target);
+
+			if (target != null) {
+				Become<IdleState>();
+			} else {
+				Become<WaitState>();
+			}
+		}
+
 		private bool vertical;
 		
 		#region Bandit States
+		public class WaitState : SmartState<Crab> {
+			
+		}
+		
 		public class IdleState : SmartState<Crab> {
 			private Vector2 velocity;
 			private bool a;

@@ -81,7 +81,7 @@ namespace BurningKnight.entity.orbital {
 				orbital.AddComponent(new CircleBodyComponent(0, 0, 6, BodyType.Dynamic, true));
 				
 				orbital.OnCollision += (or, e) => {
-					if (e is Projectile p && p.Owner != orbital.Owner) {
+					if (e is Projectile p && p.Owner != orbital.Owner && p.Owner != orbital) {
 						p.Break();
 					}
 				};
