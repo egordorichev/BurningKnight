@@ -191,6 +191,8 @@ namespace BurningKnight.state {
 			} else {
 				offset = Display.UiHeight;
 			}
+			
+			Shaders.Screen.Parameters["vignette"].SetValue(Settings.Vignette);
 		}
 
 		public override void Init() {
@@ -2362,7 +2364,7 @@ namespace BurningKnight.state {
 				RelativeCenterY = sy + space * 9,
 				Click = b => {
 					Settings.Vignette = ((UiCheckbox) b).On;
-					// FIXME: add implementation
+					Shaders.Screen.Parameters["vignette"].SetValue(Settings.Vignette);
 				}
 			});
 

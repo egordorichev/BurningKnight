@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>/home/egor/Lens/BurningKnight/Content/Sfx/bomb_placed.wav</SourceFile>
-  <SourceTime>2019-12-03T15:16:14.562817+03:00</SourceTime>
-  <DestFile>/home/egor/Lens/BurningKnight/Content/bin/Sfx/bomb_placed.xnb</DestFile>
-  <DestTime>2019-12-03T15:17:46.5282094+03:00</DestTime>
+  <SourceFile>C:/Users/egord/Lens/BurningKnight/Content/Sfx/bomb_placed.wav</SourceFile>
+  <SourceTime>2020-01-16T11:01:07.9346889+03:00</SourceTime>
+  <DestFile>C:/Users/egord/Lens/BurningKnight/Content/bin/Sfx/bomb_placed.xnb</DestFile>
+  <DestTime>2020-06-08T09:35:04.179667+03:00</DestTime>
   <Importer>WavImporter</Importer>
-  <ImporterTime>2019-11-20T16:55:24.8246146+03:00</ImporterTime>
+  <ImporterTime>2018-09-24T00:55:52+03:00</ImporterTime>
   <Processor>SoundEffectProcessor</Processor>
-  <ProcessorTime>2019-11-20T16:55:24.8246146+03:00</ProcessorTime>
+  <ProcessorTime>2018-09-24T00:55:52+03:00</ProcessorTime>
   <Parameters>
     <Key>Quality</Key>
     <Value>Best</Value>

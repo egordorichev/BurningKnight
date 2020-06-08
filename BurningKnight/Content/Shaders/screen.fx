@@ -11,8 +11,7 @@ Texture2D SpriteTexture;
 sampler s0;
 float blur;
 float split;
-float blurTop;
-float blurBottom;
+bool vignette;
 
 sampler2D SpriteTextureSampler = sampler_state {
 	Texture = <SpriteTexture>;
@@ -39,12 +38,15 @@ float4 MainPS(VertexShaderOutput input) : COLOR {
 		color = tex2D(s0, float2(input.TextureCoordinates.x, input.TextureCoordinates.y));
 	}
 	
-	float v = smoothstep(0.75f, 0.2f, length(input.TextureCoordinates - float2(0.5f, 0.5f))) * 0.75f + 0.25f;
-    bool a = (input.TextureCoordinates.y >= blurTop && input.TextureCoordinates.y <= blurBottom);
+	float v = 1.0f;
+	
+	if (vignette) {
+	    v = smoothstep(0.75f, 0.2f, length(input.TextureCoordinates - float2(0.5f, 0.5f))) * 0.75f + 0.25f;
+	}
     
-	if (blur > 0.001f || a) {
-        float mx = 1.0f / 320 * (a ? 1 : blur);
-        float my = 1.0f / 180 * (a ? 1 : blur);
+	if (blur > 0.001f) {
+        float mx = 1.0f / 320 * blur;
+        float my = 1.0f / 180 * blur;
         	
 		for (int xx = -2; xx < 3; xx++) {
 			for (int yy = -2; yy < 3; yy++) {
