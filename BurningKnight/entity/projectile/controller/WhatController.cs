@@ -14,7 +14,7 @@ namespace BurningKnight.entity.projectile.controller {
 					time = 0;
 					i++;
 					
-					var projectile = Projectile.Make(p.Owner, "circle", p.BodyComponent.Velocity.ToAngle() + i / 4f * (float) Math.PI, 8f);
+					var projectile = Projectile.Make(p.Owner, "circle", p.BodyComponent.Velocity.ToAngle() + i / 4f * (float) Math.PI, 8f, range: 1f);
 					projectile.Center = p.Center;
 				}
 			};

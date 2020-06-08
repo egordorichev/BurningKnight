@@ -458,7 +458,7 @@ namespace BurningKnight.state {
 		public override void OnDeactivated() {
 			base.OnDeactivated();
 
-			if (Paused || DialogComponent.Talking != null || !Settings.Autopause || !menuExited) {
+			if (Menu || Paused || DialogComponent.Talking != null || !Settings.Autopause || !menuExited) {
 				return;
 			}
 
@@ -833,7 +833,7 @@ namespace BurningKnight.state {
 			Shaders.Screen.Parameters["blur"].SetValue(blur);
 
 			if (DialogComponent.Talking == null) {
-				if (!Paused && t >= 1f && !inside && Settings.Autopause) {
+				if (!Paused && t >= 1f && !inside && Settings.Autopause && !Menu) {
 					Paused = true;
 				}/* else if (Paused && pausedByMouseOut && inside) {
 					Paused = false;
@@ -902,7 +902,7 @@ namespace BurningKnight.state {
 									Paused = false;
 									did = true;
 								}
-							} else {
+							} else if (!Menu) {
 								Paused = true;
 								did = true;
 							}
