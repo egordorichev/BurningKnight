@@ -17,14 +17,21 @@ namespace BurningKnight.save {
 		public static bool Loading;
 		
 		public void SmartSave(List<Entity> a, FileWriter writer) {
-			writer.WriteInt32(a.Count);
 			a.Sort(DefaultComparer);
 
-			var all = ArrayUtils.Clone(a);
+			var all = new List<Entity>();
+
+			foreach (var e in a) {
+				if (e != null && !e.Done) {
+					all.Add(e);
+				}
+			}
+			
+			writer.WriteInt32(all.Count);
 			
 			SaveableEntity last = null;
 			
-			for (var i = 0; i < all.Length; i++) {
+			for (var i = 0; i < all.Count; i++) {
 				var entity = (SaveableEntity) all[i];
 
 				if (last != null && last.GetType().FullName == entity.GetType().FullName) {
