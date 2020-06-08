@@ -92,7 +92,7 @@ namespace BurningKnight.entity.item.stand {
 
 			if (!OkToBuy(entity)) {
 				AnimationUtil.ActionFailed();
-				entity.GetComponent<DialogComponent>().StartAndClose($"~~{Locale.Get("scourged")}", 2);
+				entity.GetComponent<DialogComponent>().StartAndClose($"~~{Locale.Get("scourged")}~~", 2);
 
 				return false;
 			} else if (!TryPay(entity)) {
