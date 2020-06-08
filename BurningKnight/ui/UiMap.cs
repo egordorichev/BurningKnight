@@ -96,7 +96,7 @@ namespace BurningKnight.ui {
 				var room = (Room) rm;
 
 				if (rect.Intersects(room.Rect)) {
-					for (var yy = room.MapY - 1; yy <= room.MapY + room.MapH; yy++) {
+					for (var yy = room.MapY - 1; yy <= room.MapY + room.MapH + 1; yy++) {
 						for (var xx = room.MapX; xx < room.MapX + room.MapW; xx++) {
 							var i = level.ToIndex(xx, yy);
 
@@ -115,8 +115,8 @@ namespace BurningKnight.ui {
 				var room = (Room) rm;
 
 				if (rect.Intersects(room.Rect)) {
-					for (var yy = room.MapY; yy < room.MapY + room.MapH; yy++) {
-						for (var xx = room.MapX; xx < room.MapX + room.MapW; xx++) {
+					for (var yy = room.MapY; yy <= room.MapY + room.MapH + 1; yy++) {
+						for (var xx = room.MapX; xx <= room.MapX + room.MapW; xx++) {
 							var i = level.ToIndex(xx, yy);
 
 							if (level.Explored[i] && !level.Get(i).IsWall() && xx >= sx && xx <= tx && yy >= sy && yy <= ty) {
@@ -138,23 +138,9 @@ namespace BurningKnight.ui {
 				
 				var tp = room.Type;
 
-				if (tp == RoomType.Shop || tp == RoomType.Treasure || tp == RoomType.Exit || tp == RoomType.Boss) {
+				if (tp == RoomType.Exit ? Run.Depth % 2 == 1 : RoomTypeHelper.ShouldBeDisplayOnMap(tp)) {
 					if (rect.Intersects(room.Rect)) {
-						var icon = shopIcon;
-
-						switch (tp) {
-							case RoomType.Treasure: {
-								icon = treasureIcon;
-								break;
-							}
-							
-							case RoomType.Boss:
-							case RoomType.Exit: {
-								icon = exitIcon;
-								break;
-							}
-						}
-						
+						var icon = RoomTypeHelper.Icons[(int) tp];
 						Graphics.Render(icon, new Vector2((int) Math.Floor(X + W * 0.5f + (room.MapX + room.MapW * 0.5f - fx)), (int) Math.Floor(Y + H * 0.5f + (room.MapY + room.MapH * 0.5f - fy))), 0, icon.Center);
 					}
 				}
