@@ -6,7 +6,6 @@
 * still can get not teleported to entrance (no entrance or smth?)
 * pharaoh can tp near door and get all projectiles destroyed
 * frozen slimes after falling down are invincible
-* update enemy arrow pointer to have the same rules as iron lock clear
 * rooms with 2 buttons (traps) can be deactivated by pressing only one?
 * getting down from a moving platform still can be hard (without roll)
 * map rendering in non pixel perfect gives lines (need to render it to a texture)
