@@ -1,5 +1,3 @@
-* SETTING TO DISABLE VIGNETTE
-
 * trap rooms with turrets, where you press button, they dont deactivate after you reload the level (after clearance)
 * rooms with 2 buttons (traps) can be deactivated by pressing only one?
 * invis items back
