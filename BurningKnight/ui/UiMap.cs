@@ -21,16 +21,12 @@ namespace BurningKnight.ui {
 		private const int H = 64;
 
 		private static Vector2 scale = new Vector2(1f);
-		private static Vector2 bigScale = new Vector2(2f);
-
-		private static Vector2 centerOffset = new Vector2(W / 2, H / 2);
-		private static Vector2 size = new Vector2(W, H);
+		private static Vector2 bigScale = new Vector2(3f);
+		private static Color doorColor = new Color(93, 44, 40);
+		
 		private Player player;
 		private TextureRegion slice;
 
-		private TextureRegion shopIcon;
-		private TextureRegion exitIcon;
-		private TextureRegion treasureIcon;
 		private TextureRegion playerIcon;
 		private TextureRegion frame;
 
@@ -45,9 +41,6 @@ namespace BurningKnight.ui {
 
 			slice = CommonAse.Particles.GetSlice("fire");
 
-			shopIcon = CommonAse.Ui.GetSlice("shop");
-			exitIcon = CommonAse.Ui.GetSlice("exit");
-			treasureIcon = CommonAse.Ui.GetSlice("treasure");
 			playerIcon = CommonAse.Ui.GetSlice("gps");
 			frame = CommonAse.Ui.GetSlice("map_frame");
 
@@ -95,8 +88,8 @@ namespace BurningKnight.ui {
 			foreach (var rm in level.Area.Tagged[Tags.Room]) {
 				var room = (Room) rm;
 
-				if (rect.Intersects(room.Rect)) {
-					for (var yy = room.MapY - 1; yy <= room.MapY + room.MapH + 1; yy++) {
+				if (room.Explored && rect.Intersects(room.Rect)) {
+					for (var yy = room.MapY - 1; yy < room.MapY + room.MapH; yy++) {
 						for (var xx = room.MapX; xx < room.MapX + room.MapW; xx++) {
 							var i = level.ToIndex(xx, yy);
 
@@ -108,27 +101,38 @@ namespace BurningKnight.ui {
 				}
 			}
 			
-			Graphics.Color = ColorUtils.WhiteColor;
-			Graphics.Color = Run.Level.Biome.GetMapColor();
+			var cl = Run.Level.Biome.GetMapColor();
+			Graphics.Color = cl;
 
 			foreach (var rm in level.Area.Tagged[Tags.Room]) {
 				var room = (Room) rm;
 
-				if (rect.Intersects(room.Rect)) {
-					for (var yy = room.MapY; yy <= room.MapY + room.MapH + 1; yy++) {
-						for (var xx = room.MapX; xx <= room.MapX + room.MapW; xx++) {
+				if (room.Explored && rect.Intersects(room.Rect)) {
+					for (var yy = room.MapY; yy < room.MapY + room.MapH; yy++) {
+						for (var xx = room.MapX; xx < room.MapX + room.MapW; xx++) {
 							var i = level.ToIndex(xx, yy);
 
 							if (level.Explored[i] && !level.Get(i).IsWall() && xx >= sx && xx <= tx && yy >= sy && yy <= ty) {
 								Graphics.Render(slice, new Vector2((int) Math.Floor(X + W / 2 + (xx - fx)), (int) Math.Floor(Y + H / 2 + (yy - fy))), 0, Vector2.Zero, scale);
 							}
+							
+							
+							if (room.Explored) {
+								Graphics.Color = doorColor;
+								
+								foreach (var d in room.Doors) {
+									Graphics.Render(slice, new Vector2((int) Math.Floor(X + W / 2 - fx + (int) Math.Floor(d.CenterX / 16)), (int) Math.Floor(Y + H / 2 - fy + (int) Math.Floor(d.Bottom / 16))));
+								}
+								
+								Graphics.Color = cl;
+							}
 						}
 					}
 				}
 			}
-			
-			Graphics.Color = ColorUtils.WhiteColor;
 
+			Graphics.Color = ColorUtils.WhiteColor;
+			
 			foreach (var rm in level.Area.Tagged[Tags.Room]) {
 				var room = (Room) rm;
 
