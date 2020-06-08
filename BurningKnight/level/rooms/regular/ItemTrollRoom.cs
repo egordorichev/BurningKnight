@@ -33,6 +33,8 @@ namespace BurningKnight.level.rooms.regular {
 					}
 				}
 			}
+			
+			Painter.Fill(level, this, 1, Tiles.RandomFloor());
 		}
 
 		public override bool ShouldSpawnMobs() {

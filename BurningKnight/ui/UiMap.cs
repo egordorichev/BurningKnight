@@ -21,16 +21,12 @@ namespace BurningKnight.ui {
 		private const int H = 64;
 
 		private static Vector2 scale = new Vector2(1f);
-		private static Vector2 bigScale = new Vector2(2f);
-
-		private static Vector2 centerOffset = new Vector2(W / 2, H / 2);
-		private static Vector2 size = new Vector2(W, H);
+		private static Vector2 bigScale = new Vector2(3f);
+		private static Color doorColor = new Color(93, 44, 40);
+		
 		private Player player;
 		private TextureRegion slice;
 
-		private TextureRegion shopIcon;
-		private TextureRegion exitIcon;
-		private TextureRegion treasureIcon;
 		private TextureRegion playerIcon;
 		private TextureRegion frame;
 
@@ -45,9 +41,6 @@ namespace BurningKnight.ui {
 
 			slice = CommonAse.Particles.GetSlice("fire");
 
-			shopIcon = CommonAse.Ui.GetSlice("shop");
-			exitIcon = CommonAse.Ui.GetSlice("exit");
-			treasureIcon = CommonAse.Ui.GetSlice("treasure");
 			playerIcon = CommonAse.Ui.GetSlice("gps");
 			frame = CommonAse.Ui.GetSlice("map_frame");
 
@@ -95,8 +88,8 @@ namespace BurningKnight.ui {
 			foreach (var rm in level.Area.Tagged[Tags.Room]) {
 				var room = (Room) rm;
 
-				if (rect.Intersects(room.Rect)) {
-					for (var yy = room.MapY - 1; yy <= room.MapY + room.MapH; yy++) {
+				if (room.Explored && rect.Intersects(room.Rect)) {
+					for (var yy = room.MapY - 1; yy < room.MapY + room.MapH; yy++) {
 						for (var xx = room.MapX; xx < room.MapX + room.MapW; xx++) {
 							var i = level.ToIndex(xx, yy);
 
@@ -108,13 +101,13 @@ namespace BurningKnight.ui {
 				}
 			}
 			
-			Graphics.Color = ColorUtils.WhiteColor;
-			Graphics.Color = Run.Level.Biome.GetMapColor();
+			var cl = Run.Level.Biome.GetMapColor();
+			Graphics.Color = cl;
 
 			foreach (var rm in level.Area.Tagged[Tags.Room]) {
 				var room = (Room) rm;
 
-				if (rect.Intersects(room.Rect)) {
+				if (room.Explored && rect.Intersects(room.Rect)) {
 					for (var yy = room.MapY; yy < room.MapY + room.MapH; yy++) {
 						for (var xx = room.MapX; xx < room.MapX + room.MapW; xx++) {
 							var i = level.ToIndex(xx, yy);
@@ -122,13 +115,24 @@ namespace BurningKnight.ui {
 							if (level.Explored[i] && !level.Get(i).IsWall() && xx >= sx && xx <= tx && yy >= sy && yy <= ty) {
 								Graphics.Render(slice, new Vector2((int) Math.Floor(X + W / 2 + (xx - fx)), (int) Math.Floor(Y + H / 2 + (yy - fy))), 0, Vector2.Zero, scale);
 							}
+							
+							
+							if (room.Explored) {
+								Graphics.Color = doorColor;
+								
+								foreach (var d in room.Doors) {
+									Graphics.Render(slice, new Vector2((int) Math.Floor(X + W / 2 - fx + (int) Math.Floor(d.CenterX / 16)), (int) Math.Floor(Y + H / 2 - fy + (int) Math.Floor(d.Bottom / 16))));
+								}
+								
+								Graphics.Color = cl;
+							}
 						}
 					}
 				}
 			}
-			
-			Graphics.Color = ColorUtils.WhiteColor;
 
+			Graphics.Color = ColorUtils.WhiteColor;
+			
 			foreach (var rm in level.Area.Tagged[Tags.Room]) {
 				var room = (Room) rm;
 
@@ -138,24 +142,10 @@ namespace BurningKnight.ui {
 				
 				var tp = room.Type;
 
-				if (tp == RoomType.Shop || tp == RoomType.Treasure || tp == RoomType.Exit || tp == RoomType.Boss) {
+				if (tp == RoomType.Exit ? Run.Depth % 2 == 1 : RoomTypeHelper.ShouldBeDisplayOnMap(tp)) {
 					if (rect.Intersects(room.Rect)) {
-						var icon = shopIcon;
-
-						switch (tp) {
-							case RoomType.Treasure: {
-								icon = treasureIcon;
-								break;
-							}
-							
-							case RoomType.Boss:
-							case RoomType.Exit: {
-								icon = exitIcon;
-								break;
-							}
-						}
-						
-						Graphics.Render(icon, new Vector2((int) Math.Floor(X + W * 0.5f + (room.MapX + room.MapW * 0.5f - fx)), (int) Math.Floor(Y + H * 0.5f + (room.MapY + room.MapH * 0.5f - fy))), 0, icon.Center);
+						var icon = RoomTypeHelper.Icons[(int) tp];
+						Graphics.Render(icon, new Vector2((int) Math.Floor(X + W * 0.5f + (int) Math.Floor(room.MapX + room.MapW * 0.5f) - fx), (int) Math.Floor(Y + H * 0.5f + (int) Math.Floor(room.MapY + room.MapH * 0.5f) - fy)), 0, icon.Center);
 					}
 				}
 			}

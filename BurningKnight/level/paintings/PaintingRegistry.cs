@@ -34,6 +34,7 @@ namespace BurningKnight.level.paintings {
 			Add("guitar", "Nikithn", 0.5f);
 			Add("peach", "unije");
 			Add("agency", "smashy", 0.01f);
+			Add("ducktective", "smashy", 0.1f);
 			Add("beet_boys", "Gaziter");
 			Add("moonshine", "Gaziter");
 			Add("void", "Gaziter");

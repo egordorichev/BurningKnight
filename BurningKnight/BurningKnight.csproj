@@ -1142,6 +1142,7 @@
     <Compile Include="level\rooms\RoomInfo.cs" />
     <Compile Include="level\rooms\RoomRegistry.cs" />
     <Compile Include="level\rooms\RoomType.cs" />
+    <Compile Include="level\rooms\RoomTypeHelper.cs" />
     <Compile Include="level\rooms\scourged\ScourgedRoom.cs" />
     <Compile Include="level\rooms\secret\BirdSecretRoom.cs" />
     <Compile Include="level\rooms\secret\GrannySecretRoom.cs" />

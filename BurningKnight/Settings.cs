@@ -46,6 +46,7 @@ namespace BurningKnight {
 		public static bool ShowFps;
 		public static bool Flashes;
 		public static bool LowQuality;
+		public static bool Vignette;
 
 		public static bool PixelPerfect {
 			get => Engine.PixelPerfect;
@@ -106,6 +107,7 @@ namespace BurningKnight {
 			Cursor = 0;
 			RotateCursor = false;
 			Vegan = false;
+			Vignette = true;
 			Autopause = false;
 			Autosave = true;
 			Gamepad = null;
@@ -149,6 +151,7 @@ namespace BurningKnight {
 			Vibrate = GlobalSave.IsTrue("s_vb", true);
 			Minimap = GlobalSave.IsTrue("s_mm", true);
 			Flashes = GlobalSave.IsTrue("s_fl", true);
+			Vignette = GlobalSave.IsTrue("s_vgn", true);
 			LowQuality = GlobalSave.IsTrue("s_lq", false);
 			Sensivity = GlobalSave.GetFloat("s_ss", 1);
 			GameScale = GlobalSave.GetFloat("s_gs", 1);
@@ -194,6 +197,7 @@ namespace BurningKnight {
 			GlobalSave.Put("s_mm", Minimap);
 			GlobalSave.Put("s_fl", Flashes);
 			GlobalSave.Put("s_lq", LowQuality);
+			GlobalSave.Put("s_vgn", Vignette);
 		}
 
 		public static void Generate() {

@@ -208,7 +208,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 									Area.Add(part);
 								}, 1f + Rnd.Float(0.2f) + MathUtils.Distance(x - cx, y - cy) / 6f);
 							}
-						});
+						}, -1);
 						
 						level.TileUp();
 						level.CreateBody();

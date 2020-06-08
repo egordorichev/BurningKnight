@@ -191,6 +191,8 @@ namespace BurningKnight.state {
 			} else {
 				offset = Display.UiHeight;
 			}
+			
+			Shaders.Screen.Parameters["vignette"].SetValue(Settings.Vignette);
 		}
 
 		public override void Init() {
@@ -458,7 +460,7 @@ namespace BurningKnight.state {
 		public override void OnDeactivated() {
 			base.OnDeactivated();
 
-			if (Paused || DialogComponent.Talking != null || !Settings.Autopause || !menuExited) {
+			if (Menu || Paused || DialogComponent.Talking != null || !Settings.Autopause || !menuExited) {
 				return;
 			}
 
@@ -833,7 +835,7 @@ namespace BurningKnight.state {
 			Shaders.Screen.Parameters["blur"].SetValue(blur);
 
 			if (DialogComponent.Talking == null) {
-				if (!Paused && t >= 1f && !inside && Settings.Autopause) {
+				if (!Paused && t >= 1f && !inside && Settings.Autopause && !Menu) {
 					Paused = true;
 				}/* else if (Paused && pausedByMouseOut && inside) {
 					Paused = false;
@@ -902,7 +904,7 @@ namespace BurningKnight.state {
 									Paused = false;
 									did = true;
 								}
-							} else {
+							} else if (!Menu) {
 								Paused = true;
 								did = true;
 							}
@@ -2218,8 +2220,8 @@ namespace BurningKnight.state {
 			});
 			
 			var sx = Display.UiWidth * 0.5f;
-			var space = 16f;
-			var sy = Display.UiHeight * 0.5f - space * 3f;
+			var space = 15f;
+			var sy = Display.UiHeight * 0.5f - space * 4.5f;
 			
 			graphicsSettings.Add(new UiLabel {
 				LocaleLabel = "graphics",
@@ -2354,6 +2356,18 @@ namespace BurningKnight.state {
 					Engine.Flashes = Settings.Flashes = ((UiCheckbox) b).On;
 				}
 			});
+			
+			graphicsSettings.Add(new UiCheckbox {
+				Name = "Vignette",
+				On = Settings.Vignette,
+				RelativeX = sx,
+				RelativeCenterY = sy + space * 9,
+				Click = b => {
+					Settings.Vignette = ((UiCheckbox) b).On;
+					Shaders.Screen.Parameters["vignette"].SetValue(Settings.Vignette);
+				}
+			});
+
 			
 			graphicsBack = (UiButton) graphicsSettings.Add(new UiButton {
 				LocaleLabel = "back",

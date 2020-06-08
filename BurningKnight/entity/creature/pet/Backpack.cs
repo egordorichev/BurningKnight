@@ -6,6 +6,7 @@ using BurningKnight.entity.events;
 using BurningKnight.entity.fx;
 using BurningKnight.entity.item;
 using BurningKnight.save;
+using BurningKnight.ui.dialog;
 using Lens;
 using Lens.assets;
 using Lens.entity;
@@ -75,6 +76,12 @@ namespace BurningKnight.entity.creature.pet {
 
 		private bool Interact(Entity entity) {
 			var w = entity.GetComponent<ActiveWeaponComponent>();
+
+			if (w.Item != null && w.Item.Scourged) {
+				entity.GetComponent<DialogComponent>().StartAndClose($"~~{Locale.Get("scourged")}~~", 2);
+				return true;
+			}
+			
 			var i = GetComponent<ItemComponent>();
 			var w2 = entity.GetComponent<WeaponComponent>();
 
