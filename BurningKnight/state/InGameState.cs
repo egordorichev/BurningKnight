@@ -2218,8 +2218,8 @@ namespace BurningKnight.state {
 			});
 			
 			var sx = Display.UiWidth * 0.5f;
-			var space = 16f;
-			var sy = Display.UiHeight * 0.5f - space * 3f;
+			var space = 15f;
+			var sy = Display.UiHeight * 0.5f - space * 4.5f;
 			
 			graphicsSettings.Add(new UiLabel {
 				LocaleLabel = "graphics",
@@ -2354,6 +2354,18 @@ namespace BurningKnight.state {
 					Engine.Flashes = Settings.Flashes = ((UiCheckbox) b).On;
 				}
 			});
+			
+			graphicsSettings.Add(new UiCheckbox {
+				Name = "Vignette",
+				On = Settings.Vignette,
+				RelativeX = sx,
+				RelativeCenterY = sy + space * 9,
+				Click = b => {
+					Settings.Vignette = ((UiCheckbox) b).On;
+					// FIXME: add implementation
+				}
+			});
+
 			
 			graphicsBack = (UiButton) graphicsSettings.Add(new UiButton {
 				LocaleLabel = "back",

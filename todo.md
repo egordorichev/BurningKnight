@@ -1,14 +1,18 @@
 * SETTING TO DISABLE VIGNETTE
 
 * trap rooms with turrets, where you press button, they dont deactivate after you reload the level (after clearance)
+* rooms with 2 buttons (traps) can be deactivated by pressing only one?
 * invis items back
+
 * getting full achievement for getting 1 piece done
 * still can get not teleported to entrance (no entrance or smth?)
 * pharaoh can tp near door and get all projectiles destroyed
 * frozen slimes after falling down are invincible
-* rooms with 2 buttons (traps) can be deactivated by pressing only one?
 * getting down from a moving platform still can be hard (without roll)
 * map rendering in non pixel perfect gives lines (need to render it to a texture)
+* cant shoot down in corridors (bullet breaks on wall)
+
+* fix shot visual language (make it clear what bullets you cant reflect)
 
 #
 
