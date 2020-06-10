@@ -230,8 +230,11 @@ namespace BurningKnight.state {
 		private void GenerateNewTip() {
 			exitTweenDone = false;
 
+			// TODO: Increase tip chance when more tips are added.
+			var tip = new Random().NextDouble() > 0.2 ? LoadScreenJokes.Generate() : $"Tip: {LoadScreenTips.Generate()}";
+
 			Tween.To(Display.UiWidth + 150, tipLabel.CenterX, x => tipLabel.CenterX = x, 0.8f, Ease.QuadIn).OnEnd += () => {
-				tipLabel.Label = LoadScreenTitles.Generate();
+				tipLabel.Label = tip;
 				tipLabel.FinishTyping();
 				tipLabel.Center = new Vector2(-150, Display.UiHeight - 55);
 

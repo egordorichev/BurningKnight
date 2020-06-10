@@ -1,8 +1,6 @@
 using System;
-using System.IO;
 using System.Threading;
 using BurningKnight.assets;
-using BurningKnight.assets.input;
 using BurningKnight.assets.lighting;
 using BurningKnight.level.biome;
 using BurningKnight.level.tile;
@@ -16,7 +14,6 @@ using Lens.entity;
 using Lens.game;
 using Lens.graphics;
 using Lens.graphics.animation;
-using Lens.util;
 using Lens.util.math;
 using Microsoft.Xna.Framework;
 using Console = BurningKnight.debug.Console;
@@ -61,7 +58,7 @@ namespace BurningKnight.state {
 			}
 
 			prefix = Locale.Get(loading || Run.Depth < 1 ? Locale.Get("loading") : Locale.Get("generating"));
-			title = new Random().NextDouble() > 0.3 ? LoadScreenTitles.Generate() : BiomeTitles.Generate(BiomeRegistry.GenerateForDepth(Run.Depth).Id);
+			title = new Random().NextDouble() > 0.3 ? LoadScreenJokes.Generate() : BiomeTitles.Generate(BiomeRegistry.GenerateForDepth(Run.Depth).Id);
 			
 			Lights.Init();
 			Physics.Init();
