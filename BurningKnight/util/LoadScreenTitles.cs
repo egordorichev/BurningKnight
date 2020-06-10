@@ -18,7 +18,7 @@ namespace BurningKnight.util {
 			"Press / to open chat",
 			"Generating generators",
 			"Submitting an issue",
-			"Terraforming mars",
+			"Terraforming Mars",
 			"To defeat a boss, shoot at it until it dies",
 			"I think that knight wanted to say something",
 			"Are we there yet?",
