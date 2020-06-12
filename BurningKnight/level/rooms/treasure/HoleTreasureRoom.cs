@@ -11,12 +11,20 @@ namespace BurningKnight.level.rooms.treasure {
 			Painter.Fill(level, this, m, Tiles.RandomSolid());
 
 			m = Math.Max(3, m - (Rnd.Chance() ? 1 : 2));
-			
-			PlaceStand(level, new Dot(Left + m, Top + m));
-			PlaceStand(level, new Dot(Right - m, Top + m));
-			PlaceStand(level, new Dot(Left + m, Bottom - m));
-			PlaceStand(level, new Dot(Right - m, Bottom - m));
-			
+
+			var v = Rnd.Chance();
+			var h = !v || Rnd.Chance();
+
+			if (v) {
+				PlaceStand(level, new Dot(Left + m, Top + m));
+				PlaceStand(level, new Dot(Right - m, Bottom - m));
+			}
+
+			if (h) {
+				PlaceStand(level, new Dot(Left + m, Bottom - m));
+				PlaceStand(level, new Dot(Right - m, Top + m));
+			}
+
 			SetupStands(level);
 		}
 		
