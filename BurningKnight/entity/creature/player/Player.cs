@@ -427,8 +427,14 @@ namespace BurningKnight.entity.creature.player {
 					Achievements.Unlock("bk:quackers");
 				}
 
-				Audio.PlaySfx("quck", 1f, Rnd.Float(-0.5f, 0.5f));
+				var hat = Self.GetComponent<HatComponent>().Item;
 
+				if (hat != null && hat.Id == "bk:villager_head") {
+					Audio.PlaySfx($"villager{Rnd.Int(1, 5)}", 1f, Rnd.Float(-0.5f, 0.5f));
+				} else {
+					Audio.PlaySfx("quck", 1f, Rnd.Float(-0.5f, 0.5f));
+				}
+				
 				Self.HandleEvent(new QuackEvent {
 					Player = (Player) Self
 				});
