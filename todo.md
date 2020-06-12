@@ -1,7 +1,6 @@
 * trap rooms with turrets, where you press button, they dont deactivate after you reload the level (after clearance)
 * rooms with 2 buttons (traps) can be deactivated by pressing only one?
 * invis items back
-* saying "" in chat (empty message) results in a crash
 
 * remove granny / dm door sfrom the map
 * also today when i got to the bk, it glitched out and he went back to not fighting me and he started following me again, and then when i exited and re-entered the run his first stage was destroyed
