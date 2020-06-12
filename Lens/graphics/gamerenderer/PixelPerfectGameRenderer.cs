@@ -68,9 +68,12 @@ namespace Lens.graphics.gamerenderer {
 			End();
 		}
 
-		private void BeginUi() {
-			Engine.GraphicsDevice.SetRenderTarget(UiTarget);
-			Graphics.Batch.Begin(SpriteSortMode, BlendState, SamplerState, DepthStencilState, EnableClip ? ClipRasterizerState : DefaultRasterizerState, SurfaceEffect, uiScale);
+		public void BeginUi(bool force = false) {
+			if (!force) {
+				Engine.GraphicsDevice.SetRenderTarget(UiTarget);
+			}
+
+			Graphics.Batch.Begin(SpriteSortMode, BlendState, SamplerState, DepthStencilState, EnableClip ? ClipRasterizerState : DefaultRasterizerState, SurfaceEffect, force ? Matrix.Identity : uiScale);
 		}
 
 		private void RenderUi() {
@@ -166,7 +169,7 @@ namespace Lens.graphics.gamerenderer {
 				UiTarget = new RenderTarget2D(
 					Engine.GraphicsDevice, (int) (Display.UiWidth * Engine.Instance.Upscale),
 					(int) (Display.UiHeight * Engine.Instance.Upscale), false,
-					Engine.Graphics.PreferredBackBufferFormat, DepthFormat.Depth24
+					Engine.Graphics.PreferredBackBufferFormat, DepthFormat.Depth24, 0, RenderTargetUsage.PreserveContents
 				);
 			}
 			

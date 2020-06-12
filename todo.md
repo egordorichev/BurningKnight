@@ -7,7 +7,6 @@
 * still can get not teleported to entrance (no entrance or smth?)
 * pharaoh can tp near door and get all projectiles destroyed
 * getting down from a moving platform still can be hard (without roll)
-* map rendering in non pixel perfect gives lines (need to render it to a texture)
 * cant shoot down in corridors (bullet breaks on wall)
 
 * fix shot visual language (make it clear what bullets you cant reflect)

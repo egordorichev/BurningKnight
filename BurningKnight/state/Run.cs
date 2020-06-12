@@ -224,7 +224,7 @@ namespace BurningKnight.state {
 		}
 
 		public static void CalculateScore() {
-			Score = 0;
+			Score = 1000;
 
 			Score += (Depth - 1) * 5000;
 			Score += Statistics.CoinsObtained * 10;
