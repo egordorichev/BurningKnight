@@ -143,7 +143,7 @@ namespace BurningKnight.entity.item.stand {
 			return true;
 		}
 
-		private bool Interact(Entity entity) {
+		protected virtual bool Interact(Entity entity) {
 			if (Item != null && Item.Masked && Run.Depth < 1) {
 				return false;
 			}

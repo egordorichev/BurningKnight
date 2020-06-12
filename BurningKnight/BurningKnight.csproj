@@ -737,6 +737,7 @@
     <Compile Include="entity\item\stand\GobettaStand.cs" />
     <Compile Include="entity\item\stand\GrannyStand.cs" />
     <Compile Include="entity\item\stand\HatStand.cs" />
+    <Compile Include="entity\item\stand\HealChoiceStand.cs" />
     <Compile Include="entity\item\stand\HealthStand.cs" />
     <Compile Include="entity\item\stand\ItemStand.cs" />
     <Compile Include="entity\item\stand\LampStand.cs" />

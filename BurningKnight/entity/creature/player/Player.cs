@@ -21,6 +21,7 @@ using BurningKnight.entity.item.stand;
 using BurningKnight.entity.room;
 using BurningKnight.entity.twitch;
 using BurningKnight.level;
+using BurningKnight.level.biome;
 using BurningKnight.level.entities;
 using BurningKnight.level.rooms;
 using BurningKnight.level.tile;
@@ -696,7 +697,7 @@ namespace BurningKnight.entity.creature.player {
 							if (c.New.Type == RoomType.OldMan) {
 								GetComponent<StatsComponent>().SawDeal = true;
 							}
-
+							
 							c.New.OpenHiddenDoors();
 							
 							foreach (var r in Area.Tagged[Tags.Room]) {
@@ -717,8 +718,57 @@ namespace BurningKnight.entity.creature.player {
 					}
 				}
 				
-				if (c.Old != null && c.Old.Type == RoomType.OldMan) {
-					c.Old.CloseHiddenDoors();
+				if (c.Old != null) {
+					if (c.Old.Type == RoomType.OldMan) {
+						c.Old.CloseHiddenDoors();
+					} else if (c.Old.Type == RoomType.Treasure && !Rnd.Chance(5)) {
+						foreach (var door in c.Old.Doors) {
+							var x = (int) Math.Floor(door.CenterX / 16);
+							var y = (int) Math.Floor(door.Bottom / 16);
+							var t = level.Get(x, y);
+
+							if (level.Get(x, y).Matches(TileFlags.Passable)) {
+								var index = level.ToIndex(x, y);
+			
+								level.Set(index, level.Biome is IceBiome ? Tile.WallB : Tile.WallA);
+								level.UpdateTile(x, y);
+								level.ReCreateBodyChunk(x, y);
+								level.LoadPassable();
+
+								Camera.Instance.Shake(10);
+							}
+						}	
+						
+						c.Old.ApplyToEachTile((x, y) => {
+							if (Run.Level.Get(x, y).IsWall()) {
+								return;
+							}
+
+							Timer.Add(() => {
+								var part = new TileParticle();
+
+								part.Top = Run.Level.Tileset.WallTopADecor;
+								part.TopTarget = Run.Level.Tileset.WallTopADecor;
+								part.Side = Run.Level.Tileset.FloorSidesD[0];
+								part.Sides = Run.Level.Tileset.WallSidesA[2];
+								part.Tile = Tile.WallA;
+
+								part.X = x * 16;
+								part.Y = y * 16;
+								part.Target.X = x * 16;
+								part.Target.Y = y * 16;
+								part.TargetZ = -8f;
+
+								Area.Add(part);
+							}, Rnd.Float(0.5f));
+						});
+
+						foreach (var d in c.Old.Doors) {
+							d.Done = true;
+						}
+
+						c.Old.Done = true;
+					}
 				}
 
 				// Darken the lighting in evil rooms

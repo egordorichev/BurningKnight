@@ -158,14 +158,13 @@ namespace BurningKnight.entity.room {
 			// "bk:copper_coin",
 			"bk:key",
 			"bk:key",
-			"bk:key",
-			"bk:bomb",
 			"bk:bomb",
 			"bk:bomb",
 			"bk:troll_bomb",
-			"bk:heart",
-			"bk:heart",
-			"bk:pouch"
+			// "bk:heart",
+			// "bk:heart",
+			"bk:pouch",
+			"bk:copper_coin"
 		};
 
 		private Entity CreateReward() {
@@ -186,7 +185,7 @@ namespace BurningKnight.entity.room {
 		}
 
 		private void SpawnReward() {
-			if (Run.Depth < 1 || Type != RoomType.Regular || Rnd.Chance(30 - Run.Luck)) {
+			if (Run.Depth < 1 || Type != RoomType.Regular || Rnd.Chance(35 - Run.Luck)) {
 				return;
 			}
 
@@ -523,7 +522,7 @@ namespace BurningKnight.entity.room {
 			
 			foreach (var door in Doors) {
 				var x = (int) Math.Floor(door.CenterX / 16);
-				var y = (int) Math.Floor(door.CenterY / 16);
+				var y = (int) Math.Floor(door.Bottom / 16);
 				var t = level.Get(x, y);
 
 				if (level.Get(x, y).Matches(TileFlags.Passable)) {
