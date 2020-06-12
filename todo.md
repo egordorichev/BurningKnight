@@ -2,13 +2,8 @@
 * rooms with 2 buttons (traps) can be deactivated by pressing only one?
 * invis items back
 
-* remove granny / dm door sfrom the map
 * also today when i got to the bk, it glitched out and he went back to not fighting me and he started following me again, and then when i exited and re-entered the run his first stage was destroyed
-
-* can't hit charmed mimic
 * make enemies in the room invincible while the player is not inside
-
-> "space eye" by Nirak03
 
 * getting full achievement for getting 1 piece done
 * still can get not teleported to entrance (no entrance or smth?)

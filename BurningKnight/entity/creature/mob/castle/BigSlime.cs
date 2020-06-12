@@ -56,7 +56,7 @@ namespace BurningKnight.entity.creature.mob.castle {
 		}
 
 		protected override bool HandleDeath(DiedEvent d) {
-			if (Rnd.Chance(100)) {
+			if (Rnd.Chance(30)) {
 				var slime = new SimpleSlime();
 				Area.Add(slime);
 				slime.BottomCenter = BottomCenter;
