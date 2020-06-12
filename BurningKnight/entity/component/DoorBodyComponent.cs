@@ -1,4 +1,5 @@
 ﻿using BurningKnight.entity.creature.player;
+using BurningKnight.entity.projectile;
 using Lens.entity;
 using VelcroPhysics.Dynamics;
 
@@ -18,6 +19,10 @@ namespace BurningKnight.entity.component {
 		}
 
 		public override bool ShouldCollide(Entity entity) {
+			/*if (entity is Projectile) {
+				return false;
+			}*/
+			
 			if (entity is Player && ShouldBeSensor()) {
 				return false;
 			}

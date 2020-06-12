@@ -86,7 +86,7 @@ namespace BurningKnight.entity.projectile {
 			AddComponent(BodyComponent = new RectBodyComponent(0, -Height * 0.5f, Width, Height));
 		}
 
-		public override bool BreaksFrom(Entity entity) {
+		public override bool BreaksFrom(Entity entity, BodyComponent body) {
 			return false;
 		}
 

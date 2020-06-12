@@ -118,11 +118,11 @@ namespace BurningKnight.level.rooms {
 				RoomInfo.Typed<EntranceRoom>(RoomType.Exit, 1f),
 				
 				// Treasure
-				RoomInfo.New<HoleTreasureRoom>(1f),
-				RoomInfo.New<PlatformTreasureRoom>(1f),
-				RoomInfo.New<PadTreasureRoom>(1f),
-				RoomInfo.New<TwoDiagonalTreasureRoom>(1.5f),
-				RoomInfo.New<AcrossTreasureRoom>(1.5f),
+				RoomInfo.New<HoleTreasureRoom>(0.8f), // 4 stands
+				RoomInfo.New<PlatformTreasureRoom>(1f), // 2-4 stands
+				RoomInfo.New<PadTreasureRoom>(0.7f), // 4 stands
+				RoomInfo.New<TwoDiagonalTreasureRoom>(3f), // 2 stands
+				RoomInfo.New<AcrossTreasureRoom>(0.5f), // 2-5 stands
 				
 				// Trap
 				RoomInfo.New<RollingSpikesRoom>(1f),

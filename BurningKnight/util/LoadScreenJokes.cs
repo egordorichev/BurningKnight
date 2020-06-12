@@ -1,13 +1,12 @@
 using System;
-using Lens.util.math;
 
 namespace BurningKnight.util {
-	public static class LoadScreenTitles {
+	public static class LoadScreenJokes {
 		public static string Generate() {
-			return titles[new Random().Next(titles.Length)];
+			return jokes[new Random().Next(jokes.Length)];
 		}
 		
-		private static string[] titles = {
+		private static readonly string[] jokes = {
 			"Please stand by",
 			"Press X",
 			"Generating trouble",
@@ -18,7 +17,8 @@ namespace BurningKnight.util {
 			"Press / to open chat",
 			"Generating generators",
 			"Submitting an issue",
-			"Terraforming mars",
+			"Terraforming Mars",
+			"Occupying Mars",
 			"To defeat a boss, shoot at it until it dies",
 			"I think that knight wanted to say something",
 			"Are we there yet?",
@@ -75,7 +75,8 @@ namespace BurningKnight.util {
 			"It's magic time",
 			"Settings things on fire",
 			"Preparing to explode",
-			"Installing linux",
+			"Installing Linux",
+			"Deleting System32",
 			"Erasing data",
 			"Generating a joke",
 			"Attacking enemies does more damage, than not attacking",
@@ -85,7 +86,11 @@ namespace BurningKnight.util {
 			"Money is useful",
 			"Dying is bad",
 			"You can change the cursor in settings",
-			"Fullscreen is dope"
+			"Fullscreen is dope",
+			"Hold on...",
+			"Searching StackOverflow...",
+			"You still here?",
+			"Don't get hit by a car"
 		};
 	}
 }

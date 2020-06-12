@@ -737,6 +737,7 @@
     <Compile Include="entity\item\stand\GobettaStand.cs" />
     <Compile Include="entity\item\stand\GrannyStand.cs" />
     <Compile Include="entity\item\stand\HatStand.cs" />
+    <Compile Include="entity\item\stand\HealChoiceStand.cs" />
     <Compile Include="entity\item\stand\HealthStand.cs" />
     <Compile Include="entity\item\stand\ItemStand.cs" />
     <Compile Include="entity\item\stand\LampStand.cs" />
@@ -744,6 +745,7 @@
     <Compile Include="entity\item\stand\PermanentStand.cs" />
     <Compile Include="entity\item\stand\RogerStand.cs" />
     <Compile Include="entity\item\stand\ScourgedStand.cs" />
+    <Compile Include="entity\item\stand\ShieldChoiceStand.cs" />
     <Compile Include="entity\item\stand\ShopStand.cs" />
     <Compile Include="entity\item\stand\SnekStand.cs" />
     <Compile Include="entity\item\stand\TrashGoblinStand.cs" />
@@ -1396,7 +1398,8 @@
     <Compile Include="util\geometry\Rect.cs" />
     <Compile Include="util\ImJson.cs" />
     <Compile Include="util\Line.cs" />
-    <Compile Include="util\LoadScreenTitles.cs" />
+    <Compile Include="util\LoadScreenJokes.cs" />
+    <Compile Include="util\LoadScreenTips.cs" />
     <Compile Include="util\Maze.cs" />
     <Compile Include="util\PathFinder.cs" />
     <Compile Include="util\Titles.cs" />

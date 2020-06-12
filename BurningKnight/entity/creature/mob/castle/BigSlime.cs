@@ -1,6 +1,7 @@
 using System;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.mob.prefabs;
+using BurningKnight.entity.events;
 using BurningKnight.entity.projectile;
 using Lens.graphics;
 using Lens.util.math;
@@ -52,6 +53,16 @@ namespace BurningKnight.entity.creature.mob.castle {
 				projectile.Center = BottomCenter;
 				projectile.AddLight(32f, Projectile.RedLight);
 			}
+		}
+
+		protected override bool HandleDeath(DiedEvent d) {
+			if (Rnd.Chance(30)) {
+				var slime = new SimpleSlime();
+				Area.Add(slime);
+				slime.BottomCenter = BottomCenter;
+			}
+			
+			return base.HandleDeath(d);
 		}
 	}
 }

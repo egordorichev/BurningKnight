@@ -76,5 +76,9 @@ namespace BurningKnight.level.biome {
 		public override Color GetMapColor() {
 			return mapColor;
 		}
+
+		public override int GetNumRegularRooms() {
+			return (int) (base.GetNumRegularRooms() * 0.7f);
+		}
 	}
 }

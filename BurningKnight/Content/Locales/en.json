@@ -1033,7 +1033,7 @@
 	"bk:fragile_lamp": "Fragile Lamp",
 	"bk:fragile_lamp_desc": "1 hit K.O.",
 	"painting_guitar": "More volume!",
-	"ach_bk:maanex": "Et tu, Brut?",
+	"ach_bk:maanex": "Et tu, Brute?",
 	"ach_bk:maanex_desc": "Kill Maanex while wearing his head",
 	"dad_0": "Hey son![dl] I need to go and find [cl red]the Lamp[cl]. I leave you to rule.",
 	"dad_1": "If I don't return, don't search for me. Bye!",
@@ -1244,6 +1244,7 @@
 	"potato": "Potato",
 	"happening_bk:bomb": "Bomb Attack",
 	"happening_bk:slide": "Slide to the left",
-	"20_years_later" : "20 years later",
-	"painting_ducktective" : "Ducktective"
+	"20_years_later": "20 years later",
+	"painting_ducktective": "Ducktective",
+	"painting_eye" : "Space Eye"
 }

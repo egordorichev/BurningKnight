@@ -113,9 +113,12 @@ namespace BurningKnight.entity.creature.mob.prefabs {
 		}
 		
 		public class JumpState : SmartState<Slime> {
+			public bool InAir;
+			
 			public override void Init() {
 				base.Init();
 
+				InAir = true;
 				Self.OnJump();
 				var a = Self.GetJumpAngle();
 				var force = Rnd.Float(20f) + Self.JumpForce;
@@ -150,6 +153,7 @@ namespace BurningKnight.entity.creature.mob.prefabs {
 				
 				if (T >= 0.1f && component.Z <= 0) {
 					component.Z = 0;
+					InAir = false;
 					Become<IdleState>();
 				}
 			}
@@ -157,7 +161,7 @@ namespace BurningKnight.entity.creature.mob.prefabs {
 		#endregion
 
 		public override bool InAir() {
-			return (GetComponent<StateComponent>().StateInstance is JumpState);
+			return (GetComponent<StateComponent>().StateInstance is JumpState j && j.InAir);
 		}
 
 		public override bool ShouldCollide(Entity entity) {

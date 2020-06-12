@@ -50,9 +50,9 @@ namespace BurningKnight.entity.creature {
 			AddComponent(new ShadowComponent(RenderShadow));
 			AddComponent(new AudioEmitterComponent());
 			
-			AddDrops(new SingleDrop("bk:heart", 0.0015f));
-			AddDrops(new SingleDrop("bk:half_heart", 0.003f));
-			AddDrops(new SingleDrop("bk:shield", 0.01f));
+			AddDrops(new SingleDrop("bk:heart", /*0.0015f*/ 0.0001f));
+			AddDrops(new SingleDrop("bk:half_heart", /*0.003f*/ 0.0002f));
+			AddDrops(new SingleDrop("bk:shield", 0.001f));
 			AddDrops(new SingleDrop("bk:bomb", 0.01f));
 			AddDrops(new SingleDrop("bk:key", 0.01f));
 		}

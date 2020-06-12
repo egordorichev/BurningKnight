@@ -1,16 +1,16 @@
-* trap rooms with turrets, where you press button, they dont deactivate after you reload the level (after clearance)
-* rooms with 2 buttons (traps) can be deactivated by pressing only one?
 * invis items back
+* also today when i got to the bk, it glitched out and he went back to not fighting me and he started following me again, and then when i exited and re-entered the run his first stage was destroyed
+* make enemies in the room invincible while the player is not inside
 
-* getting full achievement for getting 1 piece done
+* getting full achievement for getting 1-2 piece done
 * still can get not teleported to entrance (no entrance or smth?)
 * pharaoh can tp near door and get all projectiles destroyed
-* frozen slimes after falling down are invincible
-* getting down from a moving platform still can be hard (without roll)
-* map rendering in non pixel perfect gives lines (need to render it to a texture)
-* cant shoot down in corridors (bullet breaks on wall)
 
 * fix shot visual language (make it clear what bullets you cant reflect)
+* you can clip into the achievement hall reward rooms
+
+> issues with enemies being hard to see / hit cuz getting hidden in the walls
+> can get stuck in the shop door when its locking (due to angry shopkeeper)
 
 #
 

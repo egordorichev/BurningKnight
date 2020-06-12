@@ -51,7 +51,7 @@ namespace BurningKnight.entity.room.controllable.platform {
 
 			var w = tw * 16;
 			var h = th * 16;
-			var b = new RectBodyComponent(0.5f, 0.5f - 1, w - 1, h + 2);
+			var b = new RectBodyComponent(0.5f, 0.5f - 1, w - 1, h + 3);
 			AddComponent(b);
 			
 			b.Body.Friction = 0;
@@ -66,7 +66,7 @@ namespace BurningKnight.entity.room.controllable.platform {
 			up.Setup(this, 0, -8, tw * 16, 8);
 			
 			Area.Add(down = new PlatformBorder());
-			down.Setup(this, 0, th * 16 - 2, tw * 16, 8);
+			down.Setup(this, 0, th * 16 + 1, tw * 16, 8);
 		}
 
 		public override void PostInit() {

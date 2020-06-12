@@ -36,9 +36,10 @@ namespace BurningKnight.level.biome {
 				}
 			});
 		}
-		
+				
+
 		public override int GetNumRegularRooms() {
-			return base.GetNumRegularRooms() * 2;
+			return (int) (base.GetNumRegularRooms() * 1.4f);
 		}
 
 		public override Builder GetBuilder() {

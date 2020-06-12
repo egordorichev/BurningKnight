@@ -208,7 +208,7 @@ namespace BurningKnight.entity.projectile {
 						} else if (!(e is Mob)) {
 							return true;
 						}
-					} else if (projectile.BreaksFrom(e)) {
+					} else if (projectile.BreaksFrom(e, null)) {
 						if (e is Painting || e is BreakableProp || e is ExplodingBarrel || e.HasComponent<HealthComponent>()) {
 							projectile.BounceLeft++;
 						} else {

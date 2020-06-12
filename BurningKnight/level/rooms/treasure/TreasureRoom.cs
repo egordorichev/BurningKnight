@@ -63,10 +63,23 @@ namespace BurningKnight.level.rooms.treasure {
 			if (Rnd.Chance(10)) {
 				filter = (i) => i.Type == ItemType.Weapon;
 			}
+
+			var id = Rnd.Int(stands.Count);
+			var st = stands[id];
+
+			var stnd = stands[id] = Rnd.Chance(30) ? new ShieldChoiceStand() : new HealChoiceStand();
+			level.Area.Add(stnd);
+			stnd.Center = st.Center;
+
+			st.Done = true;
 			
 			var pool = Items.GeneratePool(Items.GetPool(ItemPool.Treasure), filter);
 
 			foreach (var s in stands) {
+				if (s is HealChoiceStand) {
+					continue;
+				}
+				
 				var item = Items.CreateAndAdd(Items.GenerateAndRemove(pool, null, true), level.Area, false);
 
 				if (scourged) {

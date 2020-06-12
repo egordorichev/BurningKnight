@@ -2,7 +2,6 @@ using System;
 using System.Threading;
 using BurningKnight.assets;
 using BurningKnight.assets.achievements;
-using BurningKnight.assets.input;
 using BurningKnight.assets.items;
 using BurningKnight.assets.lighting;
 using BurningKnight.assets.loot;
@@ -11,17 +10,17 @@ using BurningKnight.assets.prefabs;
 using BurningKnight.level.tile;
 using BurningKnight.physics;
 using BurningKnight.save;
+using BurningKnight.ui.str;
+using BurningKnight.util;
 using Lens;
 using Lens.assets;
 using Lens.entity;
 using Lens.game;
 using Lens.graphics;
-using Lens.input;
 using Lens.util;
 using Lens.util.math;
+using Lens.util.tween;
 using Microsoft.Xna.Framework;
-using MonoGame.Extended;
-using Timer = Lens.util.timer.Timer;
 
 namespace BurningKnight.state {
 	public class AssetLoadState : GameState {
@@ -37,6 +36,8 @@ namespace BurningKnight.state {
 		private bool removed;
 		private bool checkFullscreen;
 		private float lastV;
+		private UiString tipLabel;
+		private bool exitTweenDone;
 
 		public override void Init() {
 			base.Init();
@@ -48,10 +49,14 @@ namespace BurningKnight.state {
 				Url = "https://twitter.com/rexcellentgames",
 				Name = "Rexcellent Games",
 				Position = new Vector2(240, Display.UiHeight + 60),
-				Target = new Vector2(240, 135),
+				Target = new Vector2(240, 115),
 				Scale = 1
 			});
 
+			Ui.Add(tipLabel = new UiString(Font.Medium));
+			
+			GenerateNewTip();
+			
 			logoCard.Start.Y = -90;
 			progress = 0;
 
@@ -134,6 +139,10 @@ namespace BurningKnight.state {
 
 			t += dt;
 
+			if (t % 4 < 0.01f) {
+				GenerateNewTip();
+			}
+			
 			if (checkFullscreen) {
 				checkFullscreen = false;
 				
@@ -144,10 +153,18 @@ namespace BurningKnight.state {
 				}
 			}
 
+			if (!tipLabel.Visible && logoCard.DoneLerping && !added) {
+				tipLabel.Visible = true;
+			}
+
+			if (added && tipLabel.Visible && exitTweenDone) {
+				tipLabel.Visible = false;
+			}
+			
 			if (!added && ready && lastV >= 0.98f) {
 				added = true;
 				logoCard.GoAway = true;
-				
+
 				/*Timer.Add(() => {
 					Ui.Add(cards[0] = new PhotoCard {
 						Region = new TextureRegion(Textures.FastLoad("Content/egor.png")),
@@ -208,6 +225,21 @@ namespace BurningKnight.state {
 			Graphics.Color = new Color(vl, vl, vl, a);
 			Graphics.Render(pixel, pos + new Vector2(2), 0, Vector2.Zero, new Vector2(lastV * (w - 4), h - 4));
 			Graphics.Color = ColorUtils.WhiteColor;
+		}
+
+		private void GenerateNewTip() {
+			exitTweenDone = false;
+
+			// TODO: Increase tip chance when more tips are added.
+			var tip = new Random().NextDouble() > 0.2 ? LoadScreenJokes.Generate() : $"Tip: {LoadScreenTips.Generate()}";
+
+			Tween.To(Display.UiWidth + 150, tipLabel.CenterX, x => tipLabel.CenterX = x, 0.8f, Ease.QuadIn).OnEnd += () => {
+				tipLabel.Label = tip;
+				tipLabel.FinishTyping();
+				tipLabel.Center = new Vector2(-150, Display.UiHeight - 55);
+
+				Tween.To(Display.UiWidth / 2f, tipLabel.CenterX, x => tipLabel.CenterX = x, 0.8f, Ease.QuadIn).OnEnd = () => exitTweenDone = true;
+			};
 		}
 	}
 }

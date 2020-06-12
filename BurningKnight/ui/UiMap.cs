@@ -14,6 +14,7 @@ using Lens.graphics;
 using Lens.graphics.gamerenderer;
 using Lens.util;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace BurningKnight.ui {
 	public class UiMap : Entity {
@@ -30,9 +31,12 @@ namespace BurningKnight.ui {
 		private TextureRegion playerIcon;
 		private TextureRegion frame;
 
+		private RenderTarget2D target;
+
 		public UiMap(Player pl) {
 			player = pl;
-
+			target = new RenderTarget2D(Engine.GraphicsDevice, W, H, false, Engine.Graphics.PreferredBackBufferFormat, DepthFormat.Depth24);
+			
 			Width = W;
 			Height = H;
 
@@ -45,6 +49,11 @@ namespace BurningKnight.ui {
 			frame = CommonAse.Ui.GetSlice("map_frame");
 
 			AlwaysVisible = true;
+		}
+
+		public override void Destroy() {
+			base.Destroy();
+			target.Dispose();
 		}
 
 		public override void Render() {
@@ -71,18 +80,13 @@ namespace BurningKnight.ui {
 			var r = (PixelPerfectGameRenderer) Engine.Instance.StateRenderer;
 
 			r.End();
-
-			var rc = Engine.GraphicsDevice.ScissorRectangle;
-			var en = r.EnableClip;
-
-			r.EnableClip = true;
-			Engine.GraphicsDevice.ScissorRectangle = new Rectangle((int) (X * Engine.Instance.UiUpscale), (int) (Y * Engine.Instance.UiUpscale), (int) (W * Engine.Instance.UiUpscale), (int) (H * Engine.Instance.UiUpscale));
-
-			r.Begin();
+			Engine.GraphicsDevice.SetRenderTarget(target);
+			Graphics.Clear(Color.Transparent);
+			r.BeginUi(true);
 
 			Graphics.Color = ColorUtils.BlackColor;
 			Graphics.Color.A = 150;
-			Graphics.Render(slice, new Vector2(X, Y), 0, Vector2.Zero, new Vector2(W, H));
+			Graphics.Render(slice, Vector2.Zero, 0, Vector2.Zero, new Vector2(W, H));
 			Graphics.Color.A = 255;
 			
 			foreach (var rm in level.Area.Tagged[Tags.Room]) {
@@ -94,7 +98,7 @@ namespace BurningKnight.ui {
 							var i = level.ToIndex(xx, yy);
 
 							if (level.Explored[i] && !level.Get(i).IsWall() && xx >= sx && xx <= tx && yy >= sy && yy <= ty) {
-								Graphics.Render(slice, new Vector2((int) Math.Floor(X + W / 2 + (xx - fx)) - 1, (int) Math.Floor(Y + H / 2 + (yy - fy)) - 1), 0, Vector2.Zero, bigScale);
+								Graphics.Render(slice, new Vector2((int) Math.Floor(W / 2 + (xx - fx)) - 1, (int) Math.Floor(H / 2 + (yy - fy)) - 1), 0, Vector2.Zero, bigScale);
 							}
 						}
 					}
@@ -113,15 +117,15 @@ namespace BurningKnight.ui {
 							var i = level.ToIndex(xx, yy);
 
 							if (level.Explored[i] && !level.Get(i).IsWall() && xx >= sx && xx <= tx && yy >= sy && yy <= ty) {
-								Graphics.Render(slice, new Vector2((int) Math.Floor(X + W / 2 + (xx - fx)), (int) Math.Floor(Y + H / 2 + (yy - fy))), 0, Vector2.Zero, scale);
+								Graphics.Render(slice, new Vector2((int) Math.Floor(W / 2 + (xx - fx)), (int) Math.Floor(H / 2 + (yy - fy))), 0, Vector2.Zero, scale);
 							}
 							
 							
-							if (room.Explored) {
+							if (room.Explored && !(room.Type == RoomType.Granny || room.Type == RoomType.OldMan || room.Type == RoomType.Boss)) {
 								Graphics.Color = doorColor;
 								
 								foreach (var d in room.Doors) {
-									Graphics.Render(slice, new Vector2((int) Math.Floor(X + W / 2 - fx + (int) Math.Floor(d.CenterX / 16)), (int) Math.Floor(Y + H / 2 - fy + (int) Math.Floor(d.Bottom / 16))));
+									Graphics.Render(slice, new Vector2((int) Math.Floor(W / 2 - fx + (int) Math.Floor(d.CenterX / 16)), (int) Math.Floor(H / 2 - fy + (int) Math.Floor(d.Bottom / 16))));
 								}
 								
 								Graphics.Color = cl;
@@ -145,20 +149,17 @@ namespace BurningKnight.ui {
 				if (tp == RoomType.Exit ? Run.Depth % 2 == 1 : RoomTypeHelper.ShouldBeDisplayOnMap(tp)) {
 					if (rect.Intersects(room.Rect)) {
 						var icon = RoomTypeHelper.Icons[(int) tp];
-						Graphics.Render(icon, new Vector2((int) Math.Floor(X + W * 0.5f + (int) Math.Floor(room.MapX + room.MapW * 0.5f) - fx), (int) Math.Floor(Y + H * 0.5f + (int) Math.Floor(room.MapY + room.MapH * 0.5f) - fy)), 0, icon.Center);
+						Graphics.Render(icon, new Vector2((int) Math.Floor(W * 0.5f + (int) Math.Floor(room.MapX + room.MapW * 0.5f) - fx), (int) Math.Floor(H * 0.5f + (int) Math.Floor(room.MapY + room.MapH * 0.5f) - fy)), 0, icon.Center);
 					}
 				}
 			}
 
-			Graphics.Render(playerIcon, new Vector2(X + W / 2f, Y + H / 2f), 0, playerIcon.Center);
+			Graphics.Render(playerIcon, new Vector2(W / 2f, H / 2f), 0, playerIcon.Center);
 
 			r.End();
-			
-			Engine.GraphicsDevice.ScissorRectangle = rc;
-			r.EnableClip = en;
-			
 			r.Begin();
 
+			Graphics.Render(target, Position);
 			Graphics.Render(frame, Position - new Vector2(3));
 		}
 	}
