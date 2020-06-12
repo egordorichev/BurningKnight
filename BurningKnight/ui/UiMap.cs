@@ -86,7 +86,7 @@ namespace BurningKnight.ui {
 
 			Graphics.Color = ColorUtils.BlackColor;
 			Graphics.Color.A = 150;
-			Graphics.Render(slice, new Vector2(X, Y), 0, Vector2.Zero, new Vector2(W, H));
+			Graphics.Render(slice, Vector2.Zero, 0, Vector2.Zero, new Vector2(W, H));
 			Graphics.Color.A = 255;
 			
 			foreach (var rm in level.Area.Tagged[Tags.Room]) {
