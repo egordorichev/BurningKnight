@@ -12,10 +12,13 @@ namespace BurningKnight.entity.item.stand {
 			return true;
 		}
 
-		protected override bool Interact(Entity entity) {
+		protected virtual void Heal(Entity entity) {
 			var h = entity.GetComponent<HealthComponent>();
 			h.ModifyHealth(h.MaxHealth, this);
+		}
 
+		protected override bool Interact(Entity entity) {
+			Heal(entity);
 			RemoveStands();
 
 			Done = true;

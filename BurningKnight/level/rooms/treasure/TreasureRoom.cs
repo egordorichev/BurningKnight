@@ -67,7 +67,7 @@ namespace BurningKnight.level.rooms.treasure {
 			var id = Rnd.Int(stands.Count);
 			var st = stands[id];
 
-			var stnd = stands[id] = new HealChoiceStand();
+			var stnd = stands[id] = Rnd.Chance(30) ? new ShieldChoiceStand() : new HealChoiceStand();
 			level.Area.Add(stnd);
 			stnd.Center = st.Center;
 
