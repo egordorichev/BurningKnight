@@ -90,6 +90,7 @@ namespace BurningKnight.util {
 			"Hold on...",
 			"Searching StackOverflow...",
 			"You still here?",
+			"Don't get hit by a car"
 		};
 	}
 }
