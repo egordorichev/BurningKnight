@@ -1,6 +1,15 @@
 * trap rooms with turrets, where you press button, they dont deactivate after you reload the level (after clearance)
 * rooms with 2 buttons (traps) can be deactivated by pressing only one?
 * invis items back
+* saying "" in chat (empty message) results in a crash
+
+* remove granny / dm door sfrom the map
+* also today when i got to the bk, it glitched out and he went back to not fighting me and he started following me again, and then when i exited and re-entered the run his first stage was destroyed
+
+* can't hit charmed mimic
+* make enemies in the room invincible while the player is not inside
+
+> "space eye" by Nirak03
 
 * getting full achievement for getting 1 piece done
 * still can get not teleported to entrance (no entrance or smth?)
@@ -11,6 +20,14 @@
 * cant shoot down in corridors (bullet breaks on wall)
 
 * fix shot visual language (make it clear what bullets you cant reflect)
+* you can clip into the achievement hall reward rooms
+
+> villager hat should make your quack sound like villager spund
+> Guitar should make guitar noises when it hits an enemy
+
+> issues with enemies being hard to see / hit cuz getting hidden in the walls
+> First zone levels feel a little bit too short/small,
+> can get stuck in the shop door when its locking (due to angry shopkeeper)
 
 #
 
