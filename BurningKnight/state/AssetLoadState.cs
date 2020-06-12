@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.Threading;
 using BurningKnight.assets;
 using BurningKnight.assets.achievements;
@@ -61,6 +62,8 @@ namespace BurningKnight.state {
 			progress = 0;
 
 			var thread = new Thread(() => {
+				Stopwatch sw = Stopwatch.StartNew();
+
 				Log.Info("Starting asset loading thread");
 				
 				SaveManager.Load(gameArea, SaveType.Global);
@@ -125,12 +128,11 @@ namespace BurningKnight.state {
 				}
 
 				progress++; // Should be 18 here
-				Log.Info("Done loading level! Going to menu.");
+				Log.Info($"Done loading level in {sw.ElapsedMilliseconds} ms! Going to menu.");
 				
 				ready = true;
 			});
 
-			thread.Priority = ThreadPriority.BelowNormal;
 			thread.Start();
 		}
 
