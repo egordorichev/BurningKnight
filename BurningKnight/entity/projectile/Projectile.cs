@@ -260,7 +260,7 @@ namespace BurningKnight.entity.projectile {
 	    }
 		}
 
-		public virtual bool BreaksFrom(Entity entity) {
+		public virtual bool BreaksFrom(Entity entity, BodyComponent body) {
 			if (IgnoreCollisions) {
 				return false;
 			}
@@ -317,13 +317,13 @@ namespace BurningKnight.entity.projectile {
 			}
 			
 			return (!(entity is Creature || entity is Level || entity is Tree)) && 
-			       (BreaksFromWalls && IsWall(entity))
+			       (BreaksFromWalls && IsWall(entity, body))
 			        || entity.HasComponent<HealthComponent>();
 		}
 
-		private bool IsWall(Entity entity) {
+		private bool IsWall(Entity entity, BodyComponent body) {
 			return (entity is ProjectileLevelBody || (!Spectral && entity is HalfProjectileLevel) || entity is Prop ||
-			        (entity is Door d && !d.Open));
+			        (entity is Door d && !d.Open && !(body is DoorBodyComponent || d is CustomDoor)));
 		}
 
 		public bool CanHitOwner;
@@ -382,11 +382,11 @@ namespace BurningKnight.entity.projectile {
 					}
 				}
 				
-				if (BreaksFrom(ev.Entity)) {
+				if (BreaksFrom(ev.Entity, ev.Body)) {
 					if (BounceLeft > 0) {
 						BounceLeft -= 1;
 					} else {
-						if (!mute && IsWall(ev.Entity)) {
+						if (!mute && IsWall(ev.Entity, ev.Body)) {
 							if (Owner is Player) {
 								AudioEmitterComponent.Dummy(Area, Center).EmitRandomizedPrefixed("projectile_wall", 2, 0.5f);
 							} else {
