@@ -8,6 +8,7 @@ namespace BurningKnight.util {
 			new Birthday(25, 9), // Mate
 			new Birthday(21, 2), // Bibiki
 			new Birthday(14, 6), // Viktor
+			new Birthday(10, 6), // Nufflee
     };
 		
 		public static string Generate() {

@@ -2,7 +2,6 @@ using System;
 using BurningKnight.assets;
 using Lens.entity;
 using Lens.graphics;
-using Lens.input;
 using Lens.util;
 using Lens.util.tween;
 using Microsoft.Xna.Framework;
@@ -20,8 +19,9 @@ namespace BurningKnight.state {
 		public float Angle;
 		public bool GoAway;
 
+		public bool DoneLerping { get; private set; }
+
 		public Vector2 Start;
-		private bool doneLerping;
 		private bool hovered;
 		private float sc = 1;
 		public float Scale = 0.6f;
@@ -48,7 +48,7 @@ namespace BurningKnight.state {
 
 				Tween.To(Start.X, Position.X, x => X = x, 0.8f, Ease.QuadIn).OnEnd = () => Done = true;
 				Tween.To(Start.Y, Position.Y, x => Y = x, 0.8f, Ease.QuadIn);
-			} else if (!doneLerping) {
+			} else if (!DoneLerping) {
 				var dx = Target.X - Position.X;
 				var dy = Target.Y - Position.Y;
 				var d = MathUtils.Distance(dx, dy);
@@ -60,7 +60,7 @@ namespace BurningKnight.state {
 
 				if (d < 0.3f) {
 					Position = Target;
-					doneLerping = true;
+					DoneLerping = true;
 				}
 			}
 
