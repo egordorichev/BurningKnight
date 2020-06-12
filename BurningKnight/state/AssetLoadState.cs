@@ -216,21 +216,29 @@ namespace BurningKnight.state {
 			var h = 16;
 			var vl = 0.9f;
 			var pos = new Vector2((Display.UiWidth - w) / 2, Display.UiHeight * 0.5f + 96);
-			var a = (float) Math.Max(0, 1f - (135 - logoCard.Y) / 135f);
+			var loadingAlpha = Math.Max(0, 1f - (logoCard.Target.Y + 20 - logoCard.Y) / (logoCard.Target.Y + 20));
 			
-			Graphics.Color = new Color(1, 1, 1, a);
+			Graphics.Color = new Color(1, 1, 1, loadingAlpha);
 			Graphics.Render(pixel, pos, 0, Vector2.Zero, new Vector2(w, h));
 			Graphics.Color = ColorUtils.BlackColor;
 			Graphics.Render(pixel, pos + new Vector2(1), 0, Vector2.Zero, new Vector2(w - 2, h - 2));
-			Graphics.Color = new Color(vl, vl, vl, a);
+			Graphics.Color = new Color(vl, vl, vl, loadingAlpha);
 			Graphics.Render(pixel, pos + new Vector2(2), 0, Vector2.Zero, new Vector2(lastV * (w - 4), h - 4));
 			Graphics.Color = ColorUtils.WhiteColor;
 
-			var loadingLabel = $"Loading: {currentlyLoadingLabel}...";
+			tipLabel.Tint.A = (byte)(Math.Max(0, 1f - (logoCard.Target.Y - logoCard.Y) / logoCard.Target.Y) * 255);
 
-			if (!added) {
-				Graphics.Print(loadingLabel, Font.Small, Display.UiWidth / 2 - (int)Font.Small.MeasureString(loadingLabel).Width / 2, Display.UiHeight - 20);
+			Graphics.Color.A = (byte)(loadingAlpha * 255);
+			
+			var percentage = (int) (lastV * 100);
+			if (percentage > 5) {
+				Graphics.Print($"{percentage}%", Font.Small, (int)(pos.X + lastV * (w - 4)) - 15, (int)pos.Y + 3);
 			}
+
+			var loadingLabel = $"Loading: {currentlyLoadingLabel}...";
+			Graphics.Print(loadingLabel, Font.Small, Display.UiWidth / 2 - (int)Font.Small.MeasureString(loadingLabel).Width / 2, Display.UiHeight - 20);
+
+			Graphics.Color.A = 255;
 		}
 
 		private void GenerateNewTip() {
