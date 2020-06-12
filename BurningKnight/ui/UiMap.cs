@@ -117,7 +117,7 @@ namespace BurningKnight.ui {
 							}
 							
 							
-							if (room.Explored) {
+							if (room.Explored && !(room.Type == RoomType.Granny || room.Type == RoomType.OldMan || room.Type == RoomType.Boss)) {
 								Graphics.Color = doorColor;
 								
 								foreach (var d in room.Doors) {
