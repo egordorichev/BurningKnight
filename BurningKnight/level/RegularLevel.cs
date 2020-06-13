@@ -40,7 +40,7 @@ namespace BurningKnight.level {
 			
 		}
 
-		public override int GetPadding() {
+		public override int GetPadding() {	
 			return 10;
 		}
 
@@ -312,12 +312,8 @@ namespace BurningKnight.level {
 						rooms.Add(RoomRegistry.Generate(RoomType.Secret, biome));
 					}
 
-					if (Rnd.Chance()) {
-						var c = Rnd.Int(0, 3);
-
-						for (var i = 0; i < c; i++) {
-							rooms.Add(RoomRegistry.Generate(RoomType.SubShop, biome));
-						}
+					if (Rnd.Chance(30)) {
+						rooms.Add(RoomRegistry.Generate(RoomType.SubShop, biome));
 					}
 
 					if (NpcSaveRoom.ShouldBeAdded()) {

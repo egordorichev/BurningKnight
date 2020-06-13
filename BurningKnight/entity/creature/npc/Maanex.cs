@@ -108,7 +108,11 @@ namespace BurningKnight.entity.creature.npc {
 					
 					played = true;
 					foreach (var chest in GetComponent<RoomComponent>().Room.Tagged[Tags.Chest]) {
-						((Chest) chest).CanOpen = false;
+						var c = (Chest) chest;
+
+						if (c.Scale > 0.9f) {
+							c.CanOpen = false;
+						}
 					}
 				}
 			} else if (e is RoomChangedEvent rce) {

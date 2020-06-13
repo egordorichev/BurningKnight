@@ -172,7 +172,7 @@ namespace BurningKnight.entity.item.use {
 				}
 
 				var aim = entity.GetComponent<AimComponent>();
-				var from = toCursor || true ? entity.Center : aim.Center;
+				var from = toCursor ? entity.Center : aim.Center;
 				var am = toCursor ? Input.Mouse.GamePosition : aim.RealAim;
 
 				if (toEnemy) {
