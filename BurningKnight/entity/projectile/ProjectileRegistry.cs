@@ -7,12 +7,14 @@ using BurningKnight.entity.creature;
 using BurningKnight.entity.creature.mob;
 using BurningKnight.entity.projectile.controller;
 using BurningKnight.level;
+using BurningKnight.level.biome;
 using BurningKnight.level.entities;
 using BurningKnight.level.paintings;
 using BurningKnight.level.tile;
 using BurningKnight.physics;
 using BurningKnight.state;
 using Lens.assets;
+using Lens.entity;
 using Lens.input;
 using Lens.util.math;
 using Lens.util.timer;
@@ -202,6 +204,12 @@ namespace BurningKnight.entity.projectile {
 				p.Range = 5;
 
 				p.OnCollision = (projectile, e) => {
+					if (Run.Level.Biome is IceBiome && e is ProjectileLevelBody lvl) {
+						if (lvl.Break(projectile.CenterX, projectile.CenterY)) {
+							AudioEmitterComponent.Dummy(projectile.Area, projectile.Center).EmitRandomizedPrefixed("level_snow_break", 3);
+						}
+					}
+					
 					if (projectile.BounceLeft == 0) {
 						if (e == projectile.Owner) {
 							projectile.Break();
