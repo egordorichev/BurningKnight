@@ -227,13 +227,14 @@ namespace BurningKnight.entity.projectile {
 							projectile.EntitiesHurt.Clear();
 							projectile.Controller += ReturnProjectileController.Make(projectile.Owner);
 
-							projectile.OnDeath?.Invoke(projectile, e, false);
+							var pi = projectile.OnDeath;
 							
 							projectile.OnDeath = (pr, ee, t) => {
 								pr.Item.Renderer.Hidden = false;
 								pr.Owner.GetComponent<AudioEmitterComponent>().EmitRandomized("item_axe_catch");
 							};
 							
+							pi?.Invoke(projectile, e, false);
 							return true;
 						}
 					}
