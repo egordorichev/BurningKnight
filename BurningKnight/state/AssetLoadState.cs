@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.Threading;
 using BurningKnight.assets;
 using BurningKnight.assets.achievements;
@@ -38,7 +39,10 @@ namespace BurningKnight.state {
 		private float lastV;
 		private UiString tipLabel;
 		private bool exitTweenDone;
+		private string currentlyLoadingLabel;
 
+		private const bool SectionalLoadTimeLogging = false;
+		
 		public override void Init() {
 			base.Init();
 
@@ -61,21 +65,19 @@ namespace BurningKnight.state {
 			progress = 0;
 
 			var thread = new Thread(() => {
+				var sw = Stopwatch.StartNew();
+
 				Log.Info("Starting asset loading thread");
+
+				LoadSection(() => SaveManager.Load(gameArea, SaveType.Global), "Global saves");
 				
-				SaveManager.Load(gameArea, SaveType.Global);
-				progress++;
 				checkFullscreen = true;
 				
-				Audio.ThreadLoad("Void");
-				progress++;
-				Assets.Load(ref progress);
-				progress++;
-				Audio.ThreadLoad("Menu", false);
-				progress++;
-				
-				Dialogs.Load();
-				progress++;
+				LoadSection(() => Audio.ThreadLoad("Void"), "Audio");
+				LoadSection(() => Assets.Load(ref progress), "Assets");
+				LoadSection(() => Audio.ThreadLoad("Menu", false), "More audio");
+				LoadSection(Dialogs.Load, "Dialogs");
+
 				CommonAse.Load();
 				progress++;
 
@@ -86,51 +88,49 @@ namespace BurningKnight.state {
 				}
 
 				progress++;
-				Shaders.Load();
-				progress++;
-				Prefabs.Load();
-				progress++;
-				Items.Load();
-				progress++;
-				LootTables.Load();
-				progress++;
-				Mods.Load();
-				progress++; // Should be 13 here
+				
+				LoadSection(Shaders.Load, "Shaders");
+				LoadSection(Prefabs.Load, "Prefabs");
+				LoadSection(Items.Load, "Items");
+				LoadSection(LootTables.Load, "Loot tables");
+				LoadSection(Mods.Load, "Mods");
 				
 				Log.Info("Done loading assets! Loading level now.");
 			
-				Lights.Init();
-				Physics.Init();
+				LoadSection(() => {
+					Lights.Init();
+					Physics.Init();
+				}, "Lights & physics");
+				
 				gameArea = new Area();
-
 				Run.Level = null;
-				Tilesets.Load();
-				progress++;
-				
-				Achievements.Load();
-				progress++;
-				
-				SaveManager.Load(gameArea, SaveType.Game);
-				progress++;
-				
-				Rnd.Seed = $"{Run.Seed}_{Run.Depth}"; 
-				
-				SaveManager.Load(gameArea, SaveType.Level);
-				progress++;
 
-				if (Run.Depth > 0) {
-					SaveManager.Load(gameArea, SaveType.Player);
-				} else {
-					SaveManager.Generate(gameArea, SaveType.Player);
-				}
+				LoadSection(Tilesets.Load, "Tilesets");
+				LoadSection(Achievements.Load, "Achievements");
+				
+				LoadSection(() => {
+					SaveManager.Load(gameArea, SaveType.Game);
+				}, "Game saves");
 
-				progress++; // Should be 18 here
-				Log.Info("Done loading level! Going to menu.");
+				Rnd.Seed = $"{Run.Seed}_{Run.Depth}";
+
+				LoadSection(() => {
+					SaveManager.Load(gameArea, SaveType.Level);
+				}, "Level saves");
+				
+				LoadSection(() => {
+					if (Run.Depth > 0) {
+						SaveManager.Load(gameArea, SaveType.Player);
+					} else {
+						SaveManager.Generate(gameArea, SaveType.Player);
+					}
+				}, "Player saves");
+
+				Log.Info($"Done loading level in {sw.ElapsedMilliseconds} ms! Going to menu.");
 				
 				ready = true;
 			});
 
-			thread.Priority = ThreadPriority.BelowNormal;
 			thread.Start();
 		}
 
@@ -209,22 +209,36 @@ namespace BurningKnight.state {
 		public override void RenderUi() {
 			base.RenderUi();
 			
-			var v = Math.Min(1, progress / 21f);
+			var v = Math.Min(1, progress / 23f);
 			lastV += (v - lastV) * Engine.Delta;
 
 			var w = Display.UiWidth * 0.5f;
 			var h = 16;
 			var vl = 0.9f;
 			var pos = new Vector2((Display.UiWidth - w) / 2, Display.UiHeight * 0.5f + 96);
-			var a = (float) Math.Max(0, 1f - (135 - logoCard.Y) / 135f);
+			var loadingAlpha = Math.Max(0, 1f - (logoCard.Target.Y + 20 - logoCard.Y) / (logoCard.Target.Y + 20));
 			
-			Graphics.Color = new Color(1, 1, 1, a);
+			Graphics.Color = new Color(1, 1, 1, loadingAlpha);
 			Graphics.Render(pixel, pos, 0, Vector2.Zero, new Vector2(w, h));
 			Graphics.Color = ColorUtils.BlackColor;
 			Graphics.Render(pixel, pos + new Vector2(1), 0, Vector2.Zero, new Vector2(w - 2, h - 2));
-			Graphics.Color = new Color(vl, vl, vl, a);
+			Graphics.Color = new Color(vl, vl, vl, loadingAlpha);
 			Graphics.Render(pixel, pos + new Vector2(2), 0, Vector2.Zero, new Vector2(lastV * (w - 4), h - 4));
 			Graphics.Color = ColorUtils.WhiteColor;
+
+			tipLabel.Tint.A = (byte)(Math.Max(0, 1f - (logoCard.Target.Y - logoCard.Y) / logoCard.Target.Y) * 255);
+
+			Graphics.Color.A = (byte)(loadingAlpha * 255);
+			
+			var percentage = (int) (lastV * 100);
+			if (percentage > 5) {
+				Graphics.Print($"{percentage}%", Font.Small, (int)(pos.X + lastV * (w - 4)) - 15, (int)pos.Y + 3);
+			}
+
+			var loadingLabel = $"Loading: {currentlyLoadingLabel}...";
+			Graphics.Print(loadingLabel, Font.Small, Display.UiWidth / 2 - (int)Font.Small.MeasureString(loadingLabel).Width / 2, Display.UiHeight - 20);
+
+			Graphics.Color.A = 255;
 		}
 
 		private void GenerateNewTip() {
@@ -240,6 +254,20 @@ namespace BurningKnight.state {
 
 				Tween.To(Display.UiWidth / 2f, tipLabel.CenterX, x => tipLabel.CenterX = x, 0.8f, Ease.QuadIn).OnEnd = () => exitTweenDone = true;
 			};
+		}
+
+		private void LoadSection(Action section, string name) {
+			currentlyLoadingLabel = name;
+
+			var sw = Stopwatch.StartNew();
+			
+			section();
+
+			progress++;
+
+			if (SectionalLoadTimeLogging) {
+				Log.Info($"Loaded section '{name}' in {sw.ElapsedMilliseconds} ms.");
+			}
 		}
 	}
 }

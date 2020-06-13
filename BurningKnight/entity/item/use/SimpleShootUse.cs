@@ -172,7 +172,7 @@ namespace BurningKnight.entity.item.use {
 				}
 
 				var aim = entity.GetComponent<AimComponent>();
-				var from = toCursor || true ? entity.Center : aim.Center;
+				var from = toCursor ? entity.Center : aim.Center;
 				var am = toCursor ? Input.Mouse.GamePosition : aim.RealAim;
 
 				if (toEnemy) {
@@ -262,7 +262,14 @@ namespace BurningKnight.entity.item.use {
 
 					if (wait && i == 0) {
 						ProjectileDied = false;
-						projectile.OnDeath += (prj, e, t) => ProjectileDied = true;
+
+						if (prefab == "bk:axe") {
+							projectile.OnDeath += (prj, e, t) => {
+								prj.OnDeath += (prj2, e2, t2) => ProjectileDied = true;
+							};
+						} else {
+							projectile.OnDeath += (prj, e, t) => ProjectileDied = true;
+						}
 					}
 
 					if (manaUsage > 0) {

@@ -36,7 +36,6 @@ using Lens.util;
 using Lens.util.camera;
 using Lens.util.math;
 using Microsoft.Xna.Framework;
-using MonoGame.Extended;
 using VelcroPhysics.Dynamics;
 
 namespace BurningKnight.entity.projectile {
