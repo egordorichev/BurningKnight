@@ -1,8 +1,12 @@
+* bk still can become idle
+* bomb shell makes hp diplay wrong
+* items in chasms should dissappear
+* if you respawn you can have no hp at all (broken shield/bloody shield)
+* I was on the final boss and i noticed the boss door was unlocked deering the fight so i walked through it and this happened
+
 * invis items back
-* also today when i got to the bk, it glitched out and he went back to not fighting me and he started following me again, and then when i exited and re-entered the run his first stage was destroyed
 * make enemies in the room invincible while the player is not inside
 
-* getting full achievement for getting 1-2 piece done
 * still can get not teleported to entrance (no entrance or smth?)
 * pharaoh can tp near door and get all projectiles destroyed
 
@@ -11,6 +15,7 @@
 
 > issues with enemies being hard to see / hit cuz getting hidden in the walls
 > can get stuck in the shop door when its locking (due to angry shopkeeper)
+> Would be neat to have random items when using the shortcuts to give some fighting chance. Another use for emeralds like you pay 100 to start the floor with a random amount of treasure room items based on RNG and the shortcut used.
 
 #
 
