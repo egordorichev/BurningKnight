@@ -1,1 +1,127 @@
-{"bk:overshake":{"secret":true},"bk:rip":{},"bk:marauder":{"group":"b"},"bk:treasure_hunter":{},"bk:dodge_master":{"group":"b"},"bk:dodge_overlord":{"group":"b"},"bk:quackers":{"secret":true},"bk:not_a_thief":{"secret":true},"bk:npc_party":{"max":13,"group":"c"},"bk:scourge_king":{"group":"b"},"bk:deal":{},"bk:grannys_gift":{},"bk:shopper":{},"bk:desert":{"group":"a"},"bk:jungle":{"group":"a"},"bk:scourged":{},"bk:scourged_weapon":{},"bk:open_up":{"group":"b"},"bk:snek":{"group":"b"},"bk:sting_operation":{"group":"d"},"bk:mummified":{"group":"d"},"bk:democracy":{"group":"d"},"bk:ice":{"group":"a"},"bk:library":{"group":"a"},"bk:cat_without_a_hat":{"group":"c"},"bk:rich":{"group":"b"},"bk:rescue_operation":{"group":"c"},"bk:tutorial":{},"bk:fancy_hat":{},"bk:unlock":{},"bk:shielded":{},"bk:boss_rush":{"group":"d"},"bk:daily":{"group":"d"},"bk:desert_shortcut":{"group":"a"},"bk:jungle_shortcut":{"group":"a"},"bk:ice_shortcut":{"group":"a"},"bk:library_shortcut":{"group":"a"},"bk:fashion_matters":{"max":27},"bk:ice_boss":{"group":"d"},"bk:bk_no_more":{"group":"d"},"bk:dm_no_more":{"secret":true},"bk:egor_no_more":{"secret":true},"bk:loop":{},"bk:star":{"unlock":"bk:star"},"bk:family":{},"bk:return_to_sender":{"group":"d"},"bk:van_no_gogh":{},"bk:dark_market":{},"bk:spikes":{"unlock":"bk:iron_boots"},"bk:white_flag":{},"bk:mimic":{"unlock":"bk:mimic_totem","secret":true},"bk:maanex":{"secret":true},"bk:collector":{},"bk:unstoppable":{}}
+{
+	"bk:overshake": {
+		"secret": true
+	},
+	"bk:rip": {},
+	"bk:marauder": {
+		"group": "b"
+	},
+	"bk:treasure_hunter": {},
+	"bk:dodge_master": {
+		"group": "b"
+	},
+	"bk:dodge_overlord": {
+		"group": "b"
+	},
+	"bk:quackers": {
+		"secret": true
+	},
+	"bk:not_a_thief": {
+		"secret": true
+	},
+	"bk:npc_party": {
+		"max": 13,
+		"group": "c"
+	},
+	"bk:scourge_king": {
+		"group": "b"
+	},
+	"bk:deal": {},
+	"bk:grannys_gift": {},
+	"bk:shopper": {},
+	"bk:desert": {
+		"group": "a"
+	},
+	"bk:jungle": {
+		"group": "a"
+	},
+	"bk:scourged": {},
+	"bk:scourged_weapon": {},
+	"bk:open_up": {
+		"group": "b"
+	},
+	"bk:snek": {
+		"group": "b"
+	},
+	"bk:sting_operation": {
+		"group": "d"
+	},
+	"bk:mummified": {
+		"group": "d"
+	},
+	"bk:democracy": {
+		"group": "d"
+	},
+	"bk:ice": {
+		"group": "a"
+	},
+	"bk:library": {
+		"group": "a"
+	},
+	"bk:cat_without_a_hat": {
+		"group": "c"
+	},
+	"bk:rich": {
+		"group": "b"
+	},
+	"bk:rescue_operation": {
+		"group": "c"
+	},
+	"bk:tutorial": {},
+	"bk:fancy_hat": {},
+	"bk:unlock": {},
+	"bk:shielded": {},
+	"bk:boss_rush": {
+		"group": "d"
+	},
+	"bk:daily": {
+		"group": "d"
+	},
+	"bk:desert_shortcut": {
+		"group": "a"
+	},
+	"bk:jungle_shortcut": {
+		"group": "a"
+	},
+	"bk:ice_shortcut": {
+		"group": "a"
+	},
+	"bk:library_shortcut": {
+		"group": "a"
+	},
+	"bk:fashion_matters": {
+		"max": 29
+	},
+	"bk:ice_boss": {
+		"group": "d"
+	},
+	"bk:bk_no_more": {
+		"group": "d"
+	},
+	"bk:dm_no_more": {
+		"secret": true
+	},
+	"bk:loop": {},
+	"bk:star": {
+		"unlock": "bk:star"
+	},
+	"bk:family": {},
+	"bk:return_to_sender": {
+		"group": "d"
+	},
+	"bk:van_no_gogh": {},
+	"bk:dark_market": {},
+	"bk:spikes": {
+		"unlock": "bk:iron_boots"
+	},
+	"bk:white_flag": {},
+	"bk:mimic": {
+		"unlock": "bk:mimic_totem",
+		"secret": true
+	},
+	"bk:maanex": {
+		"secret": true
+	},
+	"bk:collector": {},
+	"bk:unstoppable": {}
+}
