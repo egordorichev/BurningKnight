@@ -82,7 +82,9 @@ namespace BurningKnight.level.rooms.special {
 		}
 
 		public override void Paint(Level level) {
-			if (LevelSave.BiomeGenerated is IceBiome) {
+			var ice = LevelSave.BiomeGenerated is IceBiome;
+		
+			if (ice) {
 				var clip = Painter.Clip;
 				Painter.Clip = null;
 				Painter.Rect(level, this, 0, Tile.WallB);
@@ -107,7 +109,7 @@ namespace BurningKnight.level.rooms.special {
 				var w = (int) (GetWidth() / 2f + Rnd.Int(-1, 1));
 				var door = new Dot(Left + w, Rnd.Int(Top + 2, Bottom - 2));
 				
-				Painter.DrawLine(level, new Dot(Left + w, Top), new Dot(Left + w, Bottom), Tile.WallA);
+				Painter.DrawLine(level, new Dot(Left + w, Top), new Dot(Left + w, Bottom), ice ? Tile.WallB : Tile.WallA);
 				Painter.Set(level, door, fl);
 				
 				npc.Center = new Dot(Left + w + (d.X == Left ? 2 : -2), Rnd.Int(Top + 2, Bottom - 3)) * 16 + new Vector2(8);
