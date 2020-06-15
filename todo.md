@@ -1,4 +1,3 @@
-* axe doesnt break snow
 * invis items back
 * also today when i got to the bk, it glitched out and he went back to not fighting me and he started following me again, and then when i exited and re-entered the run his first stage was destroyed
 * make enemies in the room invincible while the player is not inside

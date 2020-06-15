@@ -33,19 +33,25 @@ namespace BurningKnight.level {
 			y += 8;
 			var a = Check((int) (x / 16), (int) (y / 16));
 			
-			a = Check((int) (x / 16 - 0.5f), (int) (y / 16)) || a;
-			a = Check((int) (x / 16 + 0.5f), (int) (y / 16)) || a;
-			a = Check((int) (x / 16), (int) (y / 16 - 0.5f)) || a;
-			a = Check((int) (x / 16), (int) (y / 16 + 0.5f)) || a;
+			a = a || Check((int) (x / 16 - 0.5f), (int) (y / 16));
+			a = a || Check((int) (x / 16 + 0.5f), (int) (y / 16));
+			a = a || Check((int) (x / 16), (int) (y / 16 - 0.5f));
+			a = a || Check((int) (x / 16), (int) (y / 16 + 0.5f));
+			a = a || Check((int) (x / 16 - 0.5f), (int) (y / 16 + 0.5f));
+			a = a || Check((int) (x / 16 + 0.5f), (int) (y / 16 + 0.5f));
+			a = a || Check((int) (x / 16 - 0.5f), (int) (y / 16 - 0.5f));
+			a = a || Check((int) (x / 16 + 0.5f), (int) (y / 16 - 0.5f));
 
 			return a;
 		}
 
 		private bool Check(int x, int y) {
-			if (Level.Get(x, y) == Tile.WallA) {
+			var t = Level.Get(x, y);
+		
+			if (t == Tile.WallA || t == Tile.Transition) {
 				Level.Set(x, y, Tile.Ice);
 				Level.UpdateTile(x, y);
-				Level.ReCreateBodyChunk(x, y);
+				Level.ReTileAndCreateBodyChunks(x, y, 2, 2);
 				
 				Level.Area.Add(new TileFx {
 					X = x * 16,
