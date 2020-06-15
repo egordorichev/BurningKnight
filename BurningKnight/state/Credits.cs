@@ -65,6 +65,16 @@ namespace BurningKnight.state {
 			});
 
 			Add(new[] {
+				"Pavel Hartunov",
+				"Russian Translation Tweaks"
+			});
+
+			Add(new[] {
+				"Kirill Erokhin",
+				"Russian Translation Tweaks"
+			});
+
+			Add(new[] {
 				"Cubey",
 				"Polish Translation"
 			});

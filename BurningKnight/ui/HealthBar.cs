@@ -7,6 +7,7 @@ using BurningKnight.assets.particle.renderer;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.mob.boss;
 using Lens;
+using Lens.assets;
 using Lens.entity;
 using Lens.graphics;
 using Lens.util.tween;
@@ -31,9 +32,14 @@ namespace BurningKnight.ui {
 		
 		private Boss entity;
 		private List<float> phases = new List<float>();
+
+		private string name;
+		private float nameW;
 		
 		public HealthBar(Boss owner) {
 			entity = owner;
+			name = Locale.Get(owner.GetId());
+			nameW = Font.Small.MeasureString(name).Width;
 		}
 
 		public void AddPhase(float percent) {
@@ -102,7 +108,7 @@ namespace BurningKnight.ui {
 			tweened = true;
 
 			if (showedUp) {
-				Tween.To(-Height, Y, x => Y = x, 0.3f).OnEnd = () => {
+				Tween.To(-Height - 14, Y, x => Y = x, 0.3f).OnEnd = () => {
 					tweened = false;
 				};
 			}
@@ -147,10 +153,11 @@ namespace BurningKnight.ui {
 			region.Source.Width = (int) Math.Ceiling(lastHp / health.MaxHealth * w);
 			Graphics.Render(region, Position + barOffset);
 			
-			
 			foreach (var p in phases) {
 				Graphics.Render(health.Health / health.MaxHealth >= p ? phase : phaseB, Position + barOffset + new Vector2(p * (w - 1), 0));
 			}
+
+			Graphics.Print(name, Font.Small, new Vector2(CenterX - nameW * 0.5f, Bottom - 3));
 		}
 	}
 }

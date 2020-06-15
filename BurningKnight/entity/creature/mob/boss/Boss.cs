@@ -244,7 +244,13 @@ namespace BurningKnight.entity.creature.mob.boss {
 				HealthBar = new HealthBar(this);
 				Engine.Instance.State.Ui.Add(HealthBar);
 				AddPhases();
+				
+				Engine.Instance.State.Ui.Add(new UiBanner(Locale.Get(GetId())));
 			}
+		}
+		
+		public string GetId() {
+			return $"boss_{(this is BkHead ? "burningknight" : GetType().Name.ToLower())}";
 		}
 
 		private struct DoorTile {
