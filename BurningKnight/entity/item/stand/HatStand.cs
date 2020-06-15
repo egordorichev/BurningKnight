@@ -41,7 +41,7 @@ namespace BurningKnight.entity.item.stand {
 			}
 
 			Log.Info($"Fashion matters progress: {progress}/{total}");
-			Achievements.SetProgress("bk:fashion_matters", progress, total);
+			Achievements.SetProgress("bk:fashion_matters2", progress, total);
 		}
 	}
 }

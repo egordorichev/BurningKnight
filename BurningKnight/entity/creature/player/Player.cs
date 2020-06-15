@@ -13,6 +13,7 @@ using BurningKnight.entity.bomb;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.bk;
 using BurningKnight.entity.creature.mob;
+using BurningKnight.entity.creature.npc;
 using BurningKnight.entity.door;
 using BurningKnight.entity.events;
 using BurningKnight.entity.fx;
@@ -354,6 +355,12 @@ namespace BurningKnight.entity.creature.player {
 			if (!set && t >= 0.3f) {
 				set = true;
 				GetComponent<RoomComponent>().Room?.Discover();
+
+				if (Run.Depth == 0) {
+					CageLock.CheckProgress();
+					HatStand.CheckHats();
+					Builder.CheckShortcutUnlocks();
+				}
 			}
 		}
 
