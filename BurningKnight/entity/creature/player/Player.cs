@@ -13,6 +13,7 @@ using BurningKnight.entity.bomb;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.bk;
 using BurningKnight.entity.creature.mob;
+using BurningKnight.entity.creature.npc;
 using BurningKnight.entity.door;
 using BurningKnight.entity.events;
 using BurningKnight.entity.fx;
@@ -316,8 +317,20 @@ namespace BurningKnight.entity.creature.player {
 					return true;
 				}
 			}
+			
+			
+			foreach (var r in Area.Tagged[Tags.Room]) {
+				var rm = (Room) r;
+
+				Log.Debug("Teleported to random room");
+				Center = new Vector2(rm.CenterX, rm.Bottom - 1.4f * 16);
+				rm.Discover();
+
+				return true;
+			}
 
 			Log.Error("Failed to teleport!");
+			AnimationUtil.Poof(Center, 20);
 			return false;
 		}
 		
@@ -339,9 +352,15 @@ namespace BurningKnight.entity.creature.player {
 
 			t += dt;
 
-			if (!set && t >= 0.5f) {
+			if (!set && t >= 0.3f) {
 				set = true;
 				GetComponent<RoomComponent>().Room?.Discover();
+
+				if (Run.Depth == 0) {
+					CageLock.CheckProgress();
+					HatStand.CheckHats();
+					Builder.CheckShortcutUnlocks();
+				}
 			}
 		}
 

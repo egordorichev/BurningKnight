@@ -202,6 +202,7 @@ namespace BurningKnight.entity.projectile {
 				CollisionFilterComponent.Add(p, (entity, with) => ((with is Creature && with != p.Owner) || ((Projectile) entity).BounceLeft == 0) ? CollisionResult.Disable : CollisionResult.Default);
 
 				p.Range = 5;
+				p.PreventSpectralBreak = true;
 
 				p.OnCollision = (projectile, e) => {
 					if (Run.Level.Biome is IceBiome && e is ProjectileLevelBody lvl) {

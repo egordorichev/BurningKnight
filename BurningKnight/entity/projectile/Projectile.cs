@@ -88,6 +88,7 @@ namespace BurningKnight.entity.projectile {
 		public bool IgnoreCollisions;
 		public bool ManualRotation;
 		public bool HurtsEveryone;
+		public bool PreventSpectralBreak;
 		public List<Entity> EntitiesHurt = new List<Entity>();
 
 		public bool NearingDeath => T >= Range - 0.9f && (Range - T) % 0.6f >= 0.3f;
@@ -233,7 +234,7 @@ namespace BurningKnight.entity.projectile {
 				return;
 			}
 
-			if ((Range > -1 && T >= Range) || (!BreaksFromWalls && Spectral && !OnScreen)) {
+			if ((Range > -1 && T >= Range) || (!BreaksFromWalls && Spectral && !OnScreen && !PreventSpectralBreak)) {
 				AnimateDeath(null, true);
 				return;
 			}

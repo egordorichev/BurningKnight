@@ -284,11 +284,6 @@ namespace BurningKnight.state {
 			
 			Run.Level.Prepare();
 
-			if (Run.Depth == 0) {
-				HatStand.CheckHats();
-				Builder.CheckShortcutUnlocks();
-			}
-
 			if (Run.Depth < 1) {
 				Scourge.Clear();
 			}

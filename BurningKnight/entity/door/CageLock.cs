@@ -41,16 +41,26 @@ namespace BurningKnight.entity.door {
 			}
 			
 			Audio.PlaySfx("item_cage_key_used");
+			CheckProgress();
+		}
 
+		public static void CheckProgress() {
 			var progress = 0;
+			var total = 0;
 			
 			foreach (var id in ShopNpc.AllNpc) {
+				if (id == ShopNpc.TrashGoblin) {
+					continue;
+				}
+				
+				total++;
+				
 				if (GlobalSave.IsTrue(id)) {
 					progress++;
 				}
 			}
 			
-			Achievements.SetProgress("bk:npc_party", progress, 13);
+			Achievements.SetProgress("bk:npc_party2", progress, total);
 		}
 
 		protected override bool TryToConsumeKey(Entity entity) {

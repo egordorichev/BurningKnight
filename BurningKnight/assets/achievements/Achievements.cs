@@ -97,6 +97,10 @@ namespace BurningKnight.assets.achievements {
 		}
 
 		public static void SetProgress(string id, int progress, int max = -1) {
+			if (progress == 0) {
+				return;
+			}
+			
 			var a = Get(id);
 
 			if (a == null) {
@@ -109,20 +113,30 @@ namespace BurningKnight.assets.achievements {
 			}
 
 			if (max == -1) {
+				Log.Info($"Reading max as {a.Max} for {id}");
 				max = a.Max;
 			}
-			
+
+			if (max == 0) {
+				Log.Error($"Max for {id} is 0");
+				return;
+			}
+
 			if (progress >= max) {
+				Log.Info($"Progress {progress} is >= than {max} for {id}");
 				ReallyUnlock(id, a);
 				return;
 			}
 
-			if (GlobalSave.GetInt($"ach_{a.Id}") >= progress) {
+			var idt = $"ach_{a.Id}";
+			var s = progress == GlobalSave.GetInt(idt);
+
+			GlobalSave.Put(idt, progress);
+
+			if (s) {
 				return;
 			}
 			
-			GlobalSave.Put($"ach_{a.Id}", progress);
-
 			try {
 				ProgressSetCallback?.Invoke(id, progress, max);
 			} catch (Exception e) {

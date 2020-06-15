@@ -252,7 +252,9 @@ namespace BurningKnight.state {
 				tipLabel.FinishTyping();
 				tipLabel.Center = new Vector2(-150, Display.UiHeight - 55);
 
-				Tween.To(Display.UiWidth / 2f, tipLabel.CenterX, x => tipLabel.CenterX = x, 0.8f, Ease.QuadIn).OnEnd = () => exitTweenDone = true;
+				var t = Tween.To(Display.UiWidth / 2f, tipLabel.CenterX, x => tipLabel.CenterX = x, 0.8f, Ease.QuadIn);
+				t.OnEnd = () => exitTweenDone = true;
+				t.Delay = 3;
 			};
 		}
 

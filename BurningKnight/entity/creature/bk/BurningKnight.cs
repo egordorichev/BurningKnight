@@ -220,7 +220,7 @@ namespace BurningKnight.entity.creature.bk {
 					}
 				}
 			} else if (e is ItemTakenEvent ite) {
-				if (ite.Stand is SingleChoiceStand && ite.Who is Player) {
+				if (!InFight && ite.Stand is SingleChoiceStand && ite.Who is Player) {
 					GetComponent<DialogComponent>().StartAndClose("bk_1", 5);
 					var state = GetComponent<StateComponent>();
 
@@ -233,7 +233,7 @@ namespace BurningKnight.entity.creature.bk {
 					}
 				}
 			} else if (e is Dialog.EndedEvent dse) {
-				if (dse.Owner is ShopKeeper && dse.Dialog.Id == "shopkeeper_18") {
+				if (!InFight && dse.Owner is ShopKeeper && dse.Dialog.Id == "shopkeeper_18") {
 					// What a joke
 					Timer.Add(() => { GetComponent<DialogComponent>().StartAndClose("bk_4", 5); }, 1);
 				}
@@ -260,12 +260,14 @@ namespace BurningKnight.entity.creature.bk {
 				// OH COMON, STOP EXPLODING MY CASTLE!
 				GetComponent<DialogComponent>().StartAndClose("bk_8", 5);
 			} else if (e is NewLevelStartedEvent) {
-				CheckForScourgeRage();
-				var state = GetComponent<StateComponent>().StateInstance;
-				
-				if (raging && !(state is AttackState || state is ChaseState || state is FlyAwayAttackingState)) {
-					raging = false;
-					sayNoRage = true;
+				if (!InFight) {
+					CheckForScourgeRage();
+					var state = GetComponent<StateComponent>().StateInstance;
+
+					if (raging && !(state is AttackState || state is ChaseState || state is FlyAwayAttackingState)) {
+						raging = false;
+						sayNoRage = true;
+					}
 				}
 			}
 
@@ -342,6 +344,10 @@ namespace BurningKnight.entity.creature.bk {
 		public bool ForcedRage;
 
 		public void CheckForScourgeRage() {
+			if (InFight) {
+				return;
+			}
+			
 			var s = GetComponent<StateComponent>().StateInstance;
 
 			if (s is ChaseState || s is AttackState || s is HiddenState) {
@@ -354,6 +360,10 @@ namespace BurningKnight.entity.creature.bk {
 		}
 
 		private void CheckForScourgeRageFree() {
+			if (InFight) {
+				return;
+			}
+			
 			if (Target == null) {
 				Become<IdleState>();
 			}
