@@ -45,7 +45,7 @@ namespace BurningKnight.ui.dialog {
 		public override void Init() {
 			base.Init();
 			
-			Engine.Instance.Window.TextInput += HandleInput;
+			// Engine.Instance.Window.TextInput += HandleInput;
 
 			Dialog = new UiDialog();
 			Dialog.Owner = Entity;
@@ -90,7 +90,7 @@ namespace BurningKnight.ui.dialog {
 			base.Destroy();
 			
 			Dialog.Close(() => { Dialog.Done = true; });
-			Engine.Instance.Window.TextInput -= HandleInput;
+			// Engine.Instance.Window.TextInput -= HandleInput;
 
 			if (Talking == this) {
 				Talking = null;

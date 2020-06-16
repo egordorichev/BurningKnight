@@ -4,6 +4,7 @@ using System.IO;
 using System.Windows.Forms;
 using Desktop.integration.crash;
 using Lens.util;
+using Microsoft.Xna.Framework.Audio;
 
 namespace Desktop {
 	public class Program {
@@ -48,6 +49,12 @@ namespace Desktop {
 			
 			TryToRemove("burning_log.txt");
 			TryToRemove("crashes.txt");
+
+			try {
+				SoundEffect.Initialize();
+			} catch (Exception e) {
+				Console.WriteLine($"Failed: {e}");
+			}
 
 			using (var game = new DesktopApp()) {
 				game.Run();

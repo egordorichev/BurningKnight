@@ -20,13 +20,13 @@ namespace BurningKnight.ui {
 			AlwaysActive = true;
 			AlwaysVisible = true;
 			Depth = 32;
-			
-			Engine.Instance.Window.TextInput += HandleInput;
+
+			// Engine.Instance.Window.TextInput += HandleInput;
 		}
 
 		public override void Destroy() {
 			base.Destroy();
-			Engine.Instance.Window.TextInput -= HandleInput;
+			// Engine.Instance.Window.TextInput -= HandleInput;
 		}
 		
 		public void HandleInput(object e, TextInputEventArgs args) {

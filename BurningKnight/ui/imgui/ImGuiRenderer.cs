@@ -165,12 +165,12 @@ namespace BurningKnight.ui.imgui {
             _keys.Add(io.KeyMap[(int)ImGuiKey.Z] = (int)Keys.Z);
 
             // MonoGame-specific //////////////////////
-            _game.Window.TextInput += (s, a) =>
+            /*_game.Window.TextInput += (s, a) =>
             {
                 if (a.Character == '\t') return;
 
                 io.AddInputCharacter(a.Character);
-            };
+            };*/
             ///////////////////////////////////////////
 
             // FNA-specific ///////////////////////////
