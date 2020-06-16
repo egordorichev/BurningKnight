@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <SourceFile>C:/Users/egord/Lens/BurningKnight/Content/Shaders/fog.fx</SourceFile>
-  <SourceTime>2019-11-13T15:21:04.4829462+03:00</SourceTime>
+  <SourceTime>2020-06-16T10:40:18.1863507+03:00</SourceTime>
   <DestFile>C:/Users/egord/Lens/BurningKnight/Content/bin/Shaders/fog.xnb</DestFile>
-  <DestTime>2020-06-08T09:38:26.9601711+03:00</DestTime>
+  <DestTime>2020-06-16T11:45:02.1012338+03:00</DestTime>
   <Importer>EffectImporter</Importer>
   <ImporterTime>2018-09-24T00:55:52+03:00</ImporterTime>
   <Processor>EffectProcessor</Processor>

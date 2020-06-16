@@ -250,7 +250,6 @@ namespace Desktop.integration.twitch {
 			
 			player.GetComponent<DialogComponent>().StartAndClose($"[cl purple]{name}[cl]", 3);
 			
-
 			last = player;
 			happeningRn = opt;
 			voteDelay = opt.Happening.GetVoteDelay();
