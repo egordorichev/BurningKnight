@@ -361,6 +361,7 @@ namespace BurningKnight.entity.creature.player {
 					Builder.CheckShortcutUnlocks();
 
 					if (Assets.FailedToLoadAudio) {
+						Assets.FailedToLoadAudio = false;
 						((InGameState) Engine.Instance.State).TopUi.Add(new UiError("Audio Failed",	"Failed to init audio device"));
 					}
 				}

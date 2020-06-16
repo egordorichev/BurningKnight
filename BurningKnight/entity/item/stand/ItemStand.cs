@@ -206,7 +206,7 @@ namespace BurningKnight.entity.item.stand {
 		}
 
 		protected virtual bool CanInteract(Entity e) {
-			return !Hidden && (Item != null || (Run.Depth != -2 && e.TryGetComponent<ActiveWeaponComponent>(out var w) && w.Item != null));
+			return !Hidden && (Item != null || Run.Depth != -2);
 		}
 
 		public override void Render() {
