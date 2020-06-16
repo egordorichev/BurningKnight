@@ -320,9 +320,14 @@ namespace BurningKnight.state {
 			Item.Attact = false;
 
 			if (rainSound != null) {
-				var ss = rainSound;
-				rainSound = null;
-				Tween.To(0, ss.Volume, x => ss.Volume = x, 0.5f);
+				if (Engine.Quiting) {
+					rainSound.Dispose();
+					rainSound = null;
+				} else {
+					var ss = rainSound;
+					rainSound = null;
+					Tween.To(0, ss.Volume, x => ss.Volume = x, 0.5f).OnEnd = () => { ss.Dispose(); };
+				}
 			}
 			
 			TopUi.Destroy();
@@ -502,7 +507,7 @@ namespace BurningKnight.state {
 				return;
 			}
 		
-			if (Weather.Rains) {
+			if (Weather.Rains && Assets.LoadSfx) {
 				var s = Audio.GetSfx("level_rain_jungle");
 
 				if (s != null) {

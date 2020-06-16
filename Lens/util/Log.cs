@@ -45,10 +45,9 @@ namespace Lens.util {
 				var prev = stackTrace.GetFrame(3);
 
 #if DEBUG
-				var text =
-					$"{DateTime.Now:h:mm:ss} {Path.GetFileName(frame.GetFileName())}:{frame.GetMethod().Name}():{frame.GetFileLineNumber()} <= {Path.GetFileName(prev.GetFileName())}:{prev.GetMethod().Name}():{prev.GetFileLineNumber()} ";
+				var text = prev == null ? $"{DateTime.Now:h:mm:ss} {Path.GetFileName(frame.GetFileName())}:{frame.GetMethod().Name}():{frame.GetFileLineNumber()}" : $"{DateTime.Now:h:mm:ss} {Path.GetFileName(frame.GetFileName())}:{frame.GetMethod().Name}():{frame.GetFileLineNumber()} <= {Path.GetFileName(prev.GetFileName())}:{prev.GetMethod().Name}():{prev.GetFileLineNumber()} ";
 #else
-				var text = $"{DateTime.Now:h:mm:ss} {frame.GetMethod().Name}() <= {prev.GetMethod().Name}() ";
+				var text = prev == null ?  $"{DateTime.Now:h:mm:ss} {frame.GetMethod().Name}()" :  $"{DateTime.Now:h:mm:ss} {frame.GetMethod().Name}() <= {prev.GetMethod().Name}() ";
 #endif
 
 				writer?.Write($"{type} {text}");

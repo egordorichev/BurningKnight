@@ -52,12 +52,17 @@ namespace Desktop {
 
 			try {
 				SoundEffect.Initialize();
+				Console.WriteLine("SoundEffect.Initialize() went ok");
 			} catch (Exception e) {
 				Console.WriteLine($"Failed: {e}");
 			}
 
-			using (var game = new DesktopApp()) {
-				game.Run();
+			try {
+				using (var game = new DesktopApp()) {
+					game.Run();
+				}
+			} catch (Exception e) {
+				CrashReporter.Report(e);
 			}
 		}
 	}

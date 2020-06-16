@@ -8,8 +8,6 @@ using Lens.graphics;
 using Lens.util.math;
 using Lens.util.tween;
 using Microsoft.Xna.Framework;
-using SharpDX.Direct2D1.Effects;
-using VelcroPhysics.Dynamics.Solver;
 using Tile = BurningKnight.level.tile.Tile;
 
 namespace BurningKnight.assets.particle.custom {

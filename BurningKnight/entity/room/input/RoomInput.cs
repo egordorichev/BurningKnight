@@ -2,9 +2,6 @@ using BurningKnight.entity.component;
 using BurningKnight.save;
 using BurningKnight.ui.editor;
 using Lens.entity;
-using Lens.graphics;
-using SharpDX.DirectWrite;
-using Font = BurningKnight.assets.Font;
 
 namespace BurningKnight.entity.room.input {
 	public class RoomInput : SaveableEntity, PlaceableEntity {

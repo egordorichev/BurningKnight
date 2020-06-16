@@ -71,8 +71,8 @@
       <HintPath>..\packages\MonoGame.Extended.Tiled.3.7.0\lib\netstandard2.0\MonoGame.Extended.Tiled.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="MonoGame.Framework, Version=3.7.0.1708, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\packages\MonoGame.Framework.DesktopGL.3.7.0.1708\lib\net45\MonoGame.Framework.dll</HintPath>
+    <Reference Include="MonoGame.Framework, Version=3.8.0.13, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\packages\MonoGame.Framework.DesktopGL.Core.3.8.0.13\lib\net452\MonoGame.Framework.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="MonoGame.Framework.Content.Pipeline, Version=3.7.0.1708, Culture=neutral, PublicKeyToken=null">
@@ -1508,7 +1508,9 @@
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105.The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\ImGui.NET.1.70.0\build\net40\ImGui.NET.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\ImGui.NET.1.70.0\build\net40\ImGui.NET.targets'))" />
+    <Error Condition="!Exists('..\packages\MonoGame.Framework.DesktopGL.Core.3.8.0.13\build\MonoGame.Framework.DesktopGL.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MonoGame.Framework.DesktopGL.Core.3.8.0.13\build\MonoGame.Framework.DesktopGL.Core.targets'))" />
   </Target>
+  <Import Project="..\packages\MonoGame.Framework.DesktopGL.Core.3.8.0.13\build\MonoGame.Framework.DesktopGL.Core.targets" Condition="Exists('..\packages\MonoGame.Framework.DesktopGL.Core.3.8.0.13\build\MonoGame.Framework.DesktopGL.Core.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
          Other similar extension points exist, see Microsoft.Common.targets.
     <Target Name="BeforeBuild">

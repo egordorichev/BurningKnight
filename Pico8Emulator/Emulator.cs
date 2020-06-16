@@ -50,6 +50,8 @@ namespace Pico8Emulator {
 			foreach (var unit in units) {
 				unit.Destroy();
 			}
+
+			Audio.Destroy();
 		}
 
 		public void Update30() {

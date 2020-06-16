@@ -43,6 +43,7 @@ namespace BurningKnight.entity.component {
 		public void StopAll() {
 			foreach (var s in Playing.Values) {
 				s.Effect.Stop();
+				s.Effect.Dispose();
 			}
 
 			Playing.Clear();

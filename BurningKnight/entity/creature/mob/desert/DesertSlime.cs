@@ -4,7 +4,6 @@ using BurningKnight.entity.creature.mob.prefabs;
 using BurningKnight.entity.projectile;
 using Lens.graphics;
 using Lens.util;
-using SharpDX;
 using Color = Microsoft.Xna.Framework.Color;
 
 namespace BurningKnight.entity.creature.mob.desert {

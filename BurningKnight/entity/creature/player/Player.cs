@@ -46,7 +46,6 @@ using Lens.util.math;
 using Lens.util.timer;
 using Lens.util.tween;
 using Microsoft.Xna.Framework;
-using SharpDX.Direct2D1;
 using VelcroPhysics.Dynamics;
 
 namespace BurningKnight.entity.creature.player {

@@ -46,8 +46,8 @@ namespace Lens.assets {
 				
 				Log.Info($"Sample rate is {sampleRate}, channels {channels}");
 				
-				var channelSize = sampleRate * reader.TotalTime.TotalSeconds;
-				var bufferSize = (int) Math.Ceiling(channels * channelSize);
+				var channelSize = (int) Math.Ceiling(sampleRate * reader.TotalTime.TotalSeconds);
+				var bufferSize = channels * channelSize;
 				
 				buffer = new float[bufferSize];
 				reader.Read(buffer, 0, bufferSize);
@@ -56,6 +56,7 @@ namespace Lens.assets {
 				if (Audio.SoundEffectInstance == null) {
 					Audio.SoundEffectInstance = new DynamicSoundEffectInstance(sampleRate, AudioChannels.Stereo);
 					Audio.SoundEffectInstance.BufferNeeded += Audio.SubmitBuffer;
+					GC.SuppressFinalize(Audio.SoundEffectInstance);
 					Audio.SoundEffectInstance.Play();
 				}
 			}
