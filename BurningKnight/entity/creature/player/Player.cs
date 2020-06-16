@@ -359,6 +359,10 @@ namespace BurningKnight.entity.creature.player {
 					CageLock.CheckProgress();
 					HatStand.CheckHats();
 					Builder.CheckShortcutUnlocks();
+
+					if (Assets.FailedToLoadAudio) {
+						((InGameState) Engine.Instance.State).TopUi.Add(new UiError("Audio Failed",	"Failed to init audio device"));
+					}
 				}
 			}
 		}

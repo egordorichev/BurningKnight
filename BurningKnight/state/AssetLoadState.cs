@@ -72,10 +72,21 @@ namespace BurningKnight.state {
 				LoadSection(() => SaveManager.Load(gameArea, SaveType.Global), "Global saves");
 				
 				checkFullscreen = true;
-				
-				LoadSection(() => Audio.ThreadLoad("Void"), "Audio");
+
+				if (Assets.LoadMusic) {
+					LoadSection(() => Audio.ThreadLoad("Void"), "Audio");
+				} else {
+					progress++;
+				}
+
 				LoadSection(() => Assets.Load(ref progress), "Assets");
-				LoadSection(() => Audio.ThreadLoad("Menu", false), "More audio");
+
+				if (Assets.LoadMusic) {
+					LoadSection(() => Audio.ThreadLoad("Menu", false), "More audio");
+				} else {
+					progress++;
+				}
+
 				LoadSection(Dialogs.Load, "Dialogs");
 
 				CommonAse.Load();

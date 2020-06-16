@@ -1,9 +1,8 @@
 using System;
 using System.Diagnostics;
 using System.IO;
-using System.Windows.Forms;
 using Desktop.integration.crash;
-using Lens.util;
+using Lens.assets;
 using Microsoft.Xna.Framework.Audio;
 
 namespace Desktop {
@@ -54,9 +53,14 @@ namespace Desktop {
 				SoundEffect.Initialize();
 				Console.WriteLine("SoundEffect.Initialize() went ok");
 			} catch (Exception e) {
+				Assets.FailedToLoadAudio = true;
+				Assets.LoadSfx = false;
+				Assets.LoadMusic = false;
+				
 				Console.WriteLine($"Failed: {e}");
 			}
 
+			
 			try {
 				using (var game = new DesktopApp()) {
 					game.Run();
