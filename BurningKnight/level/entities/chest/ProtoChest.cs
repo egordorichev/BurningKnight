@@ -30,7 +30,7 @@ namespace BurningKnight.level.entities.chest {
 			
 			var i = GetComponent<InteractableComponent>();
 			
-			i.CanInteract = e => e.GetComponent<ActiveWeaponComponent>().Item != null;
+			i.CanInteract = e => e.GetComponent<ActiveWeaponComponent>().Item != null && !e.GetComponent<ActiveWeaponComponent>().Item.Scourged;
 			i.OnStart = e => AddFx();
 			
 			try {
