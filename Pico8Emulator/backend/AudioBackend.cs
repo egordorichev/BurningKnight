@@ -3,5 +3,9 @@ namespace Pico8Emulator.backend {
 		public Emulator Emulator;
 
 		public abstract void Update();
+
+		public virtual void Destroy() {
+			
+		}
 	}
 }

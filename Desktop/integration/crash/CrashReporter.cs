@@ -5,6 +5,7 @@ using System.Text;
 using System.Windows.Forms;
 using Lens;
 using Lens.util;
+using Microsoft.Xna.Framework.Audio;
 
 namespace Desktop.integration.crash {
 	public class CrashReporter {
@@ -14,6 +15,15 @@ namespace Desktop.integration.crash {
 
 		private static void ExceptionHandler(object sender, UnhandledExceptionEventArgs args) {
 			var e = (Exception) args.ExceptionObject;
+			Report(e);
+		}
+
+		public static void Report(Exception e) {
+			if (e is NoAudioHardwareException) {
+				Log.Error("Stupid monogame no audio hardware exception");
+				return;
+			}
+			
 			var builder = new StringBuilder();
 			
 			builder.AppendLine("--- Burning Knight has crashed :( ---");

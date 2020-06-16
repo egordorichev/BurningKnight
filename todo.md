@@ -1,3 +1,11 @@
+* make enemies in the room invincible while the player is not inside
+* game doesnt save contantly? why does progress reset after crashes? (it looks like just the hub doesnt save)
+* reroll machine hitbox too small
+* explosions still can destroy axes (give it a 5 second cooldown till it spawns you a new one or smth)
+
+* snow body still issue with bullets?
+* if you rapidly teleport away with duck ring i think you can get stuck invincible
+
 * bk still can become idle
 * bomb shell makes hp diplay wrong
 * items in chasms should dissappear
@@ -5,7 +13,6 @@
 * I was on the final boss and i noticed the boss door was unlocked deering the fight so i walked through it and this happened
 
 * invis items back
-* make enemies in the room invincible while the player is not inside
 
 * still can get not teleported to entrance (no entrance or smth?)
 * pharaoh can tp near door and get all projectiles destroyed

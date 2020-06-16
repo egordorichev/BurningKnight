@@ -17,7 +17,6 @@ using Lens.util.file;
 using Lens.util.math;
 using Lens.util.timer;
 using Microsoft.Xna.Framework;
-using SharpDX.Direct3D11;
 using VelcroPhysics.Dynamics;
 
 namespace BurningKnight.entity.creature.mob.prefabs {

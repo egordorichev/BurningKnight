@@ -7,10 +7,12 @@ namespace BurningKnight.util {
     }
 
     private static readonly string[] jokes = {
-      "Maanex holds the secret to looping",
-      "Redkey is the key",
+      "[cl yellow]Maanex[cl] holds the secret to looping",
+      "[cl red]Redkey[cl] is the key",
       "Crosses on the walls mean something...",
       "Press R for a surprise!",
+      "Not all paintings are useless",
+      "Aiming at enemies helps to hit them"
     };
   }
 }

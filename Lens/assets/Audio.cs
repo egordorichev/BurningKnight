@@ -24,7 +24,6 @@ namespace Lens.assets {
 
 		private static Music currentPlaying;
 		private static string currentPlayingMusic;
-		private static Dictionary<string, SoundEffectInstance> soundInstances = new Dictionary<string, SoundEffectInstance>();
 		private static Dictionary<string, Music> musicInstances = new Dictionary<string, Music>();
 		private static Dictionary<string, SoundEffect> sounds = new Dictionary<string, SoundEffect>();
 
@@ -66,6 +65,17 @@ namespace Lens.assets {
 		internal static void Destroy() {
 			foreach (var sound in sounds.Values) {
 				sound.Dispose();
+				GC.SuppressFinalize(sound);
+			}
+
+			if (SoundEffectInstance != null) {
+				Log.Info("Disposing audio mixer");
+
+				SoundEffectInstance.Stop();
+				SoundEffectInstance.Dispose();
+				GC.SuppressFinalize(SoundEffectInstance);
+				
+				SoundEffectInstance = null;
 			}
 
 			quit = true;
@@ -171,6 +181,7 @@ namespace Lens.assets {
 
 				loading = false;
 			} catch (Exception e) {
+				Log.Error($"Failed to load {music}");
 				Log.Error(e);
 				loading = false;
 			}
@@ -269,6 +280,10 @@ namespace Lens.assets {
 		}
 
 		public static void SubmitBuffer(object o, EventArgs e) {
+			if (SoundEffectInstance == null) {
+				return;
+			}
+			
 			try {
 				while (SoundEffectInstance.PendingBufferCount < 3) {
 					for (var i = 0; i < BufferSize; i++) {

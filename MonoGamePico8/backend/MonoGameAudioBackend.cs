@@ -9,9 +9,15 @@ namespace MonoGamePico8.backend {
 		
 		public MonoGameAudioBackend() {
 			soundInstance = new DynamicSoundEffectInstance(AudioUnit.SampleRate, AudioChannels.Mono);
+			GC.SuppressFinalize(soundInstance);
 			soundInstance.Play();
 		}
-		
+
+		public override void Destroy() {
+			base.Destroy();
+			soundInstance.Dispose();
+		}
+
 		public override void Update() {
 			while (soundInstance.PendingBufferCount < 3) {
 				var p8Buffer = Emulator.Audio.RequestBuffer();

@@ -107,6 +107,7 @@ namespace BurningKnight.level {
 			base.Destroy();
 
 			rainSound?.Stop();
+			rainSound?.Dispose();
 
 			if (Chasm != null) {
 				HalfProjectile.Done = true;
@@ -216,25 +217,28 @@ namespace BurningKnight.level {
 						Run.Level.Area.Add(new RainParticle());
 					}
 
-					var sound = "level_rain_regular";
+					if (Assets.LoadSfx) {
+						var sound = "level_rain_regular";
 
-					if (Biome is IceBiome) {
-						sound = "level_rain_snow";
-					} else if (Biome is JungleBiome) {
-						sound = "level_rain_jungle";
-					}
+						if (Biome is IceBiome) {
+							sound = "level_rain_snow";
+						} else if (Biome is JungleBiome) {
+							sound = "level_rain_jungle";
+						}
 
-					var s = Audio.GetSfx(sound);
+						var s = Audio.GetSfx(sound);
 
-					if (s != null) {
-						rainSound = s.CreateInstance();
+						if (s != null) {
+							rainSound = s.CreateInstance();
 
-						if (rainSound != null) {
-							rainSound.Volume = 0;
-							rainSound.IsLooped = true;
-							rainSound.Play();
+							if (rainSound != null) {
+								rainSound.Volume = 0;
+								rainSound.IsLooped = true;
+								rainSound.Play();
 
-							Tween.To(0.5f * Settings.MusicVolume * Settings.MasterVolume, 0, x => rainSound.Volume = x, 0.5f).Delay = 3f;
+								Tween.To(0.5f * Settings.MusicVolume * Settings.MasterVolume, 0, x => rainSound.Volume = x, 0.5f)
+									.Delay = 3f;
+							}
 						}
 					}
 				}

@@ -39,7 +39,6 @@ namespace BurningKnight.level.paintings {
 			Add("moonshine", "Gaziter");
 			Add("void", "Gaziter");
 			Add("esty", "???", 0.1f);
-			
 			Add("nat", "MateCziner");
 			Add("totemori", "MateCziner");
 			Add("horatio", "MateCziner");

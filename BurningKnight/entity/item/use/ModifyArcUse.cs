@@ -12,7 +12,6 @@ using Lens.entity;
 using Lens.lightJson;
 using Lens.util;
 using Lens.util.math;
-using SharpDX.Direct2D1.Effects;
 
 namespace BurningKnight.entity.item.use {
 	public class ModifyArcUse : ItemUse {

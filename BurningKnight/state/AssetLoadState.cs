@@ -57,7 +57,7 @@ namespace BurningKnight.state {
 				Scale = 1
 			});
 
-			Ui.Add(tipLabel = new UiString(Font.Medium));
+			Ui.Add(tipLabel = new UiString(Font.Small));
 			
 			GenerateNewTip();
 			
@@ -72,10 +72,21 @@ namespace BurningKnight.state {
 				LoadSection(() => SaveManager.Load(gameArea, SaveType.Global), "Global saves");
 				
 				checkFullscreen = true;
-				
-				LoadSection(() => Audio.ThreadLoad("Void"), "Audio");
+
+				if (Assets.LoadMusic) {
+					LoadSection(() => Audio.ThreadLoad("Void"), "Audio");
+				} else {
+					progress++;
+				}
+
 				LoadSection(() => Assets.Load(ref progress), "Assets");
-				LoadSection(() => Audio.ThreadLoad("Menu", false), "More audio");
+
+				if (Assets.LoadMusic) {
+					LoadSection(() => Audio.ThreadLoad("Menu", false), "More audio");
+				} else {
+					progress++;
+				}
+
 				LoadSection(Dialogs.Load, "Dialogs");
 
 				CommonAse.Load();
@@ -134,12 +145,16 @@ namespace BurningKnight.state {
 			thread.Start();
 		}
 
+		private float tm;
+
 		public override void Update(float dt) {
 			base.Update(dt);
 
 			t += dt;
+			tm -= dt;
 
-			if (t % 4 < 0.01f) {
+			if (tm <= 0) {
+				tm = 10f;
 				GenerateNewTip();
 			}
 			
@@ -245,16 +260,15 @@ namespace BurningKnight.state {
 			exitTweenDone = false;
 
 			// TODO: Increase tip chance when more tips are added.
-			var tip = new Random().NextDouble() > 0.2 ? LoadScreenJokes.Generate() : $"Tip: {LoadScreenTips.Generate()}";
+			var tip = new Random().NextDouble() > 0.2 ? LoadScreenJokes.Generate() : LoadScreenTips.Generate();
 
-			Tween.To(Display.UiWidth + 150, tipLabel.CenterX, x => tipLabel.CenterX = x, 0.8f, Ease.QuadIn).OnEnd += () => {
+			Tween.To(Display.UiWidth + 150, tipLabel.CenterX, x => tipLabel.CenterX = x, 1.5f, Ease.QuadIn).OnEnd += () => {
 				tipLabel.Label = tip;
 				tipLabel.FinishTyping();
 				tipLabel.Center = new Vector2(-150, Display.UiHeight - 55);
 
-				var t = Tween.To(Display.UiWidth / 2f, tipLabel.CenterX, x => tipLabel.CenterX = x, 0.8f, Ease.QuadIn);
+				var t = Tween.To(Display.UiWidth / 2f, tipLabel.CenterX, x => tipLabel.CenterX = x, 1.5f, Ease.QuadOut);
 				t.OnEnd = () => exitTweenDone = true;
-				t.Delay = 3;
 			};
 		}
 

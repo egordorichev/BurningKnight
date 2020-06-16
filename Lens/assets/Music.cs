@@ -1,6 +1,7 @@
 using System;
 using Lens.util;
 using Microsoft.Xna.Framework.Audio;
+using NAudio.Vorbis;
 
 namespace Lens.assets {
 	public class Music {
@@ -39,22 +40,23 @@ namespace Lens.assets {
 		}
 
 		private void LoadMusic(string musicFile) {
-			using (var reader = new NVorbis.VorbisReader(musicFile)) {
-				channels = reader.Channels;
-				sampleRate = reader.SampleRate;
+			using (var reader = new VorbisWaveReader(musicFile)) {
+				channels = reader.WaveFormat.Channels;
+				sampleRate = reader.WaveFormat.SampleRate;
 				
 				Log.Info($"Sample rate is {sampleRate}, channels {channels}");
 				
-				var channelSize = sampleRate * reader.TotalTime.TotalSeconds;
-				var bufferSize = (int) Math.Ceiling(channels * channelSize);
+				var channelSize = (int) Math.Ceiling(sampleRate * reader.TotalTime.TotalSeconds);
+				var bufferSize = channels * channelSize;
 				
 				buffer = new float[bufferSize];
-				reader.ReadSamples(buffer, 0, bufferSize);
+				reader.Read(buffer, 0, bufferSize);
 				bufferLength = bufferSize / channels;
 				
 				if (Audio.SoundEffectInstance == null) {
 					Audio.SoundEffectInstance = new DynamicSoundEffectInstance(sampleRate, AudioChannels.Stereo);
 					Audio.SoundEffectInstance.BufferNeeded += Audio.SubmitBuffer;
+					GC.SuppressFinalize(Audio.SoundEffectInstance);
 					Audio.SoundEffectInstance.Play();
 				}
 			}

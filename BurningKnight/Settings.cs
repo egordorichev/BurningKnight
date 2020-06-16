@@ -101,8 +101,8 @@ namespace BurningKnight {
 			SpeedrunTimer = false;
 			FreezeFrames = 0.5f;
 			FlashFrames = 0.5f;
-			SfxVolume = 0.8f;
-			MusicVolume = 0.2f;
+			SfxVolume = 0.6f;
+			MusicVolume = 0.4f;
 			Audio.MasterVolume = 1f;
 			Cursor = 0;
 			RotateCursor = false;
