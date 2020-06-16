@@ -1,4 +1,3 @@
-* item stands in item shops missing again
 * make enemies in the room invincible while the player is not inside
 * game doesnt save contantly? why does progress reset after crashes? (it looks like just the hub doesnt save)
 * reroll machine hitbox too small
