@@ -446,11 +446,10 @@ namespace BurningKnight.entity.projectile {
 				Camera.Instance.ShakeMax(4);
 				
 				OnDeath?.Invoke(this, from, timeout);
+				BodyComponent.Velocity = Vector2.Zero;
 			} catch (Exception e) {
 				Log.Error(e);
 			}
-			
-			BodyComponent.Velocity = Vector2.Zero;
 		}
 
 		public virtual void AdjustScale(float newScale) {

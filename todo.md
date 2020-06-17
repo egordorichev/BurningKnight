@@ -1,7 +1,4 @@
-* projectile animateDeath NPE (from flower)
-* fix speedrun timer minutes
 * show score in pause menu
-* you can still pickup coins post 255 cap
 * ещё когда я подобрал щит, который заменят хп на щиты, то две полоски контейнеров хп заменилось на один щит
 
 * make enemies in the room invincible while the player is not inside
