@@ -1,4 +1,3 @@
-* show score in pause menu
 * ещё когда я подобрал щит, который заменят хп на щиты, то две полоски контейнеров хп заменилось на один щит
 
 * make enemies in the room invincible while the player is not inside
