@@ -235,8 +235,8 @@ namespace BurningKnight.level {
 					rooms.Add(RoomRegistry.Generate(RoomType.Connection, biome));
 				}
 
-				if (!rush && !final && Run.Type != RunType.Challenge && !loop) {
-					if (!LevelSave.GenerateShops && first) {
+				if (!rush && !final && Run.Type != RunType.Challenge) {
+					if (!loop && !LevelSave.GenerateShops && first) {
 						if (LevelSave.XL) {
 							rooms.Add(RoomRegistry.Generate(RoomType.Treasure, biome));
 						}

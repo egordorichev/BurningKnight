@@ -1,9 +1,16 @@
-* audio is missing
+* projectile animateDeath NPE (from flower)
+* fix speedrun timer minutes
+* show score in pause menu
+* dark mage hp shouldnt update with loop
+* you can still pickup coins post 255 cap
+* ещё когда я подобрал щит, который заменят хп на щиты, то две полоски контейнеров хп заменилось на один щит
+
 * make enemies in the room invincible while the player is not inside
 * game doesnt save contantly? why does progress reset after crashes? (it looks like just the hub doesnt save)
 * reroll machine hitbox too small
 * explosions still can destroy axes (give it a 5 second cooldown till it spawns you a new one or smth)
 * heal choice stand should play sfx
+* on dm deals both shields & containers get damaged
 
 * snow body still issue with bullets?
 * if you rapidly teleport away with duck ring i think you can get stuck invincible
