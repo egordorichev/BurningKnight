@@ -1,4 +1,5 @@
 using System;
+using BurningKnight.state;
 
 namespace BurningKnight.entity.item {
 	public static class PriceCalculator {
@@ -31,7 +32,7 @@ namespace BurningKnight.entity.item {
 		}
 
 		public static float GetModifier(Item item) {
-			return Math.Max(1, (Scourge.IsEnabled(Scourge.OfGreed) ? 2 : 1) * item.Data.Quality.GetPriceModifier());
+			return Math.Max(1, Math.Min(99, (Run.Loop > 0 ? 7 : 1) * (Scourge.IsEnabled(Scourge.OfGreed) ? 2 : 1) * item.Data.Quality.GetPriceModifier()));
 		}
 		
 		public static int Calculate(Item item) {

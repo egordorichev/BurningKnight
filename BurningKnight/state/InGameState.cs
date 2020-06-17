@@ -391,6 +391,10 @@ namespace BurningKnight.state {
 					seedLabel.Label = $"{Locale.Get("seed")}: {Run.Seed}";
 				}
 
+				if (scoreLabel != null) {
+					scoreLabel.Label = GetScore();
+				}
+
 				if (Settings.UiSfx) {
 					Audio.PlaySfx("ui_goback", 0.5f);
 				}
@@ -1322,7 +1326,7 @@ namespace BurningKnight.state {
 			}
 		
 			var t = Run.Statistics.Time;
-			return $"{(Math.Floor(t / 3600f) + "").PadLeft(2, '0')}:{(Math.Floor(t / 60f) + "").PadLeft(2, '0')}:{(Math.Floor(t % 60f) + "").PadLeft(2, '0')}";
+			return $"{(Math.Floor(t / 3600f) + "").PadLeft(2, '0')}:{(Math.Floor(t / 60f % 60f) + "").PadLeft(2, '0')}:{(Math.Floor(t % 60f) + "").PadLeft(2, '0')}";
 		}
 
 		private UiLabel loading;
@@ -1343,8 +1347,14 @@ namespace BurningKnight.state {
 			};
 		}
 
+		private string GetScore() {
+			Run.CalculateScore();
+			return $"{Run.Score}".PadLeft(7, '0');
+		}
+
 		public Action OnPauseCallback;
 		private UiMap map;
+		private UiLabel scoreLabel;
 		private UiLabel boardType;
 
 		private void SetupUi() {
@@ -1414,6 +1424,17 @@ namespace BurningKnight.state {
 				Clickable = false,
 				AngleMod = 0
 			});
+
+			if (Run.Depth > 0) {
+				scoreLabel = (UiLabel) pauseMenu.Add(new UiLabel {
+					Font = Font.Small,
+					Label = GetScore(),
+					RelativeCenterX = Display.UiWidth / 2f,
+					RelativeCenterY = TitleY + 24,
+					Clickable = false,
+					AngleMod = 0
+				});
+			}
 
 			if (Run.Depth > 0) {
 				pauseMenu.Add(seedLabel = new UiButton {

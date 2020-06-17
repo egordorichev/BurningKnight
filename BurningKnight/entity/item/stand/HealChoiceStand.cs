@@ -1,11 +1,16 @@
 using BurningKnight.entity.component;
 using BurningKnight.util;
+using Lens.assets;
 using Lens.entity;
 
 namespace BurningKnight.entity.item.stand {
 	public class HealChoiceStand : SingleChoiceStand {
 		protected override string GetSprite() {
 			return "health_stand";
+		}
+
+		protected virtual string GetSfx() {
+			return "item_heart";
 		}
 
 		protected override bool CanInteract(Entity e) {
@@ -23,7 +28,8 @@ namespace BurningKnight.entity.item.stand {
 
 			Done = true;
 			AnimationUtil.Poof(Center);
-			
+			Audio.PlaySfx(GetSfx());
+
 			return true;
 		}
 	}

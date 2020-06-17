@@ -48,9 +48,9 @@ namespace BurningKnight.ui {
 			}
 
 			base.OnClick();
-			Tint = 0.5f;
 
 			if (Clickable) {
+				Tint = 0.5f;
 				Tween.To(1, Tint, x => Tint = x, 0.2f);
 			}
 		}

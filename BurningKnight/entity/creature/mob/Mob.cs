@@ -79,7 +79,7 @@ namespace BurningKnight.entity.creature.mob {
 		}
 		
 		protected virtual void SetMaxHp(int hp) {
-			if (Run.Loop > 0) {
+			if (Run.Loop > 0 && !(this is DM)) {
 				hp *= (this is Boss ? 4 : 1) * (Run.Loop + 1);
 			}
 		
