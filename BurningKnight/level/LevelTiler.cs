@@ -28,6 +28,10 @@ namespace BurningKnight.level {
 		}
 
 		public static void TileUp(Level level, int index) {
+			if (index < 0 || index >= level.Size) {
+				return;
+			}
+			
 			var liquid = level.Liquid[index];
 			var x = level.FromIndexX(index);
 			var y = level.FromIndexY(index);

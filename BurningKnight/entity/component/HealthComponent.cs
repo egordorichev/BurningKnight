@@ -171,6 +171,8 @@ namespace BurningKnight.entity.component {
 		public void Kill(Entity from) {
 			if (Phases > 0) {
 				Phases--;
+
+				maxHealth = Math.Max(1, maxHealth);
 				health = maxHealth;
 
 				Send(new RevivedEvent {
