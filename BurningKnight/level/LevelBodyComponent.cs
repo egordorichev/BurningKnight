@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using BurningKnight.entity.component;
 using BurningKnight.level.tile;
 using BurningKnight.physics;
+using BurningKnight.state;
 using BurningKnight.util;
 using Lens.util;
 using Microsoft.Xna.Framework;
@@ -199,7 +200,15 @@ namespace BurningKnight.level {
 		}
 
 		public void ReCreateBodyChunk(int x, int y) {
-			toUpdate.Add(x + y * Level.Width);
+			var cx = (int) Math.Floor(x / (float) LevelBodyComponent.ChunkSize);
+			var cy = (int) Math.Floor(y / (float) LevelBodyComponent.ChunkSize);
+			var ci = cx + cy * cw;
+
+			if (ci < 0 || ci / LevelBodyComponent.ChunkSize >= chunks.Length) {
+				return;
+			}
+			
+			toUpdate.Add(x + y * Run.Level.Width);
 		}
 
 		protected virtual bool Check(Level level, int x, int y) {

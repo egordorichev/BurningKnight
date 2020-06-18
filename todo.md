@@ -7,7 +7,6 @@
 * game doesnt save contantly? why does progress reset after crashes? (it looks like just the hub doesnt save)
 * on dm deals both shields & containers get damaged
 
-* snow body still issue with bullets?
 * if you rapidly teleport away with duck ring i think you can get stuck invincible
 
 * bk still can become idle
