@@ -27,6 +27,7 @@ namespace Desktop.integration.twitch {
 		private string totalVotes;
 		private HappeningOption happeningRn;
 		private float voteDelay;
+		private float toHappen;
 		
 		public void Init() {
 			GenerateOptions();
@@ -104,8 +105,23 @@ namespace Desktop.integration.twitch {
 				player = null;
 				return;
 			}
-			
-			if (happeningRn != null) {
+
+			if (busy) {
+				toHappen -= dt;
+
+				if (toHappen <= 0) {
+					try {
+						Log.Debug($"Happening {happeningRn.Id} {happeningRn.Happening.GetType().Name}");
+						happeningRn.Happening.Happen(player);
+						Log.Debug("Done");
+					} catch (Exception e) {
+						Log.Error(e);
+					}
+
+					busy = false;
+					return;
+				}
+			} else if (happeningRn != null) {
 				voteDelay -= dt;
 				happeningRn.Happening.Update(dt);
 				
@@ -254,15 +270,7 @@ namespace Desktop.integration.twitch {
 			happeningRn = opt;
 			voteDelay = opt.Happening.GetVoteDelay();
 
-			Timer.Add(() => {
-				try {
-					opt.Happening.Happen(player);
-				} catch (Exception e) {
-					Log.Error(e);
-				}
-
-				busy = false;
-			}, 4);
+			toHappen = 4f;
 		}
 	}
 }
