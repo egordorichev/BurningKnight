@@ -1,9 +1,12 @@
+* clipping in hub
+* twitch mod fix
+* prevent leaderboard scores if the data is modified
+* you can enter collapsing treasure room
+
 * ещё когда я подобрал щит, который заменят хп на щиты, то две полоски контейнеров хп заменилось на один щит
 
 * make enemies in the room invincible while the player is not inside
 * game doesnt save contantly? why does progress reset after crashes? (it looks like just the hub doesnt save)
-* reroll machine hitbox too small
-* explosions still can destroy axes (give it a 5 second cooldown till it spawns you a new one or smth)
 * on dm deals both shields & containers get damaged
 
 * snow body still issue with bullets?

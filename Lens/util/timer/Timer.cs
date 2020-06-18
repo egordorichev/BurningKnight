@@ -5,13 +5,20 @@ namespace Lens.util.timer {
 	public static class Timer {
 		private static List<TimerTask> tasks = new List<TimerTask>();
 
-		public static void Add(Action fn, float Delay) {
+		public static void Cancel(TimerTask task) {
+			tasks.Remove(task);
+		}
+
+		public static TimerTask Add(Action fn, float Delay) {
 			if (Delay <= 0) {
 				fn();
-				return;
+				return null;
 			}
-			
-			tasks.Add(new TimerTask(fn, Delay));
+
+			var t = new TimerTask(fn, Delay);
+			tasks.Add(t);
+
+			return t;
 		}
 
 		public static void Clear() {

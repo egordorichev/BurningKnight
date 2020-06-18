@@ -11,6 +11,10 @@ using Lens.entity;
 namespace BurningKnight.entity.item.use {
 	public class MakeProjectilesHurtOnMissUse : ItemUse {
 		public override bool HandleEvent(Event e) {
+			if (Run.Depth == 0) {
+				return base.HandleEvent(e);
+			}
+			
 			if (e is ProjectileCreatedEvent pce) {
 				if (!(pce.Projectile.Owner is Player)) {
 					return false;

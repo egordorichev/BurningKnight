@@ -201,6 +201,10 @@ namespace BurningKnight.entity.projectile {
 			Add("axe", p => {
 				CollisionFilterComponent.Add(p, (entity, with) => ((with is Creature && with != p.Owner) || ((Projectile) entity).BounceLeft == 0) ? CollisionResult.Disable : CollisionResult.Default);
 
+				var ts = Timer.Add(() => {
+					p.Item.Renderer.Hidden = false;
+				}, 3f);
+				
 				p.Range = 5;
 				p.PreventSpectralBreak = true;
 
@@ -213,6 +217,7 @@ namespace BurningKnight.entity.projectile {
 					
 					if (projectile.BounceLeft == 0) {
 						if (e == projectile.Owner) {
+							projectile.Item.Renderer.Hidden = false;
 							projectile.Break();
 						} else if (!(e is Mob)) {
 							return true;
@@ -232,6 +237,7 @@ namespace BurningKnight.entity.projectile {
 							
 							projectile.OnDeath = (pr, ee, t) => {
 								pr.Item.Renderer.Hidden = false;
+								ts.Cancel();
 								pr.Owner.GetComponent<AudioEmitterComponent>().EmitRandomized("item_axe_catch");
 							};
 							
