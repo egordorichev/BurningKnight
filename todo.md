@@ -1,6 +1,5 @@
 * clipping in hub
 * twitch mod fix
-* prevent leaderboard scores if the data is modified
 * you can enter collapsing treasure room
 
 * ещё когда я подобрал щит, который заменят хп на щиты, то две полоски контейнеров хп заменилось на один щит
