@@ -9,5 +9,9 @@ namespace Lens.util.timer {
 			Fn = fn;
 			Delay = delay;
 		}
+		
+		public void Cancel() {
+			Timer.Cancel(this);
+		}
 	}
 }

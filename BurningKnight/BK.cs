@@ -23,7 +23,7 @@ namespace BurningKnight {
 		public const bool Demo = false;
 		
 		// Name removed cuz release bois
-		public static Version Version = new Version("Opa GL", 47, 1, 0, 2, 3, Debug);
+		public static Version Version = new Version("Opa GL", 47, 1, 0, 2, 5, Debug);
 		
 		public BK(int width, int height, bool fullscreen) : base(Version, 
 			#if DEBUG

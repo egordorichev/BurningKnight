@@ -27,6 +27,7 @@ namespace Desktop.integration.twitch {
 		private string totalVotes;
 		private HappeningOption happeningRn;
 		private float voteDelay;
+		private float toHappen;
 		
 		public void Init() {
 			GenerateOptions();
@@ -92,20 +93,22 @@ namespace Desktop.integration.twitch {
 				return;
 			}
 
-			if (player == null) {
-				player = LocalPlayer.Locate(state.Area);
-				
-				if (player == null) {
+			if (busy) {
+				toHappen -= dt;
+
+				if (toHappen <= 0) {
+					try {
+						Log.Debug($"Happening {happeningRn.Id} {happeningRn.Happening.GetType().Name}");
+						happeningRn.Happening.Happen(player);
+						Log.Debug("Done");
+					} catch (Exception e) {
+						Log.Error(e);
+					}
+
+					busy = false;
 					return;
 				}
-			}
-
-			if (player.Done) {
-				player = null;
-				return;
-			}
-			
-			if (happeningRn != null) {
+			} else if (happeningRn != null) {
 				voteDelay -= dt;
 				happeningRn.Happening.Update(dt);
 				
@@ -217,6 +220,12 @@ namespace Desktop.integration.twitch {
 		private string lastName;
 		
 		private void ExecuteOrder66() {
+			player = LocalPlayer.Locate(Engine.Instance.State.Area);
+				
+			if (player == null) {
+				return;
+			}
+			
 			busy = true;
 			var options = new List<HappeningOption>();
 			
@@ -248,21 +257,14 @@ namespace Desktop.integration.twitch {
 			lastName = name;
 			Log.Debug($"Option #{opt.Num} ({name}) has won!");
 			
+			
 			player.GetComponent<DialogComponent>().StartAndClose($"[cl purple]{name}[cl]", 3);
 			
 			last = player;
 			happeningRn = opt;
 			voteDelay = opt.Happening.GetVoteDelay();
 
-			Timer.Add(() => {
-				try {
-					opt.Happening.Happen(player);
-				} catch (Exception e) {
-					Log.Error(e);
-				}
-
-				busy = false;
-			}, 4);
+			toHappen = 4f;
 		}
 	}
 }

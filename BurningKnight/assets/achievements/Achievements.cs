@@ -92,11 +92,11 @@ namespace BurningKnight.assets.achievements {
 			}
 		}
 
-		public static void IncrementProgress(string id, int max = -1) {
-			SetProgress(id, GlobalSave.GetInt($"ach_{id}", 0) + 1, max);
-		}
-
 		public static void SetProgress(string id, int progress, int max = -1) {
+			if (Assets.DataModified) {
+				return;
+			}
+			
 			if (progress == 0) {
 				return;
 			}
@@ -145,6 +145,10 @@ namespace BurningKnight.assets.achievements {
 		}
 
 		public static void Unlock(string id) {
+			if (Assets.DataModified) {
+				return;
+			}
+			
 			var a = Get(id);
 
 			if (a == null) {

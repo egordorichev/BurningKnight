@@ -1,5 +1,6 @@
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.player;
+using Lens.util;
 
 namespace BurningKnight.entity.twitch.happening {
 	public class BuffHappening : Happening {
@@ -13,6 +14,7 @@ namespace BurningKnight.entity.twitch.happening {
 		
 		public override void Happen(Player player) {
 			if (!player.TryGetComponent<BuffsComponent>(out var bfz)) {
+				Log.Error("Fail");
 				return;
 			}
 			

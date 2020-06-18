@@ -224,6 +224,11 @@ namespace BurningKnight.state {
 		}
 
 		public static void CalculateScore() {
+			if (Assets.DataModified) {
+				Score = -696969;
+				return;
+			}
+			
 			Score = 1000;
 
 			Score += (Depth - 1) * 5000;

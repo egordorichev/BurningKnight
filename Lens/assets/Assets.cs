@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using Lens.graphics;
 using Lens.util;
@@ -8,6 +9,25 @@ using Microsoft.Xna.Framework.Content;
 namespace Lens.assets {
 	public static class Assets {
 		public static bool ImGuiEnabled;
+		private static bool modified;
+
+		public static bool DataModified {
+			get => modified;
+
+			set {
+				if (!modified && value) {
+					modified = true;
+
+					try {
+						Engine.Instance.Window.Title = $"MODIFIED {Engine.Instance.Window.Title}";
+					} catch (Exception e) {
+						
+					}
+				}
+			}
+		}
+
+		public const int ItemData = 6373986;
 	
 #if DEBUG
 		public static bool LoadOriginalFiles = true;

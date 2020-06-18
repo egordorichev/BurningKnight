@@ -67,6 +67,10 @@ namespace Desktop.integration.steam {
 				}
 
 				Run.SubmitScore += (score, board) => {
+					if (Assets.DataModified) {
+						return;
+					}
+					
 					try {
 						new Thread(() => {
 							try {

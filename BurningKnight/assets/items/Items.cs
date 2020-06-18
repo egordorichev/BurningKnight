@@ -9,6 +9,7 @@ using BurningKnight.entity.item.renderer;
 using BurningKnight.entity.item.use;
 using BurningKnight.save;
 using BurningKnight.state;
+using BurningKnight.util;
 using Lens;
 using Lens.assets;
 using Lens.entity;
@@ -28,7 +29,7 @@ namespace BurningKnight.assets.items {
 		private static Dictionary<int, List<ItemData>> byPool = new Dictionary<int, List<ItemData>>();
 		
 		public static void Load() {
-			Load(FileHandle.FromRoot("Items/"));
+			Load(FileHandle.FromRoot("items.json"));
 		}
 
 		public static void Load(FileHandle handle) {
@@ -52,8 +53,17 @@ namespace BurningKnight.assets.items {
 			if (handle.Extension != ".json") {
 				return;
 			}
+
+			var d = handle.ReadAll();
+			var num = JsonCounter.Calculate(d);
+
+			Log.Debug($"Item data number is {num}");
+
+			if (num != Assets.ItemData) {
+				Assets.DataModified = true;
+			}
 			
-			var root = JsonValue.Parse(handle.ReadAll());
+			var root = JsonValue.Parse(d);
 
 			foreach (var item in root.AsJsonObject) {
 				ParseItem(item.Key, item.Value);
@@ -127,7 +137,7 @@ namespace BurningKnight.assets.items {
 				root[item.Id] = data;
 			}
 			
-			var file = File.CreateText(FileHandle.FromRoot("Items/items.json").FullPath);
+			var file = File.CreateText(FileHandle.FromRoot("items.json").FullPath);
 			var writer = new JsonWriter(file);
 			writer.Write(root);
 			file.Close();

@@ -86,8 +86,10 @@ namespace Lens.assets {
 			if (!Loaded.ContainsKey(locale)) {
 				LoadRaw(locale, $"Locales/{locale}.json");
 			}
-			
-			Map = Loaded[locale];			
+
+			if (Loaded.ContainsKey(locale)) {
+				Map = Loaded[locale];
+			}
 		}
 
 		public static void Save() {

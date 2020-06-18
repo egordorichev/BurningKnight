@@ -38,9 +38,6 @@ namespace BurningKnight.entity.pc {
 			controller.X = X + 16;
 			controller.Pico = this;
 			
-			backend = new MonoGameGraphicsBackend(Engine.GraphicsDevice);
-			emulator = new Emulator(backend, new MonoGameAudioBackend(), new MonoGameInputBackend());
-
 			Area.Add(new RenderTrigger(this, RenderDisplay, Layers.Console));
 		}
 
@@ -58,6 +55,11 @@ namespace BurningKnight.entity.pc {
 		public void TurnOn() {
 			if (on) {
 				return;
+			}
+			
+			if (emulator == null) {
+				backend = new MonoGameGraphicsBackend(Engine.GraphicsDevice);
+				emulator = new Emulator(backend, new MonoGameAudioBackend(), new MonoGameInputBackend());
 			}
 			
 			on = true;

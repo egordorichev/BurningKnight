@@ -11,6 +11,6 @@ namespace BurningKnight.entity.twitch {
 		public static Action OnHubEnter;
 		public static Action OnNewRun;
 
-		public static string TwitchUsername => GlobalSave.GetString("twitch_username").Replace("_", "\\_");
+		public static string TwitchUsername => GlobalSave.GetString("twitch_username", "").Replace("_", "\\_");
 	}
 }

@@ -8,9 +8,13 @@ namespace MonoGamePico8.backend {
 		private DynamicSoundEffectInstance soundInstance;
 		
 		public MonoGameAudioBackend() {
-			soundInstance = new DynamicSoundEffectInstance(AudioUnit.SampleRate, AudioChannels.Mono);
-			GC.SuppressFinalize(soundInstance);
-			soundInstance.Play();
+			try {
+				soundInstance = new DynamicSoundEffectInstance(AudioUnit.SampleRate, AudioChannels.Mono);
+				GC.SuppressFinalize(soundInstance);
+				soundInstance.Play();
+			} catch (Exception e) {
+				Console.WriteLine(e);
+			}
 		}
 
 		public override void Destroy() {
