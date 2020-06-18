@@ -1,5 +1,4 @@
 * clipping in hub
-* twitch mod fix
 * you can enter collapsing treasure room
 
 * ещё когда я подобрал щит, который заменят хп на щиты, то две полоски контейнеров хп заменилось на один щит

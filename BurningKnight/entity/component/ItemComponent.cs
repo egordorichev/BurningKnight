@@ -3,8 +3,10 @@ using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
 using BurningKnight.state;
+using BurningKnight.ui.dialog;
 using BurningKnight.util;
 using ImGuiNET;
+using Lens.assets;
 using Lens.entity;
 using Lens.entity.component;
 using Lens.entity.component.logic;
@@ -149,6 +151,7 @@ namespace BurningKnight.entity.component {
 				if (Entity is Player && Item != null && Item.Scourged) {
 					AnimationUtil.ActionFailed();
 					ev.Blocked = true;
+					Entity.GetComponent<DialogComponent>().StartAndClose($"~~{Locale.Get("scourged")}~~", 2);
 					
 					return false;
 				}

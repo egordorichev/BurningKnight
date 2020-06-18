@@ -93,19 +93,6 @@ namespace Desktop.integration.twitch {
 				return;
 			}
 
-			if (player == null) {
-				player = LocalPlayer.Locate(state.Area);
-				
-				if (player == null) {
-					return;
-				}
-			}
-
-			if (player.Done) {
-				player = null;
-				return;
-			}
-
 			if (busy) {
 				toHappen -= dt;
 
@@ -233,6 +220,12 @@ namespace Desktop.integration.twitch {
 		private string lastName;
 		
 		private void ExecuteOrder66() {
+			player = LocalPlayer.Locate(Engine.Instance.State.Area);
+				
+			if (player == null) {
+				return;
+			}
+			
 			busy = true;
 			var options = new List<HappeningOption>();
 			
@@ -263,6 +256,7 @@ namespace Desktop.integration.twitch {
 			var name = Locale.Get($"happening_{opt.Id}");
 			lastName = name;
 			Log.Debug($"Option #{opt.Num} ({name}) has won!");
+			
 			
 			player.GetComponent<DialogComponent>().StartAndClose($"[cl purple]{name}[cl]", 3);
 			

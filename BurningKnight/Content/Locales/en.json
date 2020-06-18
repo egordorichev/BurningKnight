@@ -1253,5 +1253,6 @@
 	"boss_icequeen": "Ice Queen",
 	"boss_burningknight": "Burning Knight",
 	"boss_dm": "Dark Mage",
-	"painting_bug": "This isn't a bug, that's a feature!"
+	"painting_bug": "This isn't a bug, that's a feature!",
+	"damage": "Damage"
 }

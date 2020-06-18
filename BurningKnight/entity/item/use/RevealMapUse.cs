@@ -25,6 +25,8 @@ namespace BurningKnight.entity.item.use {
 							level.Explored[level.ToIndex(x, y)] = true;
 						}	
 					}
+
+					room.Explored = true;
 				}
 			}
 		}
