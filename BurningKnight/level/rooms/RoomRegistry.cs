@@ -181,8 +181,9 @@ namespace BurningKnight.level.rooms {
 				RoomInfo.New<VampireRoom>(1f, () => Run.Loop == 0 && GlobalSave.IsTrue(ShopNpc.Vampire)),
 
 				// Boss
-				RoomInfo.New<BossRoom>(1f),
-				RoomInfo.New<ChasmBossRoom>(1f, Biome.Castle, Biome.Desert),
+				RoomInfo.New<CollumnsBossRoom>(1f, Biome.Castle),
+				RoomInfo.New<BossRoom>(1f, Biome.Jungle, Biome.Ice, Biome.Library, Biome.Tech),
+				RoomInfo.New<ChasmBossRoom>(1f, Biome.Desert),
 				
 				// Granny
 				RoomInfo.New<GrannyRoom>(1f),

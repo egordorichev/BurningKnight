@@ -54,7 +54,7 @@ namespace BurningKnight.entity.component {
 			var o = Sprite.Center;
 			
 			if (shadow) {
-				Graphics.Render(Sprite, Entity.Position + new Vector2(0, Sprite.Height + ShadowZ) + o, Angle, o, Vector2.One, Graphics.ParseEffect(Flipped, ShadowZ > 0 ? FlippedVerticaly : !FlippedVerticaly));
+				Graphics.Render(Sprite, Entity.Position + new Vector2(0, (int) Sprite.Height + ShadowZ) + o, Angle, o, Vector2.One, Graphics.ParseEffect(Flipped, ShadowZ > 0 ? FlippedVerticaly : !FlippedVerticaly));
 				return;
 			}
 			

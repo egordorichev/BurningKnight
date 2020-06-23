@@ -1,37 +1,23 @@
-* you can enter collapsing treasure room
-* you can clip into the achievement hall reward rooms
-
-* ещё когда я подобрал щит, который заменят хп на щиты, то две полоски контейнеров хп заменилось на один щит
-
+> ice hitboxes
+> I also got NPC Party in-game but not on steam
+> Also the hat fashion achievement says 29/29 but don't have the fez unlocked yet.
+> rendering stuff is still weird (some option is off)
+* snail active item in the hub debuffs you (you arent supposed to be able to use active items in the hub)
+* check gold dagger
+* If you got 99 bombs and bombshell, you can't pick up more to refill the bomb hp.
 * make enemies in the room invincible while the player is not inside
 * game doesnt save contantly? why does progress reset after crashes? (it looks like just the hub doesnt save)
-* on dm deals both shields & containers get damaged
-
-* if you rapidly teleport away with duck ring i think you can get stuck invincible
-
 * bk still can become idle
 * bomb shell makes hp diplay wrong
 * items in chasms should dissappear
 * I was on the final boss and i noticed the boss door was unlocked deering the fight so i walked through it and this happened
-
 * invis items back
-
-* still can get not teleported to entrance (no entrance or smth?)
-* pharaoh can tp near door and get all projectiles destroyed
-
 * fix shot visual language (make it clear what bullets you cant reflect)
-> Would be neat to have random items when using the shortcuts to give some fighting chance. Another use for emeralds like you pay 100 to start the floor with a random amount of treasure room items based on RNG and the shortcut used.
 
 #
 
 * check why steam cloud doesnt download anything
 * controller aim asist
 * twitch integration cant be turned on (on pressing interact after pog it exits)
-
-* rekvi didnt have locks rendering
-* rekvi fps issues
+> Would be neat to have random items when using the shortcuts to give some fighting chance. Another use for emeralds like you pay 100 to start the floor with a random amount of treasure room items based on RNG and the shortcut used.
 * maanex mob spawns suggestion
-
-# bugs
-* game did not let continue run after restarting the game
-* no tp is back

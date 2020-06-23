@@ -1,4 +1,5 @@
 using BurningKnight.level.tile;
+using Lens;
 using Lens.util.math;
 
 namespace BurningKnight.level.rooms.boss {
@@ -9,7 +10,7 @@ namespace BurningKnight.level.rooms.boss {
 			Painter.Fill(level, this, Tile.WallA);
 			Painter.Fill(level, this, m, Tile.Chasm);
 
-			m += Rnd.Int(1, 3);
+			m += Rnd.Int(0, 2);
 			
 			if (Rnd.Chance()) {
 				Painter.FillEllipse(level, this, m, Tiles.RandomFloor());
@@ -30,6 +31,22 @@ namespace BurningKnight.level.rooms.boss {
 			}
 			
 			PaintTunnel(level, Tiles.RandomFloor(), GetCenterRect());
+		}
+		
+		public override int GetMinWidth() {
+			return Display.Width / 16 - 5;
+		}
+
+		public override int GetMinHeight() {
+			return Display.Width / 16 - 3;
+		}
+
+		public override int GetMaxWidth() {
+			return Display.Width / 16 - 5;
+		}
+
+		public override int GetMaxHeight() {
+			return Display.Width / 16 - 2;
 		}
 	}
 }

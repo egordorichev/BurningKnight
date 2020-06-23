@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using BurningKnight.assets.items;
 using BurningKnight.assets.particle.custom;
+using BurningKnight.entity;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.player;
 using BurningKnight.level.entities.chest;
@@ -35,7 +36,12 @@ namespace BurningKnight.level.entities.statue {
 				// - Hp down
 				{
 					"nerfed", (s, e) => {
-						e.GetComponent<HealthComponent>().MaxHealth -= 2;
+						if (e.GetComponent<HeartsComponent>().Total > 2) {
+							e.GetComponent<HealthComponent>().ModifyHealth(-2, s, DamageType.Custom);
+						} else {
+							e.GetComponent<HealthComponent>().MaxHealth -= 2;
+						}
+
 						TextParticle.Add(e, Locale.Get("max_hp"), 2, true, true);
 						return false;
 					}

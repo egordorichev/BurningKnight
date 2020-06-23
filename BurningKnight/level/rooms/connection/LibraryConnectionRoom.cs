@@ -36,6 +36,8 @@ namespace BurningKnight.level.rooms.connection {
 			}
 			
 			Painter.Fill(level, dot.X - 2, dot.Y - 2, 5, 5, Tiles.RandomFloor());
+			
+			PaintTunnel(level, Tiles.RandomFloor(), GetCenterRect());
 			Painter.Set(level, dot.X, dot.Y, Tile.FloorD);
 
 			var t = new Teleporter {

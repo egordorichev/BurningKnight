@@ -208,7 +208,7 @@ namespace BurningKnight.entity.item {
 			                                (Type == ItemType.Heart && !c.GetComponent<HealthComponent>().CanPickup(this)) ||
 			                                (Type == ItemType.Battery && c.GetComponent<ActiveItemComponent>().IsFullOrEmpty()) ||
 			                                (Type == ItemType.Coin && Id != "bk:emerald" && c.GetComponent<ConsumablesComponent>().Coins >= c.GetComponent<ConsumablesComponent>().MaxCoins) ||
-			                                (Type == ItemType.Bomb && c.GetComponent<ConsumablesComponent>().Bombs == 99) ||
+			                                (Type == ItemType.Bomb && c.GetComponent<ConsumablesComponent>().Bombs == 99 && c.TryGetComponent<HeartsComponent>(out var b) && b.BombsMax > b.Bombs) ||
 			                                (Type == ItemType.Key && c.GetComponent<ConsumablesComponent>().Keys == 99)
 			         ));
 		}

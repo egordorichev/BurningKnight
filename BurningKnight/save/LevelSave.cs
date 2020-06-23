@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using BurningKnight.assets.items;
+using BurningKnight.entity.item;
 using BurningKnight.entity.projectile;
 using BurningKnight.level;
 using BurningKnight.level.basement;
@@ -196,6 +197,7 @@ namespace BurningKnight.save {
 			GenerateTreasure = false;
 			GenerateShops = false;
 			MeleeOnly = false;
+			Item.Attact = false;
 		}
 	}
 }

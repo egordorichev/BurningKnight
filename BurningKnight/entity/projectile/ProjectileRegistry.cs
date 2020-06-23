@@ -5,6 +5,7 @@ using BurningKnight.assets.mod;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature;
 using BurningKnight.entity.creature.mob;
+using BurningKnight.entity.item.use;
 using BurningKnight.entity.projectile.controller;
 using BurningKnight.level;
 using BurningKnight.level.biome;
@@ -203,6 +204,13 @@ namespace BurningKnight.entity.projectile {
 
 				var ts = Timer.Add(() => {
 					p.Item.Renderer.Hidden = false;
+
+					foreach (var u in p.Item.Uses) {
+						if (u is SimpleShootUse ss) {
+							ss.ProjectileDied = true;
+							break;
+						}
+					}
 				}, 3f);
 				
 				p.Range = 5;
@@ -219,6 +227,13 @@ namespace BurningKnight.entity.projectile {
 						if (e == projectile.Owner) {
 							projectile.Item.Renderer.Hidden = false;
 							projectile.Break();
+
+							foreach (var u in projectile.Item.Uses) {
+								if (u is SimpleShootUse ss) {
+									ss.ProjectileDied = true;
+									break;
+								}
+							}
 						} else if (!(e is Mob)) {
 							return true;
 						}
@@ -237,6 +252,14 @@ namespace BurningKnight.entity.projectile {
 							
 							projectile.OnDeath = (pr, ee, t) => {
 								pr.Item.Renderer.Hidden = false;
+								
+								foreach (var u in pr.Item.Uses) {
+									if (u is SimpleShootUse ss) {
+										ss.ProjectileDied = true;
+										break;
+									}
+								}
+								
 								ts.Cancel();
 								pr.Owner.GetComponent<AudioEmitterComponent>().EmitRandomized("item_axe_catch");
 							};

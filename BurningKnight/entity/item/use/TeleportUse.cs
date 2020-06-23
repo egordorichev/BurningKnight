@@ -27,6 +27,7 @@ namespace BurningKnight.entity.item.use {
 						e.Center = newRoom.GetRandomFreeTile() * 16 + new Vector2(8);
 						Camera.Instance.Jump();
 						AnimationUtil.TeleportIn(e);
+						e.GetComponent<HealthComponent>().Unhittable = false;
 					});
 				}
 			}
