@@ -91,7 +91,10 @@ namespace BurningKnight.entity.component {
 			}
 		}
 
+		public bool LastModifiedHearts;
+
 		public bool ModifyHealth(float amount, Entity setter, DamageType type = DamageType.Regular) {
+			LastModifiedHearts = false;
 			if (amount < 0 && Entity is Player && (Run.Depth != -2 && Run.Depth < 1)) {
 				if (Unhittable || (PreventDamageInInvincibility && InvincibilityTimer > 0) || Health <= 0.01f) {
 					return false;
@@ -117,6 +120,7 @@ namespace BurningKnight.entity.component {
 						if (hearts.Hurt((int) Math.Round(amount), setter, type)) {
 							InvincibilityTimer = InvincibilityTimerMax;
 							TryToKill(setter);
+							LastModifiedHearts = true;
 							return true;
 						}
 						

@@ -334,8 +334,6 @@ namespace BurningKnight.entity.creature.player {
 		}
 		
 		public override void Update(float dt) {
-			base.Update(dt);
-
 			if (findASpawn) {
 				if (FindSpawn()) {
 					Teleported = true;
@@ -348,7 +346,8 @@ namespace BurningKnight.entity.creature.player {
 					Log.Error("Did not find a spawn point!");
 				}
 			}
-
+			
+			base.Update(dt);
 			t += dt;
 
 			if (!set && t >= 0.3f) {

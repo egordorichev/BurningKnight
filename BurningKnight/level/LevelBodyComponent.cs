@@ -200,11 +200,12 @@ namespace BurningKnight.level {
 		}
 
 		public void ReCreateBodyChunk(int x, int y) {
+			
 			var cx = (int) Math.Floor(x / (float) LevelBodyComponent.ChunkSize);
 			var cy = (int) Math.Floor(y / (float) LevelBodyComponent.ChunkSize);
 			var ci = cx + cy * cw;
 
-			if (ci < 0 || ci / LevelBodyComponent.ChunkSize >= chunks.Length) {
+			if (ci < 0 || (chunks != null && ci / LevelBodyComponent.ChunkSize >= chunks.Length)) {
 				return;
 			}
 			

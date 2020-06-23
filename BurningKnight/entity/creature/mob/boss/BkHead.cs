@@ -44,8 +44,8 @@ namespace BurningKnight.entity.creature.mob.boss {
 			b.Body.LinearDamping = 2;
 			b.KnockbackModifier = 0;
 			
-			GetComponent<HealthComponent>().InitMaxHealth = 600;
-			
+			SetMaxHp(600);
+
 			Depth = Layers.FlyingMob;
 			Awoken = true;
 		}

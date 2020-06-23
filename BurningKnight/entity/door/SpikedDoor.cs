@@ -35,11 +35,11 @@ namespace BurningKnight.entity.door {
 					h.Unhittable = true;
 				}
 			} else if (e is CollisionStartedEvent cse) {
-				if (cse.Entity is Player p2) {
+				if (cse.Entity is Player p2 && cse.Body is DoorBodyComponent) {
 					Colliding.Add(p2);
 				}
 			} else if (e is CollisionEndedEvent cee) {
-				if (cee.Entity is Player p2) {
+				if (cee.Entity is Player p2 && cee.Body is DoorBodyComponent) {
 					Colliding.Remove(p2);
 				}
 			}

@@ -94,7 +94,7 @@ namespace BurningKnight.entity.component {
 				if (HasNoTileSupport) {
 					var t = (Tile) tile;
 
-					if (t != Tile.Chasm && (!t.IsWall() || (!level.Get(x, y + 1).IsWall() && level.Get(x, y + 1) != Tile.Chasm))) {
+					if (t != Tile.Chasm && (!t.IsWall() || (level.IsInside(x, y + 1) && !level.Get(x, y + 1).IsWall() && level.Get(x, y + 1) != Tile.Chasm))) {
 						HasNoSupport = false;
 						HasNoTileSupport = false;
 						LastSupportedPosition = new Vector2((int) x * 16, (int) y * 16);

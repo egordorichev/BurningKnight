@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using BurningKnight.assets.achievements;
+using BurningKnight.entity.buff;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.mob.boss.rooms;
 using BurningKnight.entity.creature.player;
@@ -62,6 +63,13 @@ namespace BurningKnight.entity.creature.mob.boss {
 			SetMaxHp(Hp);
 
 			Flying = true;
+
+			var b = GetComponent<BuffsComponent>();
+			
+			b.AddImmunity<BurningBuff>();
+			b.AddImmunity<PoisonBuff>();
+			b.AddImmunity<FrozenBuff>();
+			b.AddImmunity<BrokenArmorBuff>();
 		}
 
 		protected override void OnTargetChange(Entity target) {

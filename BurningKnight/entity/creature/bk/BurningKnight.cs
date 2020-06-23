@@ -84,7 +84,7 @@ namespace BurningKnight.entity.creature.bk {
 
 			var health = GetComponent<HealthComponent>();
 			health.Unhittable = true;
-			health.InitMaxHealth = 500;
+			SetMaxHp(300);
 			// health.AutoKill = false;
 
 			GetComponent<StateComponent>().Become<IdleState>();

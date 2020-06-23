@@ -95,7 +95,10 @@ namespace BurningKnight.entity.item.stand {
 
 				if (a > 0) {
 					component.ModifyHealth(-a, this, DamageType.Custom);
-					component.MaxHealth -= a;
+
+					if (!component.LastModifiedHearts) {
+						component.MaxHealth -= a;
+					}
 				}
 
 				var d = lastPrice - a;
