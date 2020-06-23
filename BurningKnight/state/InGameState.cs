@@ -198,7 +198,6 @@ namespace BurningKnight.state {
 		public override void Init() {
 			base.Init();
 
-			Item.Attact = false;
 			unlockedHat = GlobalSave.IsTrue("bk:fez");
 
 			TopUi = new Area();
@@ -316,7 +315,6 @@ namespace BurningKnight.state {
 			if (Engine.Quiting) {
 				Run.SavingDepth = Run.Depth;
 			}
-			
 			Item.Attact = false;
 
 			if (rainSound != null) {
