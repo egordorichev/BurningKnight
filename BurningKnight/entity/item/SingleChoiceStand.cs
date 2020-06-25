@@ -1,6 +1,7 @@
 using BurningKnight.entity.component;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item.stand;
+using BurningKnight.save;
 using BurningKnight.util;
 using Lens.entity;
 using Lens.util.camera;
@@ -28,7 +29,8 @@ namespace BurningKnight.entity.item {
 			if (rm == null) {
 				return;
 			}
-			
+
+			GlobalSave.Put("item_stolen", true);
 			var it = rm.Tagged[Tags.Item].ToArray(); // Copy it to prevent exceptions while modifying it
 				
 			foreach (var s in it) {

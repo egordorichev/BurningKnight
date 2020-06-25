@@ -80,5 +80,9 @@ namespace BurningKnight.level.biome {
 		public override int GetNumRegularRooms() {
 			return (int) (base.GetNumRegularRooms() * 0.7f);
 		}
+
+		public override string GetItemUnlock() {
+			return "bk:ice_ring";
+		}
 	}
 }
