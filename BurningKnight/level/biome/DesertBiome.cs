@@ -32,5 +32,9 @@ namespace BurningKnight.level.biome {
 		public override Color GetMapColor() {
 			return mapColor;
 		}
+
+		public override string GetItemUnlock() {
+			return "bk:fire_ring";
+		}
 	}
 }

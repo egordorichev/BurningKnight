@@ -1376,6 +1376,11 @@ namespace BurningKnight.state {
 
 			if (id != Biome.Castle && id != Biome.Hub) {
 				Achievements.Unlock($"bk:{id}");
+				var i = Run.Level.Biome.GetItemUnlock();
+
+				if (i != null) {
+					Items.Unlock(i);
+				}
 			}
 
 			cursor = new Cursor();
@@ -3075,20 +3080,11 @@ namespace BurningKnight.state {
 				} else if (Run.Type == RunType.Daily) {
 					Achievements.Unlock("bk:daily");
 				} else if (Run.Type == RunType.Regular) {
-					var found = false;
-					
-					foreach (var item in player.GetComponent<InventoryComponent>().Items) {
-						if (!item.Hidden) {
-							found = true;
-							break;
-						}
-					}
-
 					if (player.GetComponent<LampComponent>().Item?.Id != "bk:no_lamp") {
 						Achievements.Unlock("bk:unstoppable");
 					}
 
-					if (!found) {
+					if (!(GameSave.IsTrue("sk_enraged") || GameSave.IsTrue("item_stolen"))) {
 						Achievements.Unlock("bk:not_a_thief");
 					}
 				}

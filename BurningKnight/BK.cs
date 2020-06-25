@@ -23,7 +23,7 @@ namespace BurningKnight {
 		public const bool Demo = false;
 		
 		// Name removed cuz release bois
-		public static Version Version = new Version("Bug Army", 47, 1, 0, 3, 0, Debug);
+		public static Version Version = new Version("Bug Army", 47, 1, 0, 3, 1, Debug);
 		
 		public BK(int width, int height, bool fullscreen) : base(Version, 
 			#if DEBUG
