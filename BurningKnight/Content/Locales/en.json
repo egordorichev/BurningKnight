@@ -364,7 +364,7 @@
 	"ach_bk:tea_party": "Tea Party",
 	"ach_bk:tea_party_desc": "Join Granny in her tea party",
 	"ach_bk:not_a_thief": "Not a thief",
-	"ach_bk:not_a_thief_desc": "Finish a run without taking any items",
+	"ach_bk:not_a_thief_desc": "Finish a run without stealing any items",
 	"ach_bk:npc_party2": "NPC Party",
 	"ach_bk:npc_party2_desc": "Save all NPCs",
 	"bk:gold_coin": "Gold Coin",
@@ -1254,5 +1254,6 @@
 	"boss_burningknight": "Burning Knight",
 	"boss_dm": "Dark Mage",
 	"painting_bug": "This isn't a bug, that's a feature!",
-	"damage": "Damage"
+	"damage": "Damage",
+	"painting_new": "Gnobfather"
 }

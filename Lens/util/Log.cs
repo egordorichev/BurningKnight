@@ -17,8 +17,12 @@ namespace Lens.util {
 		}
 
 		public static void Close() {
-			writer?.Close();
-			writer = null;
+			try {
+				writer?.Close();
+				writer = null;
+			} catch (Exception e) {
+				Log.Error(e);
+			}
 		}
 		
 		public static void Info(object message) {
