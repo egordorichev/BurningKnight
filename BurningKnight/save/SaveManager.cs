@@ -197,7 +197,11 @@ namespace BurningKnight.save {
 					Log.Info($"Deleting {type} save");
 				}
 
-				ForType(type).Delete();
+				try {
+					ForType(type).Delete();
+				} catch (Exception e) {
+					Log.Error(e);
+				}
 			}
 		}
 

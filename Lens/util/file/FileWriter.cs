@@ -102,7 +102,11 @@ namespace Lens.util.file {
 		}
 
 		public virtual void Close() {
-			stream.Close();
+			try {
+				stream.Close();
+			} catch (Exception e) {
+				
+			}
 		}
 	}
 }

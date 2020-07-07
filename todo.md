@@ -1,4 +1,6 @@
+* fix ancient sword/match not appearing
 * remove jester bomb heal
+* put try/catch around log close
 > ice hitboxes
 > I also got NPC Party in-game but not on steam
 > Also the hat fashion achievement says 29/29 but don't have the fez unlocked yet.

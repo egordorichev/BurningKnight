@@ -29,6 +29,5 @@ flavors {
 * tiles from isaac, that require key to open (basically have doors in some rooms, with pickups behind em)
 * item combo -> transformation
 * lore through shopkeeper (like in messager)?
-* highlight doors you not went through
 * spawn chests/pickups in the levels
 * when you pickup glass, fix your broken glass gun/sword
