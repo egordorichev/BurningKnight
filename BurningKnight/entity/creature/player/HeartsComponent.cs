@@ -41,6 +41,7 @@ namespace BurningKnight.entity.creature.player {
 		}
 		
 		public int Total => ((int) bombs) * 2 + shieldHalfs;
+		public int TotalMax => ((int) bombsMax) * 2 + shieldHalfs;
 
 		public void ModifyShields(int amount, Entity setter) {
 			var component = GetComponent<HealthComponent>();

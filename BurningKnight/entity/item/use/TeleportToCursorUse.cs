@@ -1,3 +1,4 @@
+using BurningKnight.entity.component;
 using BurningKnight.level.tile;
 using BurningKnight.state;
 using BurningKnight.util;
@@ -7,7 +8,7 @@ using Lens.input;
 namespace BurningKnight.entity.item.use {
 	public class TeleportToCursorUse : ItemUse {
 		public override void Use(Entity entity, Item item) {
-			var position = Input.Mouse.GamePosition;
+			var position = entity.GetComponent<CursorComponent>().Cursor.GamePosition;
 			var tileX = (int) (position.X / 16);
 			var tileY = (int) (position.Y / 16);
 

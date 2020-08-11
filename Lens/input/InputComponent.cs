@@ -8,7 +8,7 @@ namespace Lens.input {
 		public bool KeyboardEnabled = true;
 
 		public GamepadData GamepadData;
-
+		
 		public override void Load(FileReader stream) {
 			base.Load(stream);
 

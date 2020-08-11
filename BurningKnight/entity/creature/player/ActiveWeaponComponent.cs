@@ -24,7 +24,8 @@ namespace BurningKnight.entity.creature.player {
 		public override void Update(float dt) {
 			base.Update(dt);
 
-			var controller = GetComponent<GamepadComponent>().Controller;
+			var controller = GetComponent<InputComponent>();
+			var data = controller.GamepadEnabled ? controller.GamepadData : null;
 
 			if (!Disabled && Item != null) {
 				var ready = Item.Delay <= 0.001f;
@@ -59,9 +60,9 @@ namespace BurningKnight.entity.creature.player {
 					return;
 				}
 				
-				if ((Input.WasPressed(Controls.Use, controller) || (controller != null && (
-						controller.DPadDownCheck || controller.DPadLeftCheck || controller.DPadUpCheck || controller.DPadRightCheck                                                  
-				  ))) || ((Item.Automatic || timeSinceReady > 0.2f || (controller != null && Input.IsDownOnController(Controls.Use, controller))) && Input.IsDown(Controls.Use, controller) && ready)) {
+				if ((Input.WasPressed(Controls.Use, controller) || (data != null && (
+					data.DPadDownCheck || data.DPadLeftCheck || data.DPadUpCheck || data.DPadRightCheck                                                  
+				  ))) || ((Item.Automatic || timeSinceReady > 0.2f || (data != null && Input.IsDownOnController(Controls.Use, data))) && Input.IsDown(Controls.Use, controller) && ready)) {
 				  
 					if (!Entity.TryGetComponent<PlayerInputComponent>(out var d) || d.InDialog) {
 						return;

@@ -55,7 +55,9 @@ namespace BurningKnight.ui.inventory {
 			// Graphics.Render(inventory.ItemSlot, pos, 0, inventory.ItemSlot.Center, activeScale);
 
 			if (uiItem.Region != null) {
-				uiItem.Center = new Vector2(uiItem.Region.Width / 2f + (Active ? 8 : 24), Display.UiHeight - uiItem.Region.Height / 2f - 8);
+				var a = uiItem.Region.Width / 2f + (Active ? 8 : 24);
+				
+				uiItem.Center = new Vector2(inventory.Second ? Display.UiWidth - a : a, Display.UiHeight - uiItem.Region.Height / 2f - 8);
 			}
 		}
 		
@@ -79,7 +81,7 @@ namespace BurningKnight.ui.inventory {
 		}
 
 		public override bool HandleEvent(Event e) {
-			if (e is WeaponSwappedEvent) {
+			if (e is WeaponSwappedEvent ws && ws.Who == inventory.Player) {
 				Animate();
 			} else if (e is ItemAddedEvent iae) {
 				if (iae.Who == inventory.Player) {

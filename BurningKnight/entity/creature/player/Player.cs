@@ -51,6 +51,24 @@ using VelcroPhysics.Dynamics;
 namespace BurningKnight.entity.creature.player {
 	public class Player : Creature, DropModifier {
 		private static Color tint = new Color(50, 234, 60, 200);
+
+		public static Color[] IndexTints = {
+			Palette.Default[59],
+			Palette.Default[42]
+		};
+
+		public static Vector4[] VectorTints;
+
+		static Player() {
+			VectorTints = new Vector4[IndexTints.Length];
+			
+			for (var i = 0; i < IndexTints.Length; i++) {
+				var color = IndexTints[i];
+				VectorTints[i] = new Vector4(color.R / 255f, color.G / 255f, color.B / 255f, 1f);
+			}
+		}
+		
+		public Color Tint => IndexTints[GetComponent<InputComponent>().Index];
 		
 		public static int Quacks;
 		public static bool ToBoss;
@@ -104,6 +122,7 @@ namespace BurningKnight.entity.creature.player {
 			base.AddComponents();
 
 			AddComponent(new InputComponent());
+			AddComponent(new CursorComponent());
 			
 			InBuilding = false;
 			GetComponent<HealthComponent>().SaveMaxHp = true;

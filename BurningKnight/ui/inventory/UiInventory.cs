@@ -19,6 +19,7 @@ using Lens;
 using Lens.assets;
 using Lens.entity;
 using Lens.graphics;
+using Lens.input;
 using Lens.util;
 using Lens.util.camera;
 using Lens.util.tween;
@@ -83,7 +84,10 @@ namespace BurningKnight.ui.inventory {
 		private UiWeaponSlot weaponSlot;
 		private UiWeaponSlot activeWeaponSlot;
 
-		public UiInventory(Player player) {
+		private bool multiplayer;
+		public bool Second;
+
+		public UiInventory(Player player, bool multiplayer) {
 			Player = player;	
 			activeSlot = new UiActiveItemSlot(this);
 
@@ -94,6 +98,9 @@ namespace BurningKnight.ui.inventory {
 			activeWeaponSlot = new UiWeaponSlot(this) {
 				Active = true
 			};
+
+			this.multiplayer = multiplayer;
+			Second = multiplayer && player.GetComponent<InputComponent>().Index > 0;
 		}
 
 		public override void Init() {
@@ -282,7 +289,7 @@ namespace BurningKnight.ui.inventory {
 		}
 		
 		private void AddArtifact(Item item) {
-			if (item.Hide) {
+			if (item.Hide || multiplayer) {
 				return;
 			}
 			
@@ -339,6 +346,10 @@ namespace BurningKnight.ui.inventory {
 		}
 
 		private void RemoveArtifact(Item item) {
+			if (multiplayer) {
+				return;
+			}
+			
 			UiItem old = null;
 			var j = 0;
 
@@ -393,16 +404,12 @@ namespace BurningKnight.ui.inventory {
 		}
 		
 		public override void Render() {
-			if (Player == null || Player.Done/* || (Run.Depth < 1 && Run.Depth != -2)*/) {
+			if (Player == null || Player.Done) {
 				Done = true;
 				return;
 			}
 			
-			/*if (Player.GetComponent<HealthComponent>().Dead) {
-				return;
-			}*/
-
-			Entity target = null;
+			Entity target;
 			var r = Player.GetComponent<RoomComponent>().Room;
 			
 			if (!Engine.Instance.State.Paused && r != null) {
@@ -466,6 +473,10 @@ namespace BurningKnight.ui.inventory {
 			}
 		}
 
+		private int Bump(int value) {
+			return value % 2 == 0 ? value : value + 1;
+		}
+
 		private Vector2 GetHeartPosition(bool pad, int i, bool bg = false) {
 			var d = 0;
 			var it = Player.GetComponent<ActiveItemComponent>().Item;
@@ -473,9 +484,12 @@ namespace BurningKnight.ui.inventory {
 			if (pad && it != null && Math.Abs(it.UseTime) > 0.01f) {
 				d = 4;
 			}
+
+			var a = (pad ? (4 + (4 + ItemSlot.Source.Width + d) * (activeSlot.ActivePosition + 1)) : 6) + 4;
+			var c = Second ? Math.Min(HeartsComponent.PerRow, Bump(Player.GetComponent<HealthComponent>().MaxHealth + Player.GetComponent<HeartsComponent>().TotalMax)) : 0;
 			
 			return new Vector2(
-				(bg ? 0 : 1) + (pad ? (4 + (4 + ItemSlot.Source.Width + d) * (activeSlot.ActivePosition + 1)) : 6) + 4 + (int) (i % HeartsComponent.PerRow * 5.5f),
+				(bg ? 0 : 1) + (Second ? Display.UiWidth - a - c * 5.5f : a) + (int) (i % HeartsComponent.PerRow * 5.5f),
 				(bg ? 0 : 1) + (i / HeartsComponent.PerRow) * 10 + 11
 				+ (float) Math.Cos(i / 8f * Math.PI + Engine.Time * 12) * 0.5f * Math.Max(0, (float) (Math.Cos(Engine.Time * 0.25f) - 0.9f) * 10f)
 			);
@@ -574,9 +588,12 @@ namespace BurningKnight.ui.inventory {
 			if (pad && it != null && Math.Abs(it.UseTime) > 0.01f) {
 				d = 4;
 			}
+
+			var a = (pad ? 4 : 6) + (8 + ItemSlot.Source.Width + d) * (activeSlot.ActivePosition + 1) + 4 +
+			        (int) (i % HeartsComponent.PerRow * 11f);
 			
 			return new Vector2(
-				(bg ? 0 : 1) + (pad ? 4 : 6) + (8 + ItemSlot.Source.Width + d) * (activeSlot.ActivePosition + 1) + 4 + (int) (i % HeartsComponent.PerRow * 11f) - 2,
+				(bg ? 0 : 1) + (Second ? Display.UiWidth - a - 8 : a) - 2,
 				(bg ? 0 : 1) + (i / HeartsComponent.PerRow) * 10 + 11 + (Player.GetComponent<HealthComponent>().MaxHealth + Player.GetComponent<HeartsComponent>().Total > HeartsComponent.PerRow ? 10 : 0) + 10
 				+ (float) Math.Cos(i / 8f * Math.PI + Engine.Time * 12 - 1) * 0.5f * Math.Max(0, (float) (Math.Cos(Engine.Time * 0.25f - 1) - 0.9f) * 10f)
 			);
@@ -616,6 +633,14 @@ namespace BurningKnight.ui.inventory {
 			}
 		}
 
+		private float Wrap(float v) {
+			return Second ? Display.UiWidth - v : v;
+		}
+
+		private void PrintString(string s, float x, float y) {
+			Graphics.Print(s, Font.Small, new Vector2(Second ? Display.UiWidth - x - Font.Small.MeasureString(s).Width - 1 : 18, y));
+		}
+
 		private void RenderConsumables(bool hasMana) {
 			var bottomY = 8 + 9 + 8 + (hasMana ? 10 : 0) + (Player.GetComponent<HealthComponent>().MaxHealth + Player.GetComponent<HeartsComponent>().Total > HeartsComponent.PerRow ? 10 : 0) + (int) (12 * (activeSlot.ActivePosition + 1));
 
@@ -624,25 +649,17 @@ namespace BurningKnight.ui.inventory {
 				return;
 			}
 			
-			//if (coins > 0) {
-				Graphics.Render(coin, new Vector2(8 + coin.Center.X, bottomY + 1 + coin.Center.Y), 0, coin.Center, coinScale);
-				Graphics.Print($"{coins}", Font.Small, new Vector2(18, bottomY - 1));
-				bottomY += 12;
-			//}
+			Graphics.Render(coin, new Vector2(Wrap(8 + coin.Center.X), bottomY + 1 + coin.Center.Y), 0, coin.Center, coinScale);
+			PrintString($"{coins}", 18, bottomY - 1);
+			bottomY += 12;
 
-			//if (keys > 0) {
-				Graphics.Render(key, new Vector2(7 + key.Center.X, bottomY + key.Center.Y + 2), 0, key.Center, keyScale);
-				Graphics.Print($"{keys}", Font.Small, new Vector2(18, bottomY - 1));
-				bottomY += bomb.Source.Height + 2;
-			//}
+			Graphics.Render(key, new Vector2(Wrap(7 + key.Center.X), bottomY + key.Center.Y + 2), 0, key.Center, keyScale);
+			PrintString($"{keys}", 18, bottomY - 1);
+			bottomY += bomb.Source.Height + 2;
 
-			//if (bombs > 0) {
-				// Bomb sprite has bigger height
-				Graphics.Render(bomb, new Vector2(8 + bomb.Center.X, bottomY + bomb.Center.Y), 0,
-					bomb.Center, bombScale);
-
-				Graphics.Print($"{bombs}", Font.Small, new Vector2(18, bottomY - 1));
-			//}
+			Graphics.Render(bomb, new Vector2(Wrap(8 + bomb.Center.X), bottomY + bomb.Center.Y), 0,
+				bomb.Center, bombScale);
+			PrintString($"{bombs}", 18, bottomY - 1);
 		}
 	}
 }

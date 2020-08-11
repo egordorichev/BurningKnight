@@ -173,7 +173,7 @@ namespace BurningKnight.entity.item.use {
 
 				var aim = entity.GetComponent<AimComponent>();
 				var from = toCursor ? entity.Center : aim.Center;
-				var am = toCursor ? Input.Mouse.GamePosition : aim.RealAim;
+				var am = toCursor ? entity.GetComponent<CursorComponent>().Cursor.GamePosition : aim.RealAim;
 
 				if (toEnemy) {
 					var target = entity.Area.FindClosest(from, Tags.MustBeKilled, e => true);
@@ -300,7 +300,7 @@ namespace BurningKnight.entity.item.use {
 
 						entity.Area.Add(p);
 
-						var f = (entity.CenterX > Input.Mouse.GamePosition.X ? 1 : -1);
+						var f = (entity.CenterX > entity.GetComponent<CursorComponent>().Cursor.GamePosition.X ? 1 : -1);
 
 						p.Particle.Velocity =
 							new Vector2(f * Rnd.Float(40, 60), 0) + entity.GetAnyComponent<BodyComponent>().Velocity;

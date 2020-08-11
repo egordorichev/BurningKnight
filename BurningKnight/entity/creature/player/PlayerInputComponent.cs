@@ -205,7 +205,7 @@ namespace BurningKnight.entity.creature.player {
 
 				if (controller.KeyboardEnabled && Input.Mouse.CheckMiddleButton) {
 					idle = false;
-					var a = Entity.AngleTo(Input.Mouse.GamePosition);
+					var a = Entity.AngleTo(GetComponent<CursorComponent>().Cursor.GamePosition);
 					acceleration += new Vector2((float) Math.Cos(a), (float) Math.Sin(a));
 				}
 

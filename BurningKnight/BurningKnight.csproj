@@ -378,6 +378,7 @@
     <Compile Include="entity\component\CircleBodyComponent.cs" />
     <Compile Include="entity\component\CloseDialogComponent.cs" />
     <Compile Include="entity\component\CollisionFilterComponent.cs" />
+    <Compile Include="entity\component\CursorComponent.cs" />
     <Compile Include="entity\component\DoorBodyComponent.cs" />
     <Compile Include="entity\component\DropModifier.cs" />
     <Compile Include="entity\component\DropsComponent.cs" />

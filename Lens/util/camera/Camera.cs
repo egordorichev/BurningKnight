@@ -334,7 +334,7 @@ namespace Lens.util.camera {
 
 			foreach (var follow in Targets) {
 				position.X += follow.Priority * follow.Entity.CenterX;
-				position.Y += follow.Priority * follow.Entity.CenterY;
+				position.Y += follow.Priority * follow.Entity.CenterY;	
 			}
 
 			changed = true;

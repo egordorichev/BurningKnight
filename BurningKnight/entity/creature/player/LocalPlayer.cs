@@ -27,8 +27,6 @@ namespace BurningKnight.entity.creature.player {
 			
 			AddComponent(new GamepadComponent());
 			AddComponent(new PlayerInputComponent());
-			
-			AddTag(Tags.LocalPlayer);
 		}
 
 		private bool died;

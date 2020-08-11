@@ -25,7 +25,7 @@ namespace BurningKnight.entity.component {
 			base.Update(dt);
 
 			if (TheType == AimType.Cursor) {
-				Aim = Input.Mouse.GamePosition;
+				Aim = Entity.GetComponent<CursorComponent>().Cursor.GamePosition;
 			} else if (TheType == AimType.Target) {
 				RealAim = Aim = ((Mob) Entity).Target?.Center ?? Input.Mouse.GamePosition;
 			} else {

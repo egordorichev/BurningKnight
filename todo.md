@@ -1,3 +1,10 @@
+# coop
+
+* Players must be able to choose different items, also somehow allow to both pick guns, for ex? idk
+* resurrection
+
+# old stuff
+
 * fix ancient sword/match not appearing
 * remove jester bomb heal
 * put try/catch around log close
