@@ -5,14 +5,22 @@ using Lens.entity.component.logic;
 using Lens.input;
 using Lens.util;
 using Lens.util.camera;
-using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
 namespace BurningKnight.entity.component {
 	public class GamepadComponent : Component {
 		public static GamepadData Current;
-		
-		public GamepadData Controller;
+
+		private GamepadData controller;
+
+		public GamepadData Controller {
+			get => controller;
+
+			set {
+				controller = value;
+				Entity.GetComponent<InputComponent>().GamepadData = value;
+			}
+		}
 
 		public string GamepadId;
 
@@ -32,8 +40,9 @@ namespace BurningKnight.entity.component {
 				Current.Rumble(a, Math.Max(0.1f, a * 0.5f));
 			};
 		}
-		
-		public GamepadComponent() {
+
+		public override void Init() {
+			base.Init();
 			UpdateState();
 		}
 

@@ -9,6 +9,7 @@ using BurningKnight.level.challenge;
 using BurningKnight.save.statistics;
 using BurningKnight.state;
 using Lens.entity;
+using Lens.input;
 using Lens.util;
 using Lens.util.file;
 using Lens.util.math;
@@ -30,6 +31,20 @@ namespace BurningKnight.save {
 			
 			var player = new LocalPlayer();
 			area.Add(player);
+
+			
+			var input = player.GetComponent<InputComponent>();
+			
+			input.Index = 0;
+			input.KeyboardEnabled = true;
+			input.GamepadEnabled = false;
+
+			input = area.Add(new LocalPlayer()).GetComponent<InputComponent>();
+			
+			input.Index = 1;
+			input.KeyboardEnabled = false;
+			input.GamepadEnabled = true;
+				
 
 			if (Run.Depth > 0) {
 				if (Run.Type == RunType.Challenge) {

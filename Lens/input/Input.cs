@@ -128,6 +128,42 @@ namespace Lens.input {
 
 			return false;
 		}
+		
+		private static bool Check(string id, CheckType type, InputComponent data, bool ignoreBlock = false) {
+			if (Blocked > 0 && !ignoreBlock) {
+				return false;
+			}
+
+			if (!Buttons.TryGetValue(id, out var button)) {
+				return false;
+			}
+
+			if (data.KeyboardEnabled && button.Keys != null) {
+				foreach (var key in button.Keys) {
+					if (Keyboard.Check(key, type)) {
+						return true;
+					}
+				}
+			}
+
+			if (data.GamepadEnabled && data.GamepadData != null && data.GamepadData.Attached && button.Buttons != null) {
+				foreach (var b in button.Buttons) {
+					if (data.GamepadData.Check(b, type)) {
+						return true;
+					}
+				}
+			}
+
+			if (data.KeyboardEnabled && button.MouseButtons != null) {
+				foreach (var b in button.MouseButtons) {
+					if (Mouse.Check(b, type)) {
+						return true;
+					}
+				}
+			}
+
+			return false;
+		}
 
 		public static bool IsDownOnController(string id, GamepadData data) {
 			if (!Buttons.TryGetValue(id, out var button)) {
@@ -154,6 +190,18 @@ namespace Lens.input {
 		}
 
 		public static bool IsDown(string id, GamepadData data = null, bool ignoreBlock = false) {
+			return Check(id, CheckType.DOWN, data, ignoreBlock);
+		}
+
+		public static bool WasPressed(string id, InputComponent data, bool ignoreBlock = false) {
+			return Check(id, CheckType.PRESSED, data, ignoreBlock);
+		}
+
+		public static bool WasReleased(string id, InputComponent data, bool ignoreBlock = false) {
+			return Check(id, CheckType.RELEASED, data, ignoreBlock);
+		}
+
+		public static bool IsDown(string id, InputComponent data, bool ignoreBlock = false) {
 			return Check(id, CheckType.DOWN, data, ignoreBlock);
 		}
 	}

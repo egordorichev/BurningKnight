@@ -103,6 +103,8 @@ namespace BurningKnight.entity.creature.player {
 		public override void AddComponents() {
 			base.AddComponents();
 
+			AddComponent(new InputComponent());
+			
 			InBuilding = false;
 			GetComponent<HealthComponent>().SaveMaxHp = true;
 			
