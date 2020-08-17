@@ -1,8 +1,7 @@
 # coop
 
-* Players must be able to choose different items, also somehow allow to both pick guns, for ex? idk
-* resurrection
-* going through doors
+* shared consumables?
+*  somehow allow to both pick guns, for ex? idk
 
 # old stuff
 

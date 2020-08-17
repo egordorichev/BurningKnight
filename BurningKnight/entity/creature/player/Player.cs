@@ -52,6 +52,8 @@ namespace BurningKnight.entity.creature.player {
 	public class Player : Creature, DropModifier {
 		private static Color tint = new Color(50, 234, 60, 200);
 
+		public const int MaxPlayers = 2;
+
 		public static Color[] IndexTints = {
 			Palette.Default[59],
 			Palette.Default[42]
@@ -60,9 +62,9 @@ namespace BurningKnight.entity.creature.player {
 		public static Vector4[] VectorTints;
 
 		static Player() {
-			VectorTints = new Vector4[IndexTints.Length];
+			VectorTints = new Vector4[MaxPlayers];
 			
-			for (var i = 0; i < IndexTints.Length; i++) {
+			for (var i = 0; i < MaxPlayers; i++) {
 				var color = IndexTints[i];
 				VectorTints[i] = new Vector4(color.R / 255f, color.G / 255f, color.B / 255f, 1f);
 			}
@@ -75,16 +77,16 @@ namespace BurningKnight.entity.creature.player {
 		public static bool InBuilding;
 		public static Color LightColor = new Color(1f, 0.8f, 0.6f, 1f);
 		
-		public static string StartingWeapon;
-		public static string StartingItem;
-		public static string StartingLamp;
+		public static string[] StartingWeapons = new string[MaxPlayers];
+		public static string[] StartingItems = new string[MaxPlayers];
+		public static string[] StartingLamps = new string[MaxPlayers];
 		public static List<string> DailyItems;
 		public string ProjectileTexture = "rect";
 
 		public bool ItemDamage;
 		public bool Sliding;
 
-		private bool dead;
+		public bool Dead;
 
 		public void AnimateItemPickup(Item item, Action action = null, bool add = true, bool ban = true) {
 			if (ban) {
@@ -216,40 +218,42 @@ namespace BurningKnight.entity.creature.player {
 		public void FindSpawnPoint() {
 			if (Run.StartedNew && Run.Depth > 0) {
 				TwitchBridge.OnNewRun?.Invoke();
+
+				var index = GetComponent<InputComponent>().Index;
 				
-				if (StartingLamp != null) {
-					var i = Items.CreateAndAdd(StartingLamp, Area);
+				if (StartingLamps[index] != null) {
+					var i = Items.CreateAndAdd(StartingLamps[index], Area);
 					i.Scourged = false;
 					GetComponent<LampComponent>().Set(i, false);
-					Log.Debug($"Starting lamp: {StartingLamp}");
+					Log.Debug($"Starting lamp: {StartingLamps[index]}");
 				}
 				
-				if (StartingWeapon == null || !ItemPool.StartingWeapon.Contains(Items.Datas[StartingWeapon].Pools)) {
-					StartingWeapon = Items.Generate(ItemPool.StartingWeapon, item => Item.Unlocked(item.Id));
+				if (StartingWeapons[index] == null || !ItemPool.StartingWeapon.Contains(Items.Datas[StartingWeapons[index]].Pools)) {
+					StartingWeapons[index] = Items.Generate(ItemPool.StartingWeapon, item => Item.Unlocked(item.Id));
 				}
 
-				if (StartingWeapon != null) {
-					var i = Items.CreateAndAdd(StartingWeapon, Area);
+				if (StartingWeapons[index] != null) {
+					var i = Items.CreateAndAdd(StartingWeapons[index], Area);
 					i.Scourged = false;
 
 					var l = GetComponent<LampComponent>().Item;
 
 					if (l != null && l.Id == "bk:sharp_lamp" && i.Data.WeaponType != WeaponType.Melee) {
-						StartingWeapon = Items.Generate(ItemPool.StartingWeapon, item => Item.Unlocked(item.Id));
+						StartingWeapons[index] = Items.Generate(ItemPool.StartingWeapon, item => Item.Unlocked(item.Id));
 						i.Done = true;
-						i = Items.CreateAndAdd(StartingWeapon, Area);
+						i = Items.CreateAndAdd(StartingWeapons[index], Area);
 					}
 					
 					GetComponent<ActiveWeaponComponent>().Set(i, false);
-					Log.Debug($"Starting weapon: {StartingWeapon}");
+					Log.Debug($"Starting weapon: {StartingWeapons[index]}");
 				}
 				
-				if (StartingItem != null) {
-					var i = Items.CreateAndAdd(StartingItem, Area);
+				if (StartingItems[index] != null) {
+					var i = Items.CreateAndAdd(StartingItems[index], Area);
 					i.Scourged = false;
 					GetComponent<ActiveItemComponent>().Set(i, false);
 					
-					Log.Debug($"Starting item: {StartingItem}");
+					Log.Debug($"Starting item: {StartingItems[index]}");
 				}
 
 				if (DailyItems != null) {
@@ -680,6 +684,14 @@ namespace BurningKnight.entity.creature.player {
 				
 				if (c.New.Tagged[Tags.MustBeKilled].Count > 0) {
 					Audio.PlaySfx("level_door_shut");
+
+					foreach (var p in Area.Tagged[Tags.Player]) {
+						if (p.GetComponent<RoomComponent>().Room != c.New) {
+							AnimationUtil.Poof(p.Center);
+							p.Center = Center;
+							AnimationUtil.Poof(p.Center);
+						}
+					}
 				}
 
 				((InGameState) Engine.Instance.State).ResetFollowing();
@@ -769,54 +781,78 @@ namespace BurningKnight.entity.creature.player {
 				
 				if (c.Old != null) {
 					if (c.Old.Type == RoomType.OldMan) {
-						c.Old.CloseHiddenDoors();
-					} else if (c.Old.Type == RoomType.Treasure && !Rnd.Chance(5)) {
-						foreach (var door in c.Old.Doors) {
-							var x = (int) Math.Floor(door.CenterX / 16);
-							var y = (int) Math.Floor(door.Bottom / 16);
-							var t = level.Get(x, y);
+						var found = false;
 
-							if (level.Get(x, y).Matches(TileFlags.Passable)) {
-								var index = level.ToIndex(x, y);
-			
-								level.Set(index, level.Biome is IceBiome ? Tile.WallB : Tile.WallA);
-								level.UpdateTile(x, y);
-								level.ReCreateBodyChunk(x, y);
-								level.LoadPassable();
+						foreach (var p in c.Old.Tagged[Tags.Player]) {
+							if (p != this && p is Player) {
+								found = true;
 
-								Camera.Instance.Shake(10);
+								break;
 							}
-						}	
-						
-						c.Old.ApplyToEachTile((x, y) => {
-							if (Run.Level.Get(x, y).IsWall()) {
-								return;
-							}
-
-							Timer.Add(() => {
-								var part = new TileParticle();
-
-								part.Top = Run.Level.Tileset.WallTopADecor;
-								part.TopTarget = Run.Level.Tileset.WallTopADecor;
-								part.Side = Run.Level.Tileset.FloorSidesD[0];
-								part.Sides = Run.Level.Tileset.WallSidesA[2];
-								part.Tile = Tile.WallA;
-
-								part.X = x * 16;
-								part.Y = y * 16;
-								part.Target.X = x * 16;
-								part.Target.Y = y * 16;
-								part.TargetZ = -8f;
-
-								Area.Add(part);
-							}, Rnd.Float(0.5f));
-						});
-
-						foreach (var d in c.Old.Doors) {
-							d.Done = true;
 						}
 
-						c.Old.Done = true;
+						if (!found) {
+							c.Old.CloseHiddenDoors();
+						}
+					} else if (c.Old.Type == RoomType.Treasure && !Rnd.Chance(5)) {
+						var found = false;
+
+						foreach (var p in c.Old.Tagged[Tags.Player]) {
+							if (p != this && p is Player) {
+								found = true;
+
+								break;
+							}
+						}
+
+						if (!found) {
+							foreach (var door in c.Old.Doors) {
+								var x = (int) Math.Floor(door.CenterX / 16);
+								var y = (int) Math.Floor(door.Bottom / 16);
+								var t = level.Get(x, y);
+
+								if (level.Get(x, y).Matches(TileFlags.Passable)) {
+									var index = level.ToIndex(x, y);
+
+									level.Set(index, level.Biome is IceBiome ? Tile.WallB : Tile.WallA);
+									level.UpdateTile(x, y);
+									level.ReCreateBodyChunk(x, y);
+									level.LoadPassable();
+
+									Camera.Instance.Shake(10);
+								}
+							}
+
+							c.Old.ApplyToEachTile((x, y) => {
+								if (Run.Level.Get(x, y).IsWall()) {
+									return;
+								}
+
+								Timer.Add(() => {
+									var part = new TileParticle();
+
+									part.Top = Run.Level.Tileset.WallTopADecor;
+									part.TopTarget = Run.Level.Tileset.WallTopADecor;
+									part.Side = Run.Level.Tileset.FloorSidesD[0];
+									part.Sides = Run.Level.Tileset.WallSidesA[2];
+									part.Tile = Tile.WallA;
+
+									part.X = x * 16;
+									part.Y = y * 16;
+									part.Target.X = x * 16;
+									part.Target.Y = y * 16;
+									part.TargetZ = -8f;
+
+									Area.Add(part);
+								}, Rnd.Float(0.5f));
+							});
+
+							foreach (var d in c.Old.Doors) {
+								d.Done = true;
+							}
+
+							c.Old.Done = true;
+						}
 					}
 				}
 
@@ -937,6 +973,11 @@ namespace BurningKnight.entity.creature.player {
 			ing.Killer.Animation = null;
 			ing.Killer.Slice = null;
 			ing.Killer.UseSlice = true;
+
+			var b = GetComponent<RectBodyComponent>();
+			
+			b.Knockback = Vector2.Zero;
+			b.Velocity = Vector2.Zero;
 			
 			if (d.From != null && d.From != this) {
 				var anim = d.From.GetAnyComponent<AnimationComponent>();
@@ -979,7 +1020,6 @@ namespace BurningKnight.entity.creature.player {
 			ing.Killer.RelativeCenterX = Display.UiWidth * 0.75f;
 
 			Log.Info($"Killed by: {(d.From?.GetType().Name ?? "null")}");
-			
 			return true;
 		}
 
@@ -990,7 +1030,7 @@ namespace BurningKnight.entity.creature.player {
 		private bool died;
 
 		public override void AnimateDeath(DiedEvent d) {
-			dead = true;
+			Dead = true;
 			
 			base.AnimateDeath(d);
 			
@@ -1006,6 +1046,12 @@ namespace BurningKnight.entity.creature.player {
 			
 			var stone = new Tombstone();
 			stone.DisableDialog = true;
+
+			if (InGameState.Multiplayer) {
+				stone.HasPlayer = true;
+				stone.Index = GetComponent<InputComponent>().Index;
+				stone.WasGamepad = GetComponent<InputComponent>().GamepadEnabled;
+			}
 
 			var pool = new List<string>();
 
@@ -1044,9 +1090,13 @@ namespace BurningKnight.entity.creature.player {
 				
 			stone.CenterX = CenterX;
 			stone.Bottom = Bottom;
-			
-			Camera.Instance.Targets.Clear();
-			Camera.Instance.Follow(stone, 0.5f);
+
+			if (InGameState.EveryoneDied(this)) {
+				Camera.Instance.Targets.Clear();
+				Camera.Instance.Follow(stone, 0.5f);
+			} else {
+				((InGameState) Engine.Instance.State).ResetFollowing();
+			}
 		}
 
 		public override void Save(FileWriter stream) {
@@ -1060,7 +1110,7 @@ namespace BurningKnight.entity.creature.player {
 		}
 
 		public void ModifyDrops(List<Item> drops) {
-			if (!dead) {
+			if (!Dead) {
 				return;
 			}
 			
@@ -1085,9 +1135,11 @@ namespace BurningKnight.entity.creature.player {
 			base.Destroy();
 
 			if (!GetComponent<HealthComponent>().Dead && (Run.LastDepth == -1 || Run.LastDepth == 0)) {
-				StartingWeapon = GetComponent<ActiveWeaponComponent>().Item?.Id;
-				StartingItem = GetComponent<ActiveItemComponent>().Item?.Id;
-				StartingLamp = GetComponent<LampComponent>().Item?.Id;
+				var index = GetComponent<InputComponent>().Index;
+				
+				StartingWeapons[index] = GetComponent<ActiveWeaponComponent>().Item?.Id;
+				StartingItems[index] = GetComponent<ActiveItemComponent>().Item?.Id;
+				StartingLamps[index] = GetComponent<LampComponent>().Item?.Id;
 			}
 		}
 

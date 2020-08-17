@@ -54,6 +54,11 @@ namespace BurningKnight.entity {
 		public override void Update(float dt) {
 			base.Update(dt);
 
+			if (Player.Dead) {
+				Done = true;
+				return;
+			}
+			
 			if (readTint) {
 				readTint = false;
 				tint = Player.Tint;

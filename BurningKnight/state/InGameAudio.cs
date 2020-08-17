@@ -181,7 +181,7 @@ namespace BurningKnight.state {
 				Audio.Stop();
 				Audio.PlaySfx("secret");
 			} else if (e is DiedEvent de) {
-				if (de.Who is Player) {
+				if (de.Who is Player pl && InGameState.EveryoneDied(pl)) {
 					Audio.Stop();
 					Audio.PlayMusic("Nostalgia");
 				}

@@ -989,9 +989,6 @@
     <Compile Include="entity\twitch\TwitchNpc.cs" />
     <Compile Include="entity\twitch\TwitchPet.cs" />
     <Compile Include="Events.cs" />
-    <Compile Include="level\basement\BasementRoom.cs" />
-    <Compile Include="level\basement\BasementLevel.cs" />
-    <Compile Include="level\basement\BasementStand.cs" />
     <Compile Include="level\biome\Biome.cs" />
     <Compile Include="level\biome\BiomeAssets.cs" />
     <Compile Include="level\biome\BiomeInfo.cs" />

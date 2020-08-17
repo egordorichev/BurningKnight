@@ -1255,5 +1255,6 @@
 	"boss_dm": "Dark Mage",
 	"painting_bug": "This isn't a bug, that's a feature!",
 	"damage": "Damage",
-	"painting_new": "Gnobfather"
+	"painting_new": "Gnobfather",
+	"revive" : "Revive"
 }

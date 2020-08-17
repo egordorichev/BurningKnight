@@ -307,9 +307,21 @@ namespace BurningKnight.state {
 		public void ResetFollowing() {
 			Camera.Instance.Targets.Clear();
 
+			var min = 16;
+			
+			foreach (var p in Area.Tagged[Tags.Player]) {
+				if (p is LocalPlayer lp && !lp.Dead) {
+					var index = p.GetComponent<InputComponent>().Index;
+
+					if (index < min) {
+						min = index;
+					}
+				}
+			}
+			
 			foreach (var p in Area.Tagged[Tags.Player]) {
 				if (p is LocalPlayer) {
-					bool imp = p.GetComponent<InputComponent>().Index == 0;
+					bool imp = p.GetComponent<InputComponent>().Index == min;
 					Camera.Instance.Follow(p, imp ? 1f : 0.5f, imp);
 				}
 			}
@@ -2991,11 +3003,24 @@ namespace BurningKnight.state {
 			Paused = false;
 		}
 
+		public static bool EveryoneDied(Player pl = null) {
+			foreach (var p in Engine.Instance.State.Area.Tagged[Tags.Player]) {
+				if (!((Player) p).Dead && p != pl) {
+					return false;
+				}
+			}
+
+			return true;
+		}
+
 		public void AnimateDoneScreen(Player player) {
 			if (Run.Type == RunType.Daily) {
-				Player.StartingItem = null;
-				Player.StartingWeapon = null;
-				Player.StartingLamp = null;
+				for (var i = 0; i < Player.MaxPlayers; i++) {
+					Player.StartingItems[i] = null;
+					Player.StartingWeapons[i] = null;
+					Player.StartingLamps[i] = null;
+				}
+
 				Player.DailyItems = null;
 			}
 

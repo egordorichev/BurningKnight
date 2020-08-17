@@ -6,7 +6,6 @@ using BurningKnight.assets.items;
 using BurningKnight.entity.item;
 using BurningKnight.entity.projectile;
 using BurningKnight.level;
-using BurningKnight.level.basement;
 using BurningKnight.level.biome;
 using BurningKnight.level.cutscene;
 using BurningKnight.level.hall;

@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using BurningKnight.level.basement;
 using BurningKnight.level.biome;
 using BurningKnight.level.builders;
 using BurningKnight.level.hall;
