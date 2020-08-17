@@ -23,7 +23,9 @@ namespace BurningKnight.level.entities {
 					Audio.PlaySfx("player_descending");			
 
 					state.TransitionToBlack(Center, () => {
-						entity.Center = e.Center;
+						foreach (var p in Area.Tagged[Tags.Player]) {
+							p.Center = e.Center;
+						}
 
 						state.ResetFollowing();
 						Camera.Instance.Jump();

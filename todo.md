@@ -1,7 +1,6 @@
 # coop
 
 * shared consumables?
-*  somehow allow to both pick guns, for ex? idk
 
 # old stuff
 
