@@ -83,7 +83,8 @@ namespace BurningKnight.util {
 				"Deep stuff",
 				"Rave cave",
 				"Hello?",
-				"Shiny stuff"
+				"Shiny stuff",
+				"Grab your pickaxes"
 			);
 		}
 	}

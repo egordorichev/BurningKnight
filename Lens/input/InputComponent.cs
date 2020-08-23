@@ -1,3 +1,4 @@
+using System;
 using Lens.entity.component;
 using Lens.util.file;
 
@@ -8,7 +9,17 @@ namespace Lens.input {
 		public bool KeyboardEnabled = true;
 
 		public GamepadData GamepadData;
-		
+		public Action InitCallback;
+
+		public override void Update(float dt) {
+			base.Update(dt);
+
+			if (InitCallback != null) {
+				InitCallback?.Invoke();
+				InitCallback = null;
+			}
+		}
+
 		public override void Load(FileReader stream) {
 			base.Load(stream);
 

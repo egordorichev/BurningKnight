@@ -2,8 +2,11 @@
 
 * shared consumables?
 * initiating coop
-* check how hats work with coop
 * stats? what will happen to them?
+
+# rest
+
+* balance tweaks suggested by smashy
 
 # old stuff
 

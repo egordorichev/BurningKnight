@@ -37,14 +37,14 @@ namespace BurningKnight.save {
 			
 			input.Index = 0;
 			input.KeyboardEnabled = true;
-			input.GamepadEnabled = true;
-			/*input.GamepadEnabled = false;
+			//input.GamepadEnabled = true;
+			input.GamepadEnabled = false;
 
 			input = area.Add(new LocalPlayer()).GetComponent<InputComponent>();
 			
 			input.Index = 1;
 			input.KeyboardEnabled = false;
-			input.GamepadEnabled = true;*/
+			input.GamepadEnabled = true;
 
 			if (Run.Depth > 0) {
 				if (Run.Type == RunType.Challenge) {
