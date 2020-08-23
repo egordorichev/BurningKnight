@@ -422,7 +422,7 @@ namespace BurningKnight.entity.projectile {
 			if (Dying) {
 				return;
 			}
-			
+
 			Dying = true;
 			deathTimer = 0.1f;
 			

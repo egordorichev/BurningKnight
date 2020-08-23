@@ -1,6 +1,7 @@
 using System;
 using BurningKnight.assets.lighting;
 using BurningKnight.entity.component;
+using BurningKnight.entity.creature.drop;
 using BurningKnight.entity.creature.mob.castle;
 using BurningKnight.entity.door;
 using BurningKnight.entity.events;
@@ -23,6 +24,8 @@ namespace BurningKnight.entity.creature.mob.cave {
 			
 			AddAnimation("emerald_gunner");
 			SetMaxHp(5);
+			
+			AddDrops(new SingleDrop("bk:emerald", 0.001f));
 			
 			Become<IdleState>();
 			

@@ -76,7 +76,7 @@ namespace BurningKnight.level.entities {
 				Run.StartNew();
 				// Caves secret location
 			} else if (Run.Depth == 13) {
-				Run.Depth = 3;		
+				Run.Depth = 5;
 			} else {
 				Run.Depth = To;
 			}

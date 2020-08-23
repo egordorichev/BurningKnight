@@ -50,6 +50,8 @@ namespace BurningKnight.entity.creature.mob {
 		
 		public override void AddComponents() {
 			base.AddComponents();
+			
+			AddComponent(new AimComponent(AimComponent.AimType.Target));
 
 			AlwaysActive = true;
 			

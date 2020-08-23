@@ -1,6 +1,7 @@
 using System;
 using BurningKnight.assets.lighting;
 using BurningKnight.entity.component;
+using BurningKnight.entity.creature.drop;
 using BurningKnight.entity.door;
 using BurningKnight.entity.events;
 using Lens.entity;
@@ -27,6 +28,7 @@ namespace BurningKnight.entity.creature.mob.cave {
 
 			AddComponent(new SensorBodyComponent(2, 2, 12, 14));
 			AddComponent(new LightComponent(this, 20, new Color(0.5f, 1f, 0.4f)));
+			AddDrops(new SingleDrop("bk:emerald", 0.001f));
 		}
 		
 		#region Bandit States
