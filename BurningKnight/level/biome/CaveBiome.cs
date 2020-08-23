@@ -33,7 +33,11 @@ namespace BurningKnight.level.biome {
 		public override Color GetMapColor() {
 			return mapColor;
 		}
-		
+
+		public override bool HasPlants() {
+			return true;
+		}
+
 		public override void ModifyPainter(Level level, Painter painter) {
 			base.ModifyPainter(level, painter);
 
@@ -41,6 +45,10 @@ namespace BurningKnight.level.biome {
 			painter.Water = 0.1f;
 			painter.Dirt = 0.35f;
 			painter.Cobweb = 0.1f;
+		}
+
+		public override int GetNumSpecialRooms() {
+			return 0;
 		}
 	}
 }

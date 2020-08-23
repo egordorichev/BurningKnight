@@ -2,6 +2,7 @@
 
 * shared consumables?
 * initiating coop
+* check how hats work with coop
 * stats? what will happen to them?
 
 # old stuff
