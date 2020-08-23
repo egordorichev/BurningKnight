@@ -1042,6 +1042,7 @@
     <Compile Include="level\entities\Claw.cs" />
     <Compile Include="level\entities\ClawControll.cs" />
     <Compile Include="level\entities\ContinueRun.cs" />
+    <Compile Include="level\entities\Crystal.cs" />
     <Compile Include="level\entities\DailySign.cs" />
     <Compile Include="level\entities\decor\BurningStatue.cs" />
     <Compile Include="level\entities\decor\GrannyDecor.cs" />

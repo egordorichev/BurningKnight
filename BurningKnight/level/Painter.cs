@@ -405,6 +405,12 @@ namespace BurningKnight.level {
 					
 					item.Center = (rrms[Rnd.Int(rrms.Count)].GetRandomFreeCell() * 16) + new Vector2(8, 8);
 				}
+
+				if (Run.Depth == 1) {
+					var crystal = new Crystal();
+					crystal.Center = (rrms[Rnd.Int(rrms.Count)].GetRandomFreeCell() * 16) + new Vector2(8, 8) + Rnd.Vector(-4, 4);
+					Level.Area.Add(crystal);
+				}
 			} else {
 				Log.Error("Failed to place items");
 			}

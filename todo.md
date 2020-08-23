@@ -5,11 +5,6 @@
 * check how hats work with coop
 * stats? what will happen to them?
 
-# emerald cave
-
-* how to enter
-* whats the pro?
-
 # old stuff
 
 * fix ancient sword/match not appearing
