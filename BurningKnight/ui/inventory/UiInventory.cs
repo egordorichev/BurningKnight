@@ -433,7 +433,7 @@ namespace BurningKnight.ui.inventory {
 				RenderMana();
 			}
 
-			if ((show || Run.Depth == -2) && Player != null) {
+			if (!Second && (show || Run.Depth == -2) && Player != null) {
 				RenderConsumables(hasMana);
 			}
 		}

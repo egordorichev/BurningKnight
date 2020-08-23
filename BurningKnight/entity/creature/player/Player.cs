@@ -1150,5 +1150,17 @@ namespace BurningKnight.entity.creature.player {
 		protected override string GetDeadSfx() {
 			return null;
 		}
+
+		public override T GetComponent<T>() {
+			if (InGameState.Multiplayer && typeof(T) == typeof(ConsumablesComponent) && base.GetComponent<InputComponent>().Index != 0) {
+				foreach (var p in Area.Tagged[Tags.Player]) {
+					if (p != this && p.GetComponent<InputComponent>().Index == 0) {
+						return p.GetComponent<T>();
+					}
+				}
+			}
+			
+			return base.GetComponent<T>();
+		}
 	}
 }

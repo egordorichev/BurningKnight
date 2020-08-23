@@ -1,10 +1,7 @@
 # coop
-
 * shared consumables?
-* initiating coop
 
 # rest
-
 * balance tweaks suggested by smashy
 
 # old stuff

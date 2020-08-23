@@ -276,7 +276,7 @@ namespace Lens.entity {
 			(area ?? Area).EventListener.Unsubscribe<T>(this);
 		}
 				
-		public T GetComponent<T>() where T : Component {
+		public virtual T GetComponent<T>() where T : Component {
 			return (T) Components[typeof(T)];
 		}
 		
