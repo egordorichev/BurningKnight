@@ -78,6 +78,15 @@ namespace BurningKnight.util {
 				"Hakerman",
 				"Just like in the simulations"
 			);
+			
+			Add(Biome.Cave,
+				"Try to pillage quieter, please!",
+				"Read a book",
+				"Books are expensive",
+				"Book a flight, read a book",
+				"404. Page not found",
+				"Peace was never an option"
+			);
 		}
 	}
 }

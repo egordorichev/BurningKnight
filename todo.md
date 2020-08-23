@@ -1,6 +1,8 @@
 # coop
 
 * shared consumables?
+* initiating coop
+* stats? what will happen to them?
 
 # old stuff
 

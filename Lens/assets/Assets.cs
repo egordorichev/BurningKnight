@@ -33,7 +33,7 @@ namespace Lens.assets {
 		public static bool LoadOriginalFiles = true;
 		public static bool LoadMusic = false;
 		public static bool LoadSfx = false;
-		public const bool Reload = false;
+		public const bool Reload = true;
 		public static bool LoadMods = false;
 #else
 		public static bool LoadOriginalFiles = false;
