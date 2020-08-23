@@ -2,7 +2,6 @@
 
 * shared consumables?
 * initiating coop
-* stats? what will happen to them?
 
 # rest
 
