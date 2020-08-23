@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using BurningKnight.entity.creature.mob.castle;
+using BurningKnight.entity.creature.mob.cave;
 using BurningKnight.entity.creature.mob.desert;
 using BurningKnight.entity.creature.mob.ice;
 using BurningKnight.entity.creature.mob.jungle;
@@ -33,9 +34,9 @@ namespace BurningKnight.entity.creature.mob {
 				MobInfo.New<BulletSlime>(new SpawnChance(2f, Biome.Castle)).DisableFirstSpawn(),
 				MobInfo.New<BlueBulletSlime>(new SpawnChance(0.1f, Biome.Castle)).DisableFirstSpawn().SetWeight(2f),
 				MobInfo.New<Clown>(new SpawnChance(2f, Biome.Castle)).DisableFirstSpawn(),
-				MobInfo.New<Bandit>(new SpawnChance(1f, Biome.Desert, Biome.Jungle)),
 
 				// Desert
+				MobInfo.New<Bandit>(new SpawnChance(1f, Biome.Desert, Biome.Jungle)).SetWeight(0.5f),
 				MobInfo.New<Gunner>(new SpawnChance(2f, Biome.Desert)).SetWeight(1.5f),
 				MobInfo.New<DesertSlime>(new SpawnChance(1f, Biome.Desert)),
 				MobInfo.New<Maggot>(new SpawnChance(1f, Biome.Desert)).RequiresNearWall(),
@@ -84,6 +85,10 @@ namespace BurningKnight.entity.creature.mob {
 				MobInfo.New<IceCrawler>(new SpawnChance(1f, Biome.Tech)).RequiresNearWall(),
 				MobInfo.New<Dino>(new SpawnChance(1f, Biome.Tech)),
 				MobInfo.New<Gunner>(new SpawnChance(2f, Biome.Tech)),
+				
+				// Caves
+				MobInfo.New<Thief>(new SpawnChance(1f, Biome.Cave)),
+				MobInfo.New<EmeraldGunner>(new SpawnChance(1f, Biome.Cave)).SetSpawnChance(0.5f),
 			};
 			
 			All.AddRange(infos);

@@ -470,6 +470,8 @@
     <Compile Include="entity\creature\mob\castle\Caster.cs" />
     <Compile Include="entity\creature\mob\castle\Crab.cs" />
     <Compile Include="entity\creature\mob\castle\Rat.cs" />
+    <Compile Include="entity\creature\mob\cave\EmeraldGunner.cs" />
+    <Compile Include="entity\creature\mob\cave\Thief.cs" />
     <Compile Include="entity\creature\mob\desert\Cactus.cs" />
     <Compile Include="entity\creature\mob\desert\DesertBulletSlime.cs" />
     <Compile Include="entity\creature\mob\desert\Fly.cs" />

@@ -8,6 +8,7 @@ namespace BurningKnight.entity.projectile {
 		public static Color BkRed = new Color(1f, 0f, 0f);
 		public static Color Red = Palette.Default[0];
 		public static Color Green = Palette.Default[35];
+		public static Color DarkGreen = Palette.Default[37];
 		public static Color Blue = Palette.Default[40];
 		public static Color Cyan = Palette.Default[42];
 		public static Color Purple = Palette.Default[54];
