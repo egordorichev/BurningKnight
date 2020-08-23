@@ -9,7 +9,6 @@
 
 * how to enter
 * whats the pro?
-* loading screen jokes for caves
 
 # old stuff
 

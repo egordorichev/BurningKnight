@@ -80,12 +80,10 @@ namespace BurningKnight.util {
 			);
 			
 			Add(Biome.Cave,
-				"Try to pillage quieter, please!",
-				"Read a book",
-				"Books are expensive",
-				"Book a flight, read a book",
-				"404. Page not found",
-				"Peace was never an option"
+				"Deep stuff",
+				"Rave cave",
+				"Hello?",
+				"Shiny stuff"
 			);
 		}
 	}
