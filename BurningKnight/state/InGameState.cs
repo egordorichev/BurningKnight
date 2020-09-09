@@ -306,6 +306,7 @@ namespace BurningKnight.state {
 
 		public void ResetFollowing() {
 			Camera.Instance.Targets.Clear();
+			Camera.Instance.MainTarget = null;
 
 			var min = 16;
 			
@@ -321,7 +322,7 @@ namespace BurningKnight.state {
 			
 			foreach (var p in Area.Tagged[Tags.Player]) {
 				if (p is LocalPlayer) {
-					bool imp = p.GetComponent<InputComponent>().Index == min;
+					var imp = !Multiplayer || p.GetComponent<InputComponent>().Index == min;
 					Camera.Instance.Follow(p, imp ? 1f : 0.5f, imp);
 				}
 			}
@@ -1134,6 +1135,10 @@ namespace BurningKnight.state {
 
 			if (Input.Keyboard.WasPressed(Keys.NumPad0)) {
 				Camera.Instance.Detached = !Camera.Instance.Detached;
+
+				if (!Camera.Instance.Detached) {
+					ResetFollowing();
+				}
 			}
 
 			if (Camera.Instance.Detached) {

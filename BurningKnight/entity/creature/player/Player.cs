@@ -52,11 +52,14 @@ namespace BurningKnight.entity.creature.player {
 	public class Player : Creature, DropModifier {
 		private static Color tint = new Color(50, 234, 60, 200);
 
-		public const int MaxPlayers = 2;
+		public const int MaxPlayers = 5;
 
 		public static Color[] IndexTints = {
 			Palette.Default[59],
-			Palette.Default[42]
+			Palette.Default[42],
+			Palette.Default[35],
+			Palette.Default[55],
+			Palette.Default[31]
 		};
 
 		public static Vector4[] VectorTints;

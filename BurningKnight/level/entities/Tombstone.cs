@@ -61,22 +61,17 @@ namespace BurningKnight.level.entities {
 			GetComponent<DialogComponent>().Dialog.Voice = 30;
 		}
 
-		public bool Revive(Entity e) {
-			Item = null;
-			UpdateSprite();
+		public static Player CreatePlayer(Area area, byte index, bool gamepad, Vector2 where) {
+			InGameState.Multiplayer = true;
 			
-			AnimationUtil.Poof(Center);
-			Camera.Instance.Shake(16);
-
 			Player p;
-			var input = Area.Add(p = new LocalPlayer()).GetComponent<InputComponent>();
+			var input = area.Add(p = new LocalPlayer()).GetComponent<InputComponent>();
 			
-			input.Index = Index;
-			input.KeyboardEnabled = !WasGamepad;
-			input.GamepadEnabled = WasGamepad;
+			input.Index = index;
+			input.KeyboardEnabled = !gamepad;
+			input.GamepadEnabled = gamepad;
 			
-			Index = 255;
-			p.BottomCenter = BottomCenter + new Vector2(0, 2);
+			p.BottomCenter = where;
 			
 			var cursor = new Cursor {
 				Player = p
@@ -86,6 +81,18 @@ namespace BurningKnight.level.entities {
 			((InGameState) Engine.Instance.State).TopUi.Add(cursor);
 
 			p.GetComponent<CursorComponent>().Cursor = cursor;
+			
+			AnimationUtil.Poof(where, 1);
+			Camera.Instance.Shake(16);
+			
+			return p;
+		}
+
+		public bool Revive(Entity e) {
+			Item = null;
+			UpdateSprite();
+			var p = CreatePlayer(Area, Index, WasGamepad, BottomCenter + new Vector2(0, 2));
+			Index = 255;
 
 			var h1 = e.GetComponent<HealthComponent>();
 			var hr1 = e.GetComponent<HeartsComponent>();

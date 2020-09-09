@@ -1257,5 +1257,6 @@
 	"painting_bug": "This isn't a bug, that's a feature!",
 	"damage": "Damage",
 	"painting_new": "Gnobfather",
-	"revive" : "Revive"
+	"revive" : "Revive",
+	"coop_sign": "Press any button on a gamepad to add another player"
 }

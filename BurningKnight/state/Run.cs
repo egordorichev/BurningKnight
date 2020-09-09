@@ -18,13 +18,14 @@ namespace BurningKnight.state {
 		public static Action<int, string> SubmitScore;
 		public static int ContentEndDepth = BK.Demo ? 5 : 11;
 
-		private static int depth = BK.Version.Dev ? 13 : 0;
+		private static int depth = BK.Version.Dev ? 0 : 0;
 		public static int NextDepth = depth;
 		public static int LastDepth = depth;
 		public static int Loop;
 		public static bool CustomSeed;
 		public static int Id;
 		public static bool Redo;
+		public static int NumPlayers;
 
 		public static int ActualDepth {
 			set => depth = value;

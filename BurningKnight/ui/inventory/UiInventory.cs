@@ -412,7 +412,7 @@ namespace BurningKnight.ui.inventory {
 			Entity target;
 			var r = Player.GetComponent<RoomComponent>().Room;
 			
-			if (!Engine.Instance.State.Paused && r != null) {
+			if (!Second && !Engine.Instance.State.Paused && r != null) {
 				if (r.Tagged[Tags.MustBeKilled].Count == 1 && r.Type != RoomType.Connection && !(r.Tagged[Tags.MustBeKilled][0] is Boss)) {
 					target = r.Tagged[Tags.MustBeKilled][0];
 

@@ -33,5 +33,9 @@ namespace BurningKnight.level.entities.exit {
 		protected override string GetFxText() {
 			return Locale.Get("boss_rush");
 		}
+
+		protected override bool CanInteract(Entity e) {
+			return !InGameState.Multiplayer;
+		}
 	}
 }

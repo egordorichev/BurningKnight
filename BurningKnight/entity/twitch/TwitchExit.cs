@@ -68,7 +68,7 @@ namespace BurningKnight.entity.twitch {
 		}
 
 		protected override bool CanInteract(Entity e) {
-			return GlobalSave.GetString("twitch_username") != null;
+			return !InGameState.Multiplayer && GlobalSave.GetString("twitch_username") != null;
 		}
 	}
 }

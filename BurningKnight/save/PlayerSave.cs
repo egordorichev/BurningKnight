@@ -31,20 +31,22 @@ namespace BurningKnight.save {
 			
 			var player = new LocalPlayer();
 			area.Add(player);
-
 			
 			var input = player.GetComponent<InputComponent>();
 			
 			input.Index = 0;
 			input.KeyboardEnabled = true;
-			//input.GamepadEnabled = true;
-			input.GamepadEnabled = false;
+			input.GamepadEnabled = Run.NumPlayers <= 1;
 
-			input = area.Add(new LocalPlayer()).GetComponent<InputComponent>();
-			
-			input.Index = 1;
-			input.KeyboardEnabled = false;
-			input.GamepadEnabled = true;
+			for (var i = 1; i < Run.NumPlayers; i++) {
+				input = area.Add(new LocalPlayer()).GetComponent<InputComponent>();
+
+				input.Index = (byte) i;
+				input.KeyboardEnabled = false;
+				input.GamepadEnabled = true;
+			}
+
+			Run.NumPlayers = 0;
 
 			if (Run.Depth > 0) {
 				if (Run.Type == RunType.Challenge) {
