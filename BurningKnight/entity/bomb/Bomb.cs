@@ -71,7 +71,7 @@ namespace BurningKnight.entity.bomb {
 		}
 
 		public void MoveToMouse() {
-			VelocityTo(AngleTo(Input.Mouse.GamePosition));
+			VelocityTo(AngleTo(Owner.GetComponent<CursorComponent>().Cursor.GamePosition));
 		}
 
 		public void VelocityTo(float angle, float force = 100f) {

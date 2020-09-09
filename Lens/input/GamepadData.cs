@@ -24,20 +24,24 @@ namespace Lens.input {
 
 		public bool Idle;
 
-		public bool AnythingIsDown() {
-			var d = CurrentState.Buttons;
-
+		public bool AnythingIsDown(GamePadState state) {
+			var d = state.Buttons;
+			
 			if (d.A == ButtonState.Pressed || d.B == ButtonState.Pressed || d.X == ButtonState.Pressed || d.Y == ButtonState.Pressed) {
 				return true;
 			}
 			
-			var p = CurrentState.DPad;
+			var p = state.DPad;
 
 			if (p.Left == ButtonState.Pressed || p.Right == ButtonState.Pressed || p.Up == ButtonState.Pressed || p.Down == ButtonState.Pressed) {
 				return true;
 			}
 
 			return false;
+		}
+
+		public bool AnythingIsDown() {
+			return AnythingIsDown(CurrentState);
 		}
 		
 		public void Update(float dt) {

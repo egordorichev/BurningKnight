@@ -136,8 +136,10 @@ namespace BurningKnight.level.rooms.treasure {
 		}
 
 		public override void SetupDoors(Level level) {
+			var rude = Rnd.Chance(5); // Hehe
+			
 			foreach (var door in Connected.Values) {
-				door.Type = DoorPlaceholder.Variant.Treasure;
+				door.Type = rude ? DoorPlaceholder.Variant.Locked : DoorPlaceholder.Variant.Treasure;
 			}
 		}
 

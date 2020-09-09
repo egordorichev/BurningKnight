@@ -1,3 +1,13 @@
+# coop
+* removing players (prop appears)
+* camera is freaking offset and it drives me mad
+
+# rest
+* balance tweaks suggested by smashy
+* update item checksum
+
+# old stuff
+
 * fix ancient sword/match not appearing
 * remove jester bomb heal
 * put try/catch around log close

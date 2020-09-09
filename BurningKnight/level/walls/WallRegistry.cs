@@ -21,8 +21,8 @@ namespace BurningKnight.level.walls {
 				return;
 			}
 			
-			if (biome is JungleBiome) {
-				Add(new PatchWall(), 3f);
+			if (biome is JungleBiome || biome is CaveBiome) {
+				Add(new PatchWall(), 5f);
 			} else if (biome is LibraryBiome) {
 				Add(new TeleportSplitWall(), 5f);
 			}
@@ -32,7 +32,7 @@ namespace BurningKnight.level.walls {
 			Add(new WallPainter(), 1f);
 
 			Add(new CollumnWall(), 1f);
-			Add(new SplitWall(), 1f);
+			Add(new SplitWall(), 0.5f);
 			Add(new CornerWall(), 1f);
 			Add(new CollumsWall(), 1f);
 			Add(new PlatformWall(), 1f);

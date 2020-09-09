@@ -40,6 +40,8 @@ namespace BurningKnight.entity.projectile {
 			laser.StarterOwner = owner;
 			laser.Owner = owner;
 			laser.Color = ProjectileColor.Red;
+			laser.DieOffscreen = false;
+			laser.PreventSpectralBreak = true;
 
 			if (parent != null) {
 				laser.Color = parent.Color;

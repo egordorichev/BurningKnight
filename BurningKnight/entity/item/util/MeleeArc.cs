@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using BurningKnight.assets.lighting;
 using BurningKnight.entity.bomb;
 using BurningKnight.entity.component;
+using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.projectile;
 using BurningKnight.level;
@@ -116,7 +117,7 @@ namespace BurningKnight.entity.item.util {
 							p.Break();
 						}
 					}
-				} else if (ev.Entity != Owner) {
+				} else if (ev.Entity != Owner && (!(ev.Entity is Player) || !(Owner is Player))) {
 					if (ev.Entity.TryGetComponent<HealthComponent>(out var health)) {
 						if (!hurt.Contains(ev.Entity)) {
 							if (Knockback > 0) {

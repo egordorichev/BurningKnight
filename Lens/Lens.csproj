@@ -264,6 +264,7 @@
     <Compile Include="input\GamepadData.cs" />
     <Compile Include="input\Input.cs" />
     <Compile Include="input\InputButton.cs" />
+    <Compile Include="input\InputComponent.cs" />
     <Compile Include="input\KeyboardData.cs" />
     <Compile Include="input\MouseButtons.cs" />
     <Compile Include="input\MouseData.cs" />

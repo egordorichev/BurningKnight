@@ -216,7 +216,7 @@ namespace BurningKnight.entity.creature.player {
 		public override void Update(float dt) {
 			base.Update(dt);
 
-			if (Run.Depth > 0 && Input.WasPressed(Controls.Bomb, GetComponent<GamepadComponent>().Controller)) {
+			if (Run.Depth > 0 && Input.WasPressed(Controls.Bomb, GetComponent<InputComponent>())) {
 				if (GetComponent<PlayerInputComponent>().InDialog) {
 					return;
 				}

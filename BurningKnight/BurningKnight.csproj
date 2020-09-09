@@ -378,6 +378,7 @@
     <Compile Include="entity\component\CircleBodyComponent.cs" />
     <Compile Include="entity\component\CloseDialogComponent.cs" />
     <Compile Include="entity\component\CollisionFilterComponent.cs" />
+    <Compile Include="entity\component\CursorComponent.cs" />
     <Compile Include="entity\component\DoorBodyComponent.cs" />
     <Compile Include="entity\component\DropModifier.cs" />
     <Compile Include="entity\component\DropsComponent.cs" />
@@ -469,6 +470,9 @@
     <Compile Include="entity\creature\mob\castle\Caster.cs" />
     <Compile Include="entity\creature\mob\castle\Crab.cs" />
     <Compile Include="entity\creature\mob\castle\Rat.cs" />
+    <Compile Include="entity\creature\mob\cave\Broco.cs" />
+    <Compile Include="entity\creature\mob\cave\EmeraldGunner.cs" />
+    <Compile Include="entity\creature\mob\cave\Thief.cs" />
     <Compile Include="entity\creature\mob\desert\Cactus.cs" />
     <Compile Include="entity\creature\mob\desert\DesertBulletSlime.cs" />
     <Compile Include="entity\creature\mob\desert\Fly.cs" />
@@ -988,14 +992,12 @@
     <Compile Include="entity\twitch\TwitchNpc.cs" />
     <Compile Include="entity\twitch\TwitchPet.cs" />
     <Compile Include="Events.cs" />
-    <Compile Include="level\basement\BasementRoom.cs" />
-    <Compile Include="level\basement\BasementLevel.cs" />
-    <Compile Include="level\basement\BasementStand.cs" />
     <Compile Include="level\biome\Biome.cs" />
     <Compile Include="level\biome\BiomeAssets.cs" />
     <Compile Include="level\biome\BiomeInfo.cs" />
     <Compile Include="level\biome\BiomeRegistry.cs" />
     <Compile Include="level\biome\CastleBiome.cs" />
+    <Compile Include="level\biome\CaveBiome.cs" />
     <Compile Include="level\biome\DesertBiome.cs" />
     <Compile Include="level\biome\JungleBiome.cs" />
     <Compile Include="level\biome\HubBiome.cs" />
@@ -1040,6 +1042,7 @@
     <Compile Include="level\entities\Claw.cs" />
     <Compile Include="level\entities\ClawControll.cs" />
     <Compile Include="level\entities\ContinueRun.cs" />
+    <Compile Include="level\entities\Crystal.cs" />
     <Compile Include="level\entities\DailySign.cs" />
     <Compile Include="level\entities\decor\BurningStatue.cs" />
     <Compile Include="level\entities\decor\GrannyDecor.cs" />
@@ -1077,6 +1080,7 @@
     <Compile Include="level\entities\statue\ChestStatue.cs" />
     <Compile Include="level\entities\statue\DiceStatue.cs" />
     <Compile Include="level\entities\statue\Fountain.cs" />
+    <Compile Include="level\entities\statue\GamepadStatue.cs" />
     <Compile Include="level\entities\statue\ScourgeStatue.cs" />
     <Compile Include="level\entities\statue\Statue.cs" />
     <Compile Include="level\entities\statue\StoneStatue.cs" />
@@ -1122,6 +1126,7 @@
     <Compile Include="level\rooms\boss\CollumnsBossRoom.cs" />
     <Compile Include="level\rooms\boss\FireTrapBossRoom.cs" />
     <Compile Include="level\rooms\challenge\ChallengeRoom.cs" />
+    <Compile Include="level\rooms\connection\CabbadgeConnectionRoom.cs" />
     <Compile Include="level\rooms\connection\ComplexTunnelRoom.cs" />
     <Compile Include="level\rooms\connection\ConnectionRoom.cs" />
     <Compile Include="level\rooms\connection\HoleConnectionRoom.cs" />

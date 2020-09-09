@@ -27,8 +27,6 @@ namespace BurningKnight.entity.creature.player {
 			
 			AddComponent(new GamepadComponent());
 			AddComponent(new PlayerInputComponent());
-			
-			AddTag(Tags.LocalPlayer);
 		}
 
 		private bool died;
@@ -40,30 +38,34 @@ namespace BurningKnight.entity.creature.player {
 					Done = false;
 
 					GetComponent<AudioEmitterComponent>().EmitRandomized("player_death");
-					
 					RemoveComponent<PlayerInputComponent>();
 					
 					Achievements.Unlock("bk:rip");
 					Items.Unlock("bk:dagger");
 
-					Audio.FadeOut();
-					
-					((InGameState) Engine.Instance.State).HandleDeath();
+					if (InGameState.EveryoneDied(this)) {
+						Audio.FadeOut();
 
-					Camera.Instance.Targets.Clear();
-					Camera.Instance.Follow(this, 1);
-					
-					Tween.To(0.3f, Engine.Instance.Speed, x => Engine.Instance.Speed = x, 0.5f).OnEnd = () => {
-						var t = Tween.To(1, Engine.Instance.Speed, x => Engine.Instance.Speed = x, 0.5f);
+						((InGameState) Engine.Instance.State).HandleDeath();
 
-						t.Delay = 0.8f;
-						t.OnEnd = () => ((InGameState) Engine.Instance.State).AnimateDoneScreen(this);
+						Camera.Instance.Targets.Clear();
+						Camera.Instance.Follow(this, 1);
 
+						Tween.To(0.3f, Engine.Instance.Speed, x => Engine.Instance.Speed = x, 0.5f).OnEnd = () => {
+							var t = Tween.To(1, Engine.Instance.Speed, x => Engine.Instance.Speed = x, 0.5f);
+
+							t.Delay = 0.8f;
+							t.OnEnd = () => ((InGameState) Engine.Instance.State).AnimateDoneScreen(this);
+
+							HandleEvent(e);
+							AnimateDeath(ev);
+
+							Done = true;
+						};
+					} else {
 						HandleEvent(e);
 						AnimateDeath(ev);
-						
-						Done = true;
-					};
+					}
 
 					return true;
 				}

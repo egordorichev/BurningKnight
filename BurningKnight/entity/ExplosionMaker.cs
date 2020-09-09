@@ -102,7 +102,7 @@ namespace BurningKnight.entity {
 				}
 				
 				e.GetAnyComponent<BodyComponent>()?.KnockbackFrom(whoHurts, 4f);
-				e.GetComponent<ExplodableComponent>().HandleExplosion(damager, damage);
+				e.GetComponent<ExplodableComponent>().HandleExplosion(damager, whoHurts, damage);
 			}
 
 			Camera.Instance.TextureZoom -= 0.05f;

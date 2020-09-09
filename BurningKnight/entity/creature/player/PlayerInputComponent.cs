@@ -72,10 +72,11 @@ namespace BurningKnight.entity.creature.player {
 			}
 			
 			var idle = true;
-			var controller = GetComponent<GamepadComponent>().Controller;
+			var controller = GetComponent<InputComponent>();
+			var data = controller.GamepadData;
 
-			if (controller != null && controller.WasAttached && !controller.Attached) {
-				controller.WasAttached = false;
+			if (data != null && data.WasAttached && !data.Attached) {
+				data.WasAttached = false;
 				Engine.Instance.State.Paused = true;
 				idle = false;
 			}
@@ -202,14 +203,14 @@ namespace BurningKnight.entity.creature.player {
 					acceleration.X += 1;
 				}
 
-				if (Input.Mouse.CheckMiddleButton) {
+				if (controller.KeyboardEnabled && Input.Mouse.CheckMiddleButton) {
 					idle = false;
-					var a = Entity.AngleTo(Input.Mouse.GamePosition);
+					var a = Entity.AngleTo(GetComponent<CursorComponent>().Cursor.GamePosition);
 					acceleration += new Vector2((float) Math.Cos(a), (float) Math.Sin(a));
 				}
 
-				if (controller != null && controller.Attached) {
-					acceleration += controller.GetLeftStick();
+				if (controller.GamepadEnabled && data != null && data.Attached) {
+					acceleration += data.GetLeftStick();
 				}
 
 				if (Input.WasPressed(Controls.Roll, controller) && !Send(new PlayerRolledEvent {

@@ -14,21 +14,23 @@ namespace BurningKnight.level.entities.plant {
 			"plant_i", "plant_j", "plant_k", "plant_l", "plant_m", "plant_n", "plant_o" 
 		};
 
-		private byte variant;
+		public byte Variant;
 		
 		public override void Update(float dt) {
 			base.Update(dt);
 
 			if (GraphicsComponent == null) {
-				var s = variants[variant % variants.Length];
-				var g = new PlantGraphicsComponent($"{Run.Level.Biome.Id}_biome", $"{s}{(variant >= variants.Length ? "s" : "")}");
+				var s = variants[Variant % variants.Length];
+				var g = Variant == 255 ? new PlantGraphicsComponent("props", "cabbadge")
+					: new PlantGraphicsComponent($"{Run.Level.Biome.Id}_biome", $"{s}{(Variant >= variants.Length ? "s" : "")}");
+				
 				AddComponent(g);
 				g.Flipped = Rnd.Chance();
 
 				Width = g.Sprite.Width;
 				Height = g.Sprite.Height;
 
-				if (Run.Depth != 0 || (s != "plant_k" && s != "plant_m")) {
+				if (Variant != 255 && (Run.Depth != 0 || (s != "plant_k" && s != "plant_m"))) {
 					if (s == "plant_m") {
 						AddComponent(new LightComponent(this, 24, new Color(0.4f, 0.4f, 1f, 1f)));
 					} else if (s == "plant_k") {
@@ -42,25 +44,25 @@ namespace BurningKnight.level.entities.plant {
 
 		public override void Init() {
 			base.Init();
-			variant = (byte) Rnd.Int(variants.Length * 2);
+			Variant = (byte) Rnd.Int(variants.Length * 2);
 		}
 		
 		public override void Load(FileReader stream) {
 			base.Load(stream);
-			variant = stream.ReadByte();
+			Variant = stream.ReadByte();
 		}
 
 		public override void Save(FileWriter stream) {
 			base.Save(stream);
-			stream.WriteByte(variant);
+			stream.WriteByte(Variant);
 		}
 
 		public override void RenderImDebug() {
 			base.RenderImDebug();
-			var v = (int) variant;
+			var v = (int) Variant;
 
 			if (ImGui.InputInt("Id", ref v)) {
-				variant = (byte) v;
+				Variant = (byte) v;
 				RemoveComponent<PlantGraphicsComponent>();
 			}
 		}

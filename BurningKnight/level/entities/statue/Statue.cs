@@ -22,7 +22,11 @@ namespace BurningKnight.level.entities.statue {
 			
 			AddComponent(new InteractableComponent(Interact) {
 				CanInteract = CanInteract,
-				OnStart = (e) => Engine.Instance.State.Ui.Add(new InteractFx(this, Locale.Get(GetFxText())))
+				OnStart = (e) => {
+					if (GetFxText() != null) {
+						Engine.Instance.State.Ui.Add(new InteractFx(this, Locale.Get(GetFxText())));
+					}
+				}
 			});
 
 			AddComponent(new AudioEmitterComponent());
@@ -39,7 +43,11 @@ namespace BurningKnight.level.entities.statue {
 			if (Broken) {
 				UpdateSprite();
 			}
-			
+
+			AddSensor();
+		}
+
+		protected virtual void AddSensor() {
 			AddComponent(new SensorBodyComponent(-Npc.Padding, -Npc.Padding, Width + Npc.Padding * 2, Height + Npc.Padding * 2));
 		}
 

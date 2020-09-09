@@ -24,7 +24,8 @@ namespace BurningKnight.level.biome {
 				BiomeInfo.New<IceBiome>(Biome.Ice).Add(7, 1f).Add(8, 1f),
 				BiomeInfo.New<LibraryBiome>(Biome.Library).Add(9, 1f).Add(10, 1f),
 
-				BiomeInfo.New<TechBiome>(Biome.Tech).Add(11, 1f).Add(12, 1f)
+				BiomeInfo.New<TechBiome>(Biome.Tech).Add(11, 1f).Add(12, 1f),
+				BiomeInfo.New<CaveBiome>(Biome.Cave).Add(13, 1f),
 			};
 			
 			foreach (var info in infos) {

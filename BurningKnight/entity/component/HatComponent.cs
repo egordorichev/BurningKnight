@@ -3,18 +3,27 @@ using BurningKnight.assets.lighting;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.item;
 using BurningKnight.save;
+using Lens.input;
+using Lens.util;
 using Lens.util.file;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.component {
 	public class HatComponent : ItemComponent {
 		public bool DoNotRender;
-		
-		public override void PostInit() {
-			base.PostInit();
+		private bool loaded;
+
+		public override void Init() {
+			base.Init();
+			Entity.GetComponent<InputComponent>().InitCallback = Setup;
+		}
+
+		public void Setup() {
+			loaded = true;
 			
 			if (Item == null) {
-				var hat = GlobalSave.GetString("hat");
+				var hat = GlobalSave.GetString($"hat_{Entity.GetComponent<InputComponent>().Index}");
+				Log.Debug($"hat_{Entity.GetComponent<InputComponent>().Index}");
 
 				if (hat != null) {
 					Set(Items.CreateAndAdd(hat, Entity.Area), false);
@@ -30,7 +39,10 @@ namespace BurningKnight.entity.component {
 		
 		public override void Set(Item item, bool animate = true) {
 			base.Set(item, animate);
-			GlobalSave.Put("hat", item?.Id);
+
+			if (loaded) {
+				GlobalSave.Put($"hat_{Entity.GetComponent<InputComponent>().Index}", item?.Id);
+			}
 
 			if (item != null) {
 				DoNotRender = item.Id == "bk:no_hat";

@@ -78,6 +78,14 @@ namespace BurningKnight.util {
 				"Hakerman",
 				"Just like in the simulations"
 			);
+			
+			Add(Biome.Cave,
+				"Deep stuff",
+				"Rave cave",
+				"Hello?",
+				"Shiny stuff",
+				"Grab your pickaxes"
+			);
 		}
 	}
 }

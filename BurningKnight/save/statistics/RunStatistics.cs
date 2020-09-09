@@ -196,17 +196,13 @@ namespace BurningKnight.save.statistics {
 			
 			Time += dt;
 
-			var player = LocalPlayer.Locate(Area);
+			foreach (var p in Area.Tagged[Tags.Player]) {
+				leftOver += (p.GetComponent<RectBodyComponent>().Velocity * dt).Length();
 
-			if (player == null) {
-				return;
+				var amount = (uint) Math.Floor(leftOver / 16f);
+				leftOver -= amount * 16;
+				TilesWalked += amount;
 			}
-
-			leftOver += (player.GetComponent<RectBodyComponent>().Velocity * dt).Length();
-
-			var amount = (uint) Math.Floor(leftOver / 16f);
-			leftOver -= amount * 16;
-			TilesWalked += amount;
 		}
 
 		public override bool HandleEvent(Event e) {

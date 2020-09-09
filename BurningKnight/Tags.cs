@@ -4,7 +4,7 @@ namespace BurningKnight {
 	public class Tags {
 		public static int Player = new BitTag("player");
 		public static int PlayerTarget = new BitTag("player_target");
-		public static int LocalPlayer = new BitTag("local_player");
+		public static int Cursor = new BitTag("cursor");
 		public static int Mob = new BitTag("mob");
 		public static int Boss = new BitTag("boss");
 		public static int BurningKnight = new BitTag("burning_knight");

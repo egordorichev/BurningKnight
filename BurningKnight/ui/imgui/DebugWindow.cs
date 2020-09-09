@@ -6,6 +6,7 @@ using BurningKnight.entity.creature.player;
 using BurningKnight.save;
 using BurningKnight.state;
 using BurningKnight.state.save;
+using BurningKnight.util;
 using ImGuiNET;
 using Lens;
 using Lens.game;
@@ -57,6 +58,9 @@ namespace BurningKnight.ui.imgui {
 			} else {
 				ImGui.Text("Input free");
 			}
+			
+			ImGui.Text($"Multiplayer: {InGameState.Multiplayer}");
+			ImGui.Text($"Camera targets: {Camera.Instance.Targets.Count}");
 
 			var current = 0;
 			var t = Engine.Instance.State.GetType();

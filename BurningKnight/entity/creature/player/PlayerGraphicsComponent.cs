@@ -55,7 +55,7 @@ namespace BurningKnight.entity.creature.player {
 			head.Update(dt);
 
 			if (!(GetComponent<StateComponent>().StateInstance is Player.SleepingState)) {
-				Flipped = Entity.CenterX > Camera.Instance.ScreenToCamera(Input.Mouse.ScreenPosition).X;
+				Flipped = Entity.CenterX > GetComponent<CursorComponent>().Cursor.GamePosition.X;
 			}
 		}
 
@@ -175,6 +175,22 @@ namespace BurningKnight.entity.creature.player {
 				GetComponent<WeaponComponent>().Render(shadow, o - g);
 			}
 
+			if (!shadow && InGameState.Multiplayer) {
+				var pos = Entity.Position + Offset;
+				var shader = Shaders.Entity;
+				Shaders.Begin(shader);
+
+				shader.Parameters["flash"].SetValue(1f);
+				shader.Parameters["flashReplace"].SetValue(1f);
+				shader.Parameters["flashColor"].SetValue(Player.VectorTints[Entity.GetComponent<InputComponent>().Index]);
+
+				foreach (var d in MathUtils.Directions) {
+					CallRender(pos + d, false);
+				}
+
+				Shaders.End();
+			}
+			
 			var stopShader = StartShaders();
 
 			SimpleRender(shadow);

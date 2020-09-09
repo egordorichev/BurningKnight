@@ -157,17 +157,38 @@ namespace BurningKnight.entity.item.stand {
 						if (this is GarderobeStand) {
 							return true;
 						} else if (this is PermanentStand && Item != null && Item.Type == ItemType.Weapon) {
-							var ht = entity.GetComponent<ActiveWeaponComponent>();
-							var it = ht.Item;
+							var c = entity.GetComponent<ActiveWeaponComponent>();
+							var item = c.Item;
 
-							ht.Set(null, false);
-							SetItem(it, entity, false);
+							c.Set(Items.CreateAndAdd(Item.Id, Area), false);
+
+							if (item != null) {
+								item.Done = true;
+							}
+
+							return true;
+						} else if (this is PermanentStand && Item != null && Item.Type == ItemType.Active) {
+							var c = entity.GetComponent<ActiveItemComponent>();
+							var item = c.Item;
+
+							c.Set(Items.CreateAndAdd(Item.Id, Area), false);
+
+							if (item != null) {
+								item.Done = true;
+							}
+							
+							return true;
 						} else if (this is LampStand && Item != null && Item.Type == ItemType.Lamp) {
-							var ht = entity.GetComponent<LampComponent>();
-							var it = ht.Item;
+							var c = entity.GetComponent<LampComponent>();
+							var item = c.Item;
 
-							ht.Set(null, false);
-							SetItem(it, entity, false);
+							c.Set(Items.CreateAndAdd(Item.Id, Area), false);
+
+							if (item != null) {
+								item.Done = true;
+							}
+							
+							return true;
 						} else {
 							SetItem(null, entity, false);
 							remove = true;

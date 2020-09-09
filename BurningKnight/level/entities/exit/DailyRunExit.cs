@@ -30,7 +30,7 @@ namespace BurningKnight.level.entities.exit {
 		}
 
 		protected override bool CanInteract(Entity e) {
-			return !hidden;
+			return !InGameState.Multiplayer && !hidden;
 		}
 	}
 }

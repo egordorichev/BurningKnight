@@ -12,6 +12,10 @@ namespace BurningKnight.entity.item.use {
 			// Make sure that this is a new projectile, not created by this event
 			if (e is ProjectileCreatedEvent pce && pce.Projectile.Parent == null) {
 				pce.Projectile.OnDeath += (p, en, t) => {
+					if (Rnd.Chance(30)) {
+						return;
+					}
+					
 					var cnt = Rnd.Int(3, 5);
 					
 					if (p is Laser l) {

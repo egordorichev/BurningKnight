@@ -31,7 +31,7 @@ namespace BurningKnight.entity.cutscene.entity {
 				return;
 			}
 
-			foreach (var p in Area.Tagged[Tags.LocalPlayer]) {
+			foreach (var p in Area.Tagged[Tags.Player]) {
 				var dx = p.DxTo(this);
 				var dy = p.DyTo(this);
 

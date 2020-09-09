@@ -346,7 +346,7 @@ namespace BurningKnight.entity.projectile {
 					return false;
 				}
 
-				if (((HurtsEveryone && (ev.Entity != Owner || T > 1f)) || (
+				if (((HurtsEveryone && (ev.Entity != Owner) || T > 1f) || (
 					    (CanHitOwner && ev.Entity == Owner && T > 0.3f) 
 					    || (ev.Entity != Owner && (!(Owner is Pet pt) || pt.Owner != ev.Entity)
 					                           && (!(Owner is Orbital or) || or.Owner != ev.Entity)
@@ -358,7 +358,7 @@ namespace BurningKnight.entity.projectile {
 						        || bc is ShopKeeper || ac is Player
 					        )
 					    )
-				    )) && ev.Entity.TryGetComponent<HealthComponent>(out var health)) {
+				    )) && ev.Entity.TryGetComponent<HealthComponent>(out var health) && (HurtsEveryone || CanHitOwner || !(ev.Entity is Player) || !(Owner is Player))) {
 
 					var h = health.ModifyHealth(-Damage, Owner);
 
@@ -422,7 +422,7 @@ namespace BurningKnight.entity.projectile {
 			if (Dying) {
 				return;
 			}
-			
+
 			Dying = true;
 			deathTimer = 0.1f;
 			

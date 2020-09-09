@@ -71,7 +71,13 @@ namespace BurningKnight.ui.inventory {
 			}
 
 			var v = ActivePosition * (inventory.ItemSlot.Width + 10);
-			var pos = new Vector2(inventory.UseSlot.Center.X + 8 + v, inventory.UseSlot.Center.Y + 8);
+			var a = inventory.UseSlot.Center.X + 8 + v;
+
+			if (inventory.Second && item != null && Math.Abs(item.UseTime) > 0.01f) {
+				a += 4; // For the charge bar
+			}
+			
+			var pos = new Vector2(inventory.Second ? Display.UiWidth - a : a, inventory.UseSlot.Center.Y + 8);
 			
 			Graphics.Render(inventory.ItemSlot, pos, 0, inventory.ItemSlot.Center, activeScale);
 

@@ -195,7 +195,7 @@ namespace BurningKnight.entity.projectile {
 			});
 			
 			Add("portal", p => {
-				p.Center = Input.Mouse.GamePosition;
+				p.Center = p.Owner.GetComponent<CursorComponent>().Cursor.GamePosition;
 				p.GetAnyComponent<BodyComponent>().Velocity *= -1;
 			});
 			

@@ -9,6 +9,7 @@ using BurningKnight.level.challenge;
 using BurningKnight.save.statistics;
 using BurningKnight.state;
 using Lens.entity;
+using Lens.input;
 using Lens.util;
 using Lens.util.file;
 using Lens.util.math;
@@ -30,6 +31,22 @@ namespace BurningKnight.save {
 			
 			var player = new LocalPlayer();
 			area.Add(player);
+			
+			var input = player.GetComponent<InputComponent>();
+			
+			input.Index = 0;
+			input.KeyboardEnabled = true;
+			input.GamepadEnabled = Run.NumPlayers <= 1;
+
+			for (var i = 1; i < Run.NumPlayers; i++) {
+				input = area.Add(new LocalPlayer()).GetComponent<InputComponent>();
+
+				input.Index = (byte) i;
+				input.KeyboardEnabled = false;
+				input.GamepadEnabled = true;
+			}
+
+			Run.NumPlayers = 0;
 
 			if (Run.Depth > 0) {
 				if (Run.Type == RunType.Challenge) {
@@ -53,9 +70,15 @@ namespace BurningKnight.save {
 						Player.DailyItems.Add(Items.GenerateAndRemove(pool));
 					}
 
-					Player.StartingItem = Rnd.Chance(70) ? Items.Generate(ItemType.Active) : null;
-					Player.StartingWeapon = Items.Generate(ItemPool.Weapon);
-					Player.StartingLamp = Items.Generate(ItemType.Lamp);
+					var si = Rnd.Chance(70) ? Items.Generate(ItemType.Active) : null;
+					var sw = Items.Generate(ItemPool.Weapon);
+					var sl = Items.Generate(ItemType.Lamp);
+
+					for (var i = 0; i < Player.MaxPlayers; i++) {
+						Player.StartingItems[i] = si;
+						Player.StartingWeapons[i] = sw;
+						Player.StartingLamps[i] = sl;
+					}
 				}
 				
 				area.Add(new RunStatistics());

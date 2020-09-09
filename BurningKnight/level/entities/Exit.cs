@@ -59,11 +59,13 @@ namespace BurningKnight.level.entities {
 					Run.Win();
 				}
 			} else {
-				((InGameState) Engine.Instance.State).TransitionToBlack(entity.Center, Descend);
+				((InGameState) Engine.Instance.State).TransitionToBlack(entity.Center, () => {
+					Run.NumPlayers = 0;
+					Descend();
+				});
 			}
 
 			Audio.PlaySfx("player_descending");			
-
 			return true;
 		}
 		
@@ -73,7 +75,11 @@ namespace BurningKnight.level.entities {
 				GlobalSave.Put("finished_tutorial", true);
 				Run.Depth = 0;
 			} else if (To == 1) {
+				Run.NumPlayers = Area.Tagged[Tags.Player].Count;
 				Run.StartNew();
+				// Caves secret location
+			} else if (Run.Depth == 13) {
+				Run.Depth = 4;
 			} else {
 				Run.Depth = To;
 			}

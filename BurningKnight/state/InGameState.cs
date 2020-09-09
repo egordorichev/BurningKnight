@@ -64,6 +64,7 @@ namespace BurningKnight.state {
 		public static Action<UiTable, string, string, int, Action> SetupLeaderboard;
 		public static bool IgnoreSave;
 		public static Action SyncAchievements;
+		public static bool Multiplayer;
 		
 		private const float AutoSaveInterval = 60f;
 		private const float PaneTransitionTime = 0.2f;
@@ -93,7 +94,6 @@ namespace BurningKnight.state {
 		private UiLabel placeLabel;
 
 		public bool Died;
-		private Cursor cursor;
 		private float saveTimer;
 		private SaveIndicator indicator;
 		private SaveLock saveLock = new SaveLock();
@@ -158,6 +158,8 @@ namespace BurningKnight.state {
 		}
 
 		public InGameState(Area area, bool menu) {
+			Multiplayer = area.Tagged[Tags.Player].Count > 1;
+			
 			Menu = menu;
 			InMenu = menu;
 			Ready = false;
@@ -239,9 +241,10 @@ namespace BurningKnight.state {
 
 			foreach (var p in Area.Tagged[Tags.Player]) {
 				if (p is LocalPlayer) {
-					Camera.Instance.Follow(p, 1f, true);
-
-					if (Assets.ImGuiEnabled) {
+					bool imp = p.GetComponent<InputComponent>().Index == 0;
+					Camera.Instance.Follow(p, imp ? 1f : 0.5f, imp);
+					
+					if (imp && Assets.ImGuiEnabled) {
 						AreaDebug.ToFocus = p;
 					}
 				}
@@ -250,7 +253,9 @@ namespace BurningKnight.state {
 			}
 
 			if (!Menu) {
-				Camera.Instance.Follow(cursor, CursorPriority);
+				foreach (var e in TopUi.Tagged[Tags.Cursor]) {
+					Camera.Instance.Follow(e, CursorPriority);
+				}
 			}
 
 			Camera.Instance.Jump();
@@ -301,14 +306,30 @@ namespace BurningKnight.state {
 
 		public void ResetFollowing() {
 			Camera.Instance.Targets.Clear();
+			Camera.Instance.MainTarget = null;
 
+			var min = 16;
+			
+			foreach (var p in Area.Tagged[Tags.Player]) {
+				if (p is LocalPlayer lp && !lp.Dead) {
+					var index = p.GetComponent<InputComponent>().Index;
+
+					if (index < min) {
+						min = index;
+					}
+				}
+			}
+			
 			foreach (var p in Area.Tagged[Tags.Player]) {
 				if (p is LocalPlayer) {
-					Camera.Instance.Follow(p, 1f, true);
+					var imp = !Multiplayer || p.GetComponent<InputComponent>().Index == min;
+					Camera.Instance.Follow(p, imp ? 1f : 0.5f, imp);
 				}
 			}
 
-			Camera.Instance.Follow(cursor, CursorPriority);
+			foreach (var e in TopUi.Tagged[Tags.Cursor]) {
+				Camera.Instance.Follow(e, CursorPriority);
+			}
 		}
 
 		public override void Destroy() {
@@ -498,7 +519,6 @@ namespace BurningKnight.state {
 			}
 		}
 
-		private Vector2 stickOffset;
 		private bool wasNight;
 		private bool wasRaining;
 		private SoundEffectInstance rainSound;
@@ -854,7 +874,11 @@ namespace BurningKnight.state {
 					Audio.PlayMusic("Hub", true);
 
 					CloseBlackBars();
-					Tween.To(this, new {blur = 0}, 0.5f).OnEnd = () => Camera.Instance.Follow(cursor, CursorPriority);
+					Tween.To(this, new {blur = 0}, 0.5f).OnEnd = () => {
+						foreach (var e in TopUi.Tagged[Tags.Cursor]) {
+							Camera.Instance.Follow(e, CursorPriority);
+						}
+					};
 					Tween.To(-Display.UiHeight, offset, x => offset = x, 0.5f, Ease.QuadIn).OnEnd = () => Menu = false;
 				}
 			}
@@ -924,67 +948,6 @@ namespace BurningKnight.state {
 							} else {
 								Paused = false;
 							}
-						}
-					}
-				}
-
-				if (controller != null && !Paused && !Died && !Run.Won) {
-					var p = LocalPlayer.Locate(Area);
-					
-					if (p != null) {
-						var stick = controller.GetRightStick();
-
-						var dx = stick.X;
-						var dy = stick.Y;
-						var d = (float) Math.Sqrt(dx * dx + dy * dy);
-
-						if (d > 1) {
-							stick /= d;
-						} else {
-							stick *= d;
-						}
-
-						var l = stick.Length();
-
-						if (l > 0.25f) {
-							var target = MathUtils.CreateVector(Math.Atan2(dy, dx), 1f);
-							dx = target.X - stickOffset.X;
-							dy = target.Y - stickOffset.Y;
-
-							d = (float) Math.Sqrt(dx * dx + dy * dy);
-
-							if (d > 1) {
-								dx /= d;
-								dy /= d;
-							} else {
-								dx *= d;
-								dy *= d;
-							}
-
-							stickOffset += l * new Vector2(dx, dy) * dt * 10f * Settings.Sensivity;
-
-							Input.Mouse.Position =
-								Camera.Instance.CameraToScreen(p.Center + stickOffset * (48 * Settings.CursorRadius));
-						}
-
-						double a = 0;
-						var pressed = false;
-
-						if (controller.DPadLeftCheck) {
-							a = Math.PI;
-							pressed = true;
-						} else if (controller.DPadDownCheck) {
-							a = Math.PI / 2f;
-							pressed = true;
-						} else if (controller.DPadUpCheck) {
-							a = Math.PI * 1.5f;
-							pressed = true;
-						} else if (controller.DPadRightCheck) {
-							pressed = true;
-						}
-
-						if (pressed) {
-							Input.Mouse.Position = Camera.Instance.CameraToScreen(p.Center + MathUtils.CreateVector(a, 48));
 						}
 					}
 				}
@@ -1154,7 +1117,8 @@ namespace BurningKnight.state {
 			}
 
 			if (Input.Keyboard.WasPressed(Keys.NumPad7)) {
-				LocalPlayer.Locate(Area).Center = Input.Mouse.GamePosition;
+				var p = LocalPlayer.Locate(Area);
+				p.Center = p.GetComponent<CursorComponent>().Cursor.GamePosition;
 			}
 
 			if (Input.Keyboard.WasPressed(Keys.NumPad3)) {
@@ -1171,6 +1135,10 @@ namespace BurningKnight.state {
 
 			if (Input.Keyboard.WasPressed(Keys.NumPad0)) {
 				Camera.Instance.Detached = !Camera.Instance.Detached;
+
+				if (!Camera.Instance.Detached) {
+					ResetFollowing();
+				}
 			}
 
 			if (Camera.Instance.Detached) {
@@ -1276,10 +1244,12 @@ namespace BurningKnight.state {
 			TopUi.Render();
 
 			if (Settings.HideUi) {
-				cursor.Render();
+				foreach (var e in TopUi.Tagged[Tags.Cursor]) {
+					e.Render();
+				}
+
 				return;
 			}
-
 
 			if (Menu && offset <= Display.UiHeight) {
 				Graphics.Render(black, new Vector2(0, offset - Display.UiHeight), 0, Vector2.Zero, new Vector2(Display.UiWidth + 1, Display.UiHeight + 1));
@@ -1383,14 +1353,20 @@ namespace BurningKnight.state {
 				}
 			}
 
-			cursor = new Cursor();
-			TopUi.Add(cursor);
+			foreach (var p in Area.Tagged[Tags.Player]) {
+				var cursor = new Cursor {
+					Player = (Player) p
+				};
+				
+				TopUi.Add(cursor);
+				p.GetComponent<CursorComponent>().Cursor = cursor;
+			}
 			
 			Ui.Add(indicator = new SaveIndicator());
 
 			var player = LocalPlayer.Locate(Area);
 
-			if (Run.Depth > 0) {
+			if (!Multiplayer && Run.Depth > 0) {
 				Ui.Add(map = new UiMap(player));
 			}	
 			
@@ -1398,8 +1374,8 @@ namespace BurningKnight.state {
 				Console = new Console(Area);
 			}
 
-			if (player != null) {
-				Ui.Add(new UiInventory(player));
+			foreach (var p in Area.Tagged[Tags.Player]) {
+				Ui.Add(new UiInventory((Player) p, Multiplayer));
 			}
 
 			TopUi.Add(pauseMenu = new UiPane {
@@ -3032,11 +3008,24 @@ namespace BurningKnight.state {
 			Paused = false;
 		}
 
+		public static bool EveryoneDied(Player pl = null) {
+			foreach (var p in Engine.Instance.State.Area.Tagged[Tags.Player]) {
+				if (!((Player) p).Dead && p != pl) {
+					return false;
+				}
+			}
+
+			return true;
+		}
+
 		public void AnimateDoneScreen(Player player) {
 			if (Run.Type == RunType.Daily) {
-				Player.StartingItem = null;
-				Player.StartingWeapon = null;
-				Player.StartingLamp = null;
+				for (var i = 0; i < Player.MaxPlayers; i++) {
+					Player.StartingItems[i] = null;
+					Player.StartingWeapons[i] = null;
+					Player.StartingLamps[i] = null;
+				}
+
 				Player.DailyItems = null;
 			}
 

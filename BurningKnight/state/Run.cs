@@ -25,6 +25,7 @@ namespace BurningKnight.state {
 		public static bool CustomSeed;
 		public static int Id;
 		public static bool Redo;
+		public static int NumPlayers;
 
 		public static int ActualDepth {
 			set => depth = value;
@@ -224,7 +225,7 @@ namespace BurningKnight.state {
 		}
 
 		public static void CalculateScore() {
-			if (Assets.DataModified) {
+			if (Assets.DataModified || Statistics == null) {
 				Score = -696969;
 				return;
 			}
