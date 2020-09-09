@@ -177,7 +177,7 @@ namespace BurningKnight.entity.component {
 				Phases--;
 
 				maxHealth = Math.Max(1, maxHealth);
-				health = maxHealth;
+				health = (int) Math.Floor((Entity is Player ? 0.5f : 1f) * maxHealth);
 
 				Send(new RevivedEvent {
 					WhoDamaged = from,

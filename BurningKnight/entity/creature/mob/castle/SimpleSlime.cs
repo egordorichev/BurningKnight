@@ -1,3 +1,4 @@
+using BurningKnight.assets.lighting;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.mob.prefabs;
 using Lens.graphics;
@@ -24,6 +25,7 @@ namespace BurningKnight.entity.creature.mob.castle {
 			body.KnockbackModifier = 0.5f;
 			
 			AddComponent(CreateSensorBodyComponent());
+			AddComponent(new LightComponent(this, 24, new Color(0.5f, 1f, 0.4f)));
 		}
 
 		protected virtual BodyComponent CreateBodyComponent() {

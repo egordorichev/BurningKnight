@@ -1,4 +1,6 @@
 # coop
+* wait you can heal after taking an item ono
+* more light things in the emerald caves
 * removing players (prop appears)
 * camera is freaking offset and it drives me mad
 

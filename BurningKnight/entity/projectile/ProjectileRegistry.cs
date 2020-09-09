@@ -65,7 +65,7 @@ namespace BurningKnight.entity.projectile {
 				p.BreaksFromWalls = false;
 				
 				p.OnDeath += (pr, e, t) => {
-					ExplosionMaker.Make(pr, 32, damage: 8);
+					ExplosionMaker.Make(pr, 16, damage: 8);
 				};
 
 				p.Controller += (pr, dt) => {
@@ -288,12 +288,12 @@ namespace BurningKnight.entity.projectile {
 				
 					var x = (int) Math.Round(pr.CenterX / 16f);
 					var y = (int) Math.Round(pr.CenterY / 16f);
-					const int r = 3;
+					const float r = 2.3f;
 
 					for (var xx = -r; xx <= r; xx++) {
 						for (var yy = -r; yy <= r; yy++) {
-							var zx = xx + x;
-							var zy = yy + y;
+							var zx = (int) xx + x;
+							var zy = (int) yy + y;
 							
 							if (Math.Sqrt(xx * xx + yy * yy) <= r && Run.Level.Get(zx, zy).IsPassable()) {
 								Run.Level.Set(zx, zy, Tile.Lava);
@@ -329,12 +329,12 @@ namespace BurningKnight.entity.projectile {
 
 					var x = (int) Math.Round(pr.CenterX / 16f);
 					var y = (int) Math.Round(pr.CenterY / 16f);
-					const int r = 3;
+					const float r = 2.3f;
 
 					for (var xx = -r; xx <= r; xx++) {
 						for (var yy = -r; yy <= r; yy++) {
-							var zx = xx + x;
-							var zy = yy + y;
+							var zx = (int) xx + x;
+							var zy = (int) yy + y;
 							
 							if (Math.Sqrt(xx * xx + yy * yy) <= r && Run.Level.Get(zx, zy).IsPassable()) {
 								Run.Level.Set(zx, zy, Tile.Cobweb);

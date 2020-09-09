@@ -4,6 +4,7 @@ using BurningKnight.entity.events;
 using Lens.entity;
 using Lens.input;
 using Lens.util;
+using Lens.util.math;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.projectile.controller {
@@ -60,7 +61,7 @@ namespace BurningKnight.entity.projectile.controller {
 				var d = b.Velocity.Length();
 				var a = b.Velocity.ToAngle();
 
-				a = (float) MathUtils.LerpAngle(a, p.AngleTo(p.Owner.GetComponent<CursorComponent>().Cursor.GamePosition), dt * speed * 4);
+				a = (float) MathUtils.LerpAngle(a, p.AngleTo(p.Owner.GetComponent<CursorComponent>().Cursor.GamePosition) + Rnd.Float(-2, 2), dt * speed * 4);
 				b.Velocity = new Vector2((float) Math.Cos(a) * d, (float) Math.Sin(a) * d);
 				b.Angle = a;
 			};

@@ -38,7 +38,7 @@ namespace BurningKnight.entity.creature.mob.cave {
 
 			moveId = Rnd.Int(3);
 			GetComponent<AudioEmitterComponent>().PitchMod = -0.4f;
-			AddComponent(new LightComponent(this, 24, new Color(0.5f, 1f, 0.4f)));
+			AddComponent(new LightComponent(this, 32, new Color(0.5f, 1f, 0.4f)));
 		}
 
 		#region Gunner States
