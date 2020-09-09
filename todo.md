@@ -1,10 +1,10 @@
 # coop
-
 * removing players (prop appears)
 * camera is freaking offset and it drives me mad
 
 # rest
 * balance tweaks suggested by smashy
+* update item checksum
 
 # old stuff
 
