@@ -21,3 +21,9 @@ This is really important, because **music & sfx wont load in Debug configuration
 
 To access the dev tools, you shall press F1 while being in InGameState (while you are normally playing and not watching a loading screen).
 A panel with a bunch of checkboxes should appear, that show different dev tools. Have fun!
+
+##### Why did you merge pull requests into release branch all the time?
+
+You see, this is how I've set up Github Actions CI. The tool went online in the middle of the first summer of development of the C# branch, and it was such a huge help.
+Before that, I had to compile all the builds for beta testing by hand, but after 3 days of internal screaming I was able to get the CI working, and from that point I was able just to merge
+my dev branch into release, and 10 minutes later press a few buttons on Itch/Steam to release the new builds.
