@@ -1495,9 +1495,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\todo.md">
-      <Link>todo.md</Link>
-    </Content>
     <Content Include="Content\Mods\test\mod.lua" />
     <Content Include="Content\Shaders\bk.fx" />
     <Content Include="Content\Shaders\chasm.fx" />
@@ -1507,6 +1504,7 @@
     <Content Include="Content\Shaders\screen.fx" />
     <Content Include="Content\Shaders\terrain.fx" />
     <Content Include="Content\Shaders\ui.fx" />
+    <Content Include="README.md" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\ImGui.NET.1.70.0\build\net40\ImGui.NET.targets" Condition="Exists('..\packages\ImGui.NET.1.70.0\build\net40\ImGui.NET.targets')" />
