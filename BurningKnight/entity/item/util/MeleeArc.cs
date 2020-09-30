@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using BurningKnight.assets.lighting;
 using BurningKnight.entity.bomb;
 using BurningKnight.entity.component;
+using BurningKnight.entity.creature.mob;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.projectile;
@@ -92,7 +93,7 @@ namespace BurningKnight.entity.item.util {
 				} else if (ev.Entity is Bomb) {
 					ev.Entity.GetComponent<RectBodyComponent>().KnockbackFrom(Owner, 1f + Knockback);
 				} else if (ev.Entity is Projectile p) {
-					if (p.Owner != Owner && p.StarterOwner != Owner) {
+					if ((p.Owner is Mob) != (Owner is Mob) && ((p.StarterOwner is Mob) != (Owner is Mob)) {
 						if (p.CanBeReflected) {
 							p.Owner = Owner;
 							p.Damage *= 2f;
