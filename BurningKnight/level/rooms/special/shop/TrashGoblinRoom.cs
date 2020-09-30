@@ -15,6 +15,7 @@ namespace BurningKnight.level.rooms.special.shop {
 		};
 		
 		public override void Paint(Level level) {
+			base.Paint(level);
 			TrashGoblin.Place(GetTileCenter() * 16 + new Vector2(8, 8), level.Area);
 			
 			for (var x = Left + 1; x < Right - 1; x++) {

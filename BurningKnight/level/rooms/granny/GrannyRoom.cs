@@ -25,6 +25,8 @@ namespace BurningKnight.level.rooms.granny {
 		}
 
 		public override void Paint(Level level) {
+			base.Paint(level);
+			
 			Painter.Rect(level, this, 1, Tile.GrannyWall);
 			Painter.Fill(level, this, 2, Tile.GrannyFloor);
 			

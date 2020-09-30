@@ -3,6 +3,7 @@ using BurningKnight.entity.creature.npc.dungeon;
 namespace BurningKnight.level.rooms.special.npc {
 	public class DuckRoom : SpecialRoom {
 		public override void Paint(Level level) {
+			base.Paint(level);
 			DungeonDuck.Place(GetCenter() * 16, level.Area);
 		}
 

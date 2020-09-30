@@ -17,6 +17,7 @@ namespace BurningKnight.level.rooms.shop.sub {
 		};
 		
 		public override void Paint(Level level) {
+			base.Paint(level);
 			var spot = new Dot(Rnd.Int(Left + 2, Right - 2), Rnd.Int(Top + 2, Bottom - 2));
 
 			try {

@@ -4,7 +4,7 @@ using BurningKnight.util.geometry;
 namespace BurningKnight.level.rooms.payed {
 	public class PayedRoom : SpecialRoom {
 		public override void Paint(Level level) {
-			
+			base.Paint(level);
 		}
 
 		public override void SetupDoors(Level level) {

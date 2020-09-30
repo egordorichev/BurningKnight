@@ -5,6 +5,8 @@ using Microsoft.Xna.Framework;
 namespace BurningKnight.level.rooms.special {
 	public class NpcKeyRoom : SpecialRoom {
 		public override void Paint(Level level) {
+			base.Paint(level);
+			
 			var stand = new ItemStand();
 			level.Area.Add(stand);
 			stand.Center = GetTileCenter() * 16 + new Vector2(8);

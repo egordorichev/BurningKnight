@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 namespace BurningKnight.level.rooms.special {
 	public class IdolTrapRoom : SpecialRoom {
 		public override void Paint(Level level) {
+			base.Paint(level);
 			Painter.Rect(level, this, 2, Tile.FloorD);
 
 			var stand = new ItemStand();

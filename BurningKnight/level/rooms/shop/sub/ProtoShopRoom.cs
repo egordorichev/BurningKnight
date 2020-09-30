@@ -6,6 +6,7 @@ using Microsoft.Xna.Framework;
 namespace BurningKnight.level.rooms.shop.sub {
 	public class ProtoShopRoom : SubShopRoom {
 		public override void Paint(Level level) {
+			base.Paint(level);
 			Painter.Fill(level, this, 1, Tile.Chasm);
 			Painter.Fill(level, this, Rnd.Int(2, 4), Tiles.RandomFloor());
 			
