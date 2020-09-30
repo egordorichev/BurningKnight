@@ -1258,5 +1258,15 @@
 	"damage": "Damage",
 	"painting_new": "Gnobfather",
 	"revive": "Revive",
-	"coop_sign": "Press any button on a gamepad to add another player"
+	"coop_sign": "Press any button on a gamepad to add another player",
+	"bk:party_hat": "Party Hat",
+	"bk:party_hat_desc": "Why do I feel so sad",
+	"bk:police_hat": "Police Hat",
+	"bk:police_hat_desc": "Better stay away from portals",
+	"bk:spike_hat": "Spike Hat",
+	"bk:spike_hat_desc": "Poke",
+	"bk:hood": "Hood",
+	"bk:hood_desc": "Find the ring",
+	"bk:bullet_hat": "Bullet Hat",
+	"bk:bullet_hat_desc": "Bang"
 }

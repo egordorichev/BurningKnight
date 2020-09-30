@@ -9,7 +9,9 @@ namespace BurningKnight {
 			var now = DateTime.Now;
 
 			XMas = now.Month == 12 && now.Day < 26;
-			Halloween = now.Month == 10 && now.Day > 14;
+			
+			// FIXME: remove
+			Halloween = BK.Version.Dev || now.Month == 10;
 		}
 	}
 }

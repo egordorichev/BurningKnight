@@ -85,8 +85,10 @@ namespace BurningKnight.level.biome {
 			Patterns[(int) Tile.Lava] = LavaPattern = new TextureRegion(anim.Texture, new Rectangle(0, 64, 64, 64));
 			Edges[(int) Tile.Lava] = Lava = GetEdge(anim, 64, 64);
 
-			Patterns[(int) Tile.Water] = WaterPattern = new TextureRegion(anim.Texture, new Rectangle(0, 192, 64, 64));
-			Edges[(int) Tile.Water] = Water = GetEdge(anim, 64, 192);
+			var spooky = Events.Halloween;
+			
+			Patterns[(int) Tile.Water] = WaterPattern = new TextureRegion(anim.Texture, new Rectangle(0, spooky ? 256 : 192, 64, 64));
+			Edges[(int) Tile.Water] = Water = GetEdge(anim, 64, spooky ? 256 : 192);
 
 			Patterns[(int) Tile.Ice] = IcePattern = new TextureRegion(anim.Texture, new Rectangle(128, 64, 64, 64));
 			Edges[(int) Tile.Ice] = Ice = GetEdge(anim, 192, 64);

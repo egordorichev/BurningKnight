@@ -53,7 +53,7 @@ namespace BurningKnight.level.entities.decor {
 				RemoveComponent<PlantGraphicsComponent>();
 			}
 			
-			var s = new PlantGraphicsComponent("props", $"tree_{type}");
+			var s = new PlantGraphicsComponent("props", type != 4 && Events.Halloween ? $"spooky_tree_{type}" : $"tree_{type}");
 			s.RotationModifier = 0.03f;
 			s.Flipped = type != 5 && Rnd.Chance();
 			
