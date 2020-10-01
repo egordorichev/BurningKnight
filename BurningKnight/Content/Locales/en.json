@@ -1269,5 +1269,7 @@
 	"bk:hood_desc": "Find the ring",
 	"bk:bullet_hat": "Bullet Hat",
 	"bk:bullet_hat_desc": "Bang",
-	"remove_player" : "Hold [ic 0] to remove player"
+	"remove_player": "Hold [ic 0] to remove player",
+	"bk:spook": "Spook",
+	"bk:spook_desc": "Boo"
 }

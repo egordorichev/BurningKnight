@@ -33,6 +33,33 @@ namespace BurningKnight.entity.projectile {
 		}
 
 		static ProjectileRegistry() {
+			Add("skull", skull => {
+				skull.NearDeath += p => {
+					var c = new AudioEmitterComponent {
+						DestroySounds = false
+					};
+							
+					p.AddComponent(c);
+					c.Emit("mob_oldking_explode");
+				};
+						
+				skull.OnDeath += (p, e, t) => {
+					for (var i = 0; i < 8; i++) {
+						var bullet = Projectile.Make(p.Owner, "small", 
+							((float) i) / 4 * (float) Math.PI, (i % 2 == 0 ? 2 : 1) * 4 + 3);
+
+						bullet.CanBeReflected = false;
+						bullet.Center = p.Center;
+					}
+				};
+
+				skull.Controller += TargetProjectileController.Make(null, 0.5f);
+				skull.Range = 5f;
+				skull.IndicateDeath = true;
+				skull.CanBeReflected = false;
+				skull.GetComponent<ProjectileGraphicsComponent>().IgnoreRotation = true;
+			});
+		
 			Add("disk", p => {
 				CollisionFilterComponent.Add(p, (entity, with) => with is Mob || with is HalfProjectileLevel ? CollisionResult.Disable : CollisionResult.Default);
 
