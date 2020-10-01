@@ -3,6 +3,7 @@ using BurningKnight.level.rooms;
 using BurningKnight.state;
 using Lens.assets;
 using Lens.entity;
+using Lens.util.math;
 
 namespace BurningKnight.entity.item.use {
 	public class RevealMapUse : ItemUse {
@@ -19,7 +20,7 @@ namespace BurningKnight.entity.item.use {
 					continue;
 				}
 
-				if (room.Type != RoomType.Secret && room.Type != RoomType.Granny && room.Type != RoomType.OldMan) {
+				if (Rnd.Chance(95) && room.Type != RoomType.Secret && room.Type != RoomType.Granny && room.Type != RoomType.OldMan) {
 					for (var y = room.MapY; y < room.MapY + room.MapH; y++) {
 						for (var x = room.MapX; x < room.MapX + room.MapW; x++) {
 							level.Explored[level.ToIndex(x, y)] = true;

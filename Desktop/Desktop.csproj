@@ -260,15 +260,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="./*steam_api*">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="./*cimgui*">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="./*discord*">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <None Include="libs/**" Link="%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest"/>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
@@ -292,6 +284,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="integration\twitch_todo.md" />
+    <Content Include="README.md" />
   </ItemGroup>
   <Import Project="..\packages\MonoGame.Framework.DesktopGL.3.8.0.1375-develop\build\MonoGame.Framework.DesktopGL.targets" Condition="Exists('..\packages\MonoGame.Framework.DesktopGL.3.8.0.1375-develop\build\MonoGame.Framework.DesktopGL.targets')" />
   <Import Project="..\packages\MonoGame.Framework.DesktopGL.Core.3.8.0.13\build\MonoGame.Framework.DesktopGL.Core.targets" Condition="Exists('..\packages\MonoGame.Framework.DesktopGL.Core.3.8.0.13\build\MonoGame.Framework.DesktopGL.Core.targets')" />

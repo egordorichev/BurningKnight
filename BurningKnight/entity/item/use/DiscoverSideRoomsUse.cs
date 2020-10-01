@@ -3,6 +3,7 @@ using BurningKnight.entity.events;
 using BurningKnight.entity.room;
 using BurningKnight.level.rooms;
 using Lens.entity;
+using Lens.util.math;
 
 namespace BurningKnight.entity.item.use {
 	public class DiscoverSideRoomsUse : ItemUse {
@@ -26,7 +27,7 @@ namespace BurningKnight.entity.item.use {
 							room = d.Rooms[0];
 						}
 
-						if (room.Type == RoomType.Secret || room.Type == RoomType.DarkMarket || room.Type == RoomType.Hidden) {
+						if (room.Type == RoomType.Secret || room.Type == RoomType.DarkMarket || room.Type == RoomType.Hidden || Rnd.Chance(20)) {
 							continue;
 						}
 

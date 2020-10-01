@@ -25,6 +25,9 @@ namespace BurningKnight.entity.item.use {
 		
 		public float Range;
 		public bool AddRange;
+		
+		public float Knockback;
+		public bool AddKnockback;
 
 		public override void Use(Entity entity, Item item) {
 			base.Use(entity, item);
@@ -111,6 +114,9 @@ namespace BurningKnight.entity.item.use {
 
 			Range = settings["range"].Number(0);
 			AddRange = settings["add_range"].Bool(true);
+
+			Knockback = settings["knockback"].Number(0);
+			AddKnockback = settings["add_knockback"].Bool(true);
 		}
 
 		public static void RenderDebug(JsonValue root) {
@@ -131,6 +137,9 @@ namespace BurningKnight.entity.item.use {
 			
 			root.InputFloat("Range", "range", 0);
 			root.Checkbox("Add Range", "add_range");
+			
+			root.InputFloat("Knockback", "knockback", 0);
+			root.Checkbox("Add Knockback", "add_knockback");
 		}
 	}
 }

@@ -2,6 +2,7 @@ using BurningKnight.entity.component;
 using BurningKnight.entity.events;
 using BurningKnight.entity.projectile;
 using Lens.entity;
+using Lens.util.math;
 
 namespace BurningKnight.entity.item.use {
 	public class MakeProjectileReshootUse : ItemUse {
@@ -10,7 +11,7 @@ namespace BurningKnight.entity.item.use {
 				pce.Projectile.OnHurt += (p, en) => {
 					var room = p.Owner.GetComponent<RoomComponent>().Room;
 
-					if (room == null || room.Tagged[Tags.MustBeKilled].Count == 0) {
+					if (room == null || room.Tagged[Tags.MustBeKilled].Count == 0 || Rnd.Chance(20)) {
 						return;
 					}
 

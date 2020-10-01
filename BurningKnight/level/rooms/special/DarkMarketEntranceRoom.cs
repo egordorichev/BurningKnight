@@ -10,6 +10,8 @@ using Microsoft.Xna.Framework;
 namespace BurningKnight.level.rooms.special {
 	public class DarkMarketEntranceRoom : SpecialRoom {
 		public override void Paint(Level level) {
+			base.Paint(level);
+			
 			var hw = (int) ((GetWidth() - 1) / 2f);
 
 			var entrance = new HiddenEntrance {

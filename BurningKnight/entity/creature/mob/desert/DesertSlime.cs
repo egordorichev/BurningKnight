@@ -2,6 +2,7 @@ using System;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.mob.prefabs;
 using BurningKnight.entity.projectile;
+using BurningKnight.state;
 using Lens.graphics;
 using Lens.util;
 using Color = Microsoft.Xna.Framework.Color;
@@ -18,7 +19,7 @@ namespace BurningKnight.entity.creature.mob.desert {
 			base.SetStats();
 			
 			AddComponent(new ZAnimationComponent("desert_slime"));
-			SetMaxHp(3);
+			SetMaxHp(1 + (int) Math.Round(Run.Depth * 1.5f));
 
 			var body = new RectBodyComponent(2, 12, 12, 1);
 			AddComponent(body);

@@ -261,6 +261,10 @@ namespace BurningKnight.state {
 			Camera.Instance.Jump();
 			
 			if (Run.Depth == 0) {
+				if (Events.Halloween) {
+					Weather.IsNight = true;
+				}
+				
 				if (Weather.IsNight) {
 					wasNight = true;
 					var x = 0.25f;
@@ -814,6 +818,10 @@ namespace BurningKnight.state {
 				if (Run.Depth == 0) {
 					var night = Weather.IsNight;
 
+					if (Events.Halloween) {
+						night = true;
+					}
+
 					if (night != wasNight) {
 						wasNight = night;
 						var v = night ? 0.25f : 0.9f;
@@ -1216,6 +1224,11 @@ namespace BurningKnight.state {
 			base.Render();
 			Physics.Render();
 			editor?.RenderInGame();
+			
+			if (RenderDebug) {
+				Ui?.RenderDebug();
+				TopUi?.RenderDebug();
+			}
 		}
 
 		private float emeraldY = -20;
@@ -1286,6 +1299,11 @@ namespace BurningKnight.state {
 			}
 
 			// Graphics.Batch.DrawString(Font.Test, "Test 你 Test", Vector2.One, Color.White);
+			
+			if (RenderDebug) {
+				Ui?.RenderDebug();
+				TopUi?.RenderDebug();
+			}
 		}
 
 		private string GetRunTime() {

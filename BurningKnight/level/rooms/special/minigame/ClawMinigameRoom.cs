@@ -11,6 +11,8 @@ namespace BurningKnight.level.rooms.special.minigame {
 		}
 		
 		public override void Paint(Level level) {
+			base.Paint(level);
+			
 			var clip = Painter.Clip;
 			
 			Painter.Clip = null;

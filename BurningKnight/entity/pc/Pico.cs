@@ -11,16 +11,14 @@ using Lens.graphics;
 using Lens.input;
 using Lens.util.camera;
 using Microsoft.Xna.Framework;
-using MonoGamePico8.backend;
-using Pico8Emulator;
 using VelcroPhysics.Dynamics;
 
 namespace BurningKnight.entity.pc {
 	public class Pico : SaveableEntity, PlaceableEntity {
 		private bool on;
 		private Controller controller;
-		private Emulator emulator;
-		private MonoGameGraphicsBackend backend;
+		// private Emulator emulator;
+		// private MonoGameGraphicsBackend backend;
 		private const float UpdateTime30 = 1 / 30f;
 		private const float UpdateTime60 = 1 / 60f;
 		private float deltaUpdate30, deltaUpdate60, deltaDraw;
@@ -57,10 +55,10 @@ namespace BurningKnight.entity.pc {
 				return;
 			}
 			
-			if (emulator == null) {
+			/*if (emulator == null) {
 				backend = new MonoGameGraphicsBackend(Engine.GraphicsDevice);
 				emulator = new Emulator(backend, new MonoGameAudioBackend(), new MonoGameInputBackend());
-			}
+			}*/
 			
 			on = true;
 
@@ -71,9 +69,9 @@ namespace BurningKnight.entity.pc {
 		}
 
 		private void LoadCart() {
-			if (!emulator.CartridgeLoader.Load($"Content/Carts/{cart}.p8")) {
+			/*if (!emulator.CartridgeLoader.Load($"Content/Carts/{cart}.p8")) {
 				Log.Error($"Failed to load the cart {cart}");
-			}
+			}*/
 		}
 
 		public void TurnOff() {
@@ -106,7 +104,7 @@ namespace BurningKnight.entity.pc {
 			deltaUpdate60 += dt;
 			deltaUpdate30 += dt;
 
-			
+			/*
 			while (deltaUpdate30 >= UpdateTime30) {
 				deltaUpdate30 -= UpdateTime30;
 				emulator.Update30();
@@ -115,11 +113,11 @@ namespace BurningKnight.entity.pc {
 			while (deltaUpdate60 >= UpdateTime60) {
 				deltaUpdate60 -= UpdateTime60;
 				emulator.Update60();
-			}
+			}*/
 		}
 		
 		public void RenderDisplay() {
-			if (!on) {
+			/*if (!on) {
 				return;
 			}
 			
@@ -134,9 +132,7 @@ namespace BurningKnight.entity.pc {
 			}
 
 			emulator.Graphics.Flip();
-
-			// GraphicsDevice.Clear(Color.Black);
-			Graphics.Render(backend.Surface, Position + new Vector2(5, 16));
+			Graphics.Render(backend.Surface, Position + new Vector2(5, 16));*/
 		}
 
 		public override void RenderImDebug() {

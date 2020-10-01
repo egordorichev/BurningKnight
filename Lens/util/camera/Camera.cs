@@ -5,7 +5,6 @@ using Lens.entity.component.logic;
 using Lens.graphics;
 using Lens.graphics.gamerenderer;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Audio;
 using MonoGame.Extended;
 using Color = Microsoft.Xna.Framework.Color;
 using Matrix = Microsoft.Xna.Framework.Matrix;
@@ -57,7 +56,6 @@ namespace Lens.util.camera {
 		public class Target {
 			public float Priority;
 			public Entity Entity;
-			public bool Inside;
 
 			public Target(Entity entity, float priority) {
 				Entity = entity;
@@ -333,8 +331,12 @@ namespace Lens.util.camera {
 			position.Y = 0;
 
 			foreach (var follow in Targets) {
-				position.X += follow.Priority * follow.Entity.CenterX;
-				position.Y += follow.Priority * follow.Entity.CenterY;	
+				if (follow.Entity is CustomCameraJumper c) {
+					position += c.Jump(follow);
+				} else {
+					position.X += follow.Priority * follow.Entity.CenterX;
+					position.Y += follow.Priority * follow.Entity.CenterY;		
+				}
 			}
 
 			changed = true;
@@ -357,6 +359,19 @@ namespace Lens.util.camera {
 				float yy = y * Display.UiHeight / 3f;
 				Graphics.Batch.DrawLine(new Vector2(0, yy), new Vector2(Display.UiWidth, yy), DebugColor);
 			}
+
+			var center = new Vector2();
+			var sum = 0f;
+
+			foreach (var t in Targets) {
+				var pos = t.Entity.Center;
+
+				sum = t.Priority;
+				center += pos * t.Priority;
+				Graphics.Batch.DrawCircle(new CircleF(new Point2(pos.X, pos.Y), 3f), 10, t.Entity == MainTarget ? Color.Red : Color.Pink);
+			}
+			
+			Graphics.Batch.DrawCircle(new CircleF(new Point2(center.X / sum, center.Y / sum), 5f), 10, Color.Orange);
 		}
 		
 		public override bool Overlaps(Entity entity) {

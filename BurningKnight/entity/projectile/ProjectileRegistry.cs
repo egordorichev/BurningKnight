@@ -33,6 +33,33 @@ namespace BurningKnight.entity.projectile {
 		}
 
 		static ProjectileRegistry() {
+			Add("skull", skull => {
+				skull.NearDeath += p => {
+					var c = new AudioEmitterComponent {
+						DestroySounds = false
+					};
+							
+					p.AddComponent(c);
+					c.Emit("mob_oldking_explode");
+				};
+						
+				skull.OnDeath += (p, e, t) => {
+					for (var i = 0; i < 8; i++) {
+						var bullet = Projectile.Make(p.Owner, "small", 
+							((float) i) / 4 * (float) Math.PI, (i % 2 == 0 ? 2 : 1) * 4 + 3);
+	
+						bullet.CanBeReflected = false;
+						bullet.Center = p.Center;
+					}
+				};
+
+				skull.Controller += TargetProjectileController.Make(null, 0.5f);
+				skull.Range = 5f;
+				skull.IndicateDeath = true;
+				skull.CanBeReflected = false;
+				skull.GetComponent<ProjectileGraphicsComponent>().IgnoreRotation = true;
+			});
+		
 			Add("disk", p => {
 				CollisionFilterComponent.Add(p, (entity, with) => with is Mob || with is HalfProjectileLevel ? CollisionResult.Disable : CollisionResult.Default);
 
@@ -65,7 +92,7 @@ namespace BurningKnight.entity.projectile {
 				p.BreaksFromWalls = false;
 				
 				p.OnDeath += (pr, e, t) => {
-					ExplosionMaker.Make(pr, 32, damage: 8);
+					ExplosionMaker.Make(pr, 16, damage: 8);
 				};
 
 				p.Controller += (pr, dt) => {
@@ -288,12 +315,12 @@ namespace BurningKnight.entity.projectile {
 				
 					var x = (int) Math.Round(pr.CenterX / 16f);
 					var y = (int) Math.Round(pr.CenterY / 16f);
-					const int r = 3;
+					const float r = 2.3f;
 
 					for (var xx = -r; xx <= r; xx++) {
 						for (var yy = -r; yy <= r; yy++) {
-							var zx = xx + x;
-							var zy = yy + y;
+							var zx = (int) xx + x;
+							var zy = (int) yy + y;
 							
 							if (Math.Sqrt(xx * xx + yy * yy) <= r && Run.Level.Get(zx, zy).IsPassable()) {
 								Run.Level.Set(zx, zy, Tile.Lava);
@@ -329,12 +356,12 @@ namespace BurningKnight.entity.projectile {
 
 					var x = (int) Math.Round(pr.CenterX / 16f);
 					var y = (int) Math.Round(pr.CenterY / 16f);
-					const int r = 3;
+					const float r = 2.3f;
 
 					for (var xx = -r; xx <= r; xx++) {
 						for (var yy = -r; yy <= r; yy++) {
-							var zx = xx + x;
-							var zy = yy + y;
+							var zx = (int) xx + x;
+							var zy = (int) yy + y;
 							
 							if (Math.Sqrt(xx * xx + yy * yy) <= r && Run.Level.Get(zx, zy).IsPassable()) {
 								Run.Level.Set(zx, zy, Tile.Cobweb);

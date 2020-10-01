@@ -105,9 +105,11 @@ namespace BurningKnight.entity {
 				e.GetComponent<ExplodableComponent>().HandleExplosion(damager, whoHurts, damage);
 			}
 
-			Camera.Instance.TextureZoom -= 0.05f;
-			Tween.To(1f, Camera.Instance.TextureZoom, x => Camera.Instance.TextureZoom = x, 0.2f);
-			
+			if (Settings.Flashes) {
+				Camera.Instance.TextureZoom -= 0.05f;
+				Tween.To(1f, Camera.Instance.TextureZoom, x => Camera.Instance.TextureZoom = x, 0.2f);
+			}
+
 			if (leave) {
 				whoHurts.Area.Add(new ExplosionLeftOver {
 					Center = w

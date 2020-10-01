@@ -76,8 +76,12 @@ namespace BurningKnight.level.entities {
 			var cursor = new Cursor {
 				Player = p
 			};
+
+			var u = new UiInventory(p, true);
+
+			u.ForceUpdate = true;
 			
-			((InGameState) Engine.Instance.State).Ui.Add(new UiInventory(p, true));
+			((InGameState) Engine.Instance.State).Ui.Add(u);
 			((InGameState) Engine.Instance.State).TopUi.Add(cursor);
 
 			p.GetComponent<CursorComponent>().Cursor = cursor;
@@ -121,6 +125,28 @@ namespace BurningKnight.level.entities {
 
 				hr1.ModifyBombs(-(hr1.Bombs - half), e);
 				hr2.ModifyBombs(-(hr2.Bombs - half), e);
+			}
+
+			if (p.GetComponent<InputComponent>().Index == 0) {
+				var minIndex = 1024;
+				Player pl = null;
+
+				foreach (var pr in Area.Tagged[Tags.Player]) {
+					var i = pr.GetComponent<InputComponent>().Index;
+
+					if (p != pr && i < minIndex) {
+						minIndex = i;
+						pl = (Player) pr;
+					}
+				}
+
+				if (pl != null) {
+					var c = pl.ForceGetComponent<ConsumablesComponent>();
+					c.Entity = p;
+					pl.Components.Remove(typeof(ConsumablesComponent));
+					p.Components[typeof(ConsumablesComponent)] = c;
+					pl.AddComponent(new ConsumablesComponent());
+				}
 			}
 
 			return true;

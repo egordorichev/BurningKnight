@@ -98,7 +98,7 @@ namespace BurningKnight.entity.item.use {
 			damage = settings["damage"].Number(1);
 			speed = settings["speed"].Number(6);
 			speedMax = settings["speedm"].Number(10);
-			range = settings["range"].Number(0) * 0.7f;
+			range = settings["range"].Number(0) * 0.5f;
 			scaleMin = settings["scale"].Number(1);
 			scaleMax = settings["scalem"].Number(1);
 			slice = settings["texture"].String("rect");

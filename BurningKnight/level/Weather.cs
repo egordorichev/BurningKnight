@@ -1,4 +1,5 @@
 using System;
+using BurningKnight.state;
 using Lens.util.math;
 
 namespace BurningKnight.level {
@@ -6,7 +7,16 @@ namespace BurningKnight.level {
 		public static float Time;
 		public static float RainAngle = (float) Math.PI * 0.5f + Rnd.Float(-0.5f, 0.5f);
 		public static float TimeOfDay => Time % 24;
-		public static bool IsNight => TimeOfDay < 7 || TimeOfDay >= 21;
+		public static bool IsNight {
+			set {
+				Time = value ? 0 : 8;
+			}
+			
+			get {
+				return TimeOfDay < 7 || TimeOfDay >= 21;
+			}
+		}
+
 		public static bool IsDay => !IsNight;
 
 		public static bool Rains;
@@ -19,8 +29,13 @@ namespace BurningKnight.level {
 			t = Rnd.Float(1000);
 			Time = Rnd.Float(24);
 
+			if (Events.XMas && Run.Depth == 0) {
+				Snows = true;
+				return;
+			}
+			
 			if (Rnd.Chance(10)) {
-				if (Rnd.Chance(90)) {
+				if (!Events.XMas && Rnd.Chance(90)) {
 					Rains = true;
 				} else {
 					Snows = true;
@@ -43,13 +58,15 @@ namespace BurningKnight.level {
 				var rained = Rains || Snows;
 				RainLeft = rained ? Rnd.Float(12f, 128f) : Rnd.Float(1f, 48f);
 
-				if (rained) {
-					Rains = Snows = false;
-				} else {
-					if (Rnd.Chance(90)) {
-						Rains = true;
+				if (!(Events.XMas && Run.Depth == 0)) {
+					if (rained) {
+						Rains = Snows = false;
 					} else {
-						Snows = true;
+						if (Rnd.Chance(90)) {
+							Rains = true;
+						} else {
+							Snows = true;
+						}
 					}
 				}
 			}

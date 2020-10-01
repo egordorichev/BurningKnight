@@ -3,6 +3,7 @@ using BurningKnight.entity.creature.npc.dungeon;
 namespace BurningKnight.level.rooms.special.npc {
 	public class NurseRoom : SpecialRoom {
 		public override void Paint(Level level) {
+			base.Paint(level);
 			Nurse.Place(GetCenter() * 16, level.Area);
 		}
 

@@ -1,5 +1,0 @@
-*.dll
-.idea
-.git
-bin
-obj/*

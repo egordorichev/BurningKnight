@@ -35,6 +35,7 @@ using ImGuiNET;
 using Lens;
 using Lens.assets;
 using Lens.entity;
+using Lens.entity.component;
 using Lens.entity.component.logic;
 using Lens.graphics;
 using Lens.graphics.gamerenderer;
@@ -385,6 +386,7 @@ namespace BurningKnight.entity.creature.player {
 				if (Run.Depth == 0) {
 					CageLock.CheckProgress();
 					HatStand.CheckHats();
+					Items.CheckForCollector();
 					Builder.CheckShortcutUnlocks();
 
 					if (Assets.FailedToLoadAudio) {
@@ -1054,6 +1056,28 @@ namespace BurningKnight.entity.creature.player {
 				stone.HasPlayer = true;
 				stone.Index = GetComponent<InputComponent>().Index;
 				stone.WasGamepad = GetComponent<InputComponent>().GamepadEnabled;
+
+				if (GetComponent<InputComponent>().Index == 0) {
+					var minIndex = 1024;
+					Player pl = null;
+
+					foreach (var p in Area.Tagged[Tags.Player]) {
+						var i = p.GetComponent<InputComponent>().Index;
+
+						if (p != this && i < minIndex) {
+							minIndex = i;
+							pl = (Player) p;
+						}
+					}
+
+					if (pl != null) {
+						var c = ForceGetComponent<ConsumablesComponent>();
+						c.Entity = pl;
+						Components.Remove(typeof(ConsumablesComponent));
+						pl.Components[typeof(ConsumablesComponent)] = c;
+						AddComponent(new ConsumablesComponent());
+					}
+				}
 			}
 
 			var pool = new List<string>();
@@ -1154,16 +1178,30 @@ namespace BurningKnight.entity.creature.player {
 			return null;
 		}
 
+		public T ForceGetComponent<T>() where T : Component {
+			return base.GetComponent<T>();
+		}
+
 		public override T GetComponent<T>() {
+			var minIndex = 1024;
+			var pl = this;
+			
 			if (InGameState.Multiplayer && typeof(T) == typeof(ConsumablesComponent) && base.GetComponent<InputComponent>().Index != 0) {
 				foreach (var p in Area.Tagged[Tags.Player]) {
-					if (p != this && p.GetComponent<InputComponent>().Index == 0) {
+					var i = p.GetComponent<InputComponent>().Index;
+					
+					if (i == 0) {
 						return p.GetComponent<T>();
+					}
+
+					if (i < minIndex) {
+						minIndex = i;
+						pl = (Player) p;
 					}
 				}
 			}
 			
-			return base.GetComponent<T>();
+			return pl.ForceGetComponent<T>();
 		}
 	}
 }

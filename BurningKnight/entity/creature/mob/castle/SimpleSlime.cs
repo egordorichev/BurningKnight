@@ -1,5 +1,7 @@
+using BurningKnight.assets.lighting;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.mob.prefabs;
+using BurningKnight.state;
 using Lens.graphics;
 using Microsoft.Xna.Framework;
 
@@ -14,8 +16,8 @@ namespace BurningKnight.entity.creature.mob.castle {
 		protected override void SetStats() {
 			base.SetStats();
 			
-			AddComponent(new ZAnimationComponent("slime"));
-			SetMaxHp(2);
+			AddComponent(new ZAnimationComponent(Events.Halloween ? "spooky_slime" : "slime"));
+			SetMaxHp(1 + Run.Depth);
 
 			var body = CreateBodyComponent();
 			AddComponent(body);
@@ -24,6 +26,7 @@ namespace BurningKnight.entity.creature.mob.castle {
 			body.KnockbackModifier = 0.5f;
 			
 			AddComponent(CreateSensorBodyComponent());
+			AddComponent(new LightComponent(this, 24, new Color(0.5f, 1f, 0.4f)));
 		}
 
 		protected virtual BodyComponent CreateBodyComponent() {

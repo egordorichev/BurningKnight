@@ -3,12 +3,13 @@ using BurningKnight.entity.events;
 using BurningKnight.entity.projectile;
 using Lens.entity;
 using Lens.util;
+using Lens.util.math;
 
 namespace BurningKnight.entity.item.use {
 	public class MakeProjectilesSplitUse : ItemUse {
 		public override bool HandleEvent(Event e) {
 			if (e is ProjectileCreatedEvent pce) {
-				if (pce.Projectile.Parent?.Parent != null) {
+				if (pce.Projectile.Parent?.Parent != null || Rnd.Chance(20)) {
 					return false;
 				}
 			

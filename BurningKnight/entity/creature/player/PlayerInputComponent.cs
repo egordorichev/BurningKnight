@@ -13,6 +13,7 @@ using BurningKnight.level.tile;
 using BurningKnight.save;
 using BurningKnight.state;
 using BurningKnight.ui.dialog;
+using BurningKnight.util;
 using ImGuiNET;
 using Lens;
 using Lens.assets;
@@ -61,6 +62,8 @@ namespace BurningKnight.entity.creature.player {
 				}
 			}
 		}
+
+		private float holdTimer;
 
 		public override void Update(float dt) {
 			base.Update(dt);
@@ -137,6 +140,48 @@ namespace BurningKnight.entity.creature.player {
 					return;
 				//}
 			}
+
+			if (Run.Depth == 0 && InGameState.Multiplayer && controller.Index > 0) {
+				if (controller.GamepadData.CurrentState.Buttons.B == ButtonState.Pressed) {
+					if (holdTimer <= 0) {
+						holdTimer = 0;
+						var dialog = GetComponent<DialogComponent>();
+
+						if (dialog.Current == null) {
+							dialog.Dialog.Str.ClearIcons();
+							dialog.Dialog.Str.AddIcon(CommonAse.Ui.GetSlice("button_b"));
+
+							dialog.StartAndClose("remove_player", 2);
+						}
+					}
+
+					holdTimer += dt;
+
+					if (holdTimer >= 2f) {
+						AnimationUtil.Poof(Entity.Center);
+						Entity.Done = true;
+						((Player) Entity).Dead = true;
+						
+						((InGameState) Engine.Instance.State).ResetFollowing();
+						Camera.Instance.Shake(10);
+
+						var count = 0;
+
+						foreach (var p in Entity.Area.Tagged[Tags.Player]) {
+							if (p != Entity) {
+								count++;
+							}
+						}
+
+						if (count == 1) {
+							InGameState.Multiplayer = false;
+						}
+					}
+					
+				} else {
+					holdTimer = -1;
+				}
+			} 
 
 			if (Run.Depth > 0 && Run.Type != RunType.Daily && Input.Keyboard.WasPressed(Keys.P)) {
 				Run.StartNew(1, Run.Type);

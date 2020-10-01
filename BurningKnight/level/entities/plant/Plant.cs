@@ -1,5 +1,6 @@
 using BurningKnight.assets.lighting;
 using BurningKnight.entity.component;
+using BurningKnight.level.biome;
 using BurningKnight.save;
 using BurningKnight.state;
 using ImGuiNET;
@@ -21,7 +22,7 @@ namespace BurningKnight.level.entities.plant {
 
 			if (GraphicsComponent == null) {
 				var s = variants[Variant % variants.Length];
-				var g = Variant == 255 ? new PlantGraphicsComponent("props", "cabbadge")
+				var g = Variant == 255 ? new PlantGraphicsComponent("props", Events.Halloween ? "pumpkin" : "cabbadge")
 					: new PlantGraphicsComponent($"{Run.Level.Biome.Id}_biome", $"{s}{(Variant >= variants.Length ? "s" : "")}");
 				
 				AddComponent(g);
@@ -30,8 +31,12 @@ namespace BurningKnight.level.entities.plant {
 				Width = g.Sprite.Width;
 				Height = g.Sprite.Height;
 
-				if (Variant != 255 && (Run.Depth != 0 || (s != "plant_k" && s != "plant_m"))) {
-					if (s == "plant_m") {
+				var caves = Run.Level.Biome is CaveBiome;
+
+				if (Variant != 255 && (caves || Run.Depth != 0 || (s != "plant_k" && s != "plant_m"))) {
+					if (caves) {
+						AddComponent(new LightComponent(this, Rnd.Int(16, 32), new Color(0.4f, 0.1f, 0.4f, 1f)));
+					} else if (s == "plant_m") {
 						AddComponent(new LightComponent(this, 24, new Color(0.4f, 0.4f, 1f, 1f)));
 					} else if (s == "plant_k") {
 						AddComponent(new LightComponent(this, 24, new Color(1f, 0.4f, 0.4f, 1f)));
@@ -45,6 +50,10 @@ namespace BurningKnight.level.entities.plant {
 		public override void Init() {
 			base.Init();
 			Variant = (byte) Rnd.Int(variants.Length * 2);
+
+			if (Events.Halloween && Rnd.Chance(10)) {
+				Variant = 255;
+			}
 		}
 		
 		public override void Load(FileReader stream) {

@@ -12,6 +12,8 @@ namespace BurningKnight.level.rooms.special.minigame {
 		}
 		
 		public override void Paint(Level level) {
+			base.Paint(level);
+			
 			/*
 			 * todo: a rare variant that spawns below certaint depth with rainbow chests and the cost set to constant 69
 			 */

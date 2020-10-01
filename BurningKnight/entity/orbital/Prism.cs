@@ -3,6 +3,7 @@ using BurningKnight.entity.events;
 using BurningKnight.entity.projectile;
 using BurningKnight.util;
 using Lens.entity;
+using Lens.util.math;
 using VelcroPhysics.Dynamics;
 
 namespace BurningKnight.entity.orbital {
@@ -23,8 +24,10 @@ namespace BurningKnight.entity.orbital {
 		
 		public override bool HandleEvent(Event e) {
 			if (e is CollisionStartedEvent cse && cse.Entity is Projectile p && !p.Artificial && p.Owner == Owner && p.Parent == null) {
-				for (var i = 0; i < 7; i++) {
-					var pr = Projectile.Make(Owner, p.Slice, p.BodyComponent.Angle + (i - 3) * 0.1f, p.BodyComponent.Velocity.Length() * 0.1f);
+				var tt = Rnd.Int(4, 8);
+				
+				for (var i = 0; i < tt; i++) {
+					var pr = Projectile.Make(Owner, p.Slice, p.BodyComponent.Angle + (i - tt * 0.5f) * 0.1f, p.BodyComponent.Velocity.Length() * 0.05f);
 					
 					pr.Color = ProjectileColor.Rainbow[i];
 					pr.Position = p.Position;

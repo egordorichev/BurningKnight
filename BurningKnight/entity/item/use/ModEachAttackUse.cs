@@ -11,7 +11,7 @@ namespace BurningKnight.entity.item.use {
 				count = (count + 1) % 5;
 			} else if (count == 0) {
 				if (e is ProjectileCreatedEvent pce) {
-					pce.Projectile.Scale *= 2;
+					pce.Projectile.Scale += 1;
 				}
 			}
 			

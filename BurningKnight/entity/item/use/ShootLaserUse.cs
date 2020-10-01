@@ -48,7 +48,7 @@ namespace BurningKnight.entity.item.use {
 
 					laser.Position = from;
 					laser.PlayerRotated = true;
-					laser.Damage *= 2;
+					laser.Damage *= 1.2f;
 					laser.Recalculate();
 				}
 			};

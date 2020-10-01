@@ -21,19 +21,24 @@ namespace BurningKnight.entity.item.use {
 			}
 
 			var attempt = 0;
+			var count = 0;
 
 			do {
 				var enemy = enemies[Rnd.Int(enemies.Count)];
 
 				if (enemy.GetComponent<BuffsComponent>().Add(new FrozenBuff {
-						Duration = 30
+						Duration = 50
 				}) != null) {
 					if (!enemy.HasComponent<DialogComponent>()) {
 						enemy.AddComponent(new DialogComponent());
 					}
 					
 					enemy.GetComponent<DialogComponent>().Start("mob_0");
-					break;
+					count++;
+
+					if (count >= 3) {
+						break;
+					}
 				}
 			} while (attempt++ < 99);
 		}

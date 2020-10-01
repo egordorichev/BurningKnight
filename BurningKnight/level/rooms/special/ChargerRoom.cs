@@ -4,6 +4,8 @@ using BurningKnight.level.entities.machine;
 namespace BurningKnight.level.rooms.special {
 	public class ChargerRoom : SpecialRoom {
 		public override void Paint(Level level) {
+			base.Paint(level);
+			
 			var charger = new Charger();
 			level.Area.Add(charger);
 			charger.BottomCenter = GetCenterVector();

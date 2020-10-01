@@ -4,6 +4,7 @@ using BurningKnight.entity.events;
 using BurningKnight.entity.projectile;
 using Lens.entity;
 using Lens.util;
+using Lens.util.math;
 
 namespace BurningKnight.entity.item.use {
 	public class MakeProjectilesSplitOnDeathUse : ItemUse {
@@ -11,6 +12,10 @@ namespace BurningKnight.entity.item.use {
 			// Make sure that this is a new projectile, not created by this event
 			if (e is ProjectileCreatedEvent pce && pce.Projectile.Parent == null) {
 				pce.Projectile.OnDeath += (p, en, t) => {
+					if (Rnd.Chance(20)) {
+						return;
+					}
+				
 					var v = p.GetAnyComponent<BodyComponent>().Velocity;
 
 					if (p is Laser l) {

@@ -25,6 +25,7 @@ namespace BurningKnight.entity.item.use {
 		public bool RandomEffect;
 		public float EffectChangeSpeed;
 		public bool Mine;
+		public float Scale;
 		
 		private float lastEffectTime;
 		private int lastEffect = -1;
@@ -57,6 +58,13 @@ namespace BurningKnight.entity.item.use {
 			arc.Mines = Mine;
 			arc.Damage *= Damage;
 
+			if (Math.Abs(Scale - 1) > 0.01f) {
+				arc.Width *= Scale;
+				arc.Height *= Scale;
+
+				// arc.AdjustSize();
+			}
+
 			if (RandomEffect) {
 				if (lastEffect == -1 || (EffectChangeSpeed > 0 && Engine.Time - lastEffectTime >= EffectChangeSpeed)) {
 					lastEffect = Rnd.Int(effects.Length);
@@ -80,7 +88,7 @@ namespace BurningKnight.entity.item.use {
 
 					return;
 				}
-
+				
 				arc.Color = info.Effect.GetColor();
 
 				arc.OnHurt += (p, e) => {
@@ -104,6 +112,7 @@ namespace BurningKnight.entity.item.use {
 			
 			Chance = settings["chance"].Number(1);
 			Damage = settings["damage"].Number(1);
+			Scale = settings["scale"].Number(1);
 			ToAny = settings["any"].Bool(false);
 			Mine = settings["mine"].Bool(false);
 
@@ -128,6 +137,7 @@ namespace BurningKnight.entity.item.use {
 			
 			root.InputFloat("Chance", "chance");
 			root.InputFloat("Damage Modifier", "damage");
+			root.InputFloat("Scale", "scale");
 			root.Checkbox("Make it mine", "mine", false);
 
 			ImGui.Separator();

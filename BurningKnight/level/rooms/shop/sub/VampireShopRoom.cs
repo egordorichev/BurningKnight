@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework;
 namespace BurningKnight.level.rooms.shop.sub {
 	public class VampireShopRoom : SubShopRoom {
 		public override void Paint(Level level) {
+			base.Paint(level);
 			Vampire.Place(GetTileCenter() * 16 + new Vector2(8), level.Area);
 		}
 	}

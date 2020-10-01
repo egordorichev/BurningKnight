@@ -3,6 +3,8 @@ using BurningKnight.level.entities.machine;
 namespace BurningKnight.level.rooms.special {
 	public class VendingRoom : SpecialRoom {
 		public override void Paint(Level level) {
+			base.Paint(level);
+			
 			var machine = new VendingMachine();
 			level.Area.Add(machine);
 			machine.BottomCenter = GetCenterVector();

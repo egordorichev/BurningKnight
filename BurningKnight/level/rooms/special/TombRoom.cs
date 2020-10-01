@@ -31,6 +31,8 @@ namespace BurningKnight.level.rooms.special {
 		}
 		
 		public override void Paint(Level level) {
+			base.Paint(level);
+			
 			var tomb = new Tombstone();
 
 			tomb.Item = GlobalSave.GetString("next_tomb") ?? "bk:coin";

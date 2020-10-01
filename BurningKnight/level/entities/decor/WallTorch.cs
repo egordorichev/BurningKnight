@@ -2,6 +2,7 @@ using System;
 using BurningKnight.assets.lighting;
 using BurningKnight.assets.particle.custom;
 using BurningKnight.entity;
+using BurningKnight.level.biome;
 using BurningKnight.state;
 using Lens.util.math;
 using Microsoft.Xna.Framework;
@@ -19,15 +20,19 @@ namespace BurningKnight.level.entities.decor {
 
 			Width = 5;
 			Height = 7;
-			Sprite = "wall_torch";
+			Sprite = Run.Level != null && Run.Level.Biome is CaveBiome ? "cave_torch" : "wall_torch";
 			t = Rnd.Float(6);
 			AlwaysActive = Run.Depth < 1;
 		}
 
 		public override void AddComponents() {
 			base.AddComponents();
-			
-			AddComponent(new LightComponent(this, 64f, new Color(1f, 0.8f, 0.2f, 1f)));
+
+			if (Run.Level != null && Run.Level.Biome is CaveBiome) {
+				AddComponent(new LightComponent(this, 64f, new Color(0.2f, 1, 0.8f, 1f)));
+			} else {
+				AddComponent(new LightComponent(this, 64f, new Color(1f, 0.8f, 0.2f, 1f)));
+			}
 		}
 
 		public override void Destroy() {

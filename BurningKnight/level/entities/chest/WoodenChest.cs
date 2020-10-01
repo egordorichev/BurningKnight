@@ -5,6 +5,10 @@ using Lens.util.math;
 namespace BurningKnight.level.entities.chest {
 	public class WoodenChest : Chest {
 		public override string GetSprite() {
+			if (Events.Halloween) {
+				return "spooky_chest";
+			}
+			
 			return Events.XMas ? "xmas_chest" : "wooden_chest";
 		}
 
