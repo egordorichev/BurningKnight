@@ -386,6 +386,7 @@ namespace BurningKnight.entity.creature.player {
 				if (Run.Depth == 0) {
 					CageLock.CheckProgress();
 					HatStand.CheckHats();
+					Items.CheckForCollector();
 					Builder.CheckShortcutUnlocks();
 
 					if (Assets.FailedToLoadAudio) {

@@ -580,8 +580,17 @@ namespace BurningKnight.assets.items {
 				Log.Error(er);
 			}
 
+			CheckForCollector();
+		}
+
+		public static void CheckForCollector() {
+			if (Achievements.Get("bk:collector").Unlocked) {
+				return;
+			}
+			
 			foreach (var item in Datas.Values) {
-				if (!item.Unlocked) {
+				if (item.Lockable && !item.Unlocked) {
+					Log.Info($"Collector achievement was not unlocked cuz {item.Id}");
 					return;
 				}
 			}
