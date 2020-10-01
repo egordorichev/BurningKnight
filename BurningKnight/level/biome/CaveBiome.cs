@@ -25,7 +25,7 @@ namespace BurningKnight.level.biome {
 		}
 
 		public override bool HasTorches() {
-			return false;
+			return true;
 		}
 		
 		private static Color mapColor = new Color(61, 61, 61);

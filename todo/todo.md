@@ -1,10 +1,9 @@
 # coop
 
-* inventory sharing in coop dissappers after main player death
-* more light things in the emerald caves
 * removing players (prop appears)
 * camera is freaking offset and it drives me mad
 * more pumkin items pls
+* controls get messed up in coop after finishing?
 
 # old stuff
 

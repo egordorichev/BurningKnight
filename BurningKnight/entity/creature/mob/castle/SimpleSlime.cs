@@ -1,6 +1,7 @@
 using BurningKnight.assets.lighting;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.mob.prefabs;
+using BurningKnight.state;
 using Lens.graphics;
 using Microsoft.Xna.Framework;
 
@@ -16,7 +17,7 @@ namespace BurningKnight.entity.creature.mob.castle {
 			base.SetStats();
 			
 			AddComponent(new ZAnimationComponent("slime"));
-			SetMaxHp(2);
+			SetMaxHp(1 + Run.Depth);
 
 			var body = CreateBodyComponent();
 			AddComponent(body);

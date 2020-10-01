@@ -4,6 +4,8 @@ using BurningKnight.entity;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
+using BurningKnight.level.biome;
+using BurningKnight.state;
 using Lens;
 using Lens.entity;
 using Lens.graphics;
@@ -84,9 +86,15 @@ namespace BurningKnight.assets.particle.custom {
 			T += dt;
 
 			if (T > 0.3f) {
-				R = Math.Max(0, R - dt * 0.3f * Mod);
-				G = Math.Max(0, G - dt * Mod);
-				B = Math.Max(0, B - dt * 3 * Mod);
+				if (Run.Level != null && Run.Level.Biome is CaveBiome) {
+					R = Math.Max(0, R - dt * 3 * Mod);
+					G = Math.Max(0, G - dt * 0.3f * Mod);
+					B = Math.Max(0, B - dt * Mod);
+				} else {
+					R = Math.Max(0, R - dt * 0.3f * Mod);
+					G = Math.Max(0, G - dt * Mod);
+					B = Math.Max(0, B - dt * 3 * Mod);
+				}
 			}
 
 			if (Growing) {
