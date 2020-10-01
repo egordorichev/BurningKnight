@@ -27,13 +27,13 @@ namespace Lens.assets {
 			}
 		}
 
-		public const int ItemData = 6465240;
+		public const int ItemData = 6611329;
 	
 #if DEBUG
 		public static bool LoadOriginalFiles = true;
 		public static bool LoadMusic = false;
 		public static bool LoadSfx = false;
-		public const bool Reload = true;
+		public const bool Reload = false;
 		public static bool LoadMods = false;
 #else
 		public static bool LoadOriginalFiles = false;
