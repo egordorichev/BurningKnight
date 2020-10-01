@@ -6,6 +6,7 @@ using BurningKnight.assets.particle.custom;
 using BurningKnight.entity;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.player;
+using BurningKnight.entity.item;
 using BurningKnight.level.entities.chest;
 using BurningKnight.save;
 using BurningKnight.state;
@@ -127,7 +128,7 @@ namespace BurningKnight.level.entities.statue {
 						item.Done = true;
 
 						if (e.GetComponent<WeaponComponent>().Item == null) {
-							c.Set(Items.CreateAndAdd(LevelSave.MeleeOnly ? "bk:ancient_sword" : "bk:ancient_revolver", s.Area));
+							c.Set(Items.CreateAndAdd(LevelSave.MeleeOnly || item.Data.WeaponType == WeaponType.Melee ? "bk:ancient_sword" : "bk:ancient_revolver", s.Area));
 						} else {
 							c.RequestSwap();
 						}

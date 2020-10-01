@@ -78,6 +78,39 @@ namespace BurningKnight.entity.creature.npc {
 
 					broken = true;
 					return null;
+				} else {
+					Timer.Add(() => {
+						GetComponent<DialogComponent>().StartAndClose(Locale.Get("eg_1"), 3);
+					}, 0.2f);
+
+					var inv = c.To.GetComponent<InventoryComponent>();
+					var a = c.To.Area;
+			
+					inv.Pickup(Items.CreateAndAdd("bk:emerald_gun", a));
+
+					Timer.Add(() => {
+						inv.Pickup(Items.CreateAndAdd(Scourge.GenerateItemId(), a));
+					}, 1f);
+
+					Timer.Add(() => {
+						GetComponent<AnimationComponent>().Animate(() => {
+							Done = true;
+							Engine.Instance.Flash = 1f;
+							Camera.Instance.Shake(8);
+							
+							for (var i = 0; i < 4; i++) {
+								var part = new ParticleEntity(Particles.Dust());
+						
+								part.Position = Center + Rnd.Vector(-16, 16);
+								part.Particle.Scale = Rnd.Float(1f, 2f);
+								Run.Level.Area.Add(part);
+								part.Depth = 1;
+							}
+						});
+					}, 4f);
+
+					broken = true;
+					return null;
 				}
 
 				return null;
