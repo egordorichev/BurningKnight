@@ -16,7 +16,7 @@ namespace BurningKnight.entity.creature.mob.castle {
 		protected override void SetStats() {
 			base.SetStats();
 			
-			AddComponent(new ZAnimationComponent("slime"));
+			AddComponent(new ZAnimationComponent(Events.Halloween ? "spooky_slime" : "slime"));
 			SetMaxHp(1 + Run.Depth);
 
 			var body = CreateBodyComponent();
