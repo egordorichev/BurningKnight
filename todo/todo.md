@@ -1,9 +1,7 @@
 # coop
 
-* removing players (prop appears)
 * camera is freaking offset and it drives me mad
 * more pumkin items pls
-* controls get messed up in coop after finishing?
 
 # old stuff
 

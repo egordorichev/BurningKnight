@@ -55,8 +55,19 @@ namespace BurningKnight.entity {
 			base.Update(dt);
 
 			if (Player.Dead) {
-				Done = true;
-				return;
+				var found = false;
+				
+				foreach (var e in Area.Entities.Entities) {
+					if (e is Cursor && e != this) {
+						found = true;
+						break;
+					}
+				}
+
+				if (found) {
+					Done = true;
+					return;
+				}
 			}
 			
 			if (readTint) {
