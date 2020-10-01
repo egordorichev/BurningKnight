@@ -22,7 +22,7 @@ namespace BurningKnight.level.entities.plant {
 
 			if (GraphicsComponent == null) {
 				var s = variants[Variant % variants.Length];
-				var g = Variant == 255 ? new PlantGraphicsComponent("props", "cabbadge")
+				var g = Variant == 255 ? new PlantGraphicsComponent("props", Events.Halloween ? "pumpkin" : "cabbadge")
 					: new PlantGraphicsComponent($"{Run.Level.Biome.Id}_biome", $"{s}{(Variant >= variants.Length ? "s" : "")}");
 				
 				AddComponent(g);
@@ -50,6 +50,10 @@ namespace BurningKnight.level.entities.plant {
 		public override void Init() {
 			base.Init();
 			Variant = (byte) Rnd.Int(variants.Length * 2);
+
+			if (Events.Halloween && Rnd.Chance(10)) {
+				Variant = 255;
+			}
 		}
 		
 		public override void Load(FileReader stream) {

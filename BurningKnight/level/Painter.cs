@@ -981,6 +981,19 @@ namespace BurningKnight.level {
 					PlacePlants(Level, Room);
 				}
 
+				if (Events.Halloween) {
+					for (var Y = Room.Top; Y <= Room.Bottom; Y++) {
+						for (int X = Room.Left; X <= Room.Right; X++) {
+							if ((Level.Get(X, Y, true).Matches(Tile.Grass, Tile.Dirt) && Rnd.Chance(20)) || (Level.Get(X, Y).Matches(TileFlags.Passable) && Rnd.Chance(2))) {
+								var plant = new Plant();
+								Level.Area.Add(plant);
+								plant.Variant = 255;
+								plant.BottomCenter = new Vector2(X * 16 + 8 + Rnd.Float(-4, 4), Y * 16 + 8 + Rnd.Float(-4, 4));
+							}
+						}
+					}
+				}
+
 				if (!(Room is HiveRoom) && Level.Biome.HasTrees()) {
 					PlaceTrees(Level, Room);
 				}

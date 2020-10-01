@@ -1,5 +1,3 @@
-# coop
-
 * more pumkin items pls
 
 # old stuff
