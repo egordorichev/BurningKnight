@@ -1224,6 +1224,11 @@ namespace BurningKnight.state {
 			base.Render();
 			Physics.Render();
 			editor?.RenderInGame();
+			
+			if (RenderDebug) {
+				Ui?.RenderDebug();
+				TopUi?.RenderDebug();
+			}
 		}
 
 		private float emeraldY = -20;
@@ -1294,6 +1299,11 @@ namespace BurningKnight.state {
 			}
 
 			// Graphics.Batch.DrawString(Font.Test, "Test 你 Test", Vector2.One, Color.White);
+			
+			if (RenderDebug) {
+				Ui?.RenderDebug();
+				TopUi?.RenderDebug();
+			}
 		}
 
 		private string GetRunTime() {

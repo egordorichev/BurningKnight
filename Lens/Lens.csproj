@@ -284,6 +284,7 @@
     <Compile Include="game\GameState.cs" />
     <Compile Include="util\camera\Camera.cs" />
     <Compile Include="util\camera\CameraDriver.cs" />
+    <Compile Include="util\camera\CustomCameraJumper.cs" />
     <Compile Include="util\file\FileHandle.cs" />
     <Compile Include="util\file\FileReader.cs" />
     <Compile Include="util\file\FileWriter.cs" />

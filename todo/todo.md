@@ -1,6 +1,5 @@
 # coop
 
-* camera is freaking offset and it drives me mad
 * more pumkin items pls
 
 # old stuff

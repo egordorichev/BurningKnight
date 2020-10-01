@@ -15,7 +15,7 @@ using Lens.util.tween;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity {
-	public class Cursor : Entity {
+	public class Cursor : Entity, CustomCameraJumper {
 		private static TextureRegion[] regions;
 
 		private Vector2 scale = new Vector2(1);
@@ -33,6 +33,8 @@ namespace BurningKnight.entity {
 			AlwaysActive = true;
 			AlwaysVisible = true;
 			Depth = Layers.Cursor;
+			Width = 0;
+			Height = 0;
 			
 			AddTag(Tags.Cursor);
 
@@ -162,6 +164,12 @@ namespace BurningKnight.entity {
 
 			Graphics.Render(r, Position, 0, r.Center, scale);
 			Graphics.Color = ColorUtils.WhiteColor;
+		}
+
+		public Vector2 Jump(Camera.Target target) {
+			return new Vector2();
+			/*Position = Camera.Instance.CameraToUi(GamePosition = Camera.Instance.ScreenToCamera(Input.Mouse.ScreenPosition));
+			return new Vector2((CenterX - Display.UiWidth * 0.5f) * target.Priority, (CenterY - Display.UiHeight * 0.5f) * target.Priority * Display.Viewport * 1.6f)*/;	
 		}
 	}
 }
