@@ -122,25 +122,21 @@ namespace BurningKnight.assets.achievements {
 				return;
 			}
 
-			if (progress >= max) {
-				Log.Info($"Progress {progress} is >= than {max} for {id}");
-				ReallyUnlock(id, a);
-				return;
-			}
-
 			var idt = $"ach_{a.Id}";
-			var s = progress == GlobalSave.GetInt(idt);
 
-			GlobalSave.Put(idt, progress);
-
-			if (s) {
-				return;
+			if (progress < max) {
+				GlobalSave.Put(idt, progress);
 			}
-			
+
 			try {
 				ProgressSetCallback?.Invoke(id, progress, max);
 			} catch (Exception e) {
 				Log.Error(e);
+			}
+			
+			if (progress >= max) {
+				Log.Info($"Progress {progress} is >= than {max} for {id}");
+				ReallyUnlock(id, a);
 			}
 		}
 

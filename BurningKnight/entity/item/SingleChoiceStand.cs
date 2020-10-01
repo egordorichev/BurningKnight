@@ -34,11 +34,16 @@ namespace BurningKnight.entity.item {
 			var it = rm.Tagged[Tags.Item].ToArray(); // Copy it to prevent exceptions while modifying it
 				
 			foreach (var s in it) {
-				if (s is SingleChoiceStand ist && ist.Item != null) {
-					var i = ist.Item;
-					ist.SetItem(null, this);
-					i.Done = true;
-					AnimationUtil.Poof(ist.Center);
+				if (s is SingleChoiceStand ist) {
+					if (s is HealChoiceStand) {
+						AnimationUtil.Poof(ist.Center);
+						ist.Done = true;
+					} else if (ist.Item != null) {
+						var i = ist.Item;
+						ist.SetItem(null, this);
+						i.Done = true;
+						AnimationUtil.Poof(ist.Center);
+					}
 				}
 			}
 					

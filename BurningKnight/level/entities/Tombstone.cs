@@ -123,6 +123,27 @@ namespace BurningKnight.level.entities {
 				hr2.ModifyBombs(-(hr2.Bombs - half), e);
 			}
 
+			if (p.GetComponent<InputComponent>().Index == 0) {
+				var minIndex = 1024;
+				Player pl = null;
+
+				foreach (var pr in Area.Tagged[Tags.Player]) {
+					var i = pr.GetComponent<InputComponent>().Index;
+
+					if (p != pr && i < minIndex) {
+						minIndex = i;
+						pl = (Player) pr;
+					}
+				}
+
+				if (pl != null) {
+					var c = pl.ForceGetComponent<ConsumablesComponent>();
+					c.Entity = p;
+					pl.Components.Remove(typeof(ConsumablesComponent));
+					p.Components[typeof(ConsumablesComponent)] = c;
+				}
+			}
+
 			return true;
 		}
 		

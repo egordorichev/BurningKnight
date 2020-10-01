@@ -1,12 +1,10 @@
 # coop
-* wait you can heal after taking an item ono
+
+* inventory sharing in coop dissappers after main player death
 * more light things in the emerald caves
 * removing players (prop appears)
 * camera is freaking offset and it drives me mad
-
-# rest
-* balance tweaks suggested by smashy
-* update item checksum
+* more pumkin items pls
 
 # old stuff
 
