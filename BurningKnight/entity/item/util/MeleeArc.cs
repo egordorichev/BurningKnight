@@ -61,6 +61,10 @@ namespace BurningKnight.entity.item.util {
 			Camera.Instance.Push(Angle - (float) Math.PI, 4f);
 		}
 
+		public void AdjustSize() {
+			GetComponent<RectBodyComponent>().Resize(0, -Height / 2f, Width, Height);
+		}
+
 		public override void Render() {
 			var component = GetComponent<AnimationComponent>();
 			var region = component.Animation.GetCurrentTexture();

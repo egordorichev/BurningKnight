@@ -47,7 +47,7 @@ namespace BurningKnight.entity.projectile {
 					for (var i = 0; i < 8; i++) {
 						var bullet = Projectile.Make(p.Owner, "small", 
 							((float) i) / 4 * (float) Math.PI, (i % 2 == 0 ? 2 : 1) * 4 + 3);
-
+	
 						bullet.CanBeReflected = false;
 						bullet.Center = p.Center;
 					}

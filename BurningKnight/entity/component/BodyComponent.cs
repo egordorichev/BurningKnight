@@ -101,6 +101,10 @@ namespace BurningKnight.entity.component {
 			if (entity == null) {
 				return;
 			}
+
+			if (entity.TryGetComponent<StatsComponent>(out var s)) {
+				force *= s.Knockback;
+			}
 			
 			if (entity == Entity) {
 				KnockbackFrom(Rnd.AnglePI(), force, rnd);
