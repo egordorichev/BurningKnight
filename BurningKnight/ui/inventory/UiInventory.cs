@@ -86,6 +86,7 @@ namespace BurningKnight.ui.inventory {
 
 		private bool multiplayer;
 		public bool Second;
+		public bool ForceUpdate;
 
 		public UiInventory(Player player, bool multiplayer) {
 			Player = player;	
@@ -196,6 +197,23 @@ namespace BurningKnight.ui.inventory {
 					AddArtifact(item);
 				}
 			}
+		}
+
+		public override void Update(float dt) {
+			base.Update(dt);
+
+			if (ForceUpdate) {
+				ForceUpdate = false;
+				UpdateConsumables();
+			}
+		}
+
+		public void UpdateConsumables() {
+			var c = Player.GetComponent<ConsumablesComponent>();
+
+			bombs = c.Bombs;
+			keys = c.Keys;
+			coins = c.Coins;
 		}
 
 		private void AnimateConsumableChange(int amount, int now, ItemType type) {

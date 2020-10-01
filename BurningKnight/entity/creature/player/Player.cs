@@ -1074,6 +1074,7 @@ namespace BurningKnight.entity.creature.player {
 						c.Entity = pl;
 						Components.Remove(typeof(ConsumablesComponent));
 						pl.Components[typeof(ConsumablesComponent)] = c;
+						AddComponent(new ConsumablesComponent());
 					}
 				}
 			}
