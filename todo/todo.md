@@ -1,4 +1,4 @@
-* more pumkin items pls
+* and all new unlocked hats not appear too
 
 # old stuff
 

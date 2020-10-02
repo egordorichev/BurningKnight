@@ -18,7 +18,7 @@ namespace BurningKnight.entity.creature.mob.cave {
 			Height = 16;
 			
 			AddAnimation("thief");
-			SetMaxHp(4);
+			SetMaxHp(3);
 			
 			Become<IdleState>();
 
@@ -37,7 +37,7 @@ namespace BurningKnight.entity.creature.mob.cave {
 
 			public override void Init() {
 				base.Init();
-				delay = Rnd.Float(0.5f, 1f);
+				delay = Rnd.Float(0.8f, 1.3f);
 			}
 
 			public override void Update(float dt) {

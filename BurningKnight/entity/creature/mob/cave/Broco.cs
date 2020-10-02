@@ -25,7 +25,7 @@ namespace BurningKnight.entity.creature.mob.cave {
 			Height = 11;
 			
 			AddAnimation("broco");
-			SetMaxHp(Run.Depth);
+			SetMaxHp(2);
 			
 			Become<IdleState>();
 
@@ -113,7 +113,7 @@ namespace BurningKnight.entity.creature.mob.cave {
 									return;
 								}
 								
-								laser = Laser.Make(Self, 0, 0, scale: 2, range: 64);
+								laser = Laser.Make(Self, 0, 0, scale: 2, range: 16);
 
 								laser.LifeTime = 2f;
 								laser.Color = ProjectileColor.Green;
