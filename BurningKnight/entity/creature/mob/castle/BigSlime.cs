@@ -29,7 +29,7 @@ namespace BurningKnight.entity.creature.mob.castle {
 		}
 
 		protected virtual string GetSprite() {
-			return "big_slime";
+			return Events.Halloween ? "spooky_big_slime" : "big_slime";
 		}
 
 		protected override void OnLand() {
