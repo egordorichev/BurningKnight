@@ -291,6 +291,10 @@ namespace BurningKnight.level {
 					}
 				}
 
+				if (biome is CaveBiome && Rnd.Chance(5)) {
+					rooms.Add(new SecretEmeraldGolemRoom());
+				}
+				
 				if (!cave && !rush) {
 					if (Rnd.Chance(95)) {
 						if (Rnd.Chance(2 + Run.Scourge * 5)) {

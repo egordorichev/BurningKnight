@@ -94,9 +94,11 @@ namespace BurningKnight.level.entities {
 
 			Width = 16;
 			Height = 14;
-			
-			To = Run.Depth + 1;
-			
+
+			if (To != 13) {
+				To = Run.Depth + 1;
+			}
+
 			AddComponent(new InteractableComponent(Interact) {
 				OnStart = entity => {
 					if (entity is LocalPlayer && Run.Depth != -2) {
@@ -120,7 +122,7 @@ namespace BurningKnight.level.entities {
 		}
 
 		protected virtual string GetSlice() {
-			return "exit";
+			return To == 13 ? "emerald_exit" : "exit";
 		}
 		
 		public override void Load(FileReader stream) {

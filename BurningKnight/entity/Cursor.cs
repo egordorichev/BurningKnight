@@ -79,7 +79,7 @@ namespace BurningKnight.entity {
 			
 			var input = Player.GetComponent<InputComponent>();
 			
-			if (input.KeyboardEnabled && (Input.Mouse.WasMoved || !input.GamepadEnabled || input.GamepadData == null)) {
+			if (input.KeyboardEnabled && (Input.Mouse.WasMoved || !input.GamepadEnabled || input.GamepadData == null || input.GamepadData.Attached)) {
 				Position = Camera.Instance.CameraToUi(GamePosition = Camera.Instance.ScreenToCamera(Input.Mouse.ScreenPosition));
 			}
 
@@ -103,43 +103,46 @@ namespace BurningKnight.entity {
       		stick *= d;
       	}
 
-      	var l = stick.Length();
-      	var target = MathUtils.CreateVector(Math.Atan2(dy, dx), 1f);
-      	dx = target.X - stickOffset.X;
-      	dy = target.Y - stickOffset.Y;
+        var l = stick.Length();
 
-      	d = (float) Math.Sqrt(dx * dx + dy * dy);
+        if (l > 0.25f) {
+      		var target = MathUtils.CreateVector(Math.Atan2(dy, dx), 1f);
+      		dx = target.X - stickOffset.X;
+      		dy = target.Y - stickOffset.Y;
 
-      	if (d > 1) {
-      		dx /= d;
-      		dy /= d;
-      	} else {
-      		dx *= d;
-      		dy *= d;
-      	}
+      		d = (float) Math.Sqrt(dx * dx + dy * dy);
 
-      	stickOffset += l * new Vector2(dx, dy) * dt * 10f * Settings.Sensivity;
-        Position = Camera.Instance.CameraToUi(GamePosition = (Player.Center + stickOffset * (48 * Settings.CursorRadius)));
+      		if (d > 1) {
+      			dx /= d;
+      			dy /= d;
+      		} else {
+      			dx *= d;
+      			dy *= d;
+      		}
 
-      	double a = 0;
-      	var pressed = false;
+      		stickOffset += l * new Vector2(dx, dy) * dt * 10f * Settings.Sensivity;
+	        Position = Camera.Instance.CameraToUi(GamePosition = (Player.Center + stickOffset * (48 * Settings.CursorRadius)));
 
-      	if (controller.DPadLeftCheck) {
-      		a = Math.PI;
-      		pressed = true;
-      	} else if (controller.DPadDownCheck) {
-      		a = Math.PI / 2f;
-      		pressed = true;
-      	} else if (controller.DPadUpCheck) {
-      		a = Math.PI * 1.5f;
-      		pressed = true;
-      	} else if (controller.DPadRightCheck) {
-      		pressed = true;
-      	}
+      		double a = 0;
+      		var pressed = false;
 
-      	if (pressed) {
-      		Position = Camera.Instance.CameraToUi(GamePosition = (Player.Center + MathUtils.CreateVector(a, 48)));
-      	}
+      		if (controller.DPadLeftCheck) {
+      			a = Math.PI;
+      			pressed = true;
+      		} else if (controller.DPadDownCheck) {
+      			a = Math.PI / 2f;
+      			pressed = true;
+      		} else if (controller.DPadUpCheck) {
+      			a = Math.PI * 1.5f;
+      			pressed = true;
+      		} else if (controller.DPadRightCheck) {
+      			pressed = true;
+      		}
+
+      		if (pressed) {
+      			Position = Camera.Instance.CameraToUi(GamePosition = (Player.Center + MathUtils.CreateVector(a, 48)));
+      		}
+        }
       }
 
 			if (Input.WasPressed(Controls.Use, input)) {

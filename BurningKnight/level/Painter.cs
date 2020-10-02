@@ -984,7 +984,7 @@ namespace BurningKnight.level {
 				if (Events.Halloween) {
 					for (var Y = Room.Top; Y <= Room.Bottom; Y++) {
 						for (int X = Room.Left; X <= Room.Right; X++) {
-							if ((Level.Get(X, Y, true).Matches(Tile.Grass, Tile.Dirt) && Rnd.Chance(20)) || (Level.Get(X, Y).Matches(TileFlags.Passable) && Rnd.Chance(2))) {
+							if ((Level.Get(X, Y, true).Matches(Tile.Grass, Tile.Dirt) && Rnd.Chance(20)) || (Level.Get(X, Y).Matches(TileFlags.Passable) && Rnd.Chance(0.5f))) {
 								var plant = new Plant();
 								Level.Area.Add(plant);
 								plant.Variant = 255;

@@ -1,4 +1,5 @@
 using System;
+using BurningKnight.assets.lighting;
 using BurningKnight.entity;
 using BurningKnight.entity.component;
 using BurningKnight.entity.events;
@@ -20,6 +21,8 @@ namespace BurningKnight.level.entities {
 
 			Width = 5;
 			Height = 5;
+			
+			AddComponent(new LightComponent(this, 32, new Color(0.5f, 1f, 0.4f)));
 		}
 
 		public override bool HandleEvent(Event e) {
@@ -28,8 +31,8 @@ namespace BurningKnight.level.entities {
 					Done = true;
 
 					var exit = new Exit();
-					Area.Add(exit);
 					exit.To = 13;
+					Area.Add(exit);
 					
 					var x = (int) Math.Floor(CenterX / 16);
 					var y = (int) Math.Floor(CenterY / 16);
