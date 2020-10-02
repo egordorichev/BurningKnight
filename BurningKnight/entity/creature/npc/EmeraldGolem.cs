@@ -5,6 +5,7 @@ using BurningKnight.entity.component;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
+using BurningKnight.save;
 using BurningKnight.state;
 using BurningKnight.ui.dialog;
 using BurningKnight.util;
@@ -78,7 +79,7 @@ namespace BurningKnight.entity.creature.npc {
 
 					broken = true;
 					return null;
-				} else {
+				} else if (GlobalSave.IsTrue("bk:emerald_gun")) {
 					Timer.Add(() => {
 						GetComponent<DialogComponent>().StartAndClose(Locale.Get("eg_1"), 3);
 					}, 0.2f);

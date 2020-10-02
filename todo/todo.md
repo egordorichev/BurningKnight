@@ -1,5 +1,5 @@
-* and all new unlocked hats not appear too?
-* old man keeps dissappearing from the hub (probs set done for himself for some reason)
+* emerald golem shall appear more often in emerald caves
+* resprite the entrance to emerald caves
 
 # old stuff
 
