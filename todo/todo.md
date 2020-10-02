@@ -1,5 +1,3 @@
-* emerald golem shall appear more often in emerald caves
-* resprite the entrance to emerald caves
 
 # old stuff
 

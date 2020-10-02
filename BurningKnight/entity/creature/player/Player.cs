@@ -481,7 +481,7 @@ namespace BurningKnight.entity.creature.player {
 
 				var hat = Self.GetComponent<HatComponent>().Item;
 
-				if (hat != null && hat.Id == "bk:villager_head") {
+				if (hat != null && (hat.Id == "bk:villager_head" || hat.Id == "bk:stone_hat")) {
 					Audio.PlaySfx($"villager{Rnd.Int(1, 5)}", 1f, Rnd.Float(-0.5f, 0.5f));
 				} else {
 					Audio.PlaySfx("quck", 1f, Rnd.Float(-0.5f, 0.5f));
@@ -799,7 +799,7 @@ namespace BurningKnight.entity.creature.player {
 						if (!found) {
 							c.Old.CloseHiddenDoors();
 						}
-					} else if (c.Old.Type == RoomType.Treasure && !Rnd.Chance(5)) {
+					} else if (c.Old.Type == RoomType.Treasure && Run.Type != RunType.BossRush && !Rnd.Chance(5)) {
 						var found = false;
 
 						foreach (var p in c.Old.Tagged[Tags.Player]) {
