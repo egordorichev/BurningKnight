@@ -79,7 +79,7 @@ namespace BurningKnight.entity {
 			
 			var input = Player.GetComponent<InputComponent>();
 			
-			if (input.KeyboardEnabled && Input.Mouse.WasMoved) {
+			if (input.KeyboardEnabled && (Input.Mouse.WasMoved || !input.GamepadEnabled || input.GamepadData == null)) {
 				Position = Camera.Instance.CameraToUi(GamePosition = Camera.Instance.ScreenToCamera(Input.Mouse.ScreenPosition));
 			}
 
@@ -104,25 +104,22 @@ namespace BurningKnight.entity {
       	}
 
       	var l = stick.Length();
+      	var target = MathUtils.CreateVector(Math.Atan2(dy, dx), 1f);
+      	dx = target.X - stickOffset.X;
+      	dy = target.Y - stickOffset.Y;
 
-      	if (l > 0.25f) {
-      		var target = MathUtils.CreateVector(Math.Atan2(dy, dx), 1f);
-      		dx = target.X - stickOffset.X;
-      		dy = target.Y - stickOffset.Y;
+      	d = (float) Math.Sqrt(dx * dx + dy * dy);
 
-      		d = (float) Math.Sqrt(dx * dx + dy * dy);
-
-      		if (d > 1) {
-      			dx /= d;
-      			dy /= d;
-      		} else {
-      			dx *= d;
-      			dy *= d;
-      		}
-
-      		stickOffset += l * new Vector2(dx, dy) * dt * 10f * Settings.Sensivity;
-          Position = Camera.Instance.CameraToUi(GamePosition = (Player.Center + stickOffset * (48 * Settings.CursorRadius)));
+      	if (d > 1) {
+      		dx /= d;
+      		dy /= d;
+      	} else {
+      		dx *= d;
+      		dy *= d;
       	}
+
+      	stickOffset += l * new Vector2(dx, dy) * dt * 10f * Settings.Sensivity;
+        Position = Camera.Instance.CameraToUi(GamePosition = (Player.Center + stickOffset * (48 * Settings.CursorRadius)));
 
       	double a = 0;
       	var pressed = false;

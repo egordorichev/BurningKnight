@@ -1,4 +1,5 @@
-* more pumkin items pls
+* and all new unlocked hats not appear too?
+* old man keeps dissappearing from the hub (probs set done for himself for some reason)
 
 # old stuff
 

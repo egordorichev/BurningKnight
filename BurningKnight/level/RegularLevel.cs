@@ -55,7 +55,13 @@ namespace BurningKnight.level {
 			}
 
 			if (Run.Depth > 0) {
-				for (var i = 0; i < Rnd.Int(1, Run.Depth); i++) {
+				var c = Rnd.Int(1, Run.Depth);
+
+				if (Run.Level.Biome is CaveBiome) {
+					c = Rnd.Int(5, 15);
+				}
+				
+				for (var i = 0; i < c; i++) {
 					ItemsToSpawn.Add("bk:emerald");
 				}
 			}

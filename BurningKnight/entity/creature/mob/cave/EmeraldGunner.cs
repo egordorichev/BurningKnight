@@ -23,7 +23,7 @@ namespace BurningKnight.entity.creature.mob.cave {
 			Height = 15;
 			
 			AddAnimation("emerald_gunner");
-			SetMaxHp(5);
+			SetMaxHp(4);
 			
 			AddDrops(new SingleDrop("bk:emerald", 0.001f));
 			

@@ -1,6 +1,7 @@
 using BurningKnight.assets.lighting;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.mob.prefabs;
+using BurningKnight.level.biome;
 using BurningKnight.state;
 using Lens.graphics;
 using Microsoft.Xna.Framework;
@@ -17,7 +18,7 @@ namespace BurningKnight.entity.creature.mob.castle {
 			base.SetStats();
 			
 			AddComponent(new ZAnimationComponent(Events.Halloween ? "spooky_slime" : "slime"));
-			SetMaxHp(1 + Run.Depth);
+			SetMaxHp(Run.Level.Biome is CaveBiome ? 4 : 1 + Run.Depth / 2);
 
 			var body = CreateBodyComponent();
 			AddComponent(body);

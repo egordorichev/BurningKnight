@@ -29,6 +29,8 @@ namespace BurningKnight.entity.item.use {
 						AnimationUtil.TeleportIn(e);
 						e.GetComponent<HealthComponent>().Unhittable = false;
 					});
+
+					entity.GetComponent<AudioEmitterComponent>().EmitRandomized("quck");
 				}
 			}
 		}

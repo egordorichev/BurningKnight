@@ -13,16 +13,20 @@ namespace BurningKnight.entity.item.stand {
 		protected override void DoStuff() {
 			base.DoStuff();
 			
-			CheckHats();
-
 			foreach (var i in Area.Tagged[Tags.Item].ToArray()) {
 				if (i is GarderobeStand gs) {
 					gs.UpdateItem();
 				}
 			}
+
+			CheckHats();
 		}
 
 		public static void CheckHats() {
+			if (Achievements.Get("bk:fashion_matters2").Unlocked) {
+				return;
+			}
+			
 			var total = 0;
 			var progress = 0;
 
