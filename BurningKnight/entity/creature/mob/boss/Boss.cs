@@ -319,7 +319,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 			Run.Level.ReTileAndCreateBodyChunks(x - 1, y - 1, 3, 7);
 			var w = p - new Vector2(0, 32f);
 
-			if (Run.Type != RunType.BossRush && !(this is DM || this is BkHead)) {
+			if (!(this is DM || this is BkHead)) {
 				var stand = new BossStand();
 				Area.Add(stand);
 				stand.Center = w;
