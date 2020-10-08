@@ -3,6 +3,7 @@ using BurningKnight.entity;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.fx;
+using BurningKnight.level.entities.exit;
 using BurningKnight.save;
 using BurningKnight.state;
 using BurningKnight.ui.editor;
@@ -74,7 +75,7 @@ namespace BurningKnight.level.entities {
 				Achievements.Unlock("bk:tutorial");
 				GlobalSave.Put("finished_tutorial", true);
 				Run.Depth = 0;
-			} else if (To == 1) {
+			} else if (To == 1 || this is BossRushExit) {
 				Run.NumPlayers = Area.Tagged[Tags.Player].Count;
 				Run.StartNew();
 				// Caves secret location

@@ -358,7 +358,8 @@ namespace BurningKnight.entity.projectile {
 						        || bc is ShopKeeper || ac is Player
 					        )
 					    )
-				    )) && ev.Entity.TryGetComponent<HealthComponent>(out var health) && (HurtsEveryone || CanHitOwner || !(ev.Entity is Player) || !(Owner is Player))) {
+				    )) && ev.Entity.TryGetComponent<HealthComponent>(out var health) && (HurtsEveryone || CanHitOwner || !(ev.Entity is Player) || !(Owner is Player))
+						&& !(Owner is Pet ppt && ppt.Owner == ev.Entity)) {
 
 					var h = health.ModifyHealth(-Damage, Owner);
 

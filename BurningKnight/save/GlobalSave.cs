@@ -105,7 +105,7 @@ namespace BurningKnight.save {
 		}
 
 		private void SetupDev() {
-			if (BK.Version.Dev) {
+			if (false && BK.Version.Dev) {
 				Put(ShopNpc.AccessoryTrader, true);
 				Put(ShopNpc.ActiveTrader, true);
 				Put(ShopNpc.HatTrader, true);

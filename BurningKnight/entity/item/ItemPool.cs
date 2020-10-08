@@ -46,6 +46,7 @@ namespace BurningKnight.entity.item {
 		public static readonly ItemPool SpikedRoom = new ItemPool("spiked_room");
 		public static readonly ItemPool DuckChest = new ItemPool("duck_chest");
 		public static readonly ItemPool Gobetta = new ItemPool("gobetta");
+		public static readonly ItemPool BossRush = new ItemPool("boss_rush");
 
 		private static int count;
 		public static int Count => count;

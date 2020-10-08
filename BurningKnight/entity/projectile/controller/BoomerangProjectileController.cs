@@ -7,6 +7,10 @@ namespace BurningKnight.entity.projectile.controller {
 	public static class BoomerangProjectileController {
 		public static ProjectileUpdateCallback Make(Entity owner, float speed = 1f) {
 			return (p, dt) => {
+				if (p.T < 0.2f) {
+					return;
+				}
+
 				var b = p.GetAnyComponent<BodyComponent>();
 				var dx = p.DxTo(owner);
 				var dy = p.DyTo(owner);

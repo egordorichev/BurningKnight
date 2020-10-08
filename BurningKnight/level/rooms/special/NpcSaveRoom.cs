@@ -73,7 +73,8 @@ namespace BurningKnight.level.rooms.special {
 					if (info.Id == ShopNpc.Mike && !DefeatedBosses()) {
 						continue;
 					}
-					
+
+					Log.Info($"Npc {info.Id} should be generated");
 					return info.Id;
 				}
 			}

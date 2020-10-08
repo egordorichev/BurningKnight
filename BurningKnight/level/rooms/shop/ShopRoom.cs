@@ -92,7 +92,7 @@ namespace BurningKnight.level.rooms.shop {
 				}
 			}
 			
-			var pool = Items.GeneratePool(Items.GetPool(ItemPool.Shop));
+			var pool = Items.GeneratePool(Items.GetPool(Run.Type == RunType.BossRush ? ItemPool.BossRush : ItemPool.Shop));
 			var consumablePool = Items.GeneratePool(Items.GetPool(ItemPool.ShopConsumable));
 
 			var con = Math.Max(1, Math.Ceiling(stands.Count / 4f));
@@ -288,7 +288,7 @@ namespace BurningKnight.level.rooms.shop {
 
 		public override void SetupDoors(Level level) {
 			foreach (var door in Connected) {
-				door.Value.Type = door.Key is SubShopRoom || (Run.Depth == 5 && Run.Loop == 0 && LevelSave.GenerateMarket) ? DoorPlaceholder.Variant.Enemy : DoorPlaceholder.Variant.Shop;
+				door.Value.Type = door.Key is SubShopRoom || (Run.Depth == 5 && Run.Loop == 0 && LevelSave.GenerateMarket) || Run.Type == RunType.BossRush || Rnd.Chance(2) ? DoorPlaceholder.Variant.Enemy : DoorPlaceholder.Variant.Shop;
 			}
 		}
 		
