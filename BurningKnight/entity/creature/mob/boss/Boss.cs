@@ -348,7 +348,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 					rewards.Add("bk:heart");
 				}
 			} else {
-				var cn = Rnd.Int(10, 20);
+				var cn = Rnd.Int(20, 30);
 
 				for (var i = 0; i < cn; i++) {
 					rewards.Add("bk:coin");
