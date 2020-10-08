@@ -9,6 +9,7 @@ using BurningKnight.level.entities.decor;
 using BurningKnight.level.rooms.granny;
 using BurningKnight.level.rooms.oldman;
 using BurningKnight.level.rooms.preboss;
+using BurningKnight.level.rooms.shop;
 using BurningKnight.level.tile;
 using BurningKnight.save;
 using BurningKnight.state;
@@ -36,7 +37,7 @@ namespace BurningKnight.level.rooms.boss {
 		}
 
 		public override int GetMaxConnections(Connection Side) {
-			return Run.Depth >= 10 || Run.Type == RunType.BossRush ? 1 : 3;
+			return Run.Depth >= 10 ? 1 : 3;
 		}
 
 		public override int GetMinConnections(Connection Side) {
@@ -45,7 +46,7 @@ namespace BurningKnight.level.rooms.boss {
 		}
 
 		public override bool CanConnect(RoomDef R) {
-			if (R is GrannyRoom || R is OldManRoom || R is PrebossRoom) {
+			if (R is GrannyRoom || R is OldManRoom || R is PrebossRoom || R is ShopRoom) {
 				return base.CanConnect(R);
 			}
 

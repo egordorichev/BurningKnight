@@ -302,7 +302,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 		public virtual void PlaceRewards() {
 			var exit = new Exit();
 			Area.Add(exit);
-				
+
 			exit.To = Run.Depth + 1;
 
 			var center = GetComponent<RoomComponent>().Room.Center;
@@ -310,7 +310,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 			var x = (int) Math.Floor(center.X / 16);
 			var y = (int) Math.Floor(center.Y / 16);
 			var p = new Vector2(x * 16 + 8, y * 16 + 8);
-			
+
 			exit.Center = p;
 
 			Painter.Fill(Run.Level, x - 1, y - 1, 3, 3, Tiles.RandomFloor());
@@ -319,7 +319,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 			Run.Level.ReTileAndCreateBodyChunks(x - 1, y - 1, 3, 7);
 			var w = p - new Vector2(0, 32f);
 
-			if (!(this is DM || this is BkHead)) {
+			if (!(this is DM || this is BkHead || Run.Type == RunType.BossRush)) {
 				var stand = new BossStand();
 				Area.Add(stand);
 				stand.Center = w;
@@ -327,7 +327,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 			}
 
 			var rewards = new List<string>();
-			var c = Run.Type == RunType.BossRush ? 2 : Rnd.Int(2, 5);
+			var c = Run.Type == RunType.BossRush ? 2 : Rnd.Int(2, 10);
 
 			if (Run.Type != RunType.BossRush && !(this is DM || this is BkHead)) {
 				for (var i = 0; i < c; i++) {
@@ -335,16 +335,24 @@ namespace BurningKnight.entity.creature.mob.boss {
 				}
 
 				var q = Rnd.Int(4, 10);
-				
+
 				for (var i = 0; i < q; i++) {
 					rewards.Add("bk:copper_coin");
 				}
 			}
 
-			var cn = Run.Type == RunType.BossRush ? Rnd.Int(2, 5) : Rnd.Int(0, 3);
-			
-			for (var i = 0; i < cn; i++) {
-				rewards.Add("bk:heart");
+			if (Run.Type != RunType.BossRush) {
+				var cn = Rnd.Int(0, 3);
+
+				for (var i = 0; i < cn; i++) {
+					rewards.Add("bk:heart");
+				}
+			} else {
+				var cn = Rnd.Int(10, 20);
+
+				for (var i = 0; i < cn; i++) {
+					rewards.Add("bk:coin");
+				}
 			}
 
 			var j = 0;

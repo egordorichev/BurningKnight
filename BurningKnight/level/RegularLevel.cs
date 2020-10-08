@@ -271,13 +271,8 @@ namespace BurningKnight.level {
 					rooms.Add(new PrebossRoom());
 
 					if (Run.Depth < 11) {
-						if (!LevelSave.GenerateShops) {
-							rooms.Add(RoomRegistry.Generate(RoomType.Connection, biome));
-							rooms.Add(RoomRegistry.Generate(RoomType.Treasure, biome));
-						} else {
-							rooms.Add(RoomRegistry.Generate(RoomType.Connection, biome));
-							rooms.Add(RoomRegistry.Generate(RoomType.Shop, biome));
-						}	
+						rooms.Add(RoomRegistry.Generate(RoomType.Connection, biome));
+						rooms.Add(RoomRegistry.Generate(RoomType.Shop, biome));
 					}
 				} else if (first) {
 					rooms.Add(new ExitRoom());

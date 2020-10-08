@@ -998,7 +998,7 @@ namespace BurningKnight.state {
 		public static bool ToolsEnabled = BK.Version.Dev;
 		
 		private void UpdateDebug(float dt) {
-			if (BK.Version.Dev && Assets.ImGuiEnabled && (Input.Keyboard.WasPressed(Keys.Home) || (Input.Keyboard.WasPressed(Keys.Tab) && Input.Keyboard.IsDown(Keys.LeftControl)))) {
+			if (BK.Version.Dev && Assets.ImGuiEnabled && ((Input.Keyboard.WasPressed(Keys.Tab) && Input.Keyboard.IsDown(Keys.LeftControl)))) {
 				ToolsEnabled = !ToolsEnabled;
 				var player = LocalPlayer.Locate(Area);
 
@@ -1124,7 +1124,7 @@ namespace BurningKnight.state {
 				TeleportTo(RoomType.Boss);
 			}
 
-			if (Input.Keyboard.WasPressed(Keys.NumPad7)) {
+			if (Input.Keyboard.WasPressed(Keys.NumPad7) || Input.Keyboard.WasPressed(Keys.Home)) {
 				var p = LocalPlayer.Locate(Area);
 				p.Center = p.GetComponent<CursorComponent>().Cursor.GamePosition;
 			}
