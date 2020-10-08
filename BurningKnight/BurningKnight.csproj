@@ -510,7 +510,7 @@
     <Compile Include="entity\creature\mob\MobSpawnInfo.cs" />
     <Compile Include="entity\creature\mob\prefix\DeathShotPrefix.cs" />
     <Compile Include="entity\creature\mob\prefix\ExplosivePrefix.cs" />
-    <Compile Include="entity\creature\mob\prefix\FatPrefix.cs" />
+    <Compile Include="entity\creature\mob\prefix\EmeraldPrefix.cs" />
     <Compile Include="entity\creature\mob\prefix\FragilePrefix.cs" />
     <Compile Include="entity\creature\mob\prefix\GoldPrefix.cs" />
     <Compile Include="entity\creature\mob\prefix\HealthyPrefix.cs" />
