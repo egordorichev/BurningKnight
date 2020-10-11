@@ -31,3 +31,26 @@ my dev branch into release, and 10 minutes later press a few buttons on Itch/Ste
 ##### Building
 
 Hey, so I saw a bunch of people complain online about no building instructions. I couldn't be surprised more, since you just open the .sln file in your C# IDE of choice and compile & run the Desktop project. But just in case anyone is still curious, here you go.  
+
+Or if you preffer to do it from the terminal: install the packages:
+
+```bash
+nuget restore
+```
+
+Debug configuration (disabled sfx & music but has dev tools enabled):
+
+```bash
+msbuild
+cd Desktop/bin/Debug/
+mono Desktop.exe
+```
+
+Release configuration (same as on Steam):
+
+
+```bash
+msbuild /p:Configuration=Release
+cd Desktop/bin/Release/
+mono Desktop.exe
+```
