@@ -46,6 +46,8 @@ namespace Lens.assets {
 				foreach (var dir in file.ListDirectoryHandles()) {
 					LoadSfx(dir, path);
 				}
+			} else {
+				Log.Error($"File {file.Name} is missing");
 			}
 		}
 
