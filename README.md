@@ -27,3 +27,30 @@ A panel with a bunch of checkboxes should appear, that show different dev tools.
 You see, this is how I've set up Github Actions CI. The tool went online in the middle of the first summer of development of the C# branch, and it was such a huge help.
 Before that, I had to compile all the builds for beta testing by hand, but after 3 days of internal screaming I was able to get the CI working, and from that point I was able just to merge
 my dev branch into release, and 10 minutes later press a few buttons on Itch/Steam to release the new builds.
+
+##### Building
+
+Hey, so I saw a bunch of people complain online about no building instructions. I couldn't be surprised more, since you just open the .sln file in your C# IDE of choice and compile & run the Desktop project. But just in case anyone is still curious, here you go.  
+
+Or if you preffer to do it from the terminal: install the packages:
+
+```bash
+nuget restore
+```
+
+Debug configuration (disabled sfx & music but has dev tools enabled):
+
+```bash
+msbuild
+cd Desktop/bin/Debug/
+mono Desktop.exe
+```
+
+Release configuration (same as on Steam):
+
+
+```bash
+msbuild /p:Configuration=Release
+cd Desktop/bin/Release/
+mono Desktop.exe
+```
