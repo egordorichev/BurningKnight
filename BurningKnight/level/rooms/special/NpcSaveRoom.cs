@@ -79,6 +79,7 @@ namespace BurningKnight.level.rooms.special {
 				}
 			}
 
+			Log.Info($"No npc should be generated");
 			return null;
 		}
 
@@ -147,7 +148,7 @@ namespace BurningKnight.level.rooms.special {
 		}
 
 		public static bool ShouldBeAdded() {
-			if (Run.Type != RunType.Regular || GameSave.IsTrue("npc_appeared") || Run.CustomSeed) {
+			if (Run.Type != RunType.Regular || GameSave.IsTrue("npc_appeared")) {
 				return false;
 			}
 
