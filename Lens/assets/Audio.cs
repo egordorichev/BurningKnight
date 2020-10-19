@@ -46,6 +46,8 @@ namespace Lens.assets {
 				foreach (var dir in file.ListDirectoryHandles()) {
 					LoadSfx(dir, path);
 				}
+			} else {
+				Log.Error($"File {file.Name} is missing");
 			}
 		}
 
@@ -98,7 +100,7 @@ namespace Lens.assets {
 
 			Log.Error($"Sound effect {id} was not found!");
 			return null;
-		}
+			}
 
 		public static void PlaySfx(SoundEffect sfx, float volume = 1, float pitch = 0, float pan = 0) {
 			if (!Assets.LoadSfx) {
@@ -231,8 +233,8 @@ namespace Lens.assets {
 			
 			Log.Info($"Added {music} to preloading");
 
-			loadedAll = false;
-			toLoad.Insert(0, music);
+			//loadedAll = false;
+			//toLoad.Insert(0, music);
 		}
 		
 		public static void UpdateAudio() {
