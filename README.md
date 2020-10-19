@@ -46,7 +46,18 @@ cd Desktop/bin/Debug/
 mono Desktop.exe
 ```
 
-Release configuration (same as on Steam):
+Release configuration (same as on Steam) is a bit more tricky. You gotta install MonoGame Content Pipeline tool and compile the assets (raw sfx -> .xnb).
+If you are on Linux, you can get it via:
+
+wget https://github.com/MonoGame/MonoGame/releases/download/v3.7.1/monogame-sdk.run
+chmod +x monogame-sdk.run
+sudo ./monogame-sdk.run
+Otherwise, find a binary on the monogame website. After that open BurningKnight/Content/Content.mgcb in the tool and hit build.
+
+![](https://user-images.githubusercontent.com/7851390/96409702-5cb22700-11ee-11eb-8586-0afe349f1473.png)
+
+If you are on Linux, ignore shader compilation errors, prebuild shaders (via a Windows machine) are already in the repo.
+After that build the sources and run:
 
 
 ```bash
