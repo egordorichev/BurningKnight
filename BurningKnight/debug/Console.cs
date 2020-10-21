@@ -64,7 +64,7 @@ namespace BurningKnight.debug {
 		}
 
 		public void Update(float dt) {
-			if (/*InGameState.ToolsEnabled &&*/ Input.Keyboard.WasPressed(Keys.F1, true)) {
+			if (InGameState.ToolsEnabled && Input.Keyboard.WasPressed(Keys.F1, true)) {
 				Open = !Open;
 				Camera.Instance.Detached = Open;
 				Input.EnableImGuiFocus = Open;
