@@ -4,7 +4,7 @@ Available on [Steam](https://store.steampowered.com/app/851150/Burning_Knight/) 
 
 Before you look at the code: hear me out. Yes, some of it is not the best. Yes, some of it can be redone and improved.
 But I have to admit, I came so close to dropping this whole project so many times, I still have no idea, how I made it through May of 2020.
-Anyway. Here it is. The source code of C# branch of Burning Knight. 
+Anyway. Here it is. The source code of C# branch of Burning Knight. **For java branch see [this repo](https://github.com/egordorichev/BurningKnightJava).**
 
 ###### (Yes, this is only half of the work, the game was initially written in Java and then rewritten in C#, this code base is relatively nice compared to the Java one).
 
