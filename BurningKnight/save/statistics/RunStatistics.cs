@@ -22,11 +22,10 @@ namespace BurningKnight.save.statistics {
 		private const byte Version = 0;
 		public bool Frozen;
 		
-		public float Time;
 		public bool Won;
 		public byte MaxDepth;
 		public uint GameVersion;
-		
+
 		public List<string> Items = new List<string>();
 		public List<string> Banned = new List<string>();
 
@@ -65,7 +64,8 @@ namespace BurningKnight.save.statistics {
 				return;
 			}
 
-			Time = stream.ReadFloat();
+			// Time ignored
+			stream.ReadFloat();
 			Won = stream.ReadBoolean();
 			MaxDepth = stream.ReadByte();
 			GameVersion = stream.ReadUInt32();
@@ -114,8 +114,9 @@ namespace BurningKnight.save.statistics {
 			GameVersion = BK.Version.Id;
 			
 			stream.WriteByte(Version);
-			
-			stream.WriteFloat(Time);
+
+			// Time for older versions
+			stream.WriteFloat(0);
 			stream.WriteBoolean(Won);
 			stream.WriteByte(MaxDepth);
 			stream.WriteUInt32(GameVersion);
@@ -184,7 +185,6 @@ namespace BurningKnight.save.statistics {
 			AlwaysActive = true;
 			
 			MaxDepth = (byte) Math.Max(MaxDepth, Run.Depth);
-			Time = Math.Max(Run.Time, Time);
 		}
 
 		public override void Update(float dt) {
@@ -193,8 +193,6 @@ namespace BurningKnight.save.statistics {
 			if (Frozen) {
 				return;
 			}
-			
-			Time += dt;
 
 			foreach (var p in Area.Tagged[Tags.Player]) {
 				leftOver += (p.GetComponent<RectBodyComponent>().Velocity * dt).Length();
@@ -339,7 +337,7 @@ namespace BurningKnight.save.statistics {
 		public void RenderWindow() {
 			ImGui.Separator();
 			
-			ImGui.Text($"Time: {Math.Floor(Time / 3600f)}h {Math.Floor(Time / 60f % 60f)}m {Math.Floor(Time % 60f)}s");
+			ImGui.Text($"Time: {Math.Floor(Run.Time / 3600f)}h {Math.Floor(Run.Time / 60f % 60f)}m {Math.Floor(Run.Time % 60f)}s");
 			ImGui.Text($"Won: {Won}");
 			ImGui.Text($"Loop: {Run.Loop}");
 			ImGui.Text($"Max Depth: {MaxDepth}");
