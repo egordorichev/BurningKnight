@@ -4,7 +4,7 @@ using Microsoft.Xna.Framework;
 
 namespace BurningKnight.level.biome {
 	public class HubBiome : Biome {
-		public HubBiome() : base("Outsider", Biome.Hub, Events.Halloween ? "spooky_biome" : "hub_biome", new Color(30, 111, 80)) {
+		public HubBiome() : base("Outsider", Biome.Hub, Events.Halloween ? "spooky_biome" : (Events.XMas ? "xmas_biome" : "hub_biome"), new Color(30, 111, 80)) {
 			
 		}
 

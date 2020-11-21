@@ -17,12 +17,6 @@ using Lens.util.file;
 using Microsoft.Xna.Framework;
 using Version = Lens.Version;
 
-/*
- * todo:
- * projectile optimizations
- *
- */
-
 namespace BurningKnight {
 	public class BK : Engine {
 		public const bool StandMode = false;
