@@ -23,7 +23,7 @@ namespace BurningKnight {
 		public const bool Demo = false;
 		
 		// Name removed cuz release bois
-		public static Version Version = new Version("Spooky Emeralds update", 48, 1, 1, 0, 7, Debug);
+		public static Version Version = new Version("Xmas out-of-time update", 48, 1, 2, 0, 0, Debug);
 		
 		public BK(int width, int height, bool fullscreen) : base(Version, 
 			#if DEBUG

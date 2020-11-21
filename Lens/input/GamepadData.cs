@@ -75,8 +75,6 @@ namespace Lens.input {
 			if (GamePad.SetVibration(PlayerIndex, strength, strength)) {
 				rumbleStrength = strength;
 				rumbleTime = time;
-			} else {
-				Log.Error($"Error {GamePad.GetState(PlayerIndex).IsConnected}");
 			}
 		}
 

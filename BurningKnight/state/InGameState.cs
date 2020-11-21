@@ -122,6 +122,10 @@ namespace BurningKnight.state {
 		private UiButton keyboardBack;
 		private UiButton languageBack;
 
+		private float timeWas;
+		private double startTime;
+
+
 		public static bool Ready;
 		public static bool InMenu;
 		
@@ -199,6 +203,10 @@ namespace BurningKnight.state {
 
 		public override void Init() {
 			base.Init();
+
+			if (Run.Depth < 1) {
+				Run.Time = 0;
+			}
 
 			unlockedHat = GlobalSave.IsTrue("bk:fez");
 
@@ -304,6 +312,13 @@ namespace BurningKnight.state {
 				TwitchBridge.OnHubEnter?.Invoke();
 				SyncAchievements?.Invoke();
 			}
+
+			CaptureTime();
+		}
+
+		private void CaptureTime() {
+			timeWas = Run.Time;
+			startTime = Engine.GameTime.TotalGameTime.TotalSeconds;
 		}
 
 		private const float CursorPriority = 0.5f;
@@ -892,8 +907,10 @@ namespace BurningKnight.state {
 			}
 			
 			if (!Paused) {
-				if (!Died && !Run.Won) {
-					Run.Time += (float) Engine.GameTime.ElapsedGameTime.TotalSeconds;
+				if (!Died && !Run.Won && Run.Depth > 0) {
+					Run.Time = (float) (timeWas + (Engine.GameTime.TotalGameTime.TotalSeconds - startTime));
+				} else {
+					CaptureTime();
 				}
 
 				var d = PlayerInputComponent.EnableUpdates ? dt : 0;
@@ -1294,7 +1311,7 @@ namespace BurningKnight.state {
 				Graphics.Color = ColorUtils.WhiteColor;
 			}
 
-			if (Settings.SpeedrunTimer && Run.Statistics != null) {
+			if (Settings.SpeedrunTimer) {
 				Graphics.Print(GetRunTime(), Font.Small, x, 1);
 			}
 
@@ -1307,11 +1324,7 @@ namespace BurningKnight.state {
 		}
 
 		private string GetRunTime() {
-			if (Run.Statistics == null) {
-				return Locale.Get("none");
-			}
-		
-			var t = Run.Statistics.Time;
+			var t = Run.Time;
 			return $"{(Math.Floor(t / 3600f) + "").PadLeft(2, '0')}:{(Math.Floor(t / 60f % 60f) + "").PadLeft(2, '0')}:{(Math.Floor(t % 60f) + "").PadLeft(2, '0')}";
 		}
 
@@ -3202,7 +3215,6 @@ namespace BurningKnight.state {
 
 					var root = new JsonObject();
 
-					// fixme same seed the same time
 					root["seed"] = Run.Seed;
 					root["time"] = GetRunTime();
 					root["depth"] = Level.GetDepthString(true);
