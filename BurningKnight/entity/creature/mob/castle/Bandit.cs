@@ -87,7 +87,14 @@ namespace BurningKnight.entity.creature.mob.castle {
 							projectile.AddLight(32f, ProjectileColor.Red);
 							projectile.Spectral = true;
 
-							AnimationUtil.Poof(projectile.Center);
+							var p = new ProjectileBuilder(Self, "small");
+
+							p.SetColor(ProjectileColor.Red, 32f);
+							p.Shoot(angle, 8f);
+							p.Offset(angle, 8f);
+							p.Poof();
+
+							p.Build();
 						};
 					};
 				}

@@ -30,6 +30,7 @@ namespace BurningKnight.save {
 		public static bool GenerateShops;
 		public static bool GenerateTreasure;
 		public static bool MeleeOnly;
+		public static float MobDestructionChance;
 
 		private static int I;
 
@@ -190,7 +191,7 @@ namespace BurningKnight.save {
 		public static void ResetGen() {
 			XL = false;
 			ChestRewardChance = 5;
-			Projectile.MobDestrutionChance = 0;
+			MobDestructionChance = 0;
 			MimicChance = 5;
 			GenerateMarket = false;
 			GenerateTreasure = false;

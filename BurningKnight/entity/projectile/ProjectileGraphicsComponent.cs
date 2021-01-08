@@ -13,7 +13,7 @@ namespace BurningKnight.entity.projectile {
 	public class ProjectileGraphicsComponent : BasicProjectileGraphicsComponent {
 		public static TextureRegion Flash;
 		public bool IgnoreRotation;
-		public float Rotation => IgnoreRotation ? 0 : ((Projectile) Entity).BodyComponent.Body.Rotation;
+		public float Rotation => IgnoreRotation ? 0 : ((Projectile) Entity).GetAnyComponent<BodyComponent>().Body.Rotation;
 		public TextureRegion Aura;
 		public TextureRegion Light;
 
@@ -76,13 +76,15 @@ namespace BurningKnight.entity.projectile {
 			}
 
 			if (!b && Light != null) {
-				if (p.Scourged) {
+				bool scourged = p.HasFlag(ProjectileFlags.Scourged);
+
+				if (scourged) {
 					Graphics.Color = ProjectileColor.Red;
 				}
 
 				Graphics.Render(Light, Entity.Center, a, or, scale);
 
-				if (p.Scourged) {
+				if (scourged) {
 					Graphics.Color = ColorUtils.WhiteColor;
 				}
 			}
@@ -92,12 +94,12 @@ namespace BurningKnight.entity.projectile {
 			if (Aura != null) {
 				var p = (Projectile) Entity;
 
-				if (p.Scourged) {
+				if (p.HasFlag(ProjectileFlags.Scourged)) {
 					return;
 				}
 
 				if (!(p.Dying || (p.IndicateDeath && p.NearingDeath))) {
-					Graphics.Color = /*p.Scourged ? ProjectileColor.Red : */p.Color;
+					Graphics.Color = p.Color;
 				}
 
 				Graphics.Color.A = Lights.AuraAlpha;

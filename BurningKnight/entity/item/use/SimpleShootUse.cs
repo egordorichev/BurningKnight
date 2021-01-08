@@ -16,7 +16,6 @@ using BurningKnight.util;
 using ImGuiNET;
 using Lens.assets;
 using Lens.entity;
-using Lens.input;
 using Lens.lightJson;
 using Lens.util;
 using Lens.util.camera;
@@ -221,9 +220,16 @@ namespace BurningKnight.entity.item.use {
 					angle += angleAdd * (float) Math.PI * 2;
 
 					var antiAngle = angle - (float) Math.PI;
-					var projectile = Projectile.Make(entity, sl, angle, Rnd.Float(speed, speedMax), !rect, 0, null, Rnd.Float(scaleMin, scaleMax), damage * (item.Scourged ? 1.5f : 1f), Item);
-					projectile.Boost = !disableBoost;
-					projectile.Item = item;
+
+					var builder = new ProjectileBuilder(Item, sl);
+
+					builder.Shoot(angle, Rnd.Float(speed, speedMax));
+					builder.SetScale(Rnd.Float(scaleMin, scaleMax));
+					builder.SetDamage(damage * (item.Scourged ? 1.5f : 1f))
+
+					if (rect) {
+						builder.SetRectHitbox();
+					}
 
 					Camera.Instance.Push(antiAngle, 4f);
 					entity.GetComponent<RectBodyComponent>()?.KnockbackFrom(antiAngle, 0.4f * knockback);
@@ -231,11 +237,7 @@ namespace BurningKnight.entity.item.use {
 					var clr = bad ? ProjectileColor.Red : ProjectileColor.Yellow;
 					
 					if (!string.IsNullOrEmpty(color) && ProjectileColor.Colors.TryGetValue(color, out clr)) {
-						projectile.Color = clr;
-					}
-					
-					if (light) {
-						projectile.AddLight(32f, clr);
+						builder.SetColor(clr, light ? 32f : -1f);
 					}
 
 					projectile.FlashTimer = 0.05f;
@@ -247,8 +249,8 @@ namespace BurningKnight.entity.item.use {
 							projectile.Range += range / speed;
 						}
 					}
-					
-					projectile.Center = from;
+
+					builder.SetRange(range);
 
 					if (modifiers != null) {
 						foreach (var m in modifiers) {
@@ -287,6 +289,9 @@ namespace BurningKnight.entity.item.use {
 							};	
 						}
 					}
+
+					var projectile = builder.Build();
+					projectile.Center = from;
 				}
 
 				if (shells) {
