@@ -14,7 +14,7 @@ namespace BurningKnight.entity.creature.bk.attacks {
 				ProjectileTemplate.Make(Self, "green_small", Self.Center, 
 					i * (float) Math.PI * 0.5f, 5, 2, 0,
 
-					p => p.AddLight(16f, Projectile.GreenLight),
+					p => p.AddLight(16f, ProjectileColor.Green),
 					
 					"  x ",
 					"xxxx",

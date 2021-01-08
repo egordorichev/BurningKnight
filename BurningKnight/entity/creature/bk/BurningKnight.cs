@@ -993,7 +993,7 @@ namespace BurningKnight.entity.creature.bk {
 				Timer.Add(() => {
 					var projectile = Projectile.Make(this, Raging ? "big" : "circle", angle, Raging ? 15f : 10f);
 
-					projectile.AddLight(32f, Projectile.RedLight);
+					projectile.AddLight(32f, ProjectileColor.Red);
 					projectile.Center += MathUtils.CreateVector(angle, 8);
 
 					projectile.CanBeBroken = false;

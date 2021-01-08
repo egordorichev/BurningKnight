@@ -125,7 +125,7 @@ namespace BurningKnight.entity.creature.mob.castle {
 						
 						var projectile = Projectile.Make(Self, "circle", an, 7f);
 
-						projectile.AddLight(32f, Projectile.RedLight);
+						projectile.AddLight(32f, ProjectileColor.Red);
 						projectile.Center += MathUtils.CreateVector(angle, 8);
 
 						AnimationUtil.Poof(projectile.Center);

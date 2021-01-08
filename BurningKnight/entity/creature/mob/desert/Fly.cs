@@ -58,7 +58,7 @@ namespace BurningKnight.entity.creature.mob.desert {
 					var projectile = Projectile.Make(this, "small", an, 8f, false, 0, null, 0.8f);
 
 					projectile.Center = Center + MathUtils.CreateVector(an, 2f);
-					projectile.AddLight(32f, Projectile.RedLight);
+					projectile.AddLight(32f, ProjectileColor.Red);
 				};
 			};
 		}

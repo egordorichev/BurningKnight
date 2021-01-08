@@ -42,7 +42,7 @@ namespace BurningKnight.entity.creature.mob.ice {
 				if (Target != null) {
 					var m = new Missile(this, Target);
 					Area.Add(m);
-					m.AddLight(64f, Projectile.RedLight);
+					m.AddLight(64f, ProjectileColor.Red);
 				}
 			};
 		}

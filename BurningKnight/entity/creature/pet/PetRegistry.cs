@@ -77,7 +77,7 @@ namespace BurningKnight.entity.creature.pet {
 
 						projectile.Color = ProjectileColor.Yellow;
 						projectile.Center = pet.Center + MathUtils.CreateVector(a, 5f);
-						projectile.AddLight(32f, Projectile.YellowLight);
+						projectile.AddLight(32f, ProjectileColor.Yellow);
 
 						o.HandleEvent(new ProjectileCreatedEvent {
 							Projectile = projectile,
@@ -117,7 +117,7 @@ namespace BurningKnight.entity.creature.pet {
 
 							projectile.Color = ProjectileColor.Red;
 							projectile.Center = pet.Center + MathUtils.CreateVector(a, 5f);
-							projectile.AddLight(32f, Projectile.RedLight);
+							projectile.AddLight(32f, ProjectileColor.Red);
 
 							o.HandleEvent(new ProjectileCreatedEvent {
 								Projectile = projectile,

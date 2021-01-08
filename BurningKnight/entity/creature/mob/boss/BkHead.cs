@@ -87,7 +87,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 		private void WarnLaser(float angle, Vector2? offset = null) {
 			var projectile = Projectile.Make(this, "circle", angle, 20f);
 
-			projectile.AddLight(32f, Projectile.RedLight);
+			projectile.AddLight(32f, ProjectileColor.Red);
 			projectile.Center += MathUtils.CreateVector(angle, 8);
 
 			projectile.CanBeBroken = false;
@@ -227,7 +227,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 
 					var m = new Missile(Self, Self.Target);
 					Self.Area.Add(m);
-					m.AddLight(64f, Projectile.RedLight);
+					m.AddLight(64f, ProjectileColor.Red);
 
 					m.HurtOwner = false;
 					m.OnDeath += (p, e, t) => {
@@ -241,7 +241,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 							for (var j = 0; j < 5; j++) {
 								var b = Projectile.Make(Self, "small");
 								pp.Add(b);
-								b.AddLight(32f, Projectile.RedLight);
+								b.AddLight(32f, ProjectileColor.Red);
 								b.CanBeReflected = false;
 								b.CanBeReflected = false;
 								b.CanBeBroken = false;

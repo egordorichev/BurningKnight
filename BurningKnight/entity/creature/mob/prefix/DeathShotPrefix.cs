@@ -16,7 +16,7 @@ namespace BurningKnight.entity.creature.mob.prefix {
 					var a = Math.PI * 2 * (((float) i) / am);
 					var projectile = Projectile.Make(Mob, "small", a, 3f);
 					
-					projectile.AddLight(32f, Projectile.RedLight);
+					projectile.AddLight(32f, ProjectileColor.Red);
 				}
 			}
 			

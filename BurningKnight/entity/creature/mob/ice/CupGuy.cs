@@ -89,7 +89,7 @@ namespace BurningKnight.entity.creature.mob.ice {
 								var projectile = Projectile.Make(Self, "small", angle, Rnd.Float(3, 6));
 
 								projectile.Center += MathUtils.CreateVector(angle, 8f);
-								projectile.AddLight(32f, Projectile.RedLight);
+								projectile.AddLight(32f, ProjectileColor.Red);
 								projectile.Spectral = true;
 								projectile.Range = 1f;
 

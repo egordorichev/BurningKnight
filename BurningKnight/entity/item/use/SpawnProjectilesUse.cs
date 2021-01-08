@@ -22,7 +22,7 @@ namespace BurningKnight.entity.item.use {
 				var angle = (float) i / amount * Math.PI * 2;
 				var projectile = Projectile.Make(entity, slice, angle, speed);
 
-				projectile.AddLight(32f, Projectile.YellowLight);
+				projectile.AddLight(32f, ProjectileColor.Yellow);
 				projectile.Damage = damage;
 
 				if (range > 0.01f) {

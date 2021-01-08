@@ -163,7 +163,7 @@ namespace BurningKnight.entity.creature.mob.desert {
 							var projectile = Projectile.Make(Self, "small", angle, 8f);
 
 							projectile.Center += MathUtils.CreateVector(angle, 2f);
-							projectile.AddLight(32f, Projectile.RedLight);
+							projectile.AddLight(32f, ProjectileColor.Red);
 
 							AnimationUtil.Poof(projectile.Center);
 						};

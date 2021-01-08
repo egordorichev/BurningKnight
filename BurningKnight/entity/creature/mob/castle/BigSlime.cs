@@ -51,7 +51,7 @@ namespace BurningKnight.entity.creature.mob.castle {
 				var projectile = Projectile.Make(this, "small", a, 5f);
 					
 				projectile.Center = BottomCenter;
-				projectile.AddLight(32f, Projectile.RedLight);
+				projectile.AddLight(32f, ProjectileColor.Red);
 			}
 		}
 

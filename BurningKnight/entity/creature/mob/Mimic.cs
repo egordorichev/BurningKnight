@@ -109,7 +109,7 @@ namespace BurningKnight.entity.creature.mob {
 
 					projectile.Spectral = true;
 					projectile.Center = Center + MathUtils.CreateVector(a, 5f) - new Vector2(0, GetComponent<ZComponent>().Z);
-					projectile.AddLight(32f, Projectile.RedLight);
+					projectile.AddLight(32f, ProjectileColor.Red);
 					projectile.CanBeBroken = false;
 					projectile.CanBeReflected = false;
 				}, i * 0.3f);
@@ -130,7 +130,7 @@ namespace BurningKnight.entity.creature.mob {
 				var projectile = Projectile.Make(this, fast ? "small" : "circle", a, fast ? 7f : 4f);
 					
 				projectile.Center = BottomCenter;
-				projectile.AddLight(32f, Projectile.RedLight);
+				projectile.AddLight(32f, ProjectileColor.Red);
 				projectile.CanBeBroken = false;
 				projectile.CanBeReflected = false;
 			}

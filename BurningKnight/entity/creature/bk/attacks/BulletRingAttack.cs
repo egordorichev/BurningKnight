@@ -34,7 +34,7 @@ namespace BurningKnight.entity.creature.bk.attacks {
 
 					b.CanBeBroken = false;
 					b.CanBeReflected = false;
-					b.AddLight(32f, Projectile.RedLight);
+					b.AddLight(32f, ProjectileColor.Red);
 
 					if (pattern == null) {
 						pattern = new ProjectilePattern(ExpandingCirclePattern.Make(totalBullets, 32f, 2f, ShotDelay, 10f, 1f)) {

@@ -228,7 +228,7 @@ namespace BurningKnight.entity.item.use {
 					Camera.Instance.Push(antiAngle, 4f);
 					entity.GetComponent<RectBodyComponent>()?.KnockbackFrom(antiAngle, 0.4f * knockback);
 
-					var clr = bad ? Projectile.RedLight : ProjectileColor.Yellow;
+					var clr = bad ? ProjectileColor.Red : ProjectileColor.Yellow;
 					
 					if (!string.IsNullOrEmpty(color) && ProjectileColor.Colors.TryGetValue(color, out clr)) {
 						projectile.Color = clr;

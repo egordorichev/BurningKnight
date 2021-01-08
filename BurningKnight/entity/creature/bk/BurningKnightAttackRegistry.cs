@@ -17,7 +17,6 @@ namespace BurningKnight.entity.creature.bk {
 			typeof(HugeSplittingBulletAttack),
 			typeof(ShootAttack),
 			typeof(SpinningHellAttack),
-			// typeof(MissileAttack),
 			typeof(BulletRingAttack)
 		};
 
@@ -32,8 +31,7 @@ namespace BurningKnight.entity.creature.bk {
 		static BurningKnightAttackRegistry() {
 			PatternRegistry.Register("bounce_0", new BossPattern<BurningKnight>(
 				typeof(ArrowAttack),
-				typeof(ShootAttack)//,
-			//	typeof(MissileAttack)
+				typeof(ShootAttack)
 			));
 			
 			PatternRegistry.Register("bounce_1", new BossPattern<BurningKnight>(
@@ -42,12 +40,10 @@ namespace BurningKnight.entity.creature.bk {
 			));
 			
 			PatternRegistry.Register("bounce_2", new BossPattern<BurningKnight>(
-				// typeof(MissileAttack),
 				typeof(ArrowAttack)
 			));
 			
 			PatternRegistry.Register("spam_0", new BossPattern<BurningKnight>(
-				// typeof(MissileAttack),
 				typeof(HugeSplittingBulletAttack),
 				typeof(AutoSkullAttack)
 			));
@@ -58,7 +54,6 @@ namespace BurningKnight.entity.creature.bk {
 			));
 			
 			PatternRegistry.Register("spam_2", new BossPattern<BurningKnight>(
-				
 				typeof(BulletRingAttack),
 				typeof(AutoSkullAttack)
 			));
@@ -68,10 +63,6 @@ namespace BurningKnight.entity.creature.bk {
 				typeof(BulletRingAttack),
 				typeof(AutoSkullAttack)
 			));
-			
-			/*PatternSetRegistry.Register(new BossPatternSet<BurningKnight>(
-				PatternRegistry, "spam_0", "spam_1", "spam_2"
-			), 1f, Biome.Castle);*/
 			
 			PatternSetRegistry.Register(new BossPatternSet<BurningKnight>(
 				PatternRegistry, "bounce_0", "bounce_1", "bounce_2"

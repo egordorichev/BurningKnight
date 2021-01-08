@@ -105,7 +105,7 @@ namespace BurningKnight.entity.orbital {
 						
 						projectile.Color = ProjectileColor.Yellow;
 						projectile.Center = orbital.Center + MathUtils.CreateVector(a, 5f);
-						projectile.AddLight(32f, Projectile.YellowLight);
+						projectile.AddLight(32f, ProjectileColor.Yellow);
 						
 						o.HandleEvent(new ProjectileCreatedEvent {
 							Projectile = projectile,

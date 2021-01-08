@@ -65,7 +65,7 @@ namespace BurningKnight.entity.creature.mob.castle {
 
 							var projectile = Projectile.Make(Self, "caster", an, 7f);
 
-							projectile.AddLight(32f, Projectile.BlueLight);
+							projectile.AddLight(32f, ProjectileColor.Blue);
 							projectile.Center += MathUtils.CreateVector(an, 8);
 							projectile.BreaksFromWalls = false;
 							projectile.Spectral = true;

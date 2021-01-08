@@ -117,7 +117,7 @@ namespace BurningKnight.entity.creature.mob.desert {
 					var angle = Self.Direction.ToAngle();
 					var projectile = Projectile.Make(Self, "small", angle, 5f);
 
-					projectile.AddLight(32f, Projectile.RedLight);
+					projectile.AddLight(32f, ProjectileColor.Red);
 					projectile.Center += MathUtils.CreateVector(angle, 4);
 					projectile.Spectral = true;
 							
