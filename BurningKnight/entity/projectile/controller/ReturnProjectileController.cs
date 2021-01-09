@@ -5,7 +5,7 @@ using Lens.util;
 
 namespace BurningKnight.entity.projectile.controller {
 	public static class ReturnProjectileController {
-		public static ProjectileUpdateCallback Make(Entity owner, float speed = 1f) {
+		public static ProjectileCallbacks.UpdateCallback Make(Entity owner, float speed = 1f) {
 			return (p, dt) => {
 				var b = p.GetAnyComponent<BodyComponent>();
 				var dx = p.DxTo(owner);

@@ -56,10 +56,11 @@ namespace BurningKnight.entity.item.use {
 				return;
 			}
 
+			// This might turn out to be a disaster
 			if (SetRange) {
-				projectile.Range = Range;
+				projectile.T = Range;
 			} else {
-				projectile.Range *= Range;
+				projectile.T *= Range;
 			}
 			
 			if (SetDamage) {
@@ -94,9 +95,10 @@ namespace BurningKnight.entity.item.use {
 		private void ApplyBuff(Projectile projectile, string buff, bool explosive) {
 			if (explosive) {
 				projectile.Color = ProjectileColor.Brown;
-				projectile.OnDeath += (p, en, t) => {
+
+				ProjectileCallbacks.AttachDeathCallback(projectile, (p, en, t) => {
 					ExplosionMaker.Make(p, 32, false, damage: 4, scale: 0.5f);
-				};
+				});
 			}
 
 			if (buff != null) {
@@ -108,7 +110,7 @@ namespace BurningKnight.entity.item.use {
 
 				projectile.Color = info.Effect.GetColor();
 
-				projectile.OnHurt += (p, e) => {
+				ProjectileCallbacks.AttachHurtCallback(projectile, (p, e) => {
 					if (e.TryGetComponent<BuffsComponent>(out var buffs)) {
 						var b = BuffRegistry.Create(buff);
 
@@ -120,7 +122,7 @@ namespace BurningKnight.entity.item.use {
 
 						buffs.Add(b);
 					}
-				};
+				});
 			}
 		}
 

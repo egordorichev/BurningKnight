@@ -43,11 +43,10 @@ namespace BurningKnight.entity.item.use {
 		private int count;
 		private string prefab;
 		private bool light;
-		private bool disableBoost;
 		private float knockback;
 		private bool rect;
 		private string sfx;
-		private int sfx_number;
+		private int sfxNumber;
 		private int manaUsage;
 		protected bool wait;
 		private bool toCursor;
@@ -60,32 +59,12 @@ namespace BurningKnight.entity.item.use {
 		private bool emeralds;
 		
 		public bool ProjectileDied = true;
-
 		private ItemUse[] modifiers;
-
-		public override void Use(Entity entity, Item item) {
-			if (wait && !ProjectileDied) {
-				return;
-			}
-			
-			base.Use(entity, item);
-		}
-
-		private void PlaceMana(Area area, Vector2 where) {
-			for (var j = 0; j < Math.Floor(manaUsage / 2f); j++) {
-				Items.CreateAndAdd("bk:mana", area).Center = where;
-			}
-
-			if (manaUsage % 2 == 1) {
-				Items.CreateAndAdd("bk:half_mana", area).Center = where;
-			}
-			
-			AnimationUtil.Poof(where);
-		}
 
 		public override void Setup(JsonValue settings) {
 			base.Setup(settings);
 
+			#region Json parsing
 			modifiers = Items.ParseUses(settings["modifiers"]);
 
 			if (modifiers != null) {
@@ -104,7 +83,7 @@ namespace BurningKnight.entity.item.use {
 			toCursor = settings["cursor"].Bool(false);
 			toEnemy = settings["tomb"].Bool(false);
 			sfx = settings["sfx"].String("item_gun_fire");
-			sfx_number = settings["sfxn"].Int(0);
+			sfxNumber = settings["sfxn"].Int(0);
 			ReloadSfx = settings["rsfx"].Bool(false);
 			manaUsage = settings["mana"].Int(0);
 			color = settings["color"].String("");
@@ -125,9 +104,9 @@ namespace BurningKnight.entity.item.use {
 			knockback = settings["knockback"].Number(1);
 			rect = settings["rect"].Bool(false);
 			wait = settings["wait"].Bool(false);
-			disableBoost = settings["dsb"].Bool(false);
 			shells = settings["shells"].Bool(true);
 			emeralds = settings["emeralds"].Bool(false);
+			#endregion
 
 			SpawnProjectile = (entity, item) => {
 				if (manaUsage > 0) {
@@ -158,15 +137,13 @@ namespace BurningKnight.entity.item.use {
 					sl = "small";
 				}
 
-				entity.TryGetComponent<StatsComponent>(out var stats);
-
 				if (sfx == "item_gun_fire") {
 					entity.GetComponent<AudioEmitterComponent>().EmitRandomizedPrefixed(sfx, 2, 0.5f, sz: 0.2f);
 				} else {
-					if (sfx_number == 0) {
+					if (sfxNumber == 0) {
 						entity.GetComponent<AudioEmitterComponent>().EmitRandomized(sfx, 0.5f, sz: 0.25f);
 					} else {
-						entity.GetComponent<AudioEmitterComponent>().EmitRandomizedPrefixed(sfx, sfx_number, 0.5f, sz: 0.25f);
+						entity.GetComponent<AudioEmitterComponent>().EmitRandomizedPrefixed(sfx, sfxNumber, 0.5f, sz: 0.25f);
 					}
 				}
 
@@ -185,6 +162,8 @@ namespace BurningKnight.entity.item.use {
 				var a = MathUtils.Angle(am.X - from.X, am.Y - from.Y);
 				var pr = prefab.Length == 0 ? null : ProjectileRegistry.Get(prefab);
 				var ac = accuracy;
+
+				entity.TryGetComponent<StatsComponent>(out var stats);
 
 				if (stats != null) {
 					ac /= stats.Accuracy;
@@ -220,37 +199,30 @@ namespace BurningKnight.entity.item.use {
 					angle += angleAdd * (float) Math.PI * 2;
 
 					var antiAngle = angle - (float) Math.PI;
-
 					var builder = new ProjectileBuilder(Item, sl);
 
 					builder.Shoot(angle, Rnd.Float(speed, speedMax));
-					builder.SetScale(Rnd.Float(scaleMin, scaleMax));
-					builder.SetDamage(damage * (item.Scourged ? 1.5f : 1f))
-
-					if (rect) {
-						builder.SetRectHitbox();
-					}
+					builder.Scale = Rnd.Float(scaleMin, scaleMax);
+					builder.Damage = damage * (item.Scourged ? 1.5f : 1f);
+					builder.RectHitbox = rect;
+					builder.Range = range;
 
 					Camera.Instance.Push(antiAngle, 4f);
 					entity.GetComponent<RectBodyComponent>()?.KnockbackFrom(antiAngle, 0.4f * knockback);
 
-					var clr = bad ? ProjectileColor.Red : ProjectileColor.Yellow;
-					
-					if (!string.IsNullOrEmpty(color) && ProjectileColor.Colors.TryGetValue(color, out clr)) {
-						builder.SetColor(clr, light ? 32f : -1f);
+					if (!string.IsNullOrEmpty(color) && ProjectileColor.Colors.TryGetValue(color, out var clr)) {
+						builder.Color = clr;
 					}
 
-					projectile.FlashTimer = 0.05f;
-
-					if (range > 0.01f) {
-						if (Math.Abs(projectile.Range - (-1)) < 0.1f) {
-							projectile.Range = range / speed;
-						} else {
-							projectile.Range += range / speed;
-						}
+					if (light) {
+						builder.LightRadius = Rnd.Float(24f, 48f);
 					}
 
-					builder.SetRange(range);
+					// R.I.P flash frame 2018-2021
+					// projectile.FlashTimer = 0.05f;
+
+					var projectile = builder.Build();
+					projectile.Center = from;
 
 					if (modifiers != null) {
 						foreach (var m in modifiers) {
@@ -266,32 +238,29 @@ namespace BurningKnight.entity.item.use {
 						ProjectileDied = false;
 
 						if (prefab == "bk:axe") {
-							projectile.OnDeath += (prj, e, t) => {
-								prj.OnDeath += (prj2, e2, t2) => ProjectileDied = true;
-							};
+							ProjectileCallbacks.AttachDeathCallback(projectile, (prj, e, t) => {
+								ProjectileCallbacks.AttachDeathCallback(prj, (prj2, e2, t2) => ProjectileDied = true);
+							});
 						} else {
-							projectile.OnDeath += (prj, e, t) => ProjectileDied = true;
+							ProjectileCallbacks.AttachDeathCallback(projectile, (prj, e, t) => ProjectileDied = true);
 						}
 					}
 
 					if (manaUsage > 0) {
 						if (manaDrop == 0) {
-							projectile.OnDeath += (prj, e, t) => {
+							ProjectileCallbacks.AttachDeathCallback(projectile, (prj, e, t) => {
 								PlaceMana(entity.Area, prj.Center);
-							};	
+							});
 						} else if (manaDrop == 1) {
 							PlaceMana(entity.Area, entity.Center);
 						} else {
 							var where = entity.Center;
-							
-							projectile.OnDeath += (prj, e, t) => {
+
+							ProjectileCallbacks.AttachDeathCallback(projectile, (prj, e, t) => {
 								PlaceMana(entity.Area, where);
-							};	
+							});
 						}
 					}
-
-					var projectile = builder.Build();
-					projectile.Center = from;
 				}
 
 				if (shells) {
@@ -453,6 +422,26 @@ namespace BurningKnight.entity.item.use {
 				ItemEditor.DisplayUse(root, root["modifiers"], "bk:ModifyProjectiles");
 				ImGui.TreePop();
 			}
+		}
+
+		public override void Use(Entity entity, Item item) {
+			if (wait && !ProjectileDied) {
+				return;
+			}
+
+			base.Use(entity, item);
+		}
+
+		private void PlaceMana(Area area, Vector2 where) {
+			for (var j = 0; j < Math.Floor(manaUsage / 2f); j++) {
+				Items.CreateAndAdd("bk:mana", area).Center = where;
+			}
+
+			if (manaUsage % 2 == 1) {
+				Items.CreateAndAdd("bk:half_mana", area).Center = where;
+			}
+
+			AnimationUtil.Poof(where);
 		}
 	}
 }

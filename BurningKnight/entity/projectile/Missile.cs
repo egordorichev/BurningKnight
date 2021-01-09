@@ -13,7 +13,7 @@ using MonoGame.Extended;
 using MonoGame.Extended.Sprites;
 
 namespace BurningKnight.entity.projectile {
-	public class Missile : Projectile {
+	/*public class Missile : Projectile {
 		private const float MinUpTime = 2f;
 		
 		private Entity target;
@@ -114,5 +114,5 @@ namespace BurningKnight.entity.projectile {
 		public override bool ShouldCollide(Entity entity) {
 			return false;
 		}
-	}
+	}*/
 }

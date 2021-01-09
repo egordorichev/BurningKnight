@@ -923,6 +923,7 @@
     <Compile Include="entity\projectile\pattern\KeepShapePattern.cs" />
     <Compile Include="entity\projectile\OldProjectile.cs" />
     <Compile Include="entity\projectile\ProjectileBuilder.cs" />
+    <Compile Include="entity\projectile\ProjectileCallbacks.cs" />
     <Compile Include="entity\projectile\ProjectileColor.cs" />
     <Compile Include="entity\projectile\ProjectileFlags.cs" />
     <Compile Include="entity\projectile\ProjectileGraphicsComponent.cs" />

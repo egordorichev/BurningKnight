@@ -6,6 +6,9 @@ namespace BurningKnight.entity.projectile {
 		Scourged,
 		Reflectable,
 		ManualRotation,
-		AutomaticRotation
+		AutomaticRotation,
+		BreakableByMelee,
+		FlyOverStones,
+		Artificial
 	}
 }

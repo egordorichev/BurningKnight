@@ -1,24 +1,43 @@
+using System;
 using System.Collections.Generic;
+using BurningKnight.assets.particle;
 using BurningKnight.entity.component;
+using BurningKnight.entity.creature;
 using BurningKnight.entity.creature.mob.jungle;
 using BurningKnight.entity.creature.player;
+using BurningKnight.entity.events;
 using BurningKnight.physics;
+using BurningKnight.state;
 using Lens.entity;
+using Lens.util;
+using Lens.util.camera;
+using Lens.util.math;
 using Microsoft.Xna.Framework;
 using MonoGame.Extended;
 
 namespace BurningKnight.entity.projectile {
 	public class Projectile : Entity, CollisionFilterEntity {
+		public const ProjectileFlags DefaultFlags = ProjectileFlags.Reflectable | ProjectileFlags.BreakableByMelee;
+
 		public Projectile Parent; // Potentially not needed
 		public Entity Owner;
 		public Entity FirstOwner; // Potentially not needed
 		public Color Color = ProjectileColor.Red;
-		public ProjectileFlags Flags;
+		public ProjectileFlags Flags = DefaultFlags;
+		public ProjectileCallbacks Callbacks;
 
 		public List<Entity> EntitiesHurt = new List<Entity>(); // can we get rid of it?
 
 		public float Damage = 1;
 		public float T = -1;
+		public float Scale;
+
+		public bool Dying {
+			get => T < -1;
+			private set => T = value ? -2 : -1;
+		}
+
+		public bool NearingDeath => T < 0.9f && T % 0.6f >= 0.3f;
 
 		/*
 		 * systems
@@ -31,14 +50,27 @@ namespace BurningKnight.entity.projectile {
 		public override void Update(float dt) {
 			base.Update(dt);
 
+			if (Dying) {
+				Scale -= dt * 10;
+
+				if (Scale <= 0) {
+					Scale = 0;
+					Done = true;
+				}
+
+				return;
+			}
+
 			if (T > 0) {
 				T -= dt;
 
 				if (T <= 0) {
-					Done = true;
+					Break();
 					return;
 				}
 			}
+
+			Callbacks?.OnUpdate?.Invoke(this, dt);
 
 			var bodyComponent = GetAnyComponent<BodyComponent>();
 
@@ -50,7 +82,7 @@ namespace BurningKnight.entity.projectile {
 				if (HasFlag(ProjectileFlags.AutomaticRotation)) {
 					bodyComponent.Body.Rotation += dt * 10;
 				} else {
-					bodyComponent.Body.Rotation = bodyComponent.Body.LinearVelocity.ToAngle();
+					bodyComponent.Body.Rotation = Vector2Extensions.ToAngle(bodyComponent.Body.LinearVelocity);
 				}
 			}
 		}
@@ -61,6 +93,34 @@ namespace BurningKnight.entity.projectile {
 
 		public bool ShouldCollide(Entity entity) {
 			return false;
+		}
+
+		public override bool HandleEvent(Event e) {
+			if (e is CollisionStartedEvent cse) {
+				var entity = cse.Entity;
+
+				if (entity is Creature creature && creature.IgnoresProjectiles()) {
+					return false;
+				}
+
+				if (EntitiesHurt.Contains(entity)) {
+					return false;
+				}
+
+				if (Callbacks?.OnCollision != null && Callbacks.OnCollision(this, entity)) {
+					return false;
+				}
+
+				/*
+				 * Very quickly hacked together, ignores bouncing, not damaging friendly npcs, etc, etc
+				 */
+				if (entity != Owner && entity.TryGetComponent<HealthComponent>(out var hp)) {
+					hp.ModifyHealth(-Damage, Owner);
+					Callbacks?.OnHurt?.Invoke(this, entity);
+				}
+			}
+
+			return base.HandleEvent(e);
 		}
 
 		public virtual void Resize(float scale) {
@@ -78,6 +138,53 @@ namespace BurningKnight.entity.projectile {
 				GetComponent<CircleBodyComponent>().Resize(0, 0, w / 2f, w / 2, true);
 			} else {
 				GetComponent<RectBodyComponent>().Resize(0, 0, w, h, true);
+			}
+		}
+
+		public void Break(Entity from = null, bool timeout = false) {
+			if (Dying) {
+				return;
+			}
+
+			Dying = true;
+
+			try {
+				var bodyComponent = GetAnyComponent<BodyComponent>();
+				var l = Math.Min(15, bodyComponent.Velocity.Length());
+
+				if (l > 1f) {
+					var a = VectorExtension.ToAngle(bodyComponent.Velocity);
+
+					for (var i = 0; i < 4; i++) {
+						var part = new ParticleEntity(Particles.Dust()) {
+							Position = Center
+						};
+
+						Run.Level.Area.Add(part);
+						part.Particle.Velocity = MathUtils.CreateVector(a + Rnd.Float(-0.4f, 0.4f), l);
+						part.Depth = Layers.WindFx;
+						part.Particle.Scale = 0.7f;
+					}
+				}
+
+				bodyComponent.Velocity = Vector2.Zero;
+
+				Camera.Instance.ShakeMax(4);
+				Callbacks?.OnDeath?.Invoke(this, from, timeout);
+			} catch (Exception e) {
+				Log.Error(e);
+			}
+		}
+
+		public void AddFlags(params ProjectileFlags[] projectileFlags) {
+			foreach (var flag in projectileFlags) {
+				Flags |= flag;
+			}
+		}
+
+		public void RemoveFlags(params ProjectileFlags[] projectileFlags) {
+			foreach (var flag in projectileFlags) {
+				Flags &= ~flag;
 			}
 		}
 	}

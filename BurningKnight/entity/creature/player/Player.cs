@@ -19,6 +19,7 @@ using BurningKnight.entity.events;
 using BurningKnight.entity.fx;
 using BurningKnight.entity.item;
 using BurningKnight.entity.item.stand;
+using BurningKnight.entity.projectile;
 using BurningKnight.entity.room;
 using BurningKnight.entity.twitch;
 using BurningKnight.level;
@@ -922,7 +923,7 @@ namespace BurningKnight.entity.creature.player {
 				GetComponent<HealthComponent>().Unhittable = true;
 			} else if (e is ProjectileCreatedEvent pce) {
 				if (Flying || HasFlight) {
-					pce.Projectile.Spectral = true;
+					pce.Projectile.AddFlags(ProjectileFlags.FlyOverStones);
 				}
 			} else if (e is FlagCollisionStartEvent fcse) {
 				if (fcse.Flag == Flag.Burning) {

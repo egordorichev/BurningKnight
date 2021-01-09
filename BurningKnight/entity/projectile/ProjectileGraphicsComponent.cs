@@ -2,6 +2,7 @@ using BurningKnight.assets;
 using BurningKnight.assets.lighting;
 using BurningKnight.entity.buff;
 using BurningKnight.entity.component;
+using BurningKnight.entity.creature.mob.boss;
 using Lens.assets;
 using Lens.graphics;
 using Lens.graphics.animation;
@@ -36,11 +37,15 @@ namespace BurningKnight.entity.projectile {
 			}
 		}
 
+		private bool ShouldIndicateProjectileDeath(Projectile projectile) {
+			return projectile.Owner is OldKing;
+		}
+
 		public override void Render(bool shadow) {
 			var p = (Projectile) Entity;
 			var scale = new Vector2(p.Scale);
 			var a = Rotation;
-			var b = p.FlashTimer > 0;
+			var b = false; // p.FlashTimer > 0; // future egor: do we really need this frame that no one notices anyway? think about it, requires extra 4 bytes per bullet
 			var spr = b ? Flash : Sprite;
 			var or = spr.Center;
 
@@ -51,7 +56,7 @@ namespace BurningKnight.entity.projectile {
 				return;
 			}
 
-			var d = p.Dying || (p.IndicateDeath && p.NearingDeath);
+			var d = p.Dying || (ShouldIndicateProjectileDeath(p) && p.NearingDeath);
 			var started = false;
 
 			if (!d) {
@@ -98,7 +103,7 @@ namespace BurningKnight.entity.projectile {
 					return;
 				}
 
-				if (!(p.Dying || (p.IndicateDeath && p.NearingDeath))) {
+				if (!(p.Dying || (ShouldIndicateProjectileDeath(p) && p.NearingDeath))) {
 					Graphics.Color = p.Color;
 				}
 

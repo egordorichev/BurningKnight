@@ -1,12 +1,13 @@
 using System;
 using BurningKnight.assets;
 using BurningKnight.assets.lighting;
+using BurningKnight.entity.component;
 using Lens.assets;
 using Lens.graphics;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.projectile {
-	public class LaserGraphicsComponent : BasicProjectileGraphicsComponent {
+	/*public class LaserGraphicsComponent : BasicProjectileGraphicsComponent {
 		private TextureRegion aura;
 		private TextureRegion light;
 		private TextureRegion end;
@@ -16,7 +17,7 @@ namespace BurningKnight.entity.projectile {
 		private Vector2 origin;
 		private Vector2 centerOrigin;
 		private Vector2 lightOrigin;
-		public float Rotation => ((Projectile) Entity).BodyComponent.Body.Rotation;
+		public float Rotation => ((Projectile) Entity).GetAnyComponent<BodyComponent>().Body.Rotation;
 		
 		public LaserGraphicsComponent(string image, string slice) : base(image, slice) {
 			var a = Animations.Get(image);
@@ -90,5 +91,5 @@ namespace BurningKnight.entity.projectile {
 			Graphics.Color.A = 255;
 			Graphics.Color = ColorUtils.WhiteColor;
 		}
-	}
+	}*/
 }

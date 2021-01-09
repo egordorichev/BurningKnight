@@ -11,7 +11,7 @@ using Lens.util;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.projectile {
-	public class Laser : Projectile {
+	/*public class Laser : Projectile {
 		public float LifeTime = 1.5f;
 		public bool Dynamic = true;
 		public float AdditionalAngle;
@@ -168,10 +168,10 @@ namespace BurningKnight.entity.projectile {
 			}
 		}
 
-		public override void AdjustScale(float newScale) {
+		public override void Resize(float newScale) {
 			Scale = newScale;
 			Height = 9 * Scale;
 			GetComponent<RectBodyComponent>().Resize(0, 0, Width, Height, true);
 		}
-	}
+	}*/
 }

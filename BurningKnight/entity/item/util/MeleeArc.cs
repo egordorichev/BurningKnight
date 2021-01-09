@@ -97,14 +97,15 @@ namespace BurningKnight.entity.item.util {
 				} else if (ev.Entity is Bomb) {
 					ev.Entity.GetComponent<RectBodyComponent>().KnockbackFrom(Owner, 1f + Knockback);
 				} else if (ev.Entity is Projectile p) {
-					if ((p.Owner is Mob) != (Owner is Mob) && ((p.StarterOwner is Mob) != (Owner is Mob))) {
-						if (p.CanBeReflected) {
+					if ((p.Owner is Mob) != (Owner is Mob) && ((p.FirstOwner is Mob) != (Owner is Mob))) {
+						if (p.HasFlag(ProjectileFlags.Reflectable)) {
 							p.Owner = Owner;
 							p.Damage *= 2f;
 
-							p.Pattern?.Remove(p);
+							// fixme: lethal
+							// p.Pattern?.Remove(p);
 
-							var b = p.BodyComponent;
+							var b = p.GetAnyComponent<BodyComponent>();
 							var d = Math.Max(400, b.Velocity.Length() * 1.8f);
 							var a = Owner.AngleTo(p);
 
@@ -118,7 +119,7 @@ namespace BurningKnight.entity.item.util {
 
 							Camera.Instance.ShakeMax(4f);
 							Owner.GetComponent<AudioEmitterComponent>().EmitRandomizedPrefixed("projectile_reflected", 2);
-						} else if (p.CanBeBroken) {
+						} else if (p.HasFlag(ProjectileFlags.BreakableByMelee)) {
 							p.Break();
 						}
 					}

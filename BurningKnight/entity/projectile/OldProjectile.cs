@@ -1,15 +1,9 @@
 ﻿using Lens.entity;
 
 namespace BurningKnight.entity.projectile {
-	public delegate void ProjectileUpdateCallback(Projectile p, float dt);
-	public delegate void ProjectileDeathCallback(Projectile p, Entity from, bool t);
-	public delegate void ProjectileNearingDeathCallback(Projectile p);
-	public delegate void ProjectileHurtCallback(Projectile p, Entity e);
-	public delegate bool ProjectileCollisionCallback(Projectile p, Entity e);
-
 	/*public class OldProjectile : Entity, CollisionFilterEntity {
 		public ProjectileDeathCallback OnDeath;
-		public ProjectileUpdateCallback Controller;
+		public ProjectileCallbacks.UpdateCallback Controller;
 		public ProjectileHurtCallback OnHurt;
 		public ProjectileNearingDeathCallback NearDeath;
 		public ProjectileCollisionCallback OnCollision;
@@ -330,6 +324,34 @@ namespace BurningKnight.entity.projectile {
 						OnHurt?.Invoke(this, ev.Entity);
 					}
 				}
+				if (((HurtsEveryone && (ev.Entity != Owner) || T > 1f) || (
+					    (CanHitOwner && ev.Entity == Owner && T > 0.3f)
+					    || (ev.Entity != Owner && (!(Owner is Pet pt) || pt.Owner != ev.Entity)
+					                           && (!(Owner is Orbital or) || or.Owner != ev.Entity)
+					        && !(Owner is RoomControllable && ev.Entity is Mob)
+					        && (
+						        !(Owner is Creature ac)
+						        || !(ev.Entity is Creature bc)
+						        || (ac.IsFriendly() != bc.IsFriendly() || (bc.TryGetComponent<BuffsComponent>(out var bf) && bf.Has<CharmedBuff>()))
+						        || bc is ShopKeeper || ac is Player
+					        )
+					    )
+				    )) && ev.Entity.TryGetComponent<HealthComponent>(out var health) && (HurtsEveryone || CanHitOwner || !(ev.Entity is Player) || !(Owner is Player))
+						&& !(Owner is Pet ppt && ppt.Owner == ev.Entity)) {
+
+					var h = health.ModifyHealth(-Damage, Owner);
+
+					if (StarterOwner is Mob && StarterOwner == ev.Entity && Owner is Player && health.Dead && T >= 0.2f) {
+						Achievements.Unlock("bk:return_to_sender");
+					}
+
+					EntitiesHurt.Add(ev.Entity);
+
+					if (h) {
+						OnHurt?.Invoke(this, ev.Entity);
+					}
+				}
+
 
 				var mute = false;
 				
@@ -409,7 +431,7 @@ namespace BurningKnight.entity.projectile {
 			}
 		}
 
-		public virtual void AdjustScale(float newScale) {
+		public virtual void Resize(float newScale) {
 			Scale = newScale;
 
 			var graphics = GetComponent<ProjectileGraphicsComponent>();

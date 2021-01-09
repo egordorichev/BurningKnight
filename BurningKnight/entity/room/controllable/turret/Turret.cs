@@ -194,14 +194,17 @@ namespace BurningKnight.entity.room.controllable.turret {
 		}
 
 		protected void SendProjectile(double angle) {
-			var projectile = Projectile.Make(this, "small", angle, 6f);
+			var builder = new ProjectileBuilder(this, "small") {
+				LightRadius = 32f,
+				Color = ProjectileColor.Red,
+				Poof = true,
+			};
 
-			projectile.Center += MathUtils.CreateVector(angle, 8f);
-			projectile.AddLight(32f, ProjectileColor.Red);
-			projectile.CanBeBroken = false;
-			projectile.CanBeReflected = false;
+			builder.Move(angle, 8f);
+			builder.Shoot(angle, 6f);
+			builder.RemoveFlags(ProjectileFlags.Reflectable, ProjectileFlags.BreakableByMelee);
 
-			AnimationUtil.Poof(projectile.Center);
+			builder.Build();
 		}
 
 		public override void Render() {

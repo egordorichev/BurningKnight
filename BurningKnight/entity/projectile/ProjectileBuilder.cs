@@ -14,36 +14,53 @@ using VelcroPhysics.Dynamics;
 
 namespace BurningKnight.entity.projectile {
 	public class ProjectileBuilder {
-		private Entity owner;
+		public Entity Owner;
+
 		private Projectile parent;
-		private ProjectileFlags flags = ProjectileFlags.Reflectable;
-		private string slice;
 
-		private Vector2 velocity;
-		private Vector2 offset;
+		public Projectile Parent {
+			get => parent;
 
-		private float scale = 1f;
-		private float damage = 1f;
-		private float range = -1f;
+			set {
+				if (value != null) {
+					Color = parent.Color;
+				}
 
-		private bool rectHitbox;
-		private bool poof;
+				parent = value;
+			}
+		}
 
-		private Color color;
-		private float lightRadius;
+		public ProjectileFlags Flags = Projectile.DefaultFlags;
+		public string Slice;
+
+		public Vector2 Velocity;
+		public Vector2 Offset;
+
+		public float Scale = 1f;
+		public float Damage = 1f;
+		public float Range = -1f;
+
+		public bool RectHitbox;
+		public bool Poof;
+
+		public Color Color;
+		public float LightRadius;
+
+		// TODO: actually implement
+		public int Bounce;
 
 		private bool empty;
 
 		public ProjectileBuilder(Entity projectileOwner, string projectileSlice) {
-			if (owner is Mob mob) {
+			if (Owner is Mob mob) {
 				if (Rnd.Chance(LevelSave.MobDestructionChance)) {
 					empty = true;
 					return;
 				}
 
 				if (mob.HasPrefix) {
-					lightRadius = 64;
-					color = Color.Black;
+					LightRadius = 64;
+					Color = Color.Black;
 
 					AddFlags(ProjectileFlags.Scourged);
 				}
@@ -53,65 +70,23 @@ namespace BurningKnight.entity.projectile {
 				projectileSlice = "rect";
 			}
 
-			slice = projectileSlice;
-			owner = projectileOwner;
+			Slice = projectileSlice;
+			Owner = projectileOwner;
 		}
 
 		public ProjectileBuilder Shoot(double angle, float speed) {
-			velocity = MathUtils.CreateVector(angle, speed);
+			Velocity = MathUtils.CreateVector(angle, speed);
 			return this;
 		}
 
-		public ProjectileBuilder Offset(double angle, float distance) {
-			offset += MathUtils.CreateVector(angle, distance);
-			return this;
-		}
-
-		public ProjectileBuilder SetColor(Color projectileColor, float projectileLightRadius = -1) {
-			color = projectileColor;
-			lightRadius = projectileLightRadius;
-			
-			return this;
-		}
-
-		public ProjectileBuilder Poof() {
-			poof = true;
-			return this;
-		}
-
-		public ProjectileBuilder SetRectHitbox() {
-			rectHitbox = true;
-			return this;
-		}
-
-		public ProjectileBuilder SetParent(Projectile parentProjectile) {
-			parent = parentProjectile;
-
-			if (parent != null) {
-				color = parent.Color;
-			}
-
-			return this;
-		}
-
-		public ProjectileBuilder SetScale(float projectileScale) {
-			scale = projectileScale;
-			return this;
-		}
-
-		public ProjectileBuilder SetDamage(float projectileDamage) {
-			damage = projectileDamage;
-			return this;
-		}
-
-		public ProjectileBuilder SetRange(float projectileRange) {
-			range = projectileRange;
+		public ProjectileBuilder Move(double angle, float distance) {
+			Offset = MathUtils.CreateVector(angle, distance);
 			return this;
 		}
 
 		public ProjectileBuilder AddFlags(params ProjectileFlags[] projectileFlags) {
 			foreach (var flag in projectileFlags) {
-				flags |= flag;
+				Flags |= flag;
 			}
 
 			return this;
@@ -119,7 +94,7 @@ namespace BurningKnight.entity.projectile {
 
 		public ProjectileBuilder RemoveFlags(params ProjectileFlags[] projectileFlags) {
 			foreach (var flag in projectileFlags) {
-				flags &= ~flag;
+				Flags &= ~flag;
 			}
 
 			return this;
@@ -132,21 +107,22 @@ namespace BurningKnight.entity.projectile {
 
 			Item item = null;
 
-			if (owner is Item i) {
+			if (Owner is Item i) {
 				item = i;
-				owner = i.Owner;
+				Owner = i.Owner;
 			}
 
 			var projectile = new Projectile {
-					Owner = owner,
-					FirstOwner = owner,
-					Damage = damage
+				Owner = Owner,
+				FirstOwner = Owner,
+				Damage = Damage,
+				Flags = Flags
 			};
 
-			var graphics = new ProjectileGraphicsComponent("projectiles", slice);
+			var graphics = new ProjectileGraphicsComponent("projectiles", Slice);
 
 			if (graphics.Sprite == null) {
-				Log.Error($"Not found projectile slice {slice}");
+				Log.Error($"Not found projectile slice {Slice}");
 				empty = true;
 
 				return null;
@@ -154,16 +130,16 @@ namespace BurningKnight.entity.projectile {
 
 			projectile.AddComponent(graphics);
 
-			var w = graphics.Sprite.Source.Width * scale;
-			var h = graphics.Sprite.Source.Height * scale;
+			var w = graphics.Sprite.Source.Width * Scale;
+			var h = graphics.Sprite.Source.Height * Scale;
 
 			projectile.Width = w;
 			projectile.Height = h;
-			projectile.Center = owner.Center + offset;
+			projectile.Center = Owner.Center + Offset;
 
 			BodyComponent bodyComponent;
 
-			if (rectHitbox) {
+			if (RectHitbox) {
 				projectile.AddComponent(bodyComponent = new RectBodyComponent(0, 0, w, h, BodyType.Dynamic, false, true));
 			} else {
 				projectile.AddComponent(bodyComponent = new CircleBodyComponent(0, 0, w / 2f, BodyType.Dynamic, false, true));
@@ -174,30 +150,30 @@ namespace BurningKnight.entity.projectile {
 			body.Restitution = 1;
 			body.Friction = 0;
 			body.IsBullet = true;
-			body.Rotation = velocity.ToAngle();
+			body.Rotation = Velocity.ToAngle();
 
-			if (owner.TryGetComponent<BuffsComponent>(out var buffs) && buffs.Has<SlowBuff>()) {
-				velocity *= 0.5f;
+			if (Owner.TryGetComponent<BuffsComponent>(out var buffs) && buffs.Has<SlowBuff>()) {
+				Velocity *= 0.5f;
 			}
 
-			if (range > 0) {
-				projectile.T = range / velocity.Length();
+			if (Range > 0) {
+				projectile.T = Range / Velocity.Length();
 			}
 
-			velocity *= 10f;
-			body.LinearVelocity = velocity;
+			Velocity *= 10f;
+			body.LinearVelocity = Velocity;
 
-			if (lightRadius > 0) {
-				projectile.AddComponent(new LightComponent(projectile, lightRadius * scale, color));
+			if (LightRadius > 0) {
+				projectile.AddComponent(new LightComponent(projectile, LightRadius * Scale, Color));
 			}
 
-			if (poof) {
+			if (Poof) {
 				AnimationUtil.Poof(projectile.Center);
 			}
 
-			owner.Area.Add(projectile);
-			owner.HandleEvent(new ProjectileCreatedEvent {
-				Owner = owner,
+			Owner.Area.Add(projectile);
+			Owner.HandleEvent(new ProjectileCreatedEvent {
+				Owner = Owner,
 				Item = item,
 				Projectile = projectile
 			});

@@ -84,7 +84,7 @@ namespace BurningKnight.entity.creature.mob.castle {
 			}
 		}
 
-		private static ProjectileUpdateCallback MakeController() {
+		private static ProjectileCallbacks.UpdateCallback MakeController() {
 			var lastPart = 0f;
 			
 			return (pr, dt) => {

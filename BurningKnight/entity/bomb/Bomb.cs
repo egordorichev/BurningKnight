@@ -120,7 +120,7 @@ namespace BurningKnight.entity.bomb {
 				if (cse.Entity is Projectile p) {
 					GetComponent<RectBodyComponent>().KnockbackFrom(p);
 
-					if (!p.PreventSpectralBreak) {
+					if (!p.HasFlag(ProjectileFlags.FlyOverStones)) {
 						p.Break();
 					}
 				} else if (ExplodeOnTouch && cse.Entity is Creature ca && Owner is Creature cb && ca.IsFriendly() != cb.IsFriendly()) {

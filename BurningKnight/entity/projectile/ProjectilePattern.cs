@@ -73,8 +73,7 @@ namespace BurningKnight.entity.projectile {
 					Angle = AngleTo(p)
 				});
 
-				p.Pattern = this;
-				p.ManualRotation = true;
+				p.AddFlags(ProjectileFlags.ManualRotation);
 			}
 
 			maxProjectiles++;
@@ -84,8 +83,7 @@ namespace BurningKnight.entity.projectile {
 			for (var i = 0; i < Projectiles.Count; i++) {
 				if (Projectiles[i].Projectile == p) {
 					Projectiles.RemoveAt(i);
-					p.Pattern = null;
-					p.ManualRotation = false;
+					p.RemoveFlags(ProjectileFlags.ManualRotation);
 
 					return;
 				}
