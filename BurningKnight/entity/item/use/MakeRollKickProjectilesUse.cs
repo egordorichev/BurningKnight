@@ -19,16 +19,17 @@ namespace BurningKnight.entity.item.use {
 					return base.HandleEvent(e);
 				}
 				
-				if (cse.Entity is Projectile p && !(p.Owner is Player) && p.CanBeReflected) {
+				if (cse.Entity is Projectile p && !(p.Owner is Player) && p.HasFlag(ProjectileFlags.Reflectable)) {
 					var owner = Item.Owner;
 					var a = owner.AngleTo(p.Owner);
 
 					p.Owner = owner;
 					p.Damage *= 2f;
 
-					p.Pattern?.Remove(p);
+					// Lethal?
+					// p.Pattern?.Remove(p);
 
-					var b = p.BodyComponent;
+					var b = p.GetAnyComponent<BodyComponent>();
 					var d = Math.Max(400, b.Velocity.Length() * 1.8f);
 
 					b.Velocity = MathUtils.CreateVector(a, d);

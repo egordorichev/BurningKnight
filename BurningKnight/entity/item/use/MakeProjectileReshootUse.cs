@@ -7,8 +7,8 @@ using Lens.util.math;
 namespace BurningKnight.entity.item.use {
 	public class MakeProjectileReshootUse : ItemUse {
 		public override bool HandleEvent(Event e) {
-			if (e is ProjectileCreatedEvent pce && !pce.Projectile.Artificial) {
-				pce.Projectile.OnHurt += (p, en) => {
+			if (e is ProjectileCreatedEvent pce && !pce.Projectile.HasFlag(ProjectileFlags.Artificial)) {
+				ProjectileCallbacks.AttachHurtCallback(pce.Projectile, (p, en) => {
 					var room = p.Owner.GetComponent<RoomComponent>().Room;
 
 					if (room == null || room.Tagged[Tags.MustBeKilled].Count == 0 || Rnd.Chance(20)) {
@@ -19,12 +19,18 @@ namespace BurningKnight.entity.item.use {
 
 					if (target != null) {
 						var c = p.HasComponent<CircleBodyComponent>();
-						var pr = Projectile.Make(pce.Owner, p.Slice, p.AngleTo(target), 10, c, -1, p, p.Scale);
+						var builder = new ProjectileBuilder(pce.Owner, p.Slice) {
+							RectHitbox = !c,
+							Parent = p,
+							Scale = p.Scale,
+						};
+
+						var pr = builder.Shoot(p.AngleTo(target), 10).Build();
 
 						pr.EntitiesHurt.AddRange(p.EntitiesHurt);
 						pr.Center = p.Center;
 					}
-				};
+				});
 			}
 			
 			return false;

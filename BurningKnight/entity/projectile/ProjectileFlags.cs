@@ -9,6 +9,7 @@ namespace BurningKnight.entity.projectile {
 		AutomaticRotation,
 		BreakableByMelee,
 		FlyOverStones,
-		Artificial
+		Artificial,
+		BreakOtherProjectiles
 	}
 }

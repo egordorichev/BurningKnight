@@ -3,6 +3,7 @@ using BurningKnight.entity.buff;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.mob;
 using BurningKnight.entity.events;
+using BurningKnight.entity.projectile;
 using BurningKnight.util;
 using Lens.entity;
 using Lens.lightJson;
@@ -13,11 +14,11 @@ namespace BurningKnight.entity.item.use {
 		
 		public override bool HandleEvent(Event e) {
 			if (e is ProjectileCreatedEvent pce) {
-				pce.Projectile.OnHurt += (p, w) => {
+				ProjectileCallbacks.AttachHurtCallback(pce.Projectile, (p, w) => {
 					if (w is Mob m && w.GetComponent<BuffsComponent>().Buffs.ContainsKey(buff)) {
 						m.Kill(Item);
 					}
-				};
+				});
 			}
 			
 			return base.HandleEvent(e);

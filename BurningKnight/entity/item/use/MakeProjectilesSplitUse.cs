@@ -12,22 +12,28 @@ namespace BurningKnight.entity.item.use {
 				if (pce.Projectile.Parent?.Parent != null || Rnd.Chance(20)) {
 					return false;
 				}
-			
-				pce.Projectile.OnHurt += (p, en) => {
+
+				ProjectileCallbacks.AttachHurtCallback(pce.Projectile, (p, en) => {
 					var v = p.GetAnyComponent<BodyComponent>();
 					var a = v.Velocity.ToAngle();
 					var s = v.Velocity.Length();
 					var c = p.HasComponent<CircleBodyComponent>();
 
+					var builder = new ProjectileBuilder(pce.Owner, p.Slice) {
+						Scale = p.Scale,
+						RectHitbox = !c,
+						Parent = p
+					};
+
 					for (var i = 0; i < 2; i++) {
-						var pr = Projectile.Make(pce.Owner, p.Slice, a + 0.2f * (i == 0 ? -1 : 1), s, c, -1, p, p.Scale);
+						var pr = builder.Shoot( a + 0.2f * (i == 0 ? -1 : 1), s).Build();
 
 						pr.EntitiesHurt.AddRange(p.EntitiesHurt);
 						pr.Center = p.Center;
 					}
 
 					p.Break();
-				};
+				});
 			}
 			
 			return false;

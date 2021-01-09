@@ -27,8 +27,9 @@ namespace BurningKnight.entity.orbital {
 				var tt = Rnd.Int(4, 8);
 				var body = p.GetAnyComponent<BodyComponent>();
 
-				var builder = new ProjectileBuilder(Owner, "circle") {
+				var builder = new ProjectileBuilder(Owner, p.Slice) {
 					LightRadius = 32f,
+					Parent = p
 				};
 
 				builder.AddFlags(ProjectileFlags.Artificial);

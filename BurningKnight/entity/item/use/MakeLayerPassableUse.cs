@@ -52,9 +52,9 @@ namespace BurningKnight.entity.item.use {
 						CollisionFilterComponent.Add(pce.Projectile, (o, en) => en is Prop ? CollisionResult.Disable : CollisionResult.Default);
 					}
 
-					if (walls && !pce.Projectile.PreventSpectralBreak) {
-						pce.Projectile.Spectral = true;
-						CollisionFilterComponent.Add(pce.Projectile, (o, en) => (en is Level || en is ProjectileLevelBody || en is Door) && !pce.Projectile.PreventSpectralBreak ? CollisionResult.Disable : CollisionResult.Default);
+					if (walls) {
+						pce.Projectile.AddFlags(ProjectileFlags.FlyOverStones);
+						CollisionFilterComponent.Add(pce.Projectile, (o, en) => (en is Level || en is ProjectileLevelBody || en is Door) ? CollisionResult.Disable : CollisionResult.Default);
 					}
 
 					if (mobs) {
@@ -70,7 +70,7 @@ namespace BurningKnight.entity.item.use {
 					}
 
 					if (breakProjectiles) {
-						pce.Projectile.BreakOther = true;
+						pce.Projectile.AddFlags(ProjectileFlags.BreakOtherProjectiles);
 					}
 				}
 			}

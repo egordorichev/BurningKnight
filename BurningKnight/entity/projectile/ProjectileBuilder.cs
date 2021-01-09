@@ -46,7 +46,6 @@ namespace BurningKnight.entity.projectile {
 		public Color Color;
 		public float LightRadius;
 
-		// TODO: actually implement
 		public int Bounce;
 
 		private bool empty;
@@ -116,7 +115,9 @@ namespace BurningKnight.entity.projectile {
 				Owner = Owner,
 				FirstOwner = Owner,
 				Damage = Damage,
-				Flags = Flags
+				Flags = Flags,
+				Slice = Slice,
+				Bounce = Bounce
 			};
 
 			var graphics = new ProjectileGraphicsComponent("projectiles", Slice);

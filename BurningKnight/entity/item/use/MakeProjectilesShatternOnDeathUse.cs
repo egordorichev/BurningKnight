@@ -11,14 +11,14 @@ namespace BurningKnight.entity.item.use {
 		public override bool HandleEvent(Event e) {
 			// Make sure that this is a new projectile, not created by this event
 			if (e is ProjectileCreatedEvent pce && pce.Projectile.Parent == null) {
-				pce.Projectile.OnDeath += (p, en, t) => {
+				ProjectileCallbacks.AttachDeathCallback(pce.Projectile,  (p, en, t) => {
 					if (Rnd.Chance(30)) {
 						return;
 					}
 					
 					var cnt = Rnd.Int(3, 5);
 					
-					if (p is Laser l) {
+					/*if (p is Laser l) {
 						var a = l.BodyComponent.Body.Rotation - (float) Math.PI;
 						var end = l.End + MathUtils.CreateVector(a, 5);
 						
@@ -28,17 +28,23 @@ namespace BurningKnight.entity.item.use {
 							laser.Position = end;
 							laser.Recalculate();
 						}
-					} else {
+					} else {*/
 						var v = p.GetAnyComponent<BodyComponent>().Velocity;
 						var a = v.ToAngle() - (float) Math.PI;
 						var s = v.Length();
 						var c = p.HasComponent<CircleBodyComponent>();
 
+						var builder = new ProjectileBuilder(pce.Owner, p.Slice) {
+							Parent = p,
+							Scale = p.Scale * Rnd.Float(0.4f, 0.8f),
+							RectHitbox = !c
+						};
+
 						for (var i = 0; i < cnt; i++) {
-							Projectile.Make(pce.Owner, p.Slice, a + Rnd.Float(-1.4f, 1.4f), s * Rnd.Float(0.3f, 0.7f), c, -1, p, p.Scale * Rnd.Float(0.4f, 0.8f)).Center = p.Center;
+							builder.Shoot(a + Rnd.Float(-1.4f, 1.4f), s * Rnd.Float(0.3f, 0.7f)).Build().Center = p.Center;
 						}	
-					}
-				};
+					//}
+				});
 			}
 			
 			return false;

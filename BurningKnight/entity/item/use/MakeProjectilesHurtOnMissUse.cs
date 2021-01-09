@@ -3,6 +3,7 @@ using BurningKnight.entity.creature;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item.util;
+using BurningKnight.entity.projectile;
 using BurningKnight.level;
 using BurningKnight.level.biome;
 using BurningKnight.state;
@@ -21,20 +22,20 @@ namespace BurningKnight.entity.item.use {
 				}
 				
 				var hurt = false;
-				
-				pce.Projectile.OnCollision += (p, en) => {
+
+				ProjectileCallbacks.AttachCollisionCallback(pce.Projectile, (p, en) => {
 					if (en.HasComponent<HealthComponent>() || (en is ProjectileLevelBody && Run.Level.Biome is IceBiome)) {
 						hurt = true;
 					}
 					
 					return false;
-				};
+				});
 				
-				pce.Projectile.OnDeath += (p, en, t) => {
+				ProjectileCallbacks.AttachDeathCallback(pce.Projectile, (p, en, t) => {
 					if (!hurt) {
 						Item.Owner.GetComponent<HealthComponent>().ModifyHealth(-1, Item);
 					}
-				};
+				});
 			} else if (e is MeleeArc.CreatedEvent mac) {
 				if (!(mac.Arc.Owner is Player)) {
 					return false;

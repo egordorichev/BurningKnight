@@ -1,4 +1,5 @@
 using BurningKnight.entity.events;
+using BurningKnight.entity.projectile;
 using BurningKnight.entity.projectile.controller;
 using ImGuiNET;
 using Lens.entity;
@@ -10,7 +11,7 @@ namespace BurningKnight.entity.item.use {
 		
 		public override bool HandleEvent(Event e) {
 			if (e is ProjectileCreatedEvent pce) {
-				pce.Projectile.Controller += ExpandProjectileController.Make(speed);
+				ProjectileCallbacks.AttachUpdateCallback(pce.Projectile, ExpandProjectileController.Make(speed));
 			}
 			
 			return base.HandleEvent(e);

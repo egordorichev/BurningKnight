@@ -25,12 +25,14 @@ namespace BurningKnight.entity.projectile {
 		public Color Color = ProjectileColor.Red;
 		public ProjectileFlags Flags = DefaultFlags;
 		public ProjectileCallbacks Callbacks;
+		public string Slice;
 
 		public List<Entity> EntitiesHurt = new List<Entity>(); // can we get rid of it?
 
 		public float Damage = 1;
 		public float T = -1;
 		public float Scale;
+		public int Bounce;
 
 		public bool Dying {
 			get => T < -1;
@@ -99,8 +101,15 @@ namespace BurningKnight.entity.projectile {
 			if (e is CollisionStartedEvent cse) {
 				var entity = cse.Entity;
 
-				if (entity is Creature creature && creature.IgnoresProjectiles()) {
-					return false;
+				if (entity is Creature creature) {
+					if (creature.IgnoresProjectiles()) {
+						return false;
+					}
+				} else if (entity is Projectile projectile) {
+					if (HasFlag(ProjectileFlags.BreakOtherProjectiles)) {
+						projectile.Break(this);
+						return false;
+					}
 				}
 
 				if (EntitiesHurt.Contains(entity)) {

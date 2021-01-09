@@ -18,7 +18,7 @@ namespace BurningKnight.entity.item.use {
 		
 		public override bool HandleEvent(Event e) {
 			if (e is ProjectileCreatedEvent pce) {
-				if (pce.Projectile is Laser l) {
+				/*if (pce.Projectile is Laser l) {
 					var room = pce.Owner.GetComponent<RoomComponent>().Room;
 					var ent = room?.FindClosest(l.Position, Tags.MustBeKilled);
 
@@ -31,13 +31,13 @@ namespace BurningKnight.entity.item.use {
 							l.BodyComponent.Body.Rotation = (ent.Center - l.Position).ToAngle() + Rnd.Float(-ac, ac);
 						}, 0.05f);
 					}
-				} else {
+				} else {*/
 					if (better) {
-						pce.Projectile.Controller += TargetProjectileController.MakeBetter(speed);
+						ProjectileCallbacks.AttachUpdateCallback(pce.Projectile, TargetProjectileController.MakeBetter(speed));
 					} else {
-						pce.Projectile.Controller += TargetProjectileController.Make(null, speed);
+						ProjectileCallbacks.AttachUpdateCallback(pce.Projectile, TargetProjectileController.Make(null, speed));
 					}
-				}
+				//}
 			}
 			
 			return base.HandleEvent(e);
