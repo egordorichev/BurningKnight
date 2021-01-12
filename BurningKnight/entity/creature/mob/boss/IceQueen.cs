@@ -164,10 +164,14 @@ namespace BurningKnight.entity.creature.mob.boss {
 					
 					var amount = 4;
 
+					var builder = new ProjectileBuilder(Self, "small");
+
 					for (var i = 0; i < amount; i++) {
 						var a = Math.PI * 2 * ((float) i / amount) + Math.Cos(t * 0.8f) * Math.PI;
-						var projectile = Projectile.Make(Self, (t % 0.5f < 0.25f) ^ (i % 2 ==0) ? "small" : "big", a, 6f + t * 2);
-						projectile.Color = t % 1f < 0.5f ? ProjectileColor.Blue : ProjectileColor.Purple;
+						builder.Slice = (t % 0.5f < 0.25f) ^ (i % 2 == 0) ? "small" : "big";
+						builder.Color = t % 1f < 0.5f ? ProjectileColor.Blue : ProjectileColor.Purple;
+
+						builder.Shoot(a, 6f + t * 2).Build();
 					}
 
 					Self.Animate();
@@ -218,12 +222,13 @@ namespace BurningKnight.entity.creature.mob.boss {
 							Become<IdleState>();
 						}
 					} else {
-						var p = Projectile.Make(Self, projectiles.Count % 2 == 0 ? "circle" : "small", Self.AngleTo(Self.Target), 0);
+						var builder = new ProjectileBuilder(Self, projectiles.Count % 2 == 0 ? "circle" : "small");
+						var p = builder.Shoot(Self.AngleTo(Self.Target), 0).Build();
 
-						p.PreventDespawn = true;
 						p.Color = projectiles.Count % 2 == 0 ? ProjectileColor.Blue : ProjectileColor.Cyan;
 						p.Center = Self.Center + MathUtils.CreateVector(projectiles.Count / 4f * Math.PI, 20 + projectiles.Count * 2);
 						p.Depth = 1;
+
 						Self.GetComponent<AudioEmitterComponent>().Emit("mob_flower_charging", pitch: projectiles.Count / 8f);
 						projectiles.Add(p);
 						
@@ -256,18 +261,22 @@ namespace BurningKnight.entity.creature.mob.boss {
 					count++;
 
 					var a = Self.AngleTo(Self.Target) + Rnd.Float(-0.1f, 0.1f) + (count == 1 ? 0 : Math.PI);
-					var projectile = Projectile.Make(Self, "square", a, 15f);
+					var builder = new ProjectileBuilder(Self, "square") {
+						LightRadius = 32f,
+						Range = 5
+					};
+
+					builder.RemoveFlags(ProjectileFlags.BreakableByMelee, ProjectileFlags.Reflectable);
+
+					var projectile = builder.Shoot(a, 15f).Build();
 					Self.Animate();
 
 					projectile.Color = ProjectileColor.Red;
-					projectile.AddLight(32f, projectile.Color);
 					projectile.Center += MathUtils.CreateVector(a, 8);
-					projectile.CanBeBroken = false;
-					projectile.CanBeReflected = false;
 
 					var tt = 0f;
 
-					projectile.Controller += (p, dtt) => {
+					ProjectileCallbacks.AttachUpdateCallback(projectile, (p, dtt) => {
 						tt += dtt;
 
 						if (tt >= 0.3f) {
@@ -278,18 +287,19 @@ namespace BurningKnight.entity.creature.mob.boss {
 							if (s < 3f) {
 								return;
 							}
-							
-							var z = Projectile.Make(Self, "small", a - Math.PI + Rnd.Float(-0.1f, 0.1f), s, scale: Rnd.Float(0.8f, 1.2f));
+
+							var bb = new ProjectileBuilder(Self, "small") {
+								Scale = Rnd.Float(0.8f, 1.2f)
+							};
+
+							var z = bb.Shoot(a - Math.PI + Rnd.Float(-0.1f, 0.1f), s).Build();
 							z.Center = projectile.Center;
 						}
-					};
+					});
 
-					projectile.Controller += SlowdownProjectileController.Make();
-					projectile.Range = 5f;
-					projectile.IndicateDeath = true;
-					
-					projectile.OnDeath += (p, e, t) => {
-						
+					ProjectileCallbacks.AttachUpdateCallback(projectile, SlowdownProjectileController.Make());
+
+					ProjectileCallbacks.AttachDeathCallback(projectile, (p, e, t) => {
 						for (var i = 0; i < SmallCount; i++) {
 							var an = (float) (((float) i) / SmallCount * Math.PI * 2);
 						
@@ -297,27 +307,36 @@ namespace BurningKnight.entity.creature.mob.boss {
 								Position = p.Center
 							};
 
+							var bb = new ProjectileBuilder(Self, "small") {
+								LightRadius = 32f
+							};
+
+							bb.RemoveFlags(ProjectileFlags.Reflectable);
+
 							for (var j = 0; j < 4; j++) {
-								var b = Projectile.Make(Self, "small");
+								var b = bb.Build();
 								pp.Add(b);
 								b.Color = ProjectileColor.Red;
-								b.AddLight(32f, b.Color);
-								b.CanBeReflected = false;
 							}
 				
 							pp.Launch(an, 40);
 							Self.Area.Add(pp);
 						}
 
+						var bbb = new ProjectileBuilder(Self, "snowflake") {
+							Color = ProjectileColor.Cyan
+						};
+
+						bbb.RemoveFlags(ProjectileFlags.Reflectable);
+
 						for (var i = 0; i < InnerCount; i++) {
-							var b = Projectile.Make(Self, "snowflake", Rnd.AnglePI(), Rnd.Float(10, 40), true, 1, null, Rnd.Float(0.5f, 1f));
+							bbb.Scale = Rnd.Float(0.5f, 1f);
+							var b = bbb.Shoot(Rnd.AnglePI(), Rnd.Float(10, 40)).Build();
 						
-							b.Color = ProjectileColor.Cyan;
 							b.Center = p.Center;
-							b.CanBeReflected = false;
-							b.Controller += SlowdownProjectileController.Make(Rnd.Float(0.5f, 4f));
+							ProjectileCallbacks.AttachUpdateCallback(b,  SlowdownProjectileController.Make(Rnd.Float(0.5f, 4f)));
 						}
-					};
+					});
 					
 					if (count == 2) {
 						Become<IdleState>();
@@ -344,26 +363,32 @@ namespace BurningKnight.entity.creature.mob.boss {
 					count++;
 
 					var a = Self.AngleTo(Self.Target) + Rnd.Float(-0.1f, 0.1f) + (count == 1 ? 0 : Math.PI);
-					var projectile = Projectile.Make(Self, "big", a, 7f);
+					var builder = new ProjectileBuilder(Self, "big") {
+						LightRadius = 32f
+					};
+
+					builder.RemoveFlags(ProjectileFlags.BreakableByMelee, ProjectileFlags.Reflectable);
+
+					var projectile = builder.Shoot(a, 7).Build();
 					Self.Animate();
 
 					projectile.Color = ProjectileColor.Blue;
-					projectile.AddLight(32f, projectile.Color);
 					projectile.Center += MathUtils.CreateVector(a, 8);
-					projectile.CanBeBroken = false;
-					projectile.CanBeReflected = false;
 
-					projectile.OnDeath += (p, e, t) => {
+					ProjectileCallbacks.AttachDeathCallback(projectile, (p, e, t) => {
+						var bb = new ProjectileBuilder(Self, "snowflake") {
+							Color = ProjectileColor.Blue,
+							LightRadius = 32
+						};
+
+						bb.RemoveFlags(ProjectileFlags.Reflectable);
+						bb.AddFlags(ProjectileFlags.AutomaticRotation);
+
 						for (var i = 0; i < InnerCount; i++) {
-							var b = Projectile.Make(Self, "snowflake", (float) i / InnerCount * Math.PI * 2, i % 2 == 0 ? 6 : 12);
-						
-							b.Color = ProjectileColor.Blue;
+							var b = bb.Shoot((float) i / InnerCount * Math.PI * 2, i % 2 == 0 ? 6 : 12).Build();
 							b.Center = p.Center;
-							b.CanBeReflected = false;
-							b.Rotates = true;
-							b.AddLight(32f, b.Color);
 						}
-					};
+					});
 					
 					if (count == 1) {
 						Become<IdleState>();
@@ -387,26 +412,34 @@ namespace BurningKnight.entity.creature.mob.boss {
 				var aa = Self.AngleTo(Self.Target);
 				Self.Animate();
 
+				var builder = new ProjectileBuilder(Self, "donut") {
+					Scale = 1.5f,
+					Color = ProjectileColor.Green,
+					LightRadius = 32f
+				};
+
+				builder.RemoveFlags(ProjectileFlags.Reflectable, ProjectileFlags.BreakableByMelee);
+
 				for (var j = 0; j < 2; j++) {
-					var projectile = Projectile.Make(Self, "donut", aa + (j % 2 == 0 ? -1 : 1) * 0.3f, 14f, scale: 1.5f);
+					var projectile = builder.Shoot(aa + (j % 2 == 0 ? -1 : 1) * 0.3f, 14f).Build();
 
-					projectile.Color = ProjectileColor.Green;
-					projectile.AddLight(32f, projectile.Color);
 					projectile.Center += MathUtils.CreateVector(aa, 8);
-					projectile.CanBeBroken = false;
-					projectile.CanBeReflected = false;
 
-					projectile.OnDeath += (p, e, t) => {
+					ProjectileCallbacks.AttachDeathCallback(projectile, (p, e, t) => {
 						var v = p.GetAnyComponent<BodyComponent>().Velocity;
 						var a = v.ToAngle() - (float) Math.PI;
 						var s = v.Length();
 						var c = p.HasComponent<CircleBodyComponent>();
 
+						var b = new ProjectileBuilder(Self, p.Slice) {
+							Parent = p,
+							Scale = p.Scale * Rnd.Float(0.4f, 1.5f)
+						};
+
 						for (var i = 0; i < Rnd.Int(3, 5); i++) {
-							Projectile.Make(Self, p.Slice, a + Rnd.Float(-1.4f, 1.4f), s * Rnd.Float(0.3f, 1.5f), c, -1, p,
-								p.Scale * Rnd.Float(0.4f, 1.5f)).Center = p.Center;
+							b.Shoot(a + Rnd.Float(-1.4f, 1.4f), s * Rnd.Float(0.3f, 1.5f)).Build().Center = p.Center;
 						}
-					};
+					});
 				}
 			}
 
