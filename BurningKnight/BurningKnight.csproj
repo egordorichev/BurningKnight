@@ -453,7 +453,6 @@
     <Compile Include="entity\creature\mob\boss\rooms\DmRoom.cs" />
     <Compile Include="entity\creature\mob\boss\rooms\DmRoomRegistry.cs" />
     <Compile Include="entity\creature\mob\boss\rooms\DmSpikeRoom.cs" />
-    <Compile Include="entity\creature\mob\boss\SimpleAttackRegistry.cs" />
     <Compile Include="entity\creature\mob\castle\BigSlime.cs" />
     <Compile Include="entity\creature\mob\castle\BlueBulletSlime.cs" />
     <Compile Include="entity\creature\mob\castle\Caster.cs" />
@@ -553,12 +552,8 @@
     <Compile Include="entity\creature\pet\Wallet.cs" />
     <Compile Include="entity\creature\player\LampComponent.cs" />
     <Compile Include="entity\creature\SmartState.cs" />
-    <Compile Include="entity\creature\mob\boss\BossPatternRegistry.cs" />
     <Compile Include="entity\creature\mob\boss\Boss.cs" />
     <Compile Include="entity\creature\mob\boss\BossAttack.cs" />
-    <Compile Include="entity\creature\mob\boss\BossPattern.cs" />
-    <Compile Include="entity\creature\mob\boss\BossPatternSet.cs" />
-    <Compile Include="entity\creature\mob\boss\BossPatternSetRegistry.cs" />
     <Compile Include="entity\creature\mob\castle\BabySlime.cs" />
     <Compile Include="entity\creature\mob\castle\Bandit.cs" />
     <Compile Include="entity\creature\mob\castle\BulletSlime.cs" />
