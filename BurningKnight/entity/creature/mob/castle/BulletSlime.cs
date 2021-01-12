@@ -22,7 +22,7 @@ namespace BurningKnight.entity.creature.mob.castle {
 			base.SetStats();
 			
 			AddComponent(new ZAnimationComponent(GetSprite()));
-			SetMaxHp(1);
+			SetMaxHp(3);
 
 			var body = new RectBodyComponent(1, 15, 14, 1);
 			AddComponent(body);
@@ -51,12 +51,14 @@ namespace BurningKnight.entity.creature.mob.castle {
 			var am = 8;
 			GetComponent<AudioEmitterComponent>().EmitRandomized("mob_fire");
 
+			var builder = new ProjectileBuilder(this, "small") {
+				LightRadius = 32f
+			};
+
 			for (var i = 0; i < am; i++) {
 				var a = Math.PI * 2 * (((float) i) / am);
-				var projectile = Projectile.Make(this, "small", a, 5f);
-					
+				var projectile = builder.Shoot(a, 5f).Build();
 				projectile.Center = BottomCenter;
-				projectile.AddLight(32f, ProjectileColor.Red);
 			}
 		}
 	}

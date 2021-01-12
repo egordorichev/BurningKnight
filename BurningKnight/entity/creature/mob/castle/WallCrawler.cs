@@ -97,13 +97,14 @@ namespace BurningKnight.entity.creature.mob.castle {
 							Self.GetComponent<AudioEmitterComponent>().EmitRandomized("mob_fire_wall");
 						
 							var angle = Self.Direction.ToAngle();
-							var projectile = Projectile.Make(Self, "small", angle, 5f);
+							var builder = new ProjectileBuilder(Self, "small") {
+								LightRadius = 32f
+							};
 
-							projectile.AddLight(32f, ProjectileColor.Red);
-							projectile.Center += MathUtils.CreateVector(angle, 8);
-							projectile.Spectral = true;
-							
-							AnimationUtil.Poof(projectile.Center);
+							builder.AddFlags(ProjectileFlags.FlyOverStones);
+							builder.Move(angle, 8);
+
+							builder.Shoot(angle, 5f).Build();
 						};
 					};
 				} else if (fired && T > 1f) {

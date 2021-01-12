@@ -63,17 +63,17 @@ namespace BurningKnight.entity.creature.mob.castle {
 							Tween.To(1, a.Scale.X, x => a.Scale.X = x, 0.2f);
 							Tween.To(1, a.Scale.Y, x => a.Scale.Y = x, 0.2f);
 
-							var projectile = Projectile.Make(Self, "caster", an, 7f);
+							var builder = new ProjectileBuilder(Self, "caster") {
+								Color = ProjectileColor.Blue,
+								LightRadius = 32f,
+								Poof = true
+							};
 
-							projectile.AddLight(32f, ProjectileColor.Blue);
-							projectile.Center += MathUtils.CreateVector(an, 8);
-							projectile.BreaksFromWalls = false;
-							projectile.Spectral = true;
-							projectile.DieOffscreen = true;
-							projectile.Rotates = true;
-							projectile.Controller += MakeController();
+							builder.Move(an, 8);
+							builder.AddFlags(ProjectileFlags.AutomaticRotation, ProjectileFlags.FlyOverStones, ProjectileFlags.FlyOverWalls);
 
-							AnimationUtil.Poof(projectile.Center);
+							var projectile = builder.Shoot(an, 7f).Build();
+							ProjectileCallbacks.AttachUpdateCallback(projectile, MakeController());
 						};
 					}
 				}

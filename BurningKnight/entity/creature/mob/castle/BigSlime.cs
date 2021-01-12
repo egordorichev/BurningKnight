@@ -1,11 +1,7 @@
-using System;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.mob.prefabs;
 using BurningKnight.entity.events;
-using BurningKnight.entity.projectile;
-using Lens.graphics;
 using Lens.util.math;
-using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.creature.mob.castle {
 	public class BigSlime : Slime {
@@ -30,29 +26,6 @@ namespace BurningKnight.entity.creature.mob.castle {
 
 		protected virtual string GetSprite() {
 			return Events.Halloween ? "spooky_big_slime" : "big_slime";
-		}
-
-		protected override void OnLand() {
-			base.OnLand();
-
-			if (Target == null) {
-				return;
-			}
-
-			// DoSpit();
-		}
-
-		protected virtual void DoSpit() {
-			var am = 8;
-			GetComponent<AudioEmitterComponent>().EmitRandomized("mob_fire");
-
-			for (var i = 0; i < am; i++) {
-				var a = Math.PI * 2 * (((float) i) / am);
-				var projectile = Projectile.Make(this, "small", a, 5f);
-					
-				projectile.Center = BottomCenter;
-				projectile.AddLight(32f, ProjectileColor.Red);
-			}
 		}
 
 		protected override bool HandleDeath(DiedEvent d) {
