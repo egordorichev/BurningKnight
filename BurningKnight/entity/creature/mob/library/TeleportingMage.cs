@@ -66,20 +66,21 @@ namespace BurningKnight.entity.creature.mob.library {
 					var sa = Rnd.AnglePI();
 					var count = 5;
 
+					var builder = new ProjectileBuilder(Self, "small") {
+						LightRadius = 32f,
+						Color = Self.color
+					};
+
+					builder.RemoveFlags(ProjectileFlags.Reflectable);
+
 					for (var i = 0; i < count; i++) {
 						var i1 = i;
 
 						Timer.Add(() => {
 							var a = (float) Math.PI * i1 / (count * 0.5f) + sa;
-							var pr = Projectile.Make(Self, "small");
+							var pr = builder.Build();
 
-							pr.CanBeReflected = false;
-							pr.Color = Self.color;
-							pr.AddLight(32, Self.color);
-							
-							pr.CanBeReflected = false;
 							pr.BodyComponent.Angle = a;
-
 							pr.Center = Self.Center + MathUtils.CreateVector(a, 12);
 							
 							p.Add(pr);

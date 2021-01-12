@@ -506,7 +506,6 @@
     <Compile Include="entity\creature\mob\prefix\Prefix.cs" />
     <Compile Include="entity\creature\mob\prefix\PrefixRegistry.cs" />
     <Compile Include="entity\creature\mob\prefix\RegenerativePrefix.cs" />
-    <Compile Include="entity\creature\mob\summons\KingBlade.cs" />
     <Compile Include="entity\creature\npc\AccessoryTrader.cs" />
     <Compile Include="entity\creature\npc\ActiveTrader.cs" />
     <Compile Include="entity\creature\npc\Bird.cs" />
@@ -578,7 +577,6 @@
     <Compile Include="entity\creature\mob\MobInfo.cs" />
     <Compile Include="entity\creature\mob\MobPair.cs" />
     <Compile Include="entity\creature\mob\MobRegistry.cs" />
-    <Compile Include="entity\creature\mob\orbital\SkullOrbital.cs" />
     <Compile Include="entity\creature\mob\prefabs\Slime.cs" />
     <Compile Include="entity\creature\mob\prefabs\WallWalker.cs" />
     <Compile Include="entity\creature\mob\SpawnChance.cs" />
