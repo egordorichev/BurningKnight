@@ -38,6 +38,10 @@ namespace BurningKnight.entity.creature.mob.castle {
 			}
 
 			Timer.Add(() => {
+				if (GetComponent<HealthComponent>().Dead) {
+					return;
+				}
+
 				GetComponent<AudioEmitterComponent>().EmitRandomized("mob_fire");
 				GetComponent<ZAnimationComponent>().Animate();
 
