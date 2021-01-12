@@ -1,11 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using BurningKnight.assets.particle;
+using BurningKnight.entity.bomb;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature;
+using BurningKnight.entity.creature.mob;
 using BurningKnight.entity.creature.mob.jungle;
 using BurningKnight.entity.creature.player;
+using BurningKnight.entity.door;
 using BurningKnight.entity.events;
+using BurningKnight.entity.item;
+using BurningKnight.entity.item.stand;
+using BurningKnight.entity.room.controllable.platform;
+using BurningKnight.level;
+using BurningKnight.level.entities;
 using BurningKnight.physics;
 using BurningKnight.state;
 using Lens.entity;
@@ -16,9 +24,9 @@ using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.projectile {
 	public class Projectile : Entity, CollisionFilterEntity {
-		public const ProjectileFlags DefaultFlags = ProjectileFlags.Reflectable | ProjectileFlags.BreakableByMelee;
+		public const ProjectileFlags DefaultFlags = ProjectileFlags.Reflectable | ProjectileFlags.BreakableByMelee | ProjectileFlags.Fresh;
 
-	public Projectile Parent; // Potentially not needed
+		public Projectile Parent; // Potentially not needed
 		public Entity Owner;
 		public Entity FirstOwner; // Potentially not needed
 		public Color Color = ProjectileColor.Red;
@@ -43,6 +51,8 @@ namespace BurningKnight.entity.projectile {
 
 		public override void Init() {
 			base.Init();
+
+			AlwaysActive = true;
 			AddTag(Tags.Projectile);
 		}
 
@@ -69,6 +79,7 @@ namespace BurningKnight.entity.projectile {
 				}
 			}
 
+			Flags &= ~ProjectileFlags.Fresh;
 			Callbacks?.OnUpdate?.Invoke(this, dt);
 
 			var bodyComponent = GetAnyComponent<BodyComponent>();
@@ -90,12 +101,38 @@ namespace BurningKnight.entity.projectile {
 			return (Flags & flag) != 0;
 		}
 
+		// Aka should bounce from the object or no
 		public bool ShouldCollide(Entity entity) {
-			return false;
+			if (entity == Owner) {
+				return false;
+			}
+
+			if (entity is Tombstone && !(Owner is Player)) {
+				return false;
+			}
+
+			return !(entity is Level || entity is HalfWall) && !(entity is Door d && d.Open) && !((HasFlag(ProjectileFlags.FlyOverStones) && (entity is Prop || entity is Door || entity is HalfProjectileLevel || entity is ProjectileLevelBody)) || entity is Chasm || entity is MovingPlatform || entity is PlatformBorder || (entity is Creature && Owner is Mob == entity is Mob) || entity is Creature || entity is Item || entity is Projectile || entity is ShopStand || entity is Bomb);
+		}
+
+		// Aka should break on collision with it or no
+		public virtual bool BreaksFrom(Entity entity) {
+			if (TryGetComponent<CollisionFilterComponent>(out var c)) {
+				var rs = c.Invoke(entity);
+
+				if (rs == CollisionResult.Disable) {
+					return false;
+				}
+
+				if (rs == CollisionResult.Enable) {
+					return true;
+				}
+			}
+
+			return (!HasFlag(ProjectileFlags.FlyOverWalls) && (entity is ProjectileLevelBody)) || (!HasFlag(ProjectileFlags.FlyOverStones) && (entity is HalfProjectileLevel || entity is SolidProp || entity is Door)) || entity is Creature;
 		}
 
 		public override bool HandleEvent(Event e) {
-			if (e is CollisionStartedEvent cse) {
+			if (!Dying && !HasFlag(ProjectileFlags.Fresh) && e is CollisionStartedEvent cse) {
 				var entity = cse.Entity;
 
 				if (entity is Creature creature) {
@@ -113,16 +150,26 @@ namespace BurningKnight.entity.projectile {
 					return false;
 				}
 
-				if (Callbacks?.OnCollision != null && Callbacks.OnCollision(this, entity)) {
-					return false;
-				}
-
 				/*
 				 * Very quickly hacked together, ignores bouncing, not damaging friendly npcs, etc, etc
 				 */
 				if (entity != Owner && entity.TryGetComponent<HealthComponent>(out var hp)) {
 					hp.ModifyHealth(-Damage, Owner, DamageType.Custom);
+
 					Callbacks?.OnHurt?.Invoke(this, entity);
+					EntitiesHurt.Add(entity);
+				}
+
+				if (Callbacks?.OnCollision != null && Callbacks.OnCollision(this, entity)) {
+					return false;
+				}
+
+				if (BreaksFrom(entity)) {
+					if (Bounce <= 0) {
+						Break(entity);
+					} else {
+						Bounce--;
+					}
 				}
 			}
 
@@ -173,10 +220,10 @@ namespace BurningKnight.entity.projectile {
 					}
 				}
 
-				bodyComponent.Velocity = Vector2.Zero;
-
 				Camera.Instance.ShakeMax(4);
 				Callbacks?.OnDeath?.Invoke(this, from, timeout);
+
+				bodyComponent.Velocity = Vector2.Zero;
 			} catch (Exception e) {
 				Log.Error(e);
 			}

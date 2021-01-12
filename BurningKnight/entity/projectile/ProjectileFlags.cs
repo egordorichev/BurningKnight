@@ -12,6 +12,7 @@ namespace BurningKnight.entity.projectile {
 		Artificial = 32,
 		BreakOtherProjectiles = 64,
 		DieOffScreen = 128,
-		FlyOverWalls = 256
+		FlyOverWalls = 256,
+		Fresh = 512
 	}
 }

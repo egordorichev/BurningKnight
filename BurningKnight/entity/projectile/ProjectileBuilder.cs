@@ -122,7 +122,8 @@ namespace BurningKnight.entity.projectile {
 				Slice = Slice,
 				Bounce = Bounce,
 				Scale = Scale,
-				Color = Color
+				Color = Color,
+				Parent = parent
 			};
 
 			Owner.Area.Add(projectile);

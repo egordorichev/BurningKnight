@@ -12,7 +12,7 @@ namespace BurningKnight.entity.item.use {
 			// Make sure that this is a new projectile, not created by this event
 			if (e is ProjectileCreatedEvent pce && pce.Projectile.Parent == null) {
 				ProjectileCallbacks.AttachDeathCallback(pce.Projectile,  (p, en, t) => {
-					if (Rnd.Chance(30)) {
+					if (Rnd.Chance(30) || p.Parent != null) {
 						return;
 					}
 					
