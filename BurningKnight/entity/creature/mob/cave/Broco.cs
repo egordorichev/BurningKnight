@@ -99,14 +99,16 @@ namespace BurningKnight.entity.creature.mob.cave {
 							
 							var ac = 0.1f;
 							var angle = Self.AngleTo(Self.Target);
-							var projectile = Projectile.Make(Self, "circle", angle + Rnd.Float(-ac, ac), 9f);
+							var builder = new ProjectileBuilder(Self, "circle") {
+								Color = ProjectileColor.White,
+								LightRadius = 32f
+							};
 
-							projectile.Color = ProjectileColor.White;
-							projectile.Center += MathUtils.CreateVector(angle, 8f);
-							projectile.AddLight(32f, projectile.Color);
-							projectile.Spectral = true;
+							builder.AddFlags(ProjectileFlags.FlyOverStones);
+							builder.Move(angle, 8);
+							builder.Shoot(angle + Rnd.Float(-ac, ac), 9f);
 
-							AnimationUtil.Poof(projectile.Center);
+							builder.Build();
 
 							Timer.Add(() => {
 								if (Self.Done) {
