@@ -33,7 +33,7 @@ namespace BurningKnight.entity.projectile {
 		}
 
 		static ProjectileRegistry() {
-			Add("skull", skull => {
+			/*Add("skull", skull => {
 				skull.NearDeath += p => {
 					var c = new AudioEmitterComponent {
 						DestroySounds = false
@@ -371,7 +371,7 @@ namespace BurningKnight.entity.projectile {
 					
 					Run.Level.TileUp();
 				};
-			});
+			});*/
 		}
 	}
 }

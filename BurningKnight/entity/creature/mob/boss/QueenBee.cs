@@ -174,19 +174,27 @@ namespace BurningKnight.entity.creature.mob.boss {
 									Position = Self.Center
 								};
 
+								var builder = new ProjectileBuilder(Self, "small") {
+									LightRadius = 32f
+								};
+
 								for (var j = 0; j < 4; j++) {
-									var b = Projectile.Make(Self, j % 2 == 0 ? "circle" : "small");
-									pp.Add(b);
-									b.Color = j % 2 == 0 ? ProjectileColor.Orange : ProjectileColor.Red;
-									b.AddLight(32f, b.Color);
+									builder.Slice = j % 2 == 0 ? "circle" : "small";
+									builder.Color = j % 2 == 0 ? ProjectileColor.Orange : ProjectileColor.Red;
+
+									pp.Add(builder.Build());
 								}
 
 								pp.Launch(a, 80);
 								Self.Area.Add(pp);
 							} else {
-								var p = Projectile.Make(Self, "circle", a + Rnd.Float(-0.1f, 0.1f), 30f, scale: Rnd.Float(0.8f, 1f));
-								p.Color = Rnd.Chance() ? ProjectileColor.Yellow : ProjectileColor.Orange;
-								p.AddLight(64f, p.Color);
+								var builder = new ProjectileBuilder(Self, "circle") {
+									Scale = Rnd.Float(0.8f, 1f),
+									Color = Rnd.Chance() ? ProjectileColor.Yellow : ProjectileColor.Orange,
+									LightRadius = 64
+								};
+
+								builder.Shoot(a + Rnd.Float(-0.1f, 0.1f), 30f).Build();
 							}
 							
 							Self.GetComponent<AudioEmitterComponent>().EmitRandomized("mob_bee_shot");
@@ -274,9 +282,13 @@ namespace BurningKnight.entity.creature.mob.boss {
 
 				if (sinceLast >= 0.15f) {
 					sinceLast = 0;
-					
-					var p = Projectile.Make(Self, "circle", t + Math.PI + Rnd.Float(-0.1f, 0.1f), Rnd.Float(4f, 10f), scale: Rnd.Float(0.5f, 1f));
-					p.AddLight(64f, ProjectileColor.Red);
+
+					var builder = new ProjectileBuilder(Self, "circle") {
+						Scale = Rnd.Float(0.5f, 1f),
+						LightRadius = 64
+					};
+
+					builder.Shoot(t + Math.PI + Rnd.Float(-0.1f, 0.1f), Rnd.Float(4f, 10f)).Build();
 				}
 				
 				var r = Self.GetComponent<RoomComponent>().Room;
@@ -355,11 +367,16 @@ namespace BurningKnight.entity.creature.mob.boss {
 						lastBullet = 0.2f;
 						
 						var a = (sign < 0 ? Math.PI : 0) + Rnd.Float(-1f, 1f);
-						var p = Projectile.Make(Self, "circle", a, Rnd.Float(3f, 10f), scale: Rnd.Float(0.6f, 2f));
-						p.Color = ProjectileColor.Orange;
-						p.BounceLeft = 5;
-						p.Controller += SlowdownProjectileController.Make(0.25f);
-						p.AddLight(64f, ProjectileColor.Orange);
+						var builder = new ProjectileBuilder(Self, "circle") {
+							Bounce = 5,
+							Color = ProjectileColor.Orange,
+							LightRadius = 64,
+							Scale = Rnd.Float(0.6f, 2f)
+						};
+
+						var p = builder.Shoot(a, Rnd.Float(3f, 10f)).Build();
+
+						ProjectileCallbacks.AttachUpdateCallback(p, SlowdownProjectileController.Make(0.25f));
 						Self.GetComponent<AudioEmitterComponent>().EmitRandomized("mob_bee_shot");
 					}
 				}
@@ -445,10 +462,13 @@ namespace BurningKnight.entity.creature.mob.boss {
 					}
 						
 					var a = (count * 3 / 8f * Math.PI) + Rnd.Float(-0.5f, 0.5f);
-					var p = Projectile.Make(Self, "circle", a, 30f, scale: Rnd.Float(1f, 2f));
-					
-					p.Color = Rnd.Chance() ? ProjectileColor.Yellow : ProjectileColor.Orange;
-					p.AddLight(64f, p.Color);
+					var builder = new ProjectileBuilder(Self, "circle") {
+						Scale = Rnd.Float(1f, 2f),
+						Color = Rnd.Chance() ? ProjectileColor.Yellow : ProjectileColor.Orange,
+						LightRadius = 64
+					};
+
+					builder.Shoot(a, 30f).Build();
 
 					Camera.Instance.Shake(2);
 					Self.GetComponent<AudioEmitterComponent>().EmitRandomized("mob_bee_swirly_shot");

@@ -1,5 +1,6 @@
 # projectile
 
+* fix projectile registry
 * fix targetingcontroller, it can make the things fly infinitelly (either limit range or make it better home in)
 * add player cap (128 ?)
 * add mob cap (128 ?)
