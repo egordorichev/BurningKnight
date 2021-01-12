@@ -73,17 +73,16 @@ namespace BurningKnight.entity.creature.pet {
 						o.GetComponent<AudioEmitterComponent>().EmitRandomizedPrefixed("item_meatguy", 4, 0.5f);
 						
 						var a = pet.AngleTo(o.GetComponent<AimComponent>().RealAim);
-						var projectile = Projectile.Make(o, "small", a, 10f);
+						var builder = new ProjectileBuilder(o, "small") {
+							LightRadius = 32f,
+							Color = ProjectileColor.Yellow
+						};
 
-						projectile.Color = ProjectileColor.Yellow;
+						builder.Shoot(a, 10f);
+
+						var projectile = builder.Build();
+
 						projectile.Center = pet.Center + MathUtils.CreateVector(a, 5f);
-						projectile.AddLight(32f, ProjectileColor.Yellow);
-
-						o.HandleEvent(new ProjectileCreatedEvent {
-							Projectile = projectile,
-							Owner = o
-						});
-
 						projectile.Owner = pet;
 					}
 				};

@@ -49,18 +49,26 @@ namespace BurningKnight.entity.creature.pet {
 		}
 
 		public override bool HandleEvent(Event e) {
-			if (e is CollisionStartedEvent cse && cse.Entity is Projectile p && !p.Artificial && p.Owner == Owner && p.Parent == null) {
+			if (e is CollisionStartedEvent cse && cse.Entity is Projectile p && !p.HasFlag(ProjectileFlags.Artificial) && p.Owner == Owner && p.Parent == null) {
 				var tt = Rnd.Int(5, 8);
+				var body = p.GetAnyComponent<BodyComponent>();
+
+				var builder = new ProjectileBuilder(Owner, p.Slice) {
+					LightRadius = 32f,
+					Parent = p
+				};
+
+				builder.AddFlags(ProjectileFlags.Artificial);
 
 				for (var i = 0; i < tt; i++) {
-					var pr = Projectile.Make(Owner, p.Slice, p.BodyComponent.Angle + (i - tt * 0.5f) * 0.1f, p.BodyComponent.Velocity.Length() * 0.05f);
-					
+					builder.Shoot(body.Angle + (i - tt * 0.5f) * 0.1f, body.Velocity.Length() * 0.05f);
+
+					var pr = builder.Build();
+
 					pr.Color = ProjectileColor.Rainbow[i];
 					pr.Position = p.Position;
-					pr.Artificial = true;
-					pr.AddLight(32f, pr.Color);
 				}
-				
+
 				AnimationUtil.Poof(Center, Depth + 1);
 				p.Done = true;
 			}

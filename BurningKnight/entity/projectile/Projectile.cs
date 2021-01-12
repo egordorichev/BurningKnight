@@ -124,7 +124,7 @@ namespace BurningKnight.entity.projectile {
 				 * Very quickly hacked together, ignores bouncing, not damaging friendly npcs, etc, etc
 				 */
 				if (entity != Owner && entity.TryGetComponent<HealthComponent>(out var hp)) {
-					hp.ModifyHealth(-Damage, Owner);
+					hp.ModifyHealth(-Damage, Owner, DamageType.Custom);
 					Callbacks?.OnHurt?.Invoke(this, entity);
 				}
 			}
