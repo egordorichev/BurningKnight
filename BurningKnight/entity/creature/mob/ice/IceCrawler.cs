@@ -98,27 +98,29 @@ namespace BurningKnight.entity.creature.mob.ice {
 							Self.GetComponent<AudioEmitterComponent>().EmitRandomized("mob_fire_wall");
 						
 							var angle = Self.Direction.ToAngle();
+							var builder = new ProjectileBuilder(Self, "circle") {
+
+							};
+
+							builder.AddFlags(ProjectileFlags.FlyOverStones);
 
 							for (var i = 0; i < 5; i++) {
-								var projectile = Projectile.Make(Self, i == 0 ? "circle" : "small", angle + (i == 0 ? 0 : Rnd.Float(-0.5f, 0.5f)), i == 0 ? 5f : Rnd.Float(6, 10f));
+								builder.Slice = i == 0 ? "circle" : "small";
+								builder.Scale = i == 0 ? 1 : Rnd.Float(0.5f, 0.7f);
 
-								if (i > 0) {
-									projectile.Scale = Rnd.Float(0.5f, 0.7f);
-								}
-								
+								var projectile = builder.Shoot(angle + (i == 0 ? 0 : Rnd.Float(-0.5f, 0.5f)), i == 0 ? 5f : Rnd.Float(6, 10f)).Build();
+
 								projectile.Color = i == 0 ? ProjectileColor.Cyan : ProjectileColor.Blue;
-								projectile.AddLight(32f, projectile.Color);
 								projectile.Center += MathUtils.CreateVector(angle, 8);
-								projectile.Spectral = true;
 
 								if (i == 0) {
-									projectile.OnHurt += (p, e) => {
+									ProjectileCallbacks.AttachHurtCallback(projectile, (p, e) => {
 										if (e.TryGetComponent<BuffsComponent>(out var b)) {
 											b.Add(new FrozenBuff() {
 												Duration = 1
 											});
 										}
-									};
+									});
 								}
 
 								AnimationUtil.Poof(projectile.Center);
