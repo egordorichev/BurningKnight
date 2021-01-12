@@ -1,14 +1,10 @@
 using BurningKnight.assets;
 using BurningKnight.assets.lighting;
-using BurningKnight.entity.buff;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.mob.boss;
 using Lens.assets;
 using Lens.graphics;
-using Lens.graphics.animation;
 using Microsoft.Xna.Framework;
-using VelcroPhysics.Utilities;
-using MathUtils = Lens.util.MathUtils;
 
 namespace BurningKnight.entity.projectile {
 	public class ProjectileGraphicsComponent : BasicProjectileGraphicsComponent {

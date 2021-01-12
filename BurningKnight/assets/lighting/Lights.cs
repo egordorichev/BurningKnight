@@ -91,9 +91,9 @@ namespace BurningKnight.assets.lighting {
 				((BasicProjectileGraphicsComponent) p.GraphicsComponent).RenderLight();
 			}
 			
-			/*foreach (var p in Run.Level.Area.Tagged[Tags.Laser]) {
+			foreach (var p in Run.Level.Area.Tagged[Tags.Laser]) {
 				((LaserGraphicsComponent) p.GraphicsComponent).RenderTopLight();
-			}*/
+			}
 			
 			state.End();
 			

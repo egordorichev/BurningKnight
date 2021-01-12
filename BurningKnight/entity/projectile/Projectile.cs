@@ -13,7 +13,6 @@ using Lens.util;
 using Lens.util.camera;
 using Lens.util.math;
 using Microsoft.Xna.Framework;
-using MonoGame.Extended;
 
 namespace BurningKnight.entity.projectile {
 	public class Projectile : Entity, CollisionFilterEntity {
@@ -42,6 +41,11 @@ namespace BurningKnight.entity.projectile {
 		public bool NearingDeath => T < 0.9f && T % 0.6f >= 0.3f;
 		public BodyComponent BodyComponent => GetAnyComponent<BodyComponent>();
 
+		public override void Init() {
+			base.Init();
+			AddTag(Tags.Projectile);
+		}
+
 		public override void Update(float dt) {
 			base.Update(dt);
 
@@ -69,7 +73,7 @@ namespace BurningKnight.entity.projectile {
 
 			var bodyComponent = GetAnyComponent<BodyComponent>();
 
-			if (Owner is Player || Owner is Sniper) {
+			if (!Dying && (Owner is Player || Owner is Sniper)) {
 				Position += bodyComponent.Body.LinearVelocity * dt;
 			}
 
@@ -77,13 +81,13 @@ namespace BurningKnight.entity.projectile {
 				if (HasFlag(ProjectileFlags.AutomaticRotation)) {
 					bodyComponent.Body.Rotation += dt * 10;
 				} else {
-					bodyComponent.Body.Rotation = Vector2Extensions.ToAngle(bodyComponent.Body.LinearVelocity);
+					bodyComponent.Body.Rotation = VectorExtension.ToAngle(bodyComponent.Body.LinearVelocity);
 				}
 			}
 		}
 
 		public bool HasFlag(ProjectileFlags flag) {
-			return (Flags & flag) == flag;
+			return (Flags & flag) != 0;
 		}
 
 		public bool ShouldCollide(Entity entity) {

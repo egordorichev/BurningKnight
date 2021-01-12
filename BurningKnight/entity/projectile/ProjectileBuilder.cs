@@ -2,6 +2,7 @@ using BurningKnight.assets.lighting;
 using BurningKnight.entity.buff;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.mob;
+using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
 using BurningKnight.save;
@@ -23,7 +24,7 @@ namespace BurningKnight.entity.projectile {
 
 			set {
 				if (value != null) {
-					Color = parent.Color;
+					Color = value.Color;
 				}
 
 				parent = value;
@@ -43,7 +44,7 @@ namespace BurningKnight.entity.projectile {
 		public bool RectHitbox;
 		public bool Poof;
 
-		public Color Color;
+		public Color Color = ProjectileColor.Red;
 		public float LightRadius;
 
 		public int Bounce;
@@ -51,6 +52,13 @@ namespace BurningKnight.entity.projectile {
 		private bool empty;
 
 		public ProjectileBuilder(Entity projectileOwner, string projectileSlice) {
+			if (projectileSlice == "default") {
+				projectileSlice = "rect";
+			}
+
+			Slice = projectileSlice;
+			Owner = projectileOwner;
+
 			if (Owner is Mob mob) {
 				if (Rnd.Chance(LevelSave.MobDestructionChance)) {
 					empty = true;
@@ -63,14 +71,9 @@ namespace BurningKnight.entity.projectile {
 
 					AddFlags(ProjectileFlags.Scourged);
 				}
+			} else if (Owner is Player || (Owner is Item item && item.Owner is Player)) {
+				Color = ProjectileColor.Yellow;
 			}
-
-			if (projectileSlice == "default") {
-				projectileSlice = "rect";
-			}
-
-			Slice = projectileSlice;
-			Owner = projectileOwner;
 		}
 
 		public ProjectileBuilder Shoot(double angle, float speed) {
@@ -117,9 +120,12 @@ namespace BurningKnight.entity.projectile {
 				Damage = Damage,
 				Flags = Flags,
 				Slice = Slice,
-				Bounce = Bounce
+				Bounce = Bounce,
+				Scale = Scale,
+				Color = Color
 			};
 
+			Owner.Area.Add(projectile);
 			var graphics = new ProjectileGraphicsComponent("projectiles", Slice);
 
 			if (graphics.Sprite == null) {
@@ -172,7 +178,6 @@ namespace BurningKnight.entity.projectile {
 				AnimationUtil.Poof(projectile.Center);
 			}
 
-			Owner.Area.Add(projectile);
 			Owner.HandleEvent(new ProjectileCreatedEvent {
 				Owner = Owner,
 				Item = item,
