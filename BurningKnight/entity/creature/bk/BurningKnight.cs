@@ -675,20 +675,25 @@ namespace BurningKnight.entity.creature.bk {
 						c = 3;
 					}
 
-					for (var i = 0; i < c; i++) {
-						var p = Projectile.Make(Self, "circle", Self.AngleTo(Self.Target) + Rnd.Float(-0.4f, 0.4f) + (c == 1 ? 0 : (i - 1) * Math.PI * 0.2f), 8 + Self.timesRaged * 0.3f, true, 0, null, Rnd.Float(1f, 1f + Self.timesRaged * 0.1f));
+					var builder = new ProjectileBuilder(Self, "circle") {
+						Scale = Rnd.Float(1f, 1f + Self.timesRaged * 0.1f),
+						Color = ProjectileColor.BkRed,
+						LightRadius = 32f
+					};
 
-						p.BreaksFromWalls = false;
-						p.Spectral = true;
+					builder.AddFlags(ProjectileFlags.FlyOverWalls);
+					builder.RemoveFlags(ProjectileFlags.Reflectable, ProjectileFlags.BreakableByMelee);
+
+					for (var i = 0; i < c; i++) {
+						var p = builder.Shoot(Self.AngleTo(Self.Target) + Rnd.Float(-0.4f, 0.4f) + (c == 1 ? 0 : (i - 1) * Math.PI * 0.2f),
+							8 + Self.timesRaged * 0.3f).Build();
+
 						p.Center = Self.Center;
 						p.Depth = Self.Depth;
-						p.CanBeReflected = false;
-						p.CanBeBroken = false;
-						p.Color = ProjectileColor.BkRed;
 
 						if (Self.timesRaged > 4) {
-							p.Controller += TargetProjectileController.Make(Self.Target, 0.5f);
-							p.Range = 5f + Rnd.Float(1f);
+							ProjectileCallbacks.AttachUpdateCallback(p, TargetProjectileController.Make(Self.Target, 0.5f));
+							p.T = 5f + Rnd.Float(1f);
 						}
 					}
 					
@@ -989,9 +994,11 @@ namespace BurningKnight.entity.creature.bk {
 		private int spinDir;
 
 		private void WarnLaser(float angle, Vector2? offset = null) {
+			var builder = new ProjectileBuilder(this, Raging ? "big" : "circle");
+
 			for (var i = 0; i < 3; i++) {
 				Timer.Add(() => {
-					var projectile = Projectile.Make(this, Raging ? "big" : "circle", angle, Raging ? 15f : 10f);
+					var projectile = Projectile.Make(angle, Raging ? 15f : 10f);
 
 					projectile.AddLight(32f, ProjectileColor.Red);
 					projectile.Center += MathUtils.CreateVector(angle, 8);

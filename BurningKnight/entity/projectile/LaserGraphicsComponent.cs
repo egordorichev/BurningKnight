@@ -7,7 +7,7 @@ using Lens.graphics;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.projectile {
-	/*public class LaserGraphicsComponent : BasicProjectileGraphicsComponent {
+	public class LaserGraphicsComponent : BasicProjectileGraphicsComponent {
 		private TextureRegion aura;
 		private TextureRegion light;
 		private TextureRegion end;
@@ -91,5 +91,5 @@ namespace BurningKnight.entity.projectile {
 			Graphics.Color.A = 255;
 			Graphics.Color = ColorUtils.WhiteColor;
 		}
-	}*/
+	}
 }

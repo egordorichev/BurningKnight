@@ -13,7 +13,7 @@ namespace BurningKnight.entity.projectile {
 		public ProjectilePattern Pattern;
 		public BodyComponent BodyComponent;
 		public Entity Owner;
-		public Entity StarterOwner;
+		public Entity FirstOwner;
 		public Item Item;
 		public List<Entity> EntitiesHurt = new List<Entity>();
 
@@ -81,7 +81,7 @@ namespace BurningKnight.entity.projectile {
 			projectile.Slice = slice;
 			projectile.Parent = parent;
 			projectile.Owner = owner;
-			projectile.StarterOwner = owner;
+			projectile.FirstOwner = owner;
 			projectile.BounceLeft = bounce;
 			
 			var graphics = new ProjectileGraphicsComponent("projectiles", slice);
@@ -314,7 +314,7 @@ namespace BurningKnight.entity.projectile {
 
 					var h = health.ModifyHealth(-Damage, Owner);
 
-					if (StarterOwner is Mob && StarterOwner == ev.Entity && Owner is Player && health.Dead && T >= 0.2f) {
+					if (FirstOwner is Mob && FirstOwner == ev.Entity && Owner is Player && health.Dead && T >= 0.2f) {
 						Achievements.Unlock("bk:return_to_sender");
 					}
 					
@@ -341,7 +341,7 @@ namespace BurningKnight.entity.projectile {
 
 					var h = health.ModifyHealth(-Damage, Owner);
 
-					if (StarterOwner is Mob && StarterOwner == ev.Entity && Owner is Player && health.Dead && T >= 0.2f) {
+					if (FirstOwner is Mob && FirstOwner == ev.Entity && Owner is Player && health.Dead && T >= 0.2f) {
 						Achievements.Unlock("bk:return_to_sender");
 					}
 

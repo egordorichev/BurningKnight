@@ -10,6 +10,8 @@ namespace BurningKnight.entity.projectile {
 		BreakableByMelee,
 		FlyOverStones,
 		Artificial,
-		BreakOtherProjectiles
+		BreakOtherProjectiles,
+		DieOffScreen,
+		FlyOverWalls
 	}
 }

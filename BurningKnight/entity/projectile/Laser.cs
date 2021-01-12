@@ -5,13 +5,12 @@ using BurningKnight.entity.events;
 using BurningKnight.entity.item;
 using BurningKnight.level;
 using BurningKnight.physics;
-using Lens;
 using Lens.entity;
 using Lens.util;
 using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.projectile {
-	/*public class Laser : Projectile {
+	public class Laser : Projectile {
 		public float LifeTime = 1.5f;
 		public bool Dynamic = true;
 		public float AdditionalAngle;
@@ -23,25 +22,17 @@ namespace BurningKnight.entity.projectile {
 			get => BodyComponent.Body.Rotation;
 			set => BodyComponent.Body.Rotation = value;
 		}
-		
-		private Laser() {
-			BreaksFromWalls = false;
-			Spectral = true;
-			CanBeBroken = false;
-			CanBeReflected = false;
-			PreventDespawn = true;
-			ManualRotation = true;
-		}
 
 		public static Laser Make(Entity owner, float a, float additional, Item item = null, float damage = 1, float scale = 1f, float range = -1, Laser parent = null) {
 			var laser = new Laser();
 
 			laser.Damage = damage;
-			laser.StarterOwner = owner;
+			laser.FirstOwner = owner;
 			laser.Owner = owner;
 			laser.Color = ProjectileColor.Red;
-			laser.DieOffscreen = false;
-			laser.PreventSpectralBreak = true;
+
+			laser.RemoveFlags(ProjectileFlags.BreakableByMelee, ProjectileFlags.Reflectable);
+			laser.AddFlags(ProjectileFlags.ManualRotation, ProjectileFlags.FlyOverStones);
 
 			if (parent != null) {
 				laser.Color = parent.Color;
@@ -85,11 +76,7 @@ namespace BurningKnight.entity.projectile {
 		}
 
 		private void CreateBody() {
-			AddComponent(BodyComponent = new RectBodyComponent(0, -Height * 0.5f, Width, Height));
-		}
-
-		public override bool BreaksFrom(Entity entity, BodyComponent body) {
-			return false;
+			AddComponent(new RectBodyComponent(0, -Height * 0.5f, Width, Height));
 		}
 
 		private static bool RayShouldCollide(Entity entity) {
@@ -173,5 +160,5 @@ namespace BurningKnight.entity.projectile {
 			Height = 9 * Scale;
 			GetComponent<RectBodyComponent>().Resize(0, 0, Width, Height, true);
 		}
-	}*/
+	}
 }

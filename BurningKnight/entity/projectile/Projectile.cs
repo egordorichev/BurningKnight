@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using BurningKnight.assets.particle;
 using BurningKnight.entity.component;
@@ -19,7 +19,7 @@ namespace BurningKnight.entity.projectile {
 	public class Projectile : Entity, CollisionFilterEntity {
 		public const ProjectileFlags DefaultFlags = ProjectileFlags.Reflectable | ProjectileFlags.BreakableByMelee;
 
-		public Projectile Parent; // Potentially not needed
+	public Projectile Parent; // Potentially not needed
 		public Entity Owner;
 		public Entity FirstOwner; // Potentially not needed
 		public Color Color = ProjectileColor.Red;
@@ -40,14 +40,7 @@ namespace BurningKnight.entity.projectile {
 		}
 
 		public bool NearingDeath => T < 0.9f && T % 0.6f >= 0.3f;
-
-		/*
-		 * systems
-		 *
-		 * collision (breaks, hurts)
-		 * callbacks
-		 * damage
-		 */
+		public BodyComponent BodyComponent => GetAnyComponent<BodyComponent>();
 
 		public override void Update(float dt) {
 			base.Update(dt);
