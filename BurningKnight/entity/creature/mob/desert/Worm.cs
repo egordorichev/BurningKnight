@@ -160,12 +160,14 @@ namespace BurningKnight.entity.creature.mob.desert {
 								
 							var ac = 0.1f;
 							var angle = Self.AngleTo(Self.Target) + Rnd.Float(-ac, ac);
-							var projectile = Projectile.Make(Self, "small", angle, 8f);
+							var builder = new ProjectileBuilder(Self, "small") {
+								LightRadius = 32f
+							};
+
+							builder.Shoot(angle, 8f);
+							var projectile = builder.Build();
 
 							projectile.Center += MathUtils.CreateVector(angle, 2f);
-							projectile.AddLight(32f, ProjectileColor.Red);
-
-							AnimationUtil.Poof(projectile.Center);
 						};
 					};
 				}

@@ -24,6 +24,12 @@ namespace BurningKnight.entity.creature.mob.desert {
 		protected override void OnJump() {
 			base.OnJump();
 
+			var builder = new ProjectileBuilder(this, "small") {
+				LightRadius = 32f
+			};
+
+			builder.AddFlags(ProjectileFlags.FlyOverStones);
+
 			for (var i = 0; i < 3; i++) {
 				Timer.Add(() => {
 					if (Target == null) {
@@ -33,11 +39,8 @@ namespace BurningKnight.entity.creature.mob.desert {
 					GetComponent<AudioEmitterComponent>().EmitRandomized("mob_fire");
 
 					var a = AngleTo(Target) + Rnd.Float(-0.1f, 0.1f);
-					var projectile = Projectile.Make(this, "small", a, 9f);
-
-					projectile.Spectral = true;
+					var projectile = builder.Shoot(a, 9f).Build();
 					projectile.Center = Center + MathUtils.CreateVector(a, 5f) - new Vector2(0, GetComponent<ZComponent>().Z);
-					projectile.AddLight(32f, ProjectileColor.Red);
 				}, i * 0.3f);
 			}
 		}

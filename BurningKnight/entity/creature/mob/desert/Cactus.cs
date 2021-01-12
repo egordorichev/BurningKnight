@@ -7,7 +7,7 @@ using Lens.util.tween;
 using VelcroPhysics.Dynamics;
 
 namespace BurningKnight.entity.creature.mob.desert {
-	public class Cactus : Mob {
+	/*public class Cactus : Mob {
 		protected override void SetStats() {
 			base.SetStats();
 			
@@ -92,5 +92,5 @@ namespace BurningKnight.entity.creature.mob.desert {
 			}
 		}
 		#endregion
-	}
+	}*/
 }

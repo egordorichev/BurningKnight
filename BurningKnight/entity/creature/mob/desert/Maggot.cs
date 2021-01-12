@@ -115,13 +115,15 @@ namespace BurningKnight.entity.creature.mob.desert {
 					Self.GetComponent<AudioEmitterComponent>().EmitRandomized("mob_fire_wall");
 						
 					var angle = Self.Direction.ToAngle();
-					var projectile = Projectile.Make(Self, "small", angle, 5f);
 
-					projectile.AddLight(32f, ProjectileColor.Red);
+					var builder = new ProjectileBuilder(Self, "small") {
+						LightRadius = 30
+					};
+
+					builder.AddFlags(ProjectileFlags.FlyOverStones);
+					var projectile = builder.Shoot(angle, 5f).Build();
+
 					projectile.Center += MathUtils.CreateVector(angle, 4);
-					projectile.Spectral = true;
-							
-					AnimationUtil.Poof(projectile.Center);
 
 					a.Scale.X = 1.8f;
 					a.Scale.Y = 0.2f;
