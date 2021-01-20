@@ -1,12 +1,7 @@
 # projectile
 
 * projectile bounces from stands
-* figure out what's wrong with sprite rendering (pixel offsets u know)
-* fix targetingcontroller, it can make the things fly infinitelly (either limit range or make it better home in)
-* add player cap (128 ?)
-* add mob cap (128 ?)
 * bounce cap (8 ?)
-* particle cap (esp dust)
 * each projectile is 4 render calls, can be optimized when high projectile amounts?
 
 * fix missile class
@@ -16,4 +11,7 @@
 
 # bugs
 
-* Slime+IdleState.Init npe when resuming run
+* AXE BROKEN
+* if the window is resized the black ui mask doesn't get resized?
+* debug the guy's pixel bug not loading a pixel texture
+* FIGURE OUT WHATS WRONG WITH TEXTURES BEING RENDERED SO WEIRDLY

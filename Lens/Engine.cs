@@ -183,6 +183,9 @@ namespace Lens {
 
 			MouseData.HadClick = false;
 
+			// Make sure we don't have to process more than ~15 frames in 1 frame
+			time = Math.Min(time, 0.25f);
+
 			while (time >= FixedUpdateTime) {
 				time -= FixedUpdateTime;
 	

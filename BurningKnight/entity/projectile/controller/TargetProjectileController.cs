@@ -20,7 +20,7 @@ namespace BurningKnight.entity.projectile.controller {
 				if (p.Owner.TryGetComponent<AimComponent>(out var aim)) {
 					from = aim.RealAim;
 				}
-				
+
 				if (target == null) {
 					var md = 320000f;
 
@@ -28,7 +28,7 @@ namespace BurningKnight.entity.projectile.controller {
 						if (m.GetComponent<HealthComponent>().Unhittable) {
 							continue;
 						}
-						
+
 						var dd = m.DistanceTo(from);
 
 						if (dd < md) {
@@ -42,14 +42,14 @@ namespace BurningKnight.entity.projectile.controller {
 						return;
 					}
 				}
-				
+
 				if (target.Done) {
 					target = null;
 					b.Angle = b.Velocity.ToAngle();
 					return;
 				}
 
-				a = (float) MathUtils.LerpAngle(a, p.AngleTo(target), dt * speed * 4);
+				a = (float) MathUtils.LerpAngle(a, p.AngleTo(target), dt * speed * 16 * Math.Max(0.2f, 1 - Math.Min(1, p.DistanceTo(target) / 96)));
 				b.Velocity = new Vector2((float) Math.Cos(a) * d, (float) Math.Sin(a) * d);
 				b.Angle = a;
 			};

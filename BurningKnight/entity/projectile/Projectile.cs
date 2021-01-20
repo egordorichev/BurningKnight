@@ -53,7 +53,19 @@ namespace BurningKnight.entity.projectile {
 			base.Init();
 
 			AlwaysActive = true;
+		}
+
+		public override void AddComponents() {
+			base.AddComponents();
+
 			AddTag(Tags.Projectile);
+			AddComponent(new ShadowComponent(RenderShadow));
+
+			AlwaysActive = true;
+		}
+
+		protected virtual void RenderShadow() {
+			GraphicsComponent.Render(true);
 		}
 
 		public override void Update(float dt) {
@@ -103,11 +115,21 @@ namespace BurningKnight.entity.projectile {
 				}
 			}
 
-			if (Owner is Mob && Owner.TryGetComponent<RoomComponent>(out var room) && room.Room != null && room.Room.Tagged[Tags.Player].Count == 0) {
-				Break();
+			if (Owner is Mob) {
+				if (Area.Tagged[Tags.Player].Count == 0) {
+					Break();
 
-				// Future proofing return, do not remove
-				return;
+					// Future proofing return, do not remove
+					return;
+				}
+			} else if (Owner is Player) {
+				if (Area.Tagged[Tags.PlayerProjectile].Count >= 69 && HasTag(Tags.PlayerProjectile)) {
+					RemoveTag(Tags.PlayerProjectile);
+					Break();
+
+					// Future proofing return, do not remove
+					return;
+				}
 			}
 		}
 
@@ -219,7 +241,7 @@ namespace BurningKnight.entity.projectile {
 				var bodyComponent = GetAnyComponent<BodyComponent>();
 				var l = Math.Min(15, bodyComponent.Velocity.Length());
 
-				if (l > 1f) {
+				if (l > 1f && Area.Tagged[Tags.Projectile].Count < 99) {
 					var a = VectorExtension.ToAngle(bodyComponent.Velocity);
 
 					for (var i = 0; i < 4; i++) {

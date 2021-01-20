@@ -55,9 +55,7 @@ namespace BurningKnight.level.entities {
 			
 			Width = 16;
 			Height = 23;
-			
-			AddTag(Tags.Gramophone);
-			
+
 			AddComponent(new RoomComponent());
 			AddComponent(new ExplodableComponent());
 			AddComponent(new ShadowComponent(RenderWithShadow));

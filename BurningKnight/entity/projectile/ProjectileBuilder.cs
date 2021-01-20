@@ -130,6 +130,8 @@ namespace BurningKnight.entity.projectile {
 
 			if (Owner is Mob) {
 				projectile.AddTag(Tags.MobProjectile);
+			} else if (Owner is Player) {
+				projectile.AddTag(Tags.PlayerProjectile);
 			}
 
 			var graphics = new ProjectileGraphicsComponent("projectiles", Slice);
