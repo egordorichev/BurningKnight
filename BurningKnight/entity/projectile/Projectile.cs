@@ -6,14 +6,21 @@ using BurningKnight.entity.component;
 using BurningKnight.entity.creature;
 using BurningKnight.entity.creature.mob;
 using BurningKnight.entity.creature.mob.jungle;
+using BurningKnight.entity.creature.pet;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.door;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
 using BurningKnight.entity.item.stand;
+using BurningKnight.entity.orbital;
+using BurningKnight.entity.room.controllable;
 using BurningKnight.entity.room.controllable.platform;
+using BurningKnight.entity.room.controllable.spikes;
+using BurningKnight.entity.room.controllable.turret;
 using BurningKnight.level;
 using BurningKnight.level.entities;
+using BurningKnight.level.entities.decor;
+using BurningKnight.level.entities.statue;
 using BurningKnight.physics;
 using BurningKnight.state;
 using Lens.entity;
@@ -147,24 +154,53 @@ namespace BurningKnight.entity.projectile {
 				return false;
 			}
 
-			return !(entity is Level || entity is HalfWall) && !(entity is Door d && d.Open) && !((HasFlag(ProjectileFlags.FlyOverStones) && (entity is Prop || entity is Door || entity is HalfProjectileLevel || entity is ProjectileLevelBody)) || entity is Chasm || entity is MovingPlatform || entity is PlatformBorder || (entity is Creature && Owner is Mob == entity is Mob) || entity is Creature || entity is Item || entity is Projectile || entity is ShopStand || entity is Bomb);
+			return !(entity is Level || entity is HalfWall) && !(entity is Door d && d.Open) && !((HasFlag(ProjectileFlags.FlyOverStones) && (entity is Prop || entity is Door || entity is HalfProjectileLevel || entity is ProjectileLevelBody)) || entity is Chasm || entity is MovingPlatform || entity is PlatformBorder || entity is Creature || entity is Item || entity is Projectile || entity is ShopStand || entity is Bomb);
 		}
 
 		// Aka should break on collision with it or no
-		public virtual bool BreaksFrom(Entity entity) {
+		public virtual bool BreaksFrom(Entity entity, BodyComponent body) {
 			if (TryGetComponent<CollisionFilterComponent>(out var c)) {
 				var rs = c.Invoke(entity);
 
 				if (rs == CollisionResult.Disable) {
 					return false;
-				}
-
-				if (rs == CollisionResult.Enable) {
+				} else if (rs == CollisionResult.Enable) {
 					return true;
 				}
 			}
 
-			return (!HasFlag(ProjectileFlags.FlyOverWalls) && (entity is ProjectileLevelBody)) || (!HasFlag(ProjectileFlags.FlyOverStones) && (entity is HalfProjectileLevel || entity is SolidProp || entity is Door)) || entity is Creature;
+			if ((entity == Owner || (Owner is Pet pt && entity == pt.Owner) || (Owner is Orbital o && entity == o.Owner)) && (!HasFlag(ProjectileFlags.HurtsEveryone) || T < 1f)) {
+				return false;
+			}
+
+			if (entity is Turret) {
+				return true;
+			}
+
+			if ((Owner is RoomControllable && entity is Mob) || entity is creature.bk.BurningKnight || entity is PlatformBorder || entity is MovingPlatform || entity is Spikes || entity is ShopStand || entity is Statue) {
+				return false;
+			}
+
+			if (HasFlag(ProjectileFlags.FlyOverWalls) && entity is RoomControllable && entity != Owner) {
+				return true;
+			}
+
+			if (HasFlag(ProjectileFlags.HitsOwner) && entity == Owner) {
+				return true;
+			}
+
+			if (entity is Creature && !HasFlag(ProjectileFlags.HurtsEveryone) && Owner is Mob == entity is Mob) {
+				return false;
+			}
+
+			return (!(entity is Creature || entity is Level || entity is Tree)) &&
+			       (!HasFlag(ProjectileFlags.FlyOverWalls) && IsWall(entity, body))
+			       || entity.HasComponent<HealthComponent>();
+		}
+
+		private bool IsWall(Entity entity, BodyComponent body) {
+			return (entity is ProjectileLevelBody || (!HasFlag(ProjectileFlags.FlyOverStones) && entity is HalfProjectileLevel) || entity is Prop ||
+			        (entity is Door d && !d.Open && !(body is DoorBodyComponent || d is CustomDoor)));
 		}
 
 		public override bool HandleEvent(Event e) {
@@ -186,10 +222,7 @@ namespace BurningKnight.entity.projectile {
 					return false;
 				}
 
-				/*
-				 * Very quickly hacked together, ignores bouncing, not damaging friendly npcs, etc, etc
-				 */
-				if (entity != Owner && entity.TryGetComponent<HealthComponent>(out var hp)) {
+				if ((entity != Owner || HasFlag(ProjectileFlags.HitsOwner)) && entity.TryGetComponent<HealthComponent>(out var hp)) {
 					hp.ModifyHealth(-Damage, Owner, DamageType.Custom);
 
 					Callbacks?.OnHurt?.Invoke(this, entity);
@@ -200,7 +233,15 @@ namespace BurningKnight.entity.projectile {
 					return false;
 				}
 
-				if (BreaksFrom(entity)) {
+				if (BreaksFrom(entity, cse.Body)) {
+					if (IsWall(entity, cse.Body)) {
+						if (Owner is Player) {
+							AudioEmitterComponent.Dummy(Area, Center).EmitRandomizedPrefixed("projectile_wall", 2, 0.5f);
+						} else {
+							AudioEmitterComponent.Dummy(Area, Center).EmitRandomized("projectile_wall_enemy", 0.5f);
+						}
+					}
+
 					if (Bounce <= 0) {
 						Break(entity);
 					} else {

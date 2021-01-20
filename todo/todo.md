@@ -9,6 +9,11 @@
 
 * update item hash in assets
 
+# level
+
+* mob spawning changes
+* crab rave level (only crabs)
+
 # bugs
 
 * AXE BROKEN

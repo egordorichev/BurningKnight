@@ -121,7 +121,7 @@ namespace BurningKnight.entity.projectile {
 				Damage = Damage,
 				Flags = Flags,
 				Slice = Slice,
-				Bounce = Math.Max(8, Bounce),
+				Bounce = Math.Min(8, Bounce),
 				Scale = Scale,
 				Color = Color,
 				Parent = parent

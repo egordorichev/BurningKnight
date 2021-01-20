@@ -13,6 +13,8 @@ namespace BurningKnight.entity.projectile {
 		BreakOtherProjectiles = 64,
 		DieOffScreen = 128,
 		FlyOverWalls = 256,
-		Fresh = 512
+		Fresh = 512,
+		HitsOwner = 1024,
+		HurtsEveryone = 2048
 	}
 }
