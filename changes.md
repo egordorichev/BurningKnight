@@ -19,3 +19,5 @@
 * Shopkeeper mood wont change if you are not in his room
 * Added "always cook second" to the loading screen jokes
 * Death/win screen will now have a note if the run was seeded
+* The player now actually drops all the items he collected on the run when dying (it was meant to work like that forever but was broken)
+* Some movement speed tweaks

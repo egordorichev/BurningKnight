@@ -59,10 +59,23 @@ namespace BurningKnight.entity.creature.player {
 			}
 		}
 
+		private float angle;
+
 		protected override void CallRender(Vector2 pos, bool shadow) {
 			var region = Animation.GetCurrentTexture();
 			var origin = new Vector2(region.Source.Width / 2f, FlippedVerticaly ? 0 : region.Source.Height);
 			var s = scale * Scale;
+
+			var v = GetComponent<RectBodyComponent>().Acceleration;
+			var target = (v.Length() > 0.1f ? 1f : 0f) * 0.25f * (Flipped ? -1 : 1);
+			angle += (target - angle) * Engine.Delta * 3f;
+
+			var state = GetComponent<StateComponent>().StateInstance;
+			var a = (state is Player.RollState || state is Player.DuckState || state is Player.PostRollState || state is Player.SittingState) ? 0 : angle;
+
+			if (shadow) {
+				a *= -1;
+			}
 
 			if (FlippedVerticaly) {
 				pos.Y += region.Source.Height;
@@ -72,7 +85,7 @@ namespace BurningKnight.entity.creature.player {
 				pos.Y -= GetComponent<ZComponent>().Z;
 			}
 			
-			Graphics.Render(region, pos + origin, 0, origin, s, Graphics.ParseEffect(Flipped, FlippedVerticaly));
+			Graphics.Render(region, pos + origin, a, origin, s, Graphics.ParseEffect(Flipped, FlippedVerticaly));
 			var st = GetComponent<StateComponent>().StateInstance;
 			
 			if (st is Player.RollState || st is Player.SleepingState) {
@@ -91,7 +104,7 @@ namespace BurningKnight.entity.creature.player {
 
 				Graphics.Render(region, new Vector2(Entity.CenterX, m +
 					Entity.Bottom - (shadow ? 0 : GetComponent<ZComponent>().Z) + (shadow ? -1 : 1) * 
-					(offsets[Math.Min(offsets.Length - 1, Animation.Frame + Animation.StartFrame)] - 15)), 0, origin, Scale * new Vector2(s.X, s.Y * (shadow ? -1 : 1)), Flipped ? SpriteEffects.FlipHorizontally : SpriteEffects.None);
+					(offsets[Math.Min(offsets.Length - 1, Animation.Frame + Animation.StartFrame)] - 15)), a, origin, Scale * new Vector2(s.X, s.Y * (shadow ? -1 : 1)), Flipped ? SpriteEffects.FlipHorizontally : SpriteEffects.None);
 			} else {	
 				region = head.GetFrame(Animation.Tag, (int) Animation.Frame);
 
@@ -101,7 +114,7 @@ namespace BurningKnight.entity.creature.player {
 				
 				origin = new Vector2(region.Source.Width / 2f, FlippedVerticaly ? 0 : region.Source.Height);
 
-				Graphics.Render(region, pos + origin, 0, origin, s, Graphics.ParseEffect(Flipped, FlippedVerticaly));
+				Graphics.Render(region, pos + origin, a, origin, s, Graphics.ParseEffect(Flipped, FlippedVerticaly));
 			}
 		}
 
