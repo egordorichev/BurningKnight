@@ -1,7 +1,7 @@
 # projectile
 
+* check disk gun hurting player
 * projectile bounces from stands
-* bounce cap (8 ?)
 * each projectile is 4 render calls, can be optimized when high projectile amounts?
 
 * fix missile class

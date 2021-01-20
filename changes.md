@@ -12,3 +12,4 @@
 * The game will give up trying to process past time if it is more than 0.25 of a second
 * If player has more than 69 projectiles old projectiles will start to break
 * Improved missile
+* Added bounce cap of 8

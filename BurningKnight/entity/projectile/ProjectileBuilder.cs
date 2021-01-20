@@ -1,3 +1,4 @@
+using System;
 using BurningKnight.assets.lighting;
 using BurningKnight.entity.buff;
 using BurningKnight.entity.component;
@@ -120,7 +121,7 @@ namespace BurningKnight.entity.projectile {
 				Damage = Damage,
 				Flags = Flags,
 				Slice = Slice,
-				Bounce = Bounce,
+				Bounce = Math.Max(8, Bounce),
 				Scale = Scale,
 				Color = Color,
 				Parent = parent
