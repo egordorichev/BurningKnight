@@ -103,7 +103,7 @@ namespace BurningKnight.entity.projectile {
 		}
 
 		public Projectile Build() {
-			if (empty) {
+			if (empty || (Owner is Mob && Owner.Area.Tagged[Tags.MobProjectile].Count >= 199)) {
 				return null;
 			}
 
@@ -127,6 +127,11 @@ namespace BurningKnight.entity.projectile {
 			};
 
 			Owner.Area.Add(projectile);
+
+			if (Owner is Mob) {
+				projectile.AddTag(Tags.MobProjectile);
+			}
+
 			var graphics = new ProjectileGraphicsComponent("projectiles", Slice);
 
 			if (graphics.Sprite == null) {
@@ -171,12 +176,16 @@ namespace BurningKnight.entity.projectile {
 			Velocity *= 10f;
 			body.LinearVelocity = Velocity;
 
-			if (LightRadius > 0) {
-				projectile.AddComponent(new LightComponent(projectile, LightRadius * Scale, Color));
-			}
+			var count = Owner.Area.Tagged[Tags.Projectile].Count;
 
-			if (Poof) {
-				AnimationUtil.Poof(projectile.Center);
+			if (count < 99) {
+				if (LightRadius > 0) {
+					projectile.AddComponent(new LightComponent(projectile, LightRadius * Scale, Color));
+				}
+
+				if (Poof) {
+					AnimationUtil.Poof(projectile.Center);
+				}
 			}
 
 			Owner.HandleEvent(new ProjectileCreatedEvent {

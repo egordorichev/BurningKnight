@@ -118,6 +118,10 @@ namespace BurningKnight.level.paintings {
 
 		public override bool HandleEvent(Event e) {
 			if (e is HealthModifiedEvent ev) {
+				if (TryGetComponent<RoomComponent>(out var room) && room.Room != null && room.Room.Tagged[Tags.Player].Count == 0) {
+					return true;
+				}
+
 				var h = GetComponent<HealthComponent>();
 
 				if (h.Health + ev.Amount == 0) {

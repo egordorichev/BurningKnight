@@ -42,8 +42,8 @@ namespace BurningKnight.entity.projectile {
 		public int Bounce;
 
 		public bool Dying {
-			get => T < -1;
-			private set => T = value ? -2 : -1;
+			get => T < -128;
+			private set => T = value ? -129 : -1;
 		}
 
 		public bool NearingDeath => T < 0.9f && T % 0.6f >= 0.3f;
@@ -77,6 +77,13 @@ namespace BurningKnight.entity.projectile {
 					Break();
 					return;
 				}
+			} else {
+				T -= dt;
+
+				if (T <= -8) {
+					Break();
+					return;
+				}
 			}
 
 			Flags &= ~ProjectileFlags.Fresh;
@@ -94,6 +101,13 @@ namespace BurningKnight.entity.projectile {
 				} else {
 					bodyComponent.Body.Rotation = VectorExtension.ToAngle(bodyComponent.Body.LinearVelocity);
 				}
+			}
+
+			if (Owner is Mob && Owner.TryGetComponent<RoomComponent>(out var room) && room.Room != null && room.Room.Tagged[Tags.Player].Count == 0) {
+				Break();
+
+				// Future proofing return, do not remove
+				return;
 			}
 		}
 

@@ -1,5 +1,4 @@
 using System;
-using BurningKnight.assets.lighting;
 using BurningKnight.entity;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.player;
@@ -13,7 +12,6 @@ using Lens.util.math;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using VelcroPhysics.Dynamics;
-using VelcroPhysics.Utilities;
 using MathUtils = Lens.util.MathUtils;
 
 namespace BurningKnight.assets.particle.custom {

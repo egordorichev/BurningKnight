@@ -37,8 +37,6 @@ namespace BurningKnight.level.entities.decor {
 			AddComponent(new LightComponent(this, 32f, new Color(1f, 0.8f, 0.3f, 1f)));
 			AddComponent(new ShadowComponent());
 			AddComponent(new RoomComponent());
-			
-			AddTag(Tags.Torch);
 		}
 
 		public override void Destroy() {

@@ -11,6 +11,7 @@ using Lens.entity;
 using Lens.entity.component.logic;
 using Lens.graphics;
 using Lens.util.math;
+using Lens.util.timer;
 using Lens.util.tween;
 using Microsoft.Xna.Framework;
 using Vector2 = Microsoft.Xna.Framework.Vector2;
@@ -61,7 +62,12 @@ namespace BurningKnight.entity.creature.mob.prefabs {
 				
 				delay = Self.first ? Rnd.Float(1f) : Self.GetJumpDelay();
 				Self.first = false;
-				Self.GetComponent<RectBodyComponent>().Velocity = Vector2.Zero;
+
+				// To avoid exceptions when loading old save due to component not being there
+
+				if (Self.TryGetComponent<RectBodyComponent>(out var c)) {
+					c.Velocity = Vector2.Zero;
+				}
 			}
 
 			public override void Update(float dt) {

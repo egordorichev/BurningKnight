@@ -37,7 +37,7 @@ namespace BurningKnight.entity.item.stand {
 				if (t >= 1f) {
 					did = true;
 
-					var torches = GetComponent<RoomComponent>().Room.Tagged[Tags.Torch];
+					/*var torches = GetComponent<RoomComponent>().Room.Tagged[Tags.Torch];
 					var target = new Vector2(CenterX, Y - 16);
 
 					foreach (var t in torches) { 
@@ -66,7 +66,7 @@ namespace BurningKnight.entity.item.stand {
 						}
 
 						Done = true;
-					}, 2f);
+					}, 2f);*/
 				}
 			}
 		}
@@ -81,7 +81,7 @@ namespace BurningKnight.entity.item.stand {
 				var xy = (int) Math.Floor(CenterY / 16) * 16;
 				var p = 32;
 
-				var torches = GetComponent<RoomComponent>().Room.Tagged[Tags.Torch];
+				/*var torches = GetComponent<RoomComponent>().Room.Tagged[Tags.Torch];
 
 				foreach (var t in torches) {
 					((Torch) t).On = false;
@@ -93,7 +93,7 @@ namespace BurningKnight.entity.item.stand {
 						tr.On = true;
 						tr.XSpread = 0.1f;
 					}
-				}, 3f);
+				}, 3f);*/
 
 				for (var x = xx - p; x < xx + Width + p; x += 16) {
 					for (var i = 0; i < Rnd.Int(3, 9); i++) {

@@ -116,7 +116,7 @@ namespace BurningKnight.level.entities.decor {
 			Camera.Instance.GetComponent<ShakeComponent>().Amount = 0;
 			GameSave.Put("statue_broken", true);
 
-			var torches = GetComponent<RoomComponent>().Room.Tagged[Tags.Torch];
+			/*var torches = GetComponent<RoomComponent>().Room.Tagged[Tags.Torch];
 
 			foreach (var t in torches) { 
 				var tr = (Torch) t;
@@ -176,7 +176,7 @@ namespace BurningKnight.level.entities.decor {
 						((InGameState) BK.Instance.State).ResetFollowing();
 					}, 1f);
 				}, torches.Count + 1);
-			}, 1f);
+			}, 1f);*/
 			
 			return true;
 		}
@@ -249,7 +249,7 @@ namespace BurningKnight.level.entities.decor {
 		private void SetupSpawn() {
 			busy = true;
 			
-			var torches = GetComponent<RoomComponent>().Room.Tagged[Tags.Torch];
+			/*var torches = GetComponent<RoomComponent>().Room.Tagged[Tags.Torch];
 			target = new Vector2(CenterX, Y - 4);
 
 			foreach (var t in torches) { 
@@ -279,7 +279,7 @@ namespace BurningKnight.level.entities.decor {
 				}
 
 				Done = true;
-			}, 2f);
+			}, 2f);*/
 		}
 
 		protected override Rectangle GetCollider() {

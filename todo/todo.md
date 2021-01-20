@@ -1,5 +1,6 @@
 # projectile
 
+* projectile bounces from stands
 * figure out what's wrong with sprite rendering (pixel offsets u know)
 * fix targetingcontroller, it can make the things fly infinitelly (either limit range or make it better home in)
 * add player cap (128 ?)

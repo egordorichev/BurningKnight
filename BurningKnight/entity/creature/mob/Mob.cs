@@ -203,7 +203,11 @@ namespace BurningKnight.entity.creature.mob {
 				if (!de.BlockClear) {
 					GetComponent<RoomComponent>().Room?.CheckCleared(who);
 				}
-			} else if (e is HealthModifiedEvent hme && hme.Amount < 0) {				
+			} else if (e is HealthModifiedEvent hme && hme.Amount < 0) {
+				if (TryGetComponent<RoomComponent>(out var room) && room.Room != null && room.Room.Tagged[Tags.Player].Count == 0) {
+					return true;
+				}
+
 				if (!rotationApplied) {
 					rotationApplied = true;
 					var a = GetAnyComponent<AnimationComponent>();
