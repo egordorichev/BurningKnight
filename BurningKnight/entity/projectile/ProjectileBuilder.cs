@@ -3,10 +3,12 @@ using BurningKnight.assets.lighting;
 using BurningKnight.entity.buff;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.mob;
+using BurningKnight.entity.creature.mob.boss;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
 using BurningKnight.save;
+using BurningKnight.state;
 using BurningKnight.util;
 using Lens.entity;
 using Lens.util;
@@ -131,6 +133,10 @@ namespace BurningKnight.entity.projectile {
 
 			if (Owner is Mob) {
 				projectile.AddTag(Tags.MobProjectile);
+
+				if (Owner is Boss && Run.Loop > 0) {
+					projectile.AddFlags(ProjectileFlags.Scourged);
+				}
 			} else if (Owner is Player) {
 				projectile.AddTag(Tags.PlayerProjectile);
 			}
