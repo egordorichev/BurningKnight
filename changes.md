@@ -13,3 +13,6 @@
 * If player has more than 69 projectiles old projectiles will start to break
 * Improved missile
 * Added bounce cap of 8
+* Killing shopkeeper gives you 3 scoure points now
+* Boss bullets will become scourged on 1st loop
+* Enemy bullets will become scourged on 2nd loop

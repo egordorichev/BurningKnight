@@ -28,7 +28,7 @@ namespace BurningKnight.entity.creature.npc {
 			get => _mood;
 
 			set {
-				if (_mood == value) {
+				if (_mood == value || (TryGetComponent<RoomComponent>(out var room) && room.Room != null && room.Room.Tagged[Tags.Player].Count == 0)) {
 					return;
 				}
 				
