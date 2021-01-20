@@ -3126,7 +3126,7 @@ namespace BurningKnight.state {
 
 			gameOverMenu.Add(stats);
 
-			stats.Add(Locale.Get("run_type"), Locale.Get($"run_{Run.Type.ToString().ToLower()}"));
+			stats.Add(Locale.Get("run_type"), Locale.Get($"run_{Run.Type.ToString().ToLower()}") + (Run.CustomSeed ? " " + Locale.Get("seeded") : ""));
 			stats.Add(Locale.Get("seed"), Run.Seed, false, bt => {
 				var b = (UiTableEntry) bt;
 				b.RealLocaleLabel = "copied_to_clipboard";

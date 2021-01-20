@@ -211,7 +211,6 @@ namespace Desktop.integration.steam {
 				};
 				
 			} catch (Exception e) {
-				Log.Error(e);
 				Log.Info("No steam no fire :/");
 			}
 		}
