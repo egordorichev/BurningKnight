@@ -25,3 +25,4 @@
 * Ctrl+V works on beetroot now
 * Click to place bombs with bomb lamp
 * Removed aura from not reflectable projectiles
+* Added battery sfx
