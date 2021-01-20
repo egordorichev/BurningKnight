@@ -18,3 +18,4 @@
 * Enemy bullets will become scourged on 2nd loop
 * Shopkeeper mood wont change if you are not in his room
 * Added "always cook second" to the loading screen jokes
+* Death/win screen will now have a note if the run was seeded

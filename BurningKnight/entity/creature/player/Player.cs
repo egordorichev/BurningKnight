@@ -1141,16 +1141,14 @@ namespace BurningKnight.entity.creature.player {
 			if (!Dead) {
 				return;
 			}
-			
+
 			var inventory = GetComponent<InventoryComponent>();
 
 			foreach (var i in inventory.Items) {
 				if (i.Id != "bk:no_lamp") {
-					drops.Add(i);
+					drops.Add(Items.Create(i.Id));
 				}
 			}
-
-			inventory.Items.Clear();
 
 			foreach (var c in Components.Values) {
 				if (c is ItemComponent i && i.Item != null && i.Item.Type != ItemType.Hat && i.Item.Id != "bk:no_lamp") {
