@@ -196,6 +196,10 @@ namespace BurningKnight.entity.creature.npc {
 				}
 			} else if (e is DiedEvent) {
 				Achievements.Unlock("bk:marauder");
+
+				for (var i = 0; i < 3; i++) {
+					Run.AddScourge(true);
+				}
 			}
 
 			return base.HandleEvent(e);
