@@ -154,7 +154,7 @@ namespace BurningKnight.entity.projectile {
 				return false;
 			}
 
-			return !(entity is Level || entity is HalfWall) && !(entity is Door d && d.Open) && !((HasFlag(ProjectileFlags.FlyOverStones) && (entity is Prop || entity is Door || entity is HalfProjectileLevel || entity is ProjectileLevelBody)) || entity is Chasm || entity is MovingPlatform || entity is PlatformBorder || entity is Creature || entity is Item || entity is Projectile || entity is ShopStand || entity is Bomb);
+			return !(entity is Level || entity is HalfWall) && !(entity is Door d && d.Open) && !(((HasFlag(ProjectileFlags.FlyOverStones) || HasFlag(ProjectileFlags.FlyOverWalls)) && (entity is Prop || entity is Door || entity is HalfProjectileLevel || entity is ProjectileLevelBody)) || entity is Chasm || entity is MovingPlatform || entity is PlatformBorder || entity is Creature || entity is Item || entity is Projectile || entity is ShopStand || entity is Bomb);
 		}
 
 		// Aka should break on collision with it or no
@@ -199,7 +199,7 @@ namespace BurningKnight.entity.projectile {
 		}
 
 		private bool IsWall(Entity entity, BodyComponent body) {
-			return (entity is ProjectileLevelBody || (!HasFlag(ProjectileFlags.FlyOverStones) && entity is HalfProjectileLevel) || entity is Prop ||
+			return (entity is ProjectileLevelBody || (!(HasFlag(ProjectileFlags.FlyOverStones) || HasFlag(ProjectileFlags.FlyOverWalls)) && entity is HalfProjectileLevel) || entity is Prop ||
 			        (entity is Door d && !d.Open && !(body is DoorBodyComponent || d is CustomDoor)));
 		}
 
