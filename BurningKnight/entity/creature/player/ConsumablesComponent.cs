@@ -110,7 +110,6 @@ namespace BurningKnight.entity.creature.player {
 					
 					switch (type) {
 						case ItemType.Bomb: {
-						
 							if (Run.Depth > 0 && GlobalSave.IsFalse("control_bomb")) {
 								var dialog = GetComponent<DialogComponent>();
 
@@ -170,7 +169,7 @@ namespace BurningKnight.entity.creature.player {
 						}
 						
 						case ItemType.Battery: {
-							Audio.PlaySfx("item_battery");
+							Audio.PlaySfx("item_charge");
 							break;
 						}
 
