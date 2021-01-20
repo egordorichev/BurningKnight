@@ -7,8 +7,6 @@
 * fix missile class
 * fix projectile registry
 
-* update item hash in assets
-
 # level
 
 * mob spawning changes
@@ -20,3 +18,7 @@
 * if the window is resized the black ui mask doesn't get resized?
 * debug the guy's pixel bug not loading a pixel texture
 * FIGURE OUT WHATS WRONG WITH TEXTURES BEING RENDERED SO WEIRDLY
+
+# before release
+
+* update item hash in assets
