@@ -27,8 +27,12 @@ namespace BurningKnight.entity.creature.player {
 			var controller = GetComponent<InputComponent>();
 			var data = controller.GamepadEnabled ? controller.GamepadData : null;
 
-			if (!Disabled && Item != null) {
-				var ready = Item.Delay <= 0.001f;
+			var lamp = GetComponent<LampComponent>().Item;
+			var useLamp = lamp != null && lamp.Id == "bk:explosive_lamp";
+			var Item = useLamp ? lamp : this.Item;
+
+			if ((useLamp || !Disabled) && Item != null) {
+				var ready = useLamp || Item.Delay <= 0.001f;
 
 				if (ready) {
 					if (timeSinceReady <= 0.001f && Item.Type == ItemType.Weapon) {
@@ -79,8 +83,13 @@ namespace BurningKnight.entity.creature.player {
 					if (b.Has<InvisibleBuff>()) {
 						b.Remove<InvisibleBuff>();
 					}
-					
-					Item.Use((Player) Entity);
+
+					if (useLamp) {
+						GetComponent<ConsumablesComponent>().SpawnBomb();
+					} else {
+						Item.Use((Player) Entity);
+					}
+
 					GetComponent<StatsComponent>().UsedWeaponInRoom = true;
 				}
 			} else {

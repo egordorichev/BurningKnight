@@ -22,3 +22,4 @@
 * The player now actually drops all the items he collected on the run when dying (it was meant to work like that forever but was broken)
 * Some movement speed tweaks
 * Player sprite is now tilted slightly while moving
+* Ctrl+V works on beetroot now
