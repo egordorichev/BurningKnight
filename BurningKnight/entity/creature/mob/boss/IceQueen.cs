@@ -311,7 +311,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 								LightRadius = 32f
 							};
 
-							bb.RemoveFlags(ProjectileFlags.Reflectable);
+							bb.RemoveFlags(ProjectileFlags.Reflectable, ProjectileFlags.BreakableByMelee);
 
 							for (var j = 0; j < 4; j++) {
 								var b = bb.Build();
@@ -327,7 +327,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 							Color = ProjectileColor.Cyan
 						};
 
-						bbb.RemoveFlags(ProjectileFlags.Reflectable);
+						bbb.RemoveFlags(ProjectileFlags.Reflectable, ProjectileFlags.BreakableByMelee);
 
 						for (var i = 0; i < InnerCount; i++) {
 							bbb.Scale = Rnd.Float(0.5f, 1f);
@@ -381,7 +381,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 							LightRadius = 32
 						};
 
-						bb.RemoveFlags(ProjectileFlags.Reflectable);
+						bb.RemoveFlags(ProjectileFlags.Reflectable, ProjectileFlags.BreakableByMelee);
 						bb.AddFlags(ProjectileFlags.AutomaticRotation);
 
 						for (var i = 0; i < InnerCount; i++) {

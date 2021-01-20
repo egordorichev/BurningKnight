@@ -89,7 +89,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 				LightRadius = 32f
 			};
 
-			builder.RemoveFlags(ProjectileFlags.BreakableByMelee, ProjectileFlags.Reflectable);
+			builder.RemoveFlags(ProjectileFlags.BreakableByMelee, ProjectileFlags.Reflectable, ProjectileFlags.BreakableByMelee);
 
 			var projectile = builder.Shoot(angle, 20f).Build();
 
@@ -295,7 +295,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 						LightRadius = 32f
 					};
 
-					builder.RemoveFlags(ProjectileFlags.BreakableByMelee, ProjectileFlags.Reflectable);
+					builder.RemoveFlags(ProjectileFlags.BreakableByMelee, ProjectileFlags.Reflectable, ProjectileFlags.BreakableByMelee);
 
 					var projectile = builder.Shoot(angle, 15f).Build();
 					projectile.Center += MathUtils.CreateVector(angle, 8);

@@ -53,7 +53,7 @@ namespace BurningKnight.entity.creature.mob.castle {
 				};
 
 				b.AddFlags(ProjectileFlags.FlyOverStones);
-				b.RemoveFlags(ProjectileFlags.Reflectable);
+				b.RemoveFlags(ProjectileFlags.Reflectable, ProjectileFlags.BreakableByMelee);
 
 				for (var i = 0; i < am; i++) {
 					var a = Math.PI * 2 * (((float) i) / am + 0.5f);

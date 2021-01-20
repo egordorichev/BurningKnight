@@ -95,9 +95,13 @@ namespace BurningKnight.entity.projectile {
 			if (Aura != null) {
 				var p = (Projectile) Entity;
 
-				if (p.HasFlag(ProjectileFlags.Scourged)) {
+				if (!p.HasFlag(ProjectileFlags.BreakableByMelee) || !p.HasFlag(ProjectileFlags.Reflectable)) {
 					return;
 				}
+
+				/*if (p.HasFlag(ProjectileFlags.Scourged)) {
+					return;
+				}*/
 
 				if (!(p.Dying || (ShouldIndicateProjectileDeath(p) && p.NearingDeath))) {
 					Graphics.Color = p.Color;

@@ -116,7 +116,7 @@ namespace BurningKnight.entity.creature.mob.library {
 								p.Add(pr);
 								pr.Color = color;
 
-								pr.RemoveFlags(ProjectileFlags.Reflectable);
+								pr.RemoveFlags(ProjectileFlags.Reflectable, ProjectileFlags.BreakableByMelee);
 								pr.BodyComponent.Angle = a;
 							}, data, () => {
 								Timer.Add(() => {

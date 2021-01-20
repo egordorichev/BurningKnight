@@ -71,7 +71,7 @@ namespace BurningKnight.entity.creature.mob.library {
 						Color = Self.color
 					};
 
-					builder.RemoveFlags(ProjectileFlags.Reflectable);
+					builder.RemoveFlags(ProjectileFlags.Reflectable, ProjectileFlags.BreakableByMelee);
 
 					for (var i = 0; i < count; i++) {
 						var i1 = i;

@@ -1,11 +1,9 @@
 # projectile
 
 * check disk gun hurting player
-* projectile bounces from stands
-* each projectile is 4 render calls, can be optimized when high projectile amounts?
-
 * fix missile class
 * fix projectile registry
+* go over all bosses and check attacks
 
 # level
 
@@ -14,6 +12,7 @@
 
 # bugs
 
+* old king skulls broken
 * AXE BROKEN
 * if the window is resized the black ui mask doesn't get resized?
 * debug the guy's pixel bug not loading a pixel texture

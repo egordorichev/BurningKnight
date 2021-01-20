@@ -23,3 +23,4 @@
 * Some movement speed tweaks
 * Player sprite is now tilted slightly while moving
 * Ctrl+V works on beetroot now
+* Click to place bombs with bomb lamp

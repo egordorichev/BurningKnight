@@ -149,7 +149,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 							Range = 5f
 						};
 
-						builder.RemoveFlags(ProjectileFlags.Reflectable);
+						builder.RemoveFlags(ProjectileFlags.Reflectable, ProjectileFlags.BreakableByMelee);
 						var skull = builder.Shoot(Self.AngleTo(Self.Target), 8).Build();
 
 						ProjectileCallbacks.AttachDeathCallback(skull, (p, e, t) => {
@@ -159,7 +159,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 
 							var b = new ProjectileBuilder(Self, "small");
 
-							b.RemoveFlags(ProjectileFlags.Reflectable);
+							b.RemoveFlags(ProjectileFlags.Reflectable, ProjectileFlags.BreakableByMelee);
 					
 							for (var i = 0; i < 8; i++) {
 								var bullet = b.Shoot(((float) i) / 4 * (float) Math.PI, (i % 2 == 0 ? 2 : 1) * 4 + 3).Build();
