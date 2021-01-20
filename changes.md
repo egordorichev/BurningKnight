@@ -27,3 +27,4 @@
 * Removed aura from not reflectable projectiles
 * Added battery sfx
 * Fixed black bars not resizing (aka ui target not updating its size)
+* Mobs killed with explosive lamp will drop bombs on death

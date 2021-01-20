@@ -111,7 +111,7 @@ namespace BurningKnight.entity.item.use {
 				projectile.Color = info.Effect.GetColor();
 
 				ProjectileCallbacks.AttachHurtCallback(projectile, (p, e) => {
-					if (e.TryGetComponent<BuffsComponent>(out var buffs)) {
+					if (e.TryGetComponent<BuffsComponent>(out var buffs) && !e.GetComponent<HealthComponent>().Unhittable) {
 						var b = BuffRegistry.Create(buff);
 
 						if (InfiniteBuff) {
