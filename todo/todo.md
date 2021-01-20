@@ -4,6 +4,7 @@
 * fix missile class
 * fix projectile registry
 * go over all bosses and check attacks
+* flak cannon bump projectile size
 
 # level
 
@@ -14,7 +15,6 @@
 
 * old king skulls broken
 * AXE BROKEN
-* if the window is resized the black ui mask doesn't get resized?
 * debug the guy's pixel bug not loading a pixel texture
 * FIGURE OUT WHATS WRONG WITH TEXTURES BEING RENDERED SO WEIRDLY
 

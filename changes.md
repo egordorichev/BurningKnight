@@ -26,3 +26,4 @@
 * Click to place bombs with bomb lamp
 * Removed aura from not reflectable projectiles
 * Added battery sfx
+* Fixed black bars not resizing (aka ui target not updating its size)
