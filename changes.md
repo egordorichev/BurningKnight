@@ -28,3 +28,5 @@
 * Added battery sfx
 * Fixed black bars not resizing (aka ui target not updating its size)
 * Mobs killed with explosive lamp will drop bombs on death
+* Unhitatble creatures wont get buffs from projectiles
+* Hopefully fixed ice level bug (rude but still)
