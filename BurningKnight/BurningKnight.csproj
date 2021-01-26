@@ -55,20 +55,16 @@
       <HintPath>..\packages\Microsoft.Win32.Primitives.4.3.0\lib\net46\Microsoft.Win32.Primitives.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="MonoGame.Extended, Version=3.7.0.0, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\packages\MonoGame.Extended.3.7.0\lib\netstandard2.0\MonoGame.Extended.dll</HintPath>
+    <Reference Include="MonoGame.Extended, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\packages\MonoGame.Extended.3.8.0\lib\netstandard2.0\MonoGame.Extended.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="MonoGame.Extended.Content.Pipeline, Version=3.7.0.0, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\packages\MonoGame.Extended.Content.Pipeline.3.7.0\lib\netstandard2.0\MonoGame.Extended.Content.Pipeline.dll</HintPath>
+    <Reference Include="MonoGame.Extended.Graphics, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\packages\MonoGame.Extended.Graphics.3.8.0\lib\netstandard2.0\MonoGame.Extended.Graphics.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="MonoGame.Extended.Graphics, Version=3.7.0.0, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\packages\MonoGame.Extended.Graphics.3.7.0\lib\netstandard2.0\MonoGame.Extended.Graphics.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="MonoGame.Extended.Tiled, Version=3.7.0.0, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\packages\MonoGame.Extended.Tiled.3.7.0\lib\netstandard2.0\MonoGame.Extended.Tiled.dll</HintPath>
+    <Reference Include="MonoGame.Extended.Tiled, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\packages\MonoGame.Extended.Tiled.3.8.0\lib\netstandard2.0\MonoGame.Extended.Tiled.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="MonoGame.Framework, Version=3.8.0.13, Culture=neutral, PublicKeyToken=null">
@@ -81,8 +77,8 @@
     </Reference>
     <Reference Include="mscorlib" />
     <Reference Include="netstandard, Version=2.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51" />
-    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed">
-      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="SharpDX, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1">
@@ -1488,7 +1484,19 @@
     <Content Include="Content\Shaders\screen.fx" />
     <Content Include="Content\Shaders\terrain.fx" />
     <Content Include="Content\Shaders\ui.fx" />
+    <Content Include="CppNet.dll" />
+    <Content Include="libmojoshader_64.dll" />
+    <Content Include="mgfxc.deps.json" />
+    <Content Include="mgfxc.dll" />
+    <Content Include="mgfxc.exe" />
+    <Content Include="mgfxc.pdb" />
+    <Content Include="mgfxc.runtimeconfig.dev.json" />
+    <Content Include="mgfxc.runtimeconfig.json" />
     <Content Include="README.md" />
+    <Content Include="SharpDX.D3DCompiler.dll" />
+    <Content Include="SharpDX.D3DCompiler.xml" />
+    <Content Include="SharpDX.dll" />
+    <Content Include="SharpDX.xml" />
     <Content Include="steam_api64.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

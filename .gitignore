@@ -9,3 +9,6 @@ BurningKnight/Content/obj*
 BurningKnight/Content/obj/**
 packages/*
 BurningKnight/achievement_sprites*
+*.exe
+*.pdb
+*.dll
