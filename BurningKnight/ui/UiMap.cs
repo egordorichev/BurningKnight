@@ -1,12 +1,10 @@
 using System;
 using BurningKnight.assets;
 using BurningKnight.entity.creature.player;
-using BurningKnight.entity.projectile;
 using BurningKnight.entity.room;
 using BurningKnight.level.rooms;
 using BurningKnight.level.tile;
 using BurningKnight.state;
-using BurningKnight.ui.dialog;
 using BurningKnight.util.geometry;
 using Lens;
 using Lens.entity;
@@ -18,8 +16,8 @@ using Microsoft.Xna.Framework.Graphics;
 
 namespace BurningKnight.ui {
 	public class UiMap : Entity {
-		private const int W = 64;
-		private const int H = 64;
+		private const int W = 50;
+		private const int H = 55;
 
 		private static Vector2 scale = new Vector2(1f);
 		private static Vector2 bigScale = new Vector2(3f);
@@ -40,13 +38,13 @@ namespace BurningKnight.ui {
 			Width = W;
 			Height = H;
 
-			X = Display.UiWidth - W - 11;
+			X = Display.UiWidth - W - 13;
 			Y = 11;
 
 			slice = CommonAse.Particles.GetSlice("fire");
 
 			playerIcon = CommonAse.Ui.GetSlice("gps");
-			frame = CommonAse.Ui.GetSlice("map_frame");
+			frame = CommonAse.Ui.GetSlice("new_map");
 
 			AlwaysVisible = true;
 		}
@@ -64,6 +62,8 @@ namespace BurningKnight.ui {
 			if (player.TryGetComponent<PlayerInputComponent>(out var inp) && inp.InDialog) {
 				return;
 			}
+
+			Graphics.Render(frame, Position - new Vector2(10, 8));
 
 			var fx = player.CenterX / 16;
 			var fy = player.CenterY / 16;
@@ -85,9 +85,10 @@ namespace BurningKnight.ui {
 			r.BeginUi(true);
 
 			Graphics.Color = ColorUtils.BlackColor;
-			Graphics.Color.A = 150;
+
+			/*Graphics.Color.A = 150;
 			Graphics.Render(slice, Vector2.Zero, 0, Vector2.Zero, new Vector2(W, H));
-			Graphics.Color.A = 255;
+			Graphics.Color.A = 255;*/
 			
 			foreach (var rm in level.Area.Tagged[Tags.Room]) {
 				var room = (Room) rm;
@@ -149,7 +150,7 @@ namespace BurningKnight.ui {
 				if (tp == RoomType.Exit ? Run.Depth % 2 == 1 : RoomTypeHelper.ShouldBeDisplayOnMap(tp)) {
 					if (rect.Intersects(room.Rect)) {
 						var icon = RoomTypeHelper.Icons[(int) tp];
-						Graphics.Render(icon, new Vector2((int) Math.Floor(W * 0.5f + (int) Math.Floor(room.MapX + room.MapW * 0.5f) - fx), (int) Math.Floor(H * 0.5f + (int) Math.Floor(room.MapY + room.MapH * 0.5f) - fy)), 0, icon.Center);
+						Graphics.Render(icon, new Vector2((int) Math.Floor(W / 2 + (int) Math.Floor(room.MapX + room.MapW * 0.5f) - fx), (int) Math.Floor(H / 2 + (int) Math.Floor(room.MapY + room.MapH * 0.5f) - fy)), 0, icon.Center);
 					}
 				}
 			}
@@ -160,7 +161,6 @@ namespace BurningKnight.ui {
 			r.Begin();
 
 			Graphics.Render(target, Position);
-			Graphics.Render(frame, Position - new Vector2(3));
 		}
 	}
 }

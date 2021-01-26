@@ -11,14 +11,13 @@ using Lens;
 using Lens.assets;
 using Lens.util;
 using Lens.util.math;
-using Steamworks.Data;
 
 namespace BurningKnight.state {
 	public static class Run {
 		public static Action<int, string> SubmitScore;
 		public static int ContentEndDepth = BK.Demo ? 5 : 11;
 
-		private static int depth = BK.Version.Dev ? 0 : 0;
+		private static int depth = BK.Version.Dev ? 1 : 0;
 		public static int NextDepth = depth;
 		public static int LastDepth = depth;
 		public static int Loop;

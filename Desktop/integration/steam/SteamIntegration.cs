@@ -206,7 +206,7 @@ namespace Desktop.integration.steam {
 					Log.Error(e);
 				}
 
-				SteamFriends.OnGameOverlayActivated += () => {
+				SteamFriends.OnGameOverlayActivated += (a) => {
 					Engine.Instance.State.Paused = true;
 				};
 				

@@ -30,3 +30,5 @@
 * Mobs killed with explosive lamp will drop bombs on death
 * Unhitatble creatures wont get buffs from projectiles
 * Hopefully fixed ice level bug (rude but still)
+* Improved minimap
+* Bumped steamworks version
