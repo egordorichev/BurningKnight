@@ -32,3 +32,5 @@
 * Hopefully fixed ice level bug (rude but still)
 * Improved minimap
 * Bumped steamworks version
+* Upgraded monogame
+* Fixed weird rendering issues by flooring all rendering positions

@@ -16,7 +16,6 @@
 * old king skulls broken
 * AXE BROKEN
 * debug the guy's pixel bug not loading a pixel texture
-* FIGURE OUT WHATS WRONG WITH TEXTURES BEING RENDERED SO WEIRDLY
 
 # before release
 
