@@ -6,6 +6,12 @@
 * go over all bosses and check attacks
 * flak cannon bump projectile size
 
+# general
+
+* menu needs more love
+* add pickup sound to permanent item stands
+* update controller input sheme
+
 # level
 
 * mob spawning changes
