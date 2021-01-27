@@ -84,8 +84,10 @@ namespace BurningKnight.entity.creature.player {
 			if (!shadow) {
 				pos.Y -= GetComponent<ZComponent>().Z;
 			}
-			
-			Graphics.Render(region, pos + origin, a, origin, s, Graphics.ParseEffect(Flipped, FlippedVerticaly));
+
+			var p = pos + origin;
+			p.Floor();
+			Graphics.Render(region, p, a, origin, s, Graphics.ParseEffect(Flipped, FlippedVerticaly));
 			var st = GetComponent<StateComponent>().StateInstance;
 			
 			if (st is Player.RollState || st is Player.SleepingState) {
@@ -102,9 +104,13 @@ namespace BurningKnight.entity.creature.player {
 				region = CommonAse.Items.GetSlice(r);
 				origin = new Vector2(region.Width / 2, region.Height + 4);
 
-				Graphics.Render(region, new Vector2(Entity.CenterX, m +
-					Entity.Bottom - (shadow ? 0 : GetComponent<ZComponent>().Z) + (shadow ? -1 : 1) * 
-					(offsets[Math.Min(offsets.Length - 1, Animation.Frame + Animation.StartFrame)] - 15)), a, origin, Scale * new Vector2(s.X, s.Y * (shadow ? -1 : 1)), Flipped ? SpriteEffects.FlipHorizontally : SpriteEffects.None);
+				var pp = new Vector2(Entity.CenterX, m +
+					Entity.Bottom - (shadow ? 0 : GetComponent<ZComponent>().Z) + (shadow ? -1 : 1) *
+					(offsets[Math.Min(offsets.Length - 1, Animation.Frame + Animation.StartFrame)] - 15));
+
+				pp.Floor();
+
+				Graphics.Render(region, pp, a, origin, Scale * new Vector2(s.X, s.Y * (shadow ? -1 : 1)), Flipped ? SpriteEffects.FlipHorizontally : SpriteEffects.None);
 			} else {	
 				region = head.GetFrame(Animation.Tag, (int) Animation.Frame);
 
@@ -114,7 +120,9 @@ namespace BurningKnight.entity.creature.player {
 				
 				origin = new Vector2(region.Source.Width / 2f, FlippedVerticaly ? 0 : region.Source.Height);
 
-				Graphics.Render(region, pos + origin, a, origin, s, Graphics.ParseEffect(Flipped, FlippedVerticaly));
+				var pp = pos + origin;
+				pp.Floor();
+				Graphics.Render(region, pp, a, origin, s, Graphics.ParseEffect(Flipped, FlippedVerticaly));
 			}
 		}
 

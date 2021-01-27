@@ -1,5 +1,6 @@
 # projectile
 
+* projectiles should bounce from doors
 * fix missile class
 * go over all bosses and check attacks
 * flak cannon bump projectile size
@@ -7,6 +8,7 @@
 
 # general
 
+* GRAPHICS WEIRDNESS IS BACK
 * bump build script to monogame 3.8
 
 * menu needs more love

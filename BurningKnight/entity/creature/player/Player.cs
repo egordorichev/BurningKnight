@@ -304,7 +304,7 @@ namespace BurningKnight.entity.creature.player {
 					var rm = (Room) r;
 
 					if (rm.Type == RoomType.Boss) {
-						Center = r.Center + new Vector2(0, 32);
+						Center = r.Center + new Vector2(0, 32) + Rnd.Vector(-0.5f, 0.5f);
 						rm.Discover();
 						Log.Debug("Teleported to boss room");
 						return true;
@@ -313,13 +313,13 @@ namespace BurningKnight.entity.creature.player {
 			}
 			
 			foreach (var cc in Area.Tagged[Tags.Checkpoint]) {
-				Center = cc.Center;
+				Center = cc.Center + Rnd.Vector(-0.5f, 0.5f);
 				Log.Debug("Teleported to spawn point");
 				return true;
 			}
 
 			foreach (var cc in Area.Tagged[Tags.Entrance]) {
-				Center = cc.Center + new Vector2(0, 4);
+				Center = cc.Center + new Vector2(0, 4) + Rnd.Vector(-0.5f, 0.5f);
 				Log.Debug("Teleported to entrance");
 				return true;
 			}
@@ -328,7 +328,7 @@ namespace BurningKnight.entity.creature.player {
 				var rm = (Room) r;
 
 				if (rm.Type == RoomType.Entrance) {
-					Center = r.Center;
+					Center = r.Center + Rnd.Vector(-0.5f, 0.5f);
 					rm.Discover();
 					Log.Debug("Teleported to entrance room");
 					return true;
@@ -340,7 +340,7 @@ namespace BurningKnight.entity.creature.player {
 
 				if (rm.Type == RoomType.Exit) {
 					Log.Debug("Teleported to exit room");
-					Center = new Vector2(rm.CenterX, rm.Bottom - 1.4f * 16);
+					Center = new Vector2(rm.CenterX, rm.Bottom - 1.4f * 16) + Rnd.Vector(-0.5f, 0.5f);
 					rm.Discover();
 
 					return true;
@@ -352,7 +352,7 @@ namespace BurningKnight.entity.creature.player {
 				var rm = (Room) r;
 
 				Log.Debug("Teleported to random room");
-				Center = new Vector2(rm.CenterX, rm.Bottom - 1.4f * 16);
+				Center = new Vector2(rm.CenterX, rm.Bottom - 1.4f * 16) + Rnd.Vector(-0.5f, 0.5f);
 				rm.Discover();
 
 				return true;
