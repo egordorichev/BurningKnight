@@ -158,7 +158,6 @@ namespace BurningKnight.entity.creature.mob.boss {
 							}
 
 							var b = new ProjectileBuilder(Self, "small");
-
 							b.RemoveFlags(ProjectileFlags.Reflectable, ProjectileFlags.BreakableByMelee);
 					
 							for (var i = 0; i < 8; i++) {

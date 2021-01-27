@@ -1,5 +1,9 @@
 ﻿using Lens.entity;
 
+/*
+ * Ancient projectile class, reworked a tiny bit to look less messy
+ * Still is a huge mess, and has way too much data per bullet and pretty much no caps
+ */
 namespace BurningKnight.entity.projectile {
 	/*public class OldProjectile : Entity, CollisionFilterEntity {
 		public ProjectileDeathCallback OnDeath;
