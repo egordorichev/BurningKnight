@@ -176,7 +176,7 @@ namespace BurningKnight.state {
 				tipLabel.Visible = false;
 			}
 			
-			if (!added && ready && lastV >= 0.98f) {
+			if (!added && ready && lastV >= 0.99f) {
 				added = true;
 				logoCard.GoAway = true;
 
@@ -245,7 +245,8 @@ namespace BurningKnight.state {
 
 			Graphics.Color.A = (byte)(loadingAlpha * 255);
 			
-			var percentage = (int) (lastV * 100);
+			var percentage = (int) Math.Round(lastV * 100);
+
 			if (percentage > 5) {
 				Graphics.Print($"{percentage}%", Font.Small, (int)(pos.X + lastV * (w - 4)) - 15, (int)pos.Y + 3);
 			}

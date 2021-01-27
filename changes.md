@@ -2,7 +2,6 @@
 * Blue bullet slime doesn't shoot after death anymore
 * Dino is a bit more angry now
 * Halo buffed
-
 * Projectile light/poof effects wont work after there are 99 projectiles in game
 * Mob projectiles are capped at 199
 * Removed Tags.Torch => Tags.MobProjectile
@@ -32,3 +31,8 @@
 * Hopefully fixed ice level bug (rude but still)
 * Improved minimap
 * Bumped steamworks version
+* Upgraded monogame
+* Fixed weird rendering issues by flooring all rendering positions
+* Menu won't react to all keys/mouse buttons now
+* Old man will now greet you upon entering the game
+* Camera in menu wont follow the cursor anymore

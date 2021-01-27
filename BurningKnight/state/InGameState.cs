@@ -125,7 +125,6 @@ namespace BurningKnight.state {
 		private float timeWas;
 		private double startTime;
 
-
 		public static bool Ready;
 		public static bool InMenu;
 		
@@ -346,8 +345,10 @@ namespace BurningKnight.state {
 				}
 			}
 
-			foreach (var e in TopUi.Tagged[Tags.Cursor]) {
-				Camera.Instance.Follow(e, CursorPriority);
+			if (!Menu) {
+				foreach (var e in TopUi.Tagged[Tags.Cursor]) {
+					Camera.Instance.Follow(e, CursorPriority);
+				}
 			}
 		}
 
@@ -888,7 +889,7 @@ namespace BurningKnight.state {
 			}
 
 			if (Menu && !menuExited) {
-				if (Input.WasPressed(Controls.GameStart, GamepadComponent.Current, true) || Input.Keyboard.State.GetPressedKeys().Length > 0) {
+				if (Input.WasPressed(Controls.GameStart, GamepadComponent.Current, true)) {
 					menuExited = true;
 					InMenu = false;
 					Input.Blocked = 0;
@@ -897,12 +898,26 @@ namespace BurningKnight.state {
 					Audio.PlayMusic("Hub", true);
 
 					CloseBlackBars();
+
 					Tween.To(this, new {blur = 0}, 0.5f).OnEnd = () => {
 						foreach (var e in TopUi.Tagged[Tags.Cursor]) {
 							Camera.Instance.Follow(e, CursorPriority);
 						}
 					};
-					Tween.To(-Display.UiHeight, offset, x => offset = x, 0.5f, Ease.QuadIn).OnEnd = () => Menu = false;
+
+					Camera.Instance.Detached = false;
+					Tween.To(-Display.UiHeight, offset, x => offset = x, 0.5f, Ease.QuadIn).OnEnd = () => {
+						Menu = false;
+
+						Timer.Add(() => {
+							foreach (var n in Area.Tagged[Tags.Npc]) {
+								if (n is OldMan m) {
+									m.GetComponent<DialogComponent>().StartAndClose("shopkeeper_6", 3);
+									break;
+								}
+							}
+						}, 0.5f);
+					};
 				}
 			}
 			

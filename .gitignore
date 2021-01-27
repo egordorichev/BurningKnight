@@ -1,4 +1,3 @@
-
 *.idea/*
 .git
 */bin/*
@@ -9,3 +8,10 @@ BurningKnight/Content/obj*
 BurningKnight/Content/obj/**
 packages/*
 BurningKnight/achievement_sprites*
+*.exe
+*.pdb
+*.dll
+*SharpDx.*
+*mgfxc.*
+SharpDX.xml
+SharpDX.D3DCompiler.xml

@@ -245,7 +245,6 @@ namespace Lens {
 		}
 
 		public void SetFullscreen() {
-			
 			core.SetFullscreen();
 			UpdateView();
 		}
@@ -255,7 +254,7 @@ namespace Lens {
 				return GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
 			}
 
-			return Math.Max(Display.Width, base.GraphicsDevice.PresentationParameters.BackBufferWidth);
+			return Math.Max(Display.Width, Graphics.PreferredBackBufferWidth);
 		}
 
 		public float GetScreenHeight() {
@@ -263,7 +262,7 @@ namespace Lens {
 				return GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
 			}
 
-			return Math.Max(Display.Height, base.GraphicsDevice.PresentationParameters.BackBufferHeight);
+			return Math.Max(Display.Height, Graphics.PreferredBackBufferHeight);
 		}
 		
 		public void UpdateView() {

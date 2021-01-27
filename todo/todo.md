@@ -6,6 +6,12 @@
 * go over all bosses and check attacks
 * flak cannon bump projectile size
 
+# general
+
+* menu needs more love
+* add pickup sound to permanent item stands
+* update controller input sheme
+
 # level
 
 * mob spawning changes
@@ -16,7 +22,6 @@
 * old king skulls broken
 * AXE BROKEN
 * debug the guy's pixel bug not loading a pixel texture
-* FIGURE OUT WHATS WRONG WITH TEXTURES BEING RENDERED SO WEIRDLY
 
 # before release
 
