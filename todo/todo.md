@@ -1,6 +1,5 @@
 # projectile
 
-* check disk gun hurting player
 * fix missile class
 * go over all bosses and check attacks
 * flak cannon bump projectile size
@@ -22,7 +21,6 @@
 # bugs
 
 * old king skulls broken
-* AXE BROKEN
 * debug the guy's pixel bug not loading a pixel texture
 
 # before release

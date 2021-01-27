@@ -185,9 +185,9 @@ namespace BurningKnight.entity.projectile {
 				CollisionFilterComponent.Add(p, (entity, with) => ((with is Creature && with != p.Owner) || ((Projectile) entity).Bounce == 0) ? CollisionResult.Disable : CollisionResult.Default);
 
 				var ts = Timer.Add(() => {
-					((Item) p.Owner).Renderer.Hidden = false;
+					p.Item.Renderer.Hidden = false;
 
-					foreach (var u in ((Item) p.Owner).Uses) {
+					foreach (var u in p.Item.Uses) {
 						if (u is SimpleShootUse ss) {
 							ss.ProjectileDied = true;
 							break;
@@ -206,10 +206,10 @@ namespace BurningKnight.entity.projectile {
 					
 					if (projectile.Bounce == 0) {
 						if (e == projectile.Owner) {
-							((Item) projectile.Owner).Renderer.Hidden = false;
+							projectile.Item.Renderer.Hidden = false;
 							projectile.Break();
 
-							foreach (var u in ((Item) projectile.Owner).Uses) {
+							foreach (var u in projectile.Item.Uses) {
 								if (u is SimpleShootUse ss) {
 									ss.ProjectileDied = true;
 									break;
@@ -232,9 +232,9 @@ namespace BurningKnight.entity.projectile {
 							var pi = projectile.Callbacks?.OnDeath;
 
 							ProjectileCallbacks.AttachDeathCallback(projectile, (pr, ee, t) => {
-								((Item) pr.Owner).Renderer.Hidden = false;
+								pr.Item.Renderer.Hidden = false;
 								
-								foreach (var u in ((Item) pr.Owner).Uses) {
+								foreach (var u in pr.Item.Uses) {
 									if (u is SimpleShootUse ss) {
 										ss.ProjectileDied = true;
 										break;
@@ -256,7 +256,7 @@ namespace BurningKnight.entity.projectile {
 				p.Bounce = 1;
 				p.AddFlags(ProjectileFlags.AutomaticRotation);
 
-				((Item) p.Owner).Renderer.Hidden = true;
+				p.Item.Renderer.Hidden = true;
 			});
 			
 			Add("lava_wand", p => {

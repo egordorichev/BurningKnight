@@ -36,6 +36,7 @@ namespace BurningKnight.entity.projectile {
 		public Projectile Parent; // Potentially not needed
 		public Entity Owner;
 		public Entity FirstOwner; // Potentially not needed
+		public Item Item;
 		public Color Color = ProjectileColor.Red;
 		public ProjectileFlags Flags = DefaultFlags;
 		public ProjectileCallbacks Callbacks;

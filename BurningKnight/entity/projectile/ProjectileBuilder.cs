@@ -126,7 +126,8 @@ namespace BurningKnight.entity.projectile {
 				Bounce = Math.Min(8, Bounce),
 				Scale = Scale,
 				Color = Color,
-				Parent = parent
+				Parent = parent,
+				Item = item
 			};
 
 			Owner.Area.Add(projectile);
