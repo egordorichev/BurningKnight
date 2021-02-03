@@ -20,32 +20,32 @@ namespace Lens.graphics {
 		}
 
 		public static void Render(TextureRegion region, Vector2 position) {
-			position.Floor();
+			// position.Floor();
 			Batch.Draw(region.Texture, position, region.Source, Color);
 		}
 
 		public static void Render(TextureRegion region, Vector2 position, float a, Vector2 origin) {
-			position.Floor();
+			// position.Floor();
 			Batch.Draw(region.Texture, position, region.Source, Color, a, origin, Vector2.One, SpriteEffects.None, 0);
 		}
 
 		public static void Render(TextureRegion region, Vector2 position, float a, Vector2 origin, Vector2 scale, SpriteEffects flip = SpriteEffects.None) {
-			position.Floor();
+			// position.Floor();
 			Batch.Draw(region.Texture, position, region.Source, Color, a, origin, scale, flip, 0);
 		}
 
 		public static void Render(Texture2D texture, Vector2 position) {
-			position.Floor();
+			// position.Floor();
 			Batch.Draw(texture, position, texture.Bounds, Color);
 		}
 		
 		public static void Render(Texture2D texture, Vector2 position, float a, Vector2 origin) {
-			position.Floor();
+			// position.Floor();
 			Batch.Draw(texture, position, texture.Bounds, Color, a, origin, Vector2.One, SpriteEffects.None, 0);
 		}
 		
 		public static void Render(Texture2D texture, Vector2 position, float a, Vector2 origin, Vector2 scale, SpriteEffects flip = SpriteEffects.None) {
-			position.Floor();
+			// position.Floor();
 			Batch.Draw(texture, position, texture.Bounds, Color, a, origin, scale, flip, 0);
 		}
 		

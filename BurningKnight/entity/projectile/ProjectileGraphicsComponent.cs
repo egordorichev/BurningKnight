@@ -55,9 +55,11 @@ namespace BurningKnight.entity.projectile {
 			var d = p.Dying || (ShouldIndicateProjectileDeath(p) && p.NearingDeath);
 			var started = false;
 
+			bool scourged = p.HasFlag(ProjectileFlags.Scourged);
+
 			if (!d) {
 				// fixme: p.Effect.GetColor()
-				Graphics.Color = p.Color;
+				Graphics.Color = scourged ? ColorUtils.BlackColor : p.Color;
 			} else if (Light == null) {
 				var shader = Shaders.Entity;
 				Shaders.Begin(shader);
@@ -77,10 +79,8 @@ namespace BurningKnight.entity.projectile {
 			}
 
 			if (!b && Light != null) {
-				bool scourged = p.HasFlag(ProjectileFlags.Scourged);
-
 				if (scourged) {
-					Graphics.Color = ProjectileColor.Red;
+					Graphics.Color = p.Color;
 				}
 
 				Graphics.Render(Light, Entity.Center, a, or, scale);

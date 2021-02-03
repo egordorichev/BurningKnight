@@ -263,8 +263,6 @@ namespace BurningKnight.entity.creature.mob.boss {
 			
 			GetComponent<DialogComponent>().Start("lp_0", Target, () => {
 				Timer.Add(() => {
-					SaveManager.Delete(SaveType.Level);
-
 					Run.ActualDepth = -1;
 					Run.Depth = 1;
 					Run.Loop++;

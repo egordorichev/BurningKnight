@@ -49,8 +49,6 @@ namespace BurningKnight.level.entities {
 			
 			if (Run.Depth == Run.ContentEndDepth || (Run.Type == RunType.BossRush && Run.Depth == 5)) {
 				if (Run.Type == RunType.Regular || Run.Type == RunType.Twitch) {
-					SaveManager.Delete(SaveType.Level);
-
 					Run.ActualDepth = -1;
 					Run.Depth = 1;
 					Run.Loop++;

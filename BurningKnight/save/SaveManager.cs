@@ -138,7 +138,7 @@ namespace BurningKnight.save {
 				Generate(area, saveType);
 			} else {
 				if (saveType != SaveType.Secret || Engine.Version.Dev) {
-					Log.Info($"Loading {saveType} {Run.Depth}{(path == null ? $" from {save.FullPath}" : $" from {path}")}");
+					Log.Info($"Loading {saveType} {Run.Depth} l{Run.Loop}{(path == null ? $" from {save.FullPath}" : $" from {path}")}");
 				}
 
 				var stream = GetReader(save.FullPath);

@@ -18,7 +18,7 @@ namespace BurningKnight.entity.creature.mob.castle {
 			base.SetStats();
 			
 			AddComponent(new ZAnimationComponent(Events.Halloween ? "spooky_slime" : "slime"));
-			SetMaxHp(Run.Level.Biome is CaveBiome ? 4 : 1 + Run.Depth / 2);
+			SetMaxHp((Run.Level != null && Run.Level.Biome is CaveBiome) ? 4 : 1 + Run.Depth / 2);
 
 			var body = CreateBodyComponent();
 			AddComponent(body);

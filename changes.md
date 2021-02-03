@@ -36,3 +36,7 @@
 * Menu won't react to all keys/mouse buttons now
 * Old man will now greet you upon entering the game
 * Camera in menu wont follow the cursor anymore
+* level command now accepts second number for the loop
+* Changed how seeds work (internally), sadly probably breaks all old seeds
+* Changed how level saving works: loop levels are now stored separately instead of overwriting old files
+* Changed how scourged projectiles look

@@ -43,52 +43,59 @@ namespace BurningKnight.entity.creature.mob.prefabs {
 		private bool locked;
 		
 		private void LockToWall() {
-			var dirs = new List<Direction>();
-			
-			var x = (int) Math.Round(X / 16f);
-			var y = (int) Math.Round((Y + 8) / 16f);
-			var level = Run.Level;
+			try {
+				var dirs = new List<Direction>();
 
-			if (level.Get(x + 1, y).IsWall()) {
-				dirs.Add(Direction.Left);
-			}
-			
-			if (level.Get(x - 1, y).IsWall()) {
-				dirs.Add(Direction.Right);
-			}
-			
-			if (level.Get(x, y + 1).IsWall()) {
-				dirs.Add(Direction.Up);
-			}
-			
-			if (level.Get(x, y - 1).IsWall()) {
-				dirs.Add(Direction.Down);
-			}
+				var x = (int) Math.Round(X / 16f);
+				var y = (int) Math.Round((Y + 8) / 16f);
+				var level = Run.Level;
 
-			if (dirs.Count == 0) {
-				Log.Error("No walls to lock to!");
+				if (level.Get(x + 1, y).IsWall()) {
+					dirs.Add(Direction.Left);
+				}
+
+				if (level.Get(x - 1, y).IsWall()) {
+					dirs.Add(Direction.Right);
+				}
+
+				if (level.Get(x, y + 1).IsWall()) {
+					dirs.Add(Direction.Up);
+				}
+
+				if (level.Get(x, y - 1).IsWall()) {
+					dirs.Add(Direction.Down);
+				}
+
+				if (dirs.Count == 0) {
+					Log.Error("No walls to lock to!");
+
+					Timer.Add(() => {
+						Done = true;
+					}, 0.1f);
+
+					return;
+				}
+
+				CenterX = x * 16 + 8;
+				CenterY = y * 16;
+
+				Direction = dirs[Rnd.Int(dirs.Count)];
+				var angle = Direction.ToAngle();
+
+				var v = Direction == Direction.Up || Direction == Direction.Down;
+				var body = new RectBodyComponent(Direction == Direction.Left ? 8 : 0, Direction == Direction.Up ? 8 : 0, v ? 16 : 8, v ? 8 : 16, BodyType.Dynamic, true);
+
+				AddComponent(body);
+				body.KnockbackModifier = 0;
+
+				GetComponent<WallAnimationComponent>().WallAngle = angle;
+				GetComponent<StateComponent>().State = GetIdleState();
+			} catch (Exception e) {
 
 				Timer.Add(() => {
 					Done = true;
 				}, 0.1f);
-
-				return;
 			}
-
-			CenterX = x * 16 + 8;
-			CenterY = y * 16;
-			
-			Direction = dirs[Rnd.Int(dirs.Count)];
-			var angle = Direction.ToAngle();
-			
-			var v = Direction == Direction.Up || Direction == Direction.Down;
-			var body = new RectBodyComponent(Direction == Direction.Left ? 8 : 0, Direction == Direction.Up ? 8 : 0, v ? 16 : 8, v ? 8 : 16, BodyType.Dynamic, true);
-
-			AddComponent(body);
-			body.KnockbackModifier = 0;
-			
-			GetComponent<WallAnimationComponent>().WallAngle = angle;
-			GetComponent<StateComponent>().State = GetIdleState();
 		}
 
 		public override void Save(FileWriter stream) {
