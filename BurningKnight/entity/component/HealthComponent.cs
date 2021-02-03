@@ -78,16 +78,16 @@ namespace BurningKnight.entity.component {
 					Type = type
 				});
 
-				TryToKill(setter);
+				TryToKill(setter, type);
 				return true;
 			}
 
 			return false;
 		}
 
-		private void TryToKill(Entity e) {
+		private void TryToKill(Entity e, DamageType type) {
 			if (health <= 0.1f && (!Entity.TryGetComponent<HeartsComponent>(out var c) || c.Total == 0) && AutoKill) { 
-				Kill(e);
+				Kill(e, type);
 			}
 		}
 
@@ -119,7 +119,7 @@ namespace BurningKnight.entity.component {
 
 						if (hearts.Hurt((int) Math.Round(amount), setter, type)) {
 							InvincibilityTimer = InvincibilityTimerMax;
-							TryToKill(setter);
+							TryToKill(setter, type);
 							LastModifiedHearts = true;
 							return true;
 						}
@@ -172,7 +172,7 @@ namespace BurningKnight.entity.component {
 
 		public bool Dead => dead;
 
-		public void Kill(Entity from) {
+		public void Kill(Entity from, DamageType damageType = DamageType.Regular) {
 			if (Phases > 0) {
 				Phases--;
 
@@ -196,7 +196,8 @@ namespace BurningKnight.entity.component {
 
 			if (!Send(new DiedEvent {
 				From = from,
-				Who = Entity
+				Who = Entity,
+				DamageType = damageType
 			})) {
 				dead = true;
 				Entity.Done = true;	

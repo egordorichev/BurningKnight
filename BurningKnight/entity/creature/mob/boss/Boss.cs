@@ -392,7 +392,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 			public Boss Boss;
 		}
 		
-		public override void Kill(Entity w) {
+		public override void Kill(Entity w, DamageType type = DamageType.Regular) {
 			
 		}
 

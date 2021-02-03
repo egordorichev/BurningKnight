@@ -130,7 +130,7 @@ namespace BurningKnight.entity.item.util {
 								ev.Entity.GetAnyComponent<BodyComponent>()?.KnockbackFrom(Owner, Knockback);
 							}
 
-							if (health.ModifyHealth(-Damage, Owner)) {
+							if (health.ModifyHealth(-Damage, Owner, DamageType.Melee)) {
 								Owner.GetComponent<AudioEmitterComponent>().EmitRandomizedPrefixed(Sound, 3);
 								OnHurt?.Invoke(this, ev.Entity);
 							}

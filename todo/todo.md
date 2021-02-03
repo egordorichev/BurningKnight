@@ -4,7 +4,6 @@
 * fix lazers
 
 * bee attacks dont let to reflect on 3rd stage
-* explobee melee solution
 
 # general
 
@@ -26,3 +25,4 @@
 
 # before release
 * update item hash in assets
+* music streaming instead of loading

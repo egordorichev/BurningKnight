@@ -43,3 +43,4 @@
 * Flies wont deal contact damage anymore
 * Decreased room reward chance
 * Enemies in snow castle and ice ruins will now be cold immune
+* Exploding bees wont explode from melee/explosion kills
