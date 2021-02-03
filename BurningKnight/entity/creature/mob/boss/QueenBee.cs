@@ -1,19 +1,14 @@
 using System;
-using BurningKnight.assets;
 using BurningKnight.assets.achievements;
 using BurningKnight.assets.particle.custom;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.mob.jungle;
-using BurningKnight.entity.events;
 using BurningKnight.entity.projectile;
 using BurningKnight.entity.projectile.controller;
 using BurningKnight.entity.projectile.pattern;
 using BurningKnight.level;
 using BurningKnight.level.entities;
-using BurningKnight.util;
 using Lens.entity;
-using Lens.entity.component.logic;
-using Lens.graphics;
 using Lens.util;
 using Lens.util.camera;
 using Lens.util.math;
@@ -105,6 +100,12 @@ namespace BurningKnight.entity.creature.mob.boss {
 				}
 			}
 		}
+
+		public void ModifyBuilder(ProjectileBuilder builder) {
+			if (InThirdPhase) {
+				builder.RemoveFlags(ProjectileFlags.Reflectable, ProjectileFlags.BreakableByMelee);
+			}
+		}
 		
 		#region Queen Bee States
 		public override void SelectAttack() {
@@ -178,6 +179,8 @@ namespace BurningKnight.entity.creature.mob.boss {
 									LightRadius = 32f
 								};
 
+								Self.ModifyBuilder(builder);
+
 								for (var j = 0; j < 4; j++) {
 									builder.Slice = j % 2 == 0 ? "circle" : "small";
 									builder.Color = j % 2 == 0 ? ProjectileColor.Orange : ProjectileColor.Red;
@@ -193,6 +196,8 @@ namespace BurningKnight.entity.creature.mob.boss {
 									Color = Rnd.Chance() ? ProjectileColor.Yellow : ProjectileColor.Orange,
 									LightRadius = 64
 								};
+
+								Self.ModifyBuilder(builder);
 
 								builder.Shoot(a + Rnd.Float(-0.1f, 0.1f), 30f).Build();
 							}
@@ -288,6 +293,8 @@ namespace BurningKnight.entity.creature.mob.boss {
 						LightRadius = 64
 					};
 
+					Self.ModifyBuilder(builder);
+
 					builder.Shoot(t + Math.PI + Rnd.Float(-0.1f, 0.1f), Rnd.Float(4f, 10f)).Build();
 				}
 				
@@ -373,6 +380,8 @@ namespace BurningKnight.entity.creature.mob.boss {
 							LightRadius = 64,
 							Scale = Rnd.Float(0.6f, 2f)
 						};
+
+						Self.ModifyBuilder(builder);
 
 						var p = builder.Shoot(a, Rnd.Float(3f, 10f)).Build();
 
@@ -467,6 +476,8 @@ namespace BurningKnight.entity.creature.mob.boss {
 						Color = Rnd.Chance() ? ProjectileColor.Yellow : ProjectileColor.Orange,
 						LightRadius = 64
 					};
+
+					Self.ModifyBuilder(builder);
 
 					builder.Shoot(a, 30f).Build();
 

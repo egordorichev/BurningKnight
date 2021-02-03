@@ -101,9 +101,12 @@ namespace BurningKnight.entity.projectile {
 					Graphics.Color = p.Color;
 				}
 
-				var a = p.HasFlag(ProjectileFlags.BreakableByMelee) || !p.HasFlag(ProjectileFlags.Reflectable);
+				var a = !p.HasFlag(ProjectileFlags.BreakableByMelee) && !p.HasFlag(ProjectileFlags.Reflectable);
 
-				Graphics.Color.A = (byte) Math.Round(Lights.AuraAlpha * (a ? (Math.Sin(Engine.Time * 4f * Math.PI) * 0.5f + 0.5f) * 2 : 1));
+				Graphics.Color.A = (byte) Math.Round(Lights.AuraAlpha * (a ?
+					((Math.Sin(Engine.Time * 4f * Math.PI) * 0.5f + 0.5f) * 2)
+					: 1));
+
 				Graphics.Render(Aura, Entity.Center, Rotation, Aura.Center, new Vector2(((Projectile) Entity).Scale));
 				Graphics.Color.A = 255;
 				Graphics.Color = ColorUtils.WhiteColor;
