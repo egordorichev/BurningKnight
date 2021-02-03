@@ -9,6 +9,7 @@ using BurningKnight.level;
 using BurningKnight.util;
 using Lens.entity;
 using Lens.entity.component.logic;
+using Lens.util.camera;
 using Lens.util.math;
 using Lens.util.tween;
 using Microsoft.Xna.Framework;
@@ -157,6 +158,8 @@ namespace BurningKnight.entity.creature.mob.boss {
 								return;
 							}
 
+							Camera.Instance.ShakeMax(8);
+
 							var b = new ProjectileBuilder(Self, "small");
 							b.RemoveFlags(ProjectileFlags.Reflectable, ProjectileFlags.BreakableByMelee);
 					
@@ -250,6 +253,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 				var a = Self.GetComponent<ZAnimationComponent>();
 				a.SetAutoStop(true);
 
+				Camera.Instance.ShakeMax(12);
 				
 				Self.GetComponent<AudioEmitterComponent>().EmitRandomized("mob_oldking_land");
 				
@@ -281,7 +285,8 @@ namespace BurningKnight.entity.creature.mob.boss {
 
 				var aa = Self.AngleTo(Self.Target);
 				var builder = new ProjectileBuilder(Self, "small") {
-					Color = ProjectileColor.Green
+					Color = ProjectileColor.Green,
+					Bounce = 2
 				};
 
 				builder.RemoveFlags(ProjectileFlags.Reflectable, ProjectileFlags.BreakableByMelee);

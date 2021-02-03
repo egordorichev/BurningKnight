@@ -95,14 +95,14 @@ namespace BurningKnight.entity.projectile {
 				T -= dt;
 
 				if (T <= 0) {
-					Break();
+					Break(null, true);
 					return;
 				}
 			} else {
 				T -= dt;
 
 				if (T <= -8) {
-					Break();
+					Break(null, true);
 					return;
 				}
 			}

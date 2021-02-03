@@ -4,9 +4,11 @@ using BurningKnight.level;
 using BurningKnight.level.entities;
 using BurningKnight.physics;
 using Lens.entity;
+using Lens.graphics;
 using Lens.util.camera;
 using Lens.util.tween;
 using Microsoft.Xna.Framework;
+using MonoGame.Extended;
 
 namespace BurningKnight.entity.projectile {
 	public class Missile : Projectile {
@@ -62,6 +64,15 @@ namespace BurningKnight.entity.projectile {
 			});
 		}
 
+		public override void PostInit() {
+			base.PostInit();
+
+			ProjectileCallbacks.AttachDeathCallback(this, (p, e, t) => {
+				ExplosionMaker.Make(this, damageOwner: HurtOwner);
+				exploded = true;
+			});
+		}
+
 		public override bool HandleEvent(Event e) {
 			if (e is CollisionStartedEvent) {
 				return false; // Ignore all collision
@@ -89,18 +100,11 @@ namespace BurningKnight.entity.projectile {
 			}
 		}
 
-		/*protected override void AnimateDeath(Entity e, bool timeout = false) {
-			base.AnimateDeath(e, timeout);
-			
-			ExplosionMaker.Make(this, damageOwner: HurtOwner);
-			exploded = true;
-		}
-
 		protected override void RenderShadow() {
 			if (goingDown) {
 				Graphics.Batch.DrawCircle(CenterX, toY, shadowSize, 16, ColorUtils.WhiteColor, 2f);
 				Graphics.Batch.DrawCircle(CenterX, toY, shadowSize * 0.5f, 16, ColorUtils.WhiteColor, 2f);
 			}
-		}*/
+		}
 	}
 }

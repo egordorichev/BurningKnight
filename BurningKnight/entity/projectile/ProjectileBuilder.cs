@@ -180,7 +180,8 @@ namespace BurningKnight.entity.projectile {
 			}
 
 			if (Range > 0) {
-				projectile.T = Range / Velocity.Length();
+				// / Velocity.Length()
+				projectile.T = Range;
 			}
 
 			Velocity *= 10f;
