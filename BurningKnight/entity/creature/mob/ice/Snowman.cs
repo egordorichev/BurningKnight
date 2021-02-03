@@ -61,7 +61,11 @@ namespace BurningKnight.entity.creature.mob.ice {
 						Color = ProjectileColor.Orange,
 					};
 
+					builder.RemoveFlags(ProjectileFlags.Reflectable, ProjectileFlags.BreakableByMelee);
+					builder.AddFlags(ProjectileFlags.HurtsEveryone);
+
 					var projectile = builder.Shoot(an, 8f).Build();
+
 					projectile.Center = Center + MathUtils.CreateVector(an, 4f);
 
 					ProjectileCallbacks.AttachUpdateCallback(projectile, TargetProjectileController.Make(Target));

@@ -210,11 +210,13 @@ namespace BurningKnight.entity.projectile {
 		}
 
 		private bool ShouldHurt(Entity entity) {
-			if (entity == Owner && !HasFlag(ProjectileFlags.HitsOwner) && !HasFlag(ProjectileFlags.HurtsEveryone)) {
+			var e = HasFlag(ProjectileFlags.HurtsEveryone) && T >= 0.5f;
+
+			if (entity == Owner && !(HasFlag(ProjectileFlags.HitsOwner) || e)) {
 				return false;
 			}
 
-			if (Owner is Creature oc && entity is Creature ec && !IgnoreHurtRules(oc) && !IgnoreHurtRules(ec)) {
+			if (!e && Owner is Creature oc && entity is Creature ec && !IgnoreHurtRules(oc) && !IgnoreHurtRules(ec)) {
 				var ownerFriendly = oc.IsFriendly();
 				var entityFriendly = ec.IsFriendly();
 

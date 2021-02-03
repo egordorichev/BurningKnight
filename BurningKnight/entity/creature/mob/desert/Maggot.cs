@@ -2,6 +2,7 @@ using System;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.mob.prefabs;
 using BurningKnight.entity.projectile;
+using BurningKnight.state;
 using BurningKnight.util;
 using Lens.util;
 using Lens.util.tween;
@@ -119,6 +120,11 @@ namespace BurningKnight.entity.creature.mob.desert {
 					var builder = new ProjectileBuilder(Self, "small") {
 						LightRadius = 30
 					};
+
+					if (Run.Depth > 4 || Run.Loop > 0) {
+						builder.RemoveFlags(ProjectileFlags.Reflectable, ProjectileFlags.BreakableByMelee);
+						builder.Scale *= 1.5f;
+					}
 
 					builder.AddFlags(ProjectileFlags.FlyOverStones);
 					var projectile = builder.Shoot(angle, 5f).Build();

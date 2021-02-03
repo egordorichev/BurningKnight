@@ -7,6 +7,7 @@
 
 # general
 
+* dark mage camera transitions are weird (esp if bk is alive lol)
 * boss camera tweak
 * GRAPHICS WEIRDNESS IS BACK
 * bump build script to monogame 3.8

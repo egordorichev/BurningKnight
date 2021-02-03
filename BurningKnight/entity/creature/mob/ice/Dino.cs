@@ -148,8 +148,11 @@ namespace BurningKnight.entity.creature.mob.ice {
 
 						var builder = new ProjectileBuilder(Self, "circle") {
 							Scale = Rnd.Float(0.5f, 1.5f),
-							LightRadius = 32f
+							LightRadius = 32f,
+							Bounce = 1
 						};
+
+						builder.RemoveFlags(ProjectileFlags.Reflectable, ProjectileFlags.BreakableByMelee);
 
 						var projectile = builder.Shoot(an, 15).Build();
 

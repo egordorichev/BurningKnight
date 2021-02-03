@@ -47,4 +47,5 @@
 * Ice queen hp buffed from 500 to 550
 * Queen bees projectiles wont be reflectable in 3rd phase anymore (same for the ice queen)
 * Buffed cupguy by a lot
-* BUffed post-first area wall crawler
+* Buffed post-first area wall crawler
+* Buffed maggot
