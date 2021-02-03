@@ -20,6 +20,8 @@ namespace BurningKnight.entity.creature.mob.desert {
 			
 			var body = new SensorBodyComponent(1, 1, 10, 8);
 			AddComponent(body);
+
+			TouchDamage = 0;
 			body.Body.LinearDamping = 4;
 			
 			AddComponent(new ZAnimationComponent("fly"));

@@ -3,6 +3,9 @@
 * go over all bosses and check attacks
 * fix lazers
 
+* bee attacks dont let to reflect on 3rd stage
+* explobee melee solution
+
 # general
 
 * boss camera tweak

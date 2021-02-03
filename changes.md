@@ -40,3 +40,6 @@
 * Changed how seeds work (internally), sadly probably breaks all old seeds
 * Changed how level saving works: loop levels are now stored separately instead of overwriting old files
 * Changed how scourged projectiles look
+* Flies wont deal contact damage anymore
+* Decreased room reward chance
+* Enemies in snow castle and ice ruins will now be cold immune

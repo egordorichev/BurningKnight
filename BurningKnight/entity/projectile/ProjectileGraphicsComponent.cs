@@ -1,7 +1,9 @@
+using System;
 using BurningKnight.assets;
 using BurningKnight.assets.lighting;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.mob.boss;
+using Lens;
 using Lens.assets;
 using Lens.graphics;
 using Microsoft.Xna.Framework;
@@ -95,19 +97,13 @@ namespace BurningKnight.entity.projectile {
 			if (Aura != null) {
 				var p = (Projectile) Entity;
 
-				if (!p.HasFlag(ProjectileFlags.BreakableByMelee) || !p.HasFlag(ProjectileFlags.Reflectable)) {
-					return;
-				}
-
-				/*if (p.HasFlag(ProjectileFlags.Scourged)) {
-					return;
-				}*/
-
 				if (!(p.Dying || (ShouldIndicateProjectileDeath(p) && p.NearingDeath))) {
 					Graphics.Color = p.Color;
 				}
 
-				Graphics.Color.A = Lights.AuraAlpha;
+				var a = p.HasFlag(ProjectileFlags.BreakableByMelee) || !p.HasFlag(ProjectileFlags.Reflectable);
+
+				Graphics.Color.A = (byte) Math.Round(Lights.AuraAlpha * (a ? (Math.Sin(Engine.Time * 4f * Math.PI) * 0.5f + 0.5f) * 2 : 1));
 				Graphics.Render(Aura, Entity.Center, Rotation, Aura.Center, new Vector2(((Projectile) Entity).Scale));
 				Graphics.Color.A = 255;
 				Graphics.Color = ColorUtils.WhiteColor;

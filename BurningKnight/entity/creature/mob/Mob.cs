@@ -13,10 +13,12 @@ using BurningKnight.entity.events;
 using BurningKnight.entity.item;
 using BurningKnight.entity.projectile;
 using BurningKnight.level;
+using BurningKnight.level.biome;
 using BurningKnight.level.entities;
 using BurningKnight.level.paintings;
 using BurningKnight.level.rooms;
 using BurningKnight.level.tile;
+using BurningKnight.level.variant;
 using BurningKnight.physics;
 using BurningKnight.save;
 using BurningKnight.state;
@@ -69,6 +71,14 @@ namespace BurningKnight.entity.creature.mob {
 
 			if (!(this is Boss)) {
 				GetComponent<StateComponent>().Pause++;
+			}
+		}
+
+		public override void PostInit() {
+			base.PostInit();
+
+			if (Run.Level?.Variant is SnowLevelVariant || Run.Level?.Biome is IceBiome) {
+				GetComponent<BuffsComponent>().AddImmunity<FrozenBuff>();
 			}
 		}
 
