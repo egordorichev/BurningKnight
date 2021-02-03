@@ -6,6 +6,7 @@ using BurningKnight.entity.component;
 using BurningKnight.entity.creature;
 using BurningKnight.entity.creature.mob;
 using BurningKnight.entity.creature.mob.jungle;
+using BurningKnight.entity.creature.npc;
 using BurningKnight.entity.creature.pet;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.door;
@@ -204,6 +205,27 @@ namespace BurningKnight.entity.projectile {
 			        (entity is Door d && !d.Open && !(body is DoorBodyComponent || d is CustomDoor)));
 		}
 
+		private bool IgnoreHurtRules(Entity e) {
+			return e is ShopKeeper;
+		}
+
+		private bool ShouldHurt(Entity entity) {
+			if (entity == Owner && !HasFlag(ProjectileFlags.HitsOwner) && !HasFlag(ProjectileFlags.HurtsEveryone)) {
+				return false;
+			}
+
+			if (Owner is Creature oc && entity is Creature ec && !IgnoreHurtRules(oc) && !IgnoreHurtRules(ec)) {
+				var ownerFriendly = oc.IsFriendly();
+				var entityFriendly = ec.IsFriendly();
+
+				if (ownerFriendly == entityFriendly) {
+					return false;
+				}
+			}
+
+			return true;
+		}
+
 		public override bool HandleEvent(Event e) {
 			if (!Dying && !HasFlag(ProjectileFlags.Fresh) && e is CollisionStartedEvent cse) {
 				var entity = cse.Entity;
@@ -223,7 +245,7 @@ namespace BurningKnight.entity.projectile {
 					return false;
 				}
 
-				if ((entity != Owner || HasFlag(ProjectileFlags.HitsOwner)) && entity.TryGetComponent<HealthComponent>(out var hp)) {
+				if (entity.TryGetComponent<HealthComponent>(out var hp) && ShouldHurt(entity)) {
 					hp.ModifyHealth(-Damage, Owner, DamageType.Custom);
 
 					Callbacks?.OnHurt?.Invoke(this, entity);

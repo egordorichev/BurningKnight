@@ -8,7 +8,7 @@ namespace BurningKnight.entity.projectile {
 		ManualRotation = 1 << 3,
 		AutomaticRotation = 1 << 4,
 		BreakableByMelee = 1 << 5,
-		FlyOverStones = 11 << 6,
+		FlyOverStones = 1 << 6,
 		Artificial = 1 << 7,
 		BreakOtherProjectiles = 1 << 8,
 		DieOffScreen = 1 << 9,

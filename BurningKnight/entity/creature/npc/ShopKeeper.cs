@@ -1,6 +1,7 @@
 using System;
 using BurningKnight.assets.achievements;
 using BurningKnight.assets.items;
+using BurningKnight.entity.buff;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.drop;
 using BurningKnight.entity.creature.player;
@@ -233,7 +234,7 @@ namespace BurningKnight.entity.creature.npc {
 		}
 
 		public override bool IsFriendly() {
-			return !raging;
+			return !raging || GetComponent<BuffsComponent>().Has<CharmedBuff>();
 		}
 		
 		private float delay;

@@ -1,10 +1,7 @@
 # projectile
 
-* enemy projectiles can hit enemies
-* projectiles should bounce from doors
 * fix missile class
 * go over all bosses and check attacks
-* flak cannon bump projectile size
 * fix lazers
 
 # general
@@ -15,6 +12,7 @@
 * menu needs more love
 * add pickup sound to permanent item stands
 * update controller input sheme
+* flak cannon bump projectile size
 
 # level
 
