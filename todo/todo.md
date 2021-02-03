@@ -2,6 +2,8 @@
 * fix missile class
 * go over all bosses and check attacks
 * fix lazers
+* snow is not breaking
+* bk can't be hurt??? (in boss fight)
 
 # general
 

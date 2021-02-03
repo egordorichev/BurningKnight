@@ -3,6 +3,7 @@ using BurningKnight.entity.buff;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.mob.prefabs;
 using BurningKnight.entity.projectile;
+using BurningKnight.state;
 using BurningKnight.util;
 using Lens.entity.component.logic;
 using Lens.graphics;
@@ -103,6 +104,11 @@ namespace BurningKnight.entity.creature.mob.castle {
 
 							builder.AddFlags(ProjectileFlags.FlyOverStones);
 							builder.Move(angle, 8);
+
+							if (Run.Depth > 2 || Run.Loop > 0) {
+								builder.RemoveFlags(ProjectileFlags.Reflectable, ProjectileFlags.BreakableByMelee);
+								builder.Scale *= 1.5f;
+							}
 
 							builder.Shoot(angle, 5f).Build();
 						};

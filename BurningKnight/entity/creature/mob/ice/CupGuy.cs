@@ -82,14 +82,15 @@ namespace BurningKnight.entity.creature.mob.ice {
 							}
 								
 							Self.GetComponent<AudioEmitterComponent>().EmitRandomized("mob_fire");
-							var am = Rnd.Int(3, 6);
+							var am = Rnd.Int(5, 10);
 
 							var builder = new ProjectileBuilder(Self, "small") {
 								LightRadius = 32f,
-								Range = 1f
+								Range = 2f
 							};
 
 							builder.AddFlags(ProjectileFlags.FlyOverStones);
+							builder.RemoveFlags(ProjectileFlags.BreakableByMelee, ProjectileFlags.Reflectable);
 
 							for (var i = 0; i < am; i++) {
 								var angle = Rnd.Float(-0.1f, 0.1f) + (float) i / am * Math.PI * 2;

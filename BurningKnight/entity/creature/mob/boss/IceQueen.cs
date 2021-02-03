@@ -52,7 +52,13 @@ namespace BurningKnight.entity.creature.mob.boss {
 			body.Body.LinearDamping = 3;
 
 			AddAnimation("ice_queen");
-			SetMaxHp(500);
+			SetMaxHp(550);
+		}
+
+		public void ModifyBuilder(ProjectileBuilder builder) {
+			if (InThirdPhase) {
+				builder.RemoveFlags(ProjectileFlags.Reflectable, ProjectileFlags.BreakableByMelee);
+			}
 		}
 
 		private void Animate() {
@@ -163,8 +169,9 @@ namespace BurningKnight.entity.creature.mob.boss {
 					T = 0;
 					
 					var amount = 4;
-
 					var builder = new ProjectileBuilder(Self, "small");
+
+					Self.ModifyBuilder(builder);
 
 					for (var i = 0; i < amount; i++) {
 						var a = Math.PI * 2 * ((float) i / amount) + Math.Cos(t * 0.8f) * Math.PI;
@@ -223,6 +230,8 @@ namespace BurningKnight.entity.creature.mob.boss {
 						}
 					} else {
 						var builder = new ProjectileBuilder(Self, projectiles.Count % 2 == 0 ? "circle" : "small");
+						Self.ModifyBuilder(builder);
+
 						var p = builder.Shoot(Self.AngleTo(Self.Target), 0).Build();
 
 						p.Color = projectiles.Count % 2 == 0 ? ProjectileColor.Blue : ProjectileColor.Cyan;
@@ -292,6 +301,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 								Scale = Rnd.Float(0.8f, 1.2f)
 							};
 
+							Self.ModifyBuilder(builder);
 							var z = bb.Shoot(a - Math.PI + Rnd.Float(-0.1f, 0.1f), s).Build();
 							z.Center = projectile.Center;
 						}
@@ -436,6 +446,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 							Scale = p.Scale * Rnd.Float(0.4f, 1.5f)
 						};
 
+						Self.ModifyBuilder(b);
 						for (var i = 0; i < Rnd.Int(3, 5); i++) {
 							b.Shoot(a + Rnd.Float(-1.4f, 1.4f), s * Rnd.Float(0.3f, 1.5f)).Build().Center = p.Center;
 						}

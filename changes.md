@@ -44,3 +44,7 @@
 * Decreased room reward chance
 * Enemies in snow castle and ice ruins will now be cold immune
 * Exploding bees wont explode from melee/explosion kills
+* Ice queen hp buffed from 500 to 550
+* Queen bees projectiles wont be reflectable in 3rd phase anymore (same for the ice queen)
+* Buffed cupguy by a lot
+* BUffed post-first area wall crawler
