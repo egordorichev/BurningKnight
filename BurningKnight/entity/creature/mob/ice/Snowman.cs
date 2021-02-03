@@ -55,10 +55,13 @@ namespace BurningKnight.entity.creature.mob.ice {
 
 					Tween.To(1, a.Scale.X, x => a.Scale.X = x, 0.4f);
 					Tween.To(1, a.Scale.Y, x => a.Scale.Y = x, 0.4f);
+
+					GetComponent<HealthComponent>().InvincibilityTimer = 1f;
 				
 					var an = AngleTo(Target);
 					var builder = new ProjectileBuilder(this, "carrot") {
 						Color = ProjectileColor.Orange,
+						Damage = 10
 					};
 
 					builder.RemoveFlags(ProjectileFlags.Reflectable, ProjectileFlags.BreakableByMelee);

@@ -210,7 +210,7 @@ namespace BurningKnight.entity.projectile {
 		}
 
 		private bool ShouldHurt(Entity entity) {
-			var e = HasFlag(ProjectileFlags.HurtsEveryone) && T >= 0.5f;
+			var e = HasFlag(ProjectileFlags.HurtsEveryone);
 
 			if (entity == Owner && !(HasFlag(ProjectileFlags.HitsOwner) || e)) {
 				return false;
