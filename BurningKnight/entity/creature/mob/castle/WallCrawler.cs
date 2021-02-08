@@ -3,6 +3,7 @@ using BurningKnight.entity.buff;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.mob.prefabs;
 using BurningKnight.entity.projectile;
+using BurningKnight.state;
 using BurningKnight.util;
 using Lens.entity.component.logic;
 using Lens.graphics;
@@ -97,13 +98,19 @@ namespace BurningKnight.entity.creature.mob.castle {
 							Self.GetComponent<AudioEmitterComponent>().EmitRandomized("mob_fire_wall");
 						
 							var angle = Self.Direction.ToAngle();
-							var projectile = Projectile.Make(Self, "small", angle, 5f);
+							var builder = new ProjectileBuilder(Self, "small") {
+								LightRadius = 32f
+							};
 
-							projectile.AddLight(32f, Projectile.RedLight);
-							projectile.Center += MathUtils.CreateVector(angle, 8);
-							projectile.Spectral = true;
-							
-							AnimationUtil.Poof(projectile.Center);
+							builder.AddFlags(ProjectileFlags.FlyOverStones);
+							builder.Move(angle, 8);
+
+							if (Run.Depth > 2 || Run.Loop > 0) {
+								builder.RemoveFlags(ProjectileFlags.Reflectable, ProjectileFlags.BreakableByMelee);
+								builder.Scale *= 1.5f;
+							}
+
+							builder.Shoot(angle, 5f).Build();
 						};
 					};
 				} else if (fired && T > 1f) {

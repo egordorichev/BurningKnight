@@ -64,15 +64,20 @@ namespace BurningKnight.entity.creature.bk {
 					Tween.To(1, a.Scale.Y, x => a.Scale.Y = x, 0.4f);
 				
 					var an = AngleTo(Target);
-					var projectile = Projectile.Make(this, "big", an, 8f, false, 0, null, 0.8f);
+					var builder = new ProjectileBuilder(this, "big") {
+						Scale = 0.8f,
+						LightRadius = 32f,
+						Color = ProjectileColor.Orange,
+						Damage = 2
+					};
+
+					builder.RemoveFlags(ProjectileFlags.Reflectable, ProjectileFlags.BreakableByMelee);
+					builder.Shoot(an, 8f);
+
+					var projectile = builder.Build();
 
 					projectile.Center = Center + MathUtils.CreateVector(an, 4f);
-					projectile.Color = ProjectileColor.Orange;
-					projectile.AddLight(32f, projectile.Color);
-					projectile.CanBeBroken = false;
-					projectile.CanBeReflected = false;
-					projectile.Damage = 2;
-					projectile.Controller += TargetProjectileController.Make(Target, 0.2f);
+					ProjectileCallbacks.AttachUpdateCallback(projectile, TargetProjectileController.Make(Target, 0.2f));
 				};
 			};
 		}

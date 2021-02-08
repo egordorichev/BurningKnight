@@ -83,7 +83,8 @@ namespace BurningKnight.util {
 			"Hold on...",
 			"You still here?",
 			"Does anyone ever read these?",
-			"Don't get hit by a car"
+			"Don't get hit by a car",
+			"##Always cook second##"
 		};
 	}
 }

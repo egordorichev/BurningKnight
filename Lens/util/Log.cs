@@ -2,17 +2,26 @@
 using System.Diagnostics;
 using System.IO;
 using System.Text;
-using ImGuiNET;
 
 namespace Lens.util {
 	public static class Log {
-		public static bool WriteToFile = true;//!Engine.Debug;
+		private const string LogName = "burning_log.txt";
+
+		public static bool WriteToFile = !Engine.Debug;
 		private static System.Numerics.Vector2 size = new System.Numerics.Vector2(300, 400);
 		private static StreamWriter writer;
 
 		public static void Open() {
+			if (File.Exists(LogName)) {
+				try {
+					File.Delete(LogName);
+				} catch (Exception e) {
+
+				}
+			}
+
 			if (WriteToFile) {
-				writer = new StreamWriter(new FileStream("burning_log.txt", FileMode.Append, FileAccess.Write, FileShare.ReadWrite));
+				writer = new StreamWriter(new FileStream(LogName, FileMode.Append, FileAccess.Write, FileShare.ReadWrite));
 			}
 		}
 

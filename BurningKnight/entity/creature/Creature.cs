@@ -61,14 +61,14 @@ namespace BurningKnight.entity.creature {
 			GetComponent<StateComponent>().Become<T>();
 		}
 		
-		public virtual void Kill(Entity w) {
-			GetComponent<HealthComponent>().Kill(w);
+		public virtual void Kill(Entity w, DamageType type = DamageType.Regular) {
+			GetComponent<HealthComponent>().Kill(w, type);
 		}
 
 		public override bool HandleEvent(Event e) {
 			if (e is PostHealthModifiedEvent ev && ev.Amount < 0) {
 				if (HasNoHealth(ev)) {
-					Kill(ev.From);
+					Kill(ev.From, ev.Type);
 				} else if (!ev.PressedForBomb) {
 					GetComponent<AudioEmitterComponent>().EmitRandomized(GetHurtSfx());
 				}

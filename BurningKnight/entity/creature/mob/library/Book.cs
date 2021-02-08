@@ -115,9 +115,8 @@ namespace BurningKnight.entity.creature.mob.library {
 							ProjectileTemplate.MakeFast(Self, sprite, Self.Center, a, (pr) => {
 								p.Add(pr);
 								pr.Color = color;
-								pr.AddLight(32, color);
-								
-								pr.CanBeReflected = false;
+
+								pr.RemoveFlags(ProjectileFlags.Reflectable, ProjectileFlags.BreakableByMelee);
 								pr.BodyComponent.Angle = a;
 							}, data, () => {
 								Timer.Add(() => {

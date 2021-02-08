@@ -123,12 +123,12 @@ namespace BurningKnight.entity.creature.mob.castle {
 						
 						Self.GetComponent<AudioEmitterComponent>().EmitRandomized("mob_fire", sz: 0.2f);
 						
-						var projectile = Projectile.Make(Self, "circle", an, 7f);
+						var builder = new ProjectileBuilder(Self, "circle") {
+							LightRadius = 32f
+						};
 
-						projectile.AddLight(32f, Projectile.RedLight);
-						projectile.Center += MathUtils.CreateVector(angle, 8);
-
-						AnimationUtil.Poof(projectile.Center);
+						builder.Move(angle, 8);
+						builder.Shoot(an, 7f).Build();
 					};
 				}
 			}

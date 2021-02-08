@@ -1,19 +1,18 @@
+using System;
 using BurningKnight.assets;
 using BurningKnight.assets.lighting;
-using BurningKnight.entity.buff;
 using BurningKnight.entity.component;
+using BurningKnight.entity.creature.mob.boss;
+using Lens;
 using Lens.assets;
 using Lens.graphics;
-using Lens.graphics.animation;
 using Microsoft.Xna.Framework;
-using VelcroPhysics.Utilities;
-using MathUtils = Lens.util.MathUtils;
 
 namespace BurningKnight.entity.projectile {
 	public class ProjectileGraphicsComponent : BasicProjectileGraphicsComponent {
 		public static TextureRegion Flash;
 		public bool IgnoreRotation;
-		public float Rotation => IgnoreRotation ? 0 : ((Projectile) Entity).BodyComponent.Body.Rotation;
+		public float Rotation => IgnoreRotation ? 0 : ((Projectile) Entity).GetAnyComponent<BodyComponent>().Body.Rotation;
 		public TextureRegion Aura;
 		public TextureRegion Light;
 
@@ -36,27 +35,31 @@ namespace BurningKnight.entity.projectile {
 			}
 		}
 
+		private bool ShouldIndicateProjectileDeath(Projectile projectile) {
+			return projectile.Owner is OldKing;
+		}
+
 		public override void Render(bool shadow) {
 			var p = (Projectile) Entity;
 			var scale = new Vector2(p.Scale);
 			var a = Rotation;
-			var b = p.FlashTimer > 0;
+			var b = false; // p.FlashTimer > 0; // future egor: do we really need this frame that no one notices anyway? think about it, requires extra 4 bytes per bullet
 			var spr = b ? Flash : Sprite;
 			var or = spr.Center;
 
 			if (shadow) {
-				Graphics.Render(spr, Entity.Center + new Vector2(0, 6),
-					a, or, scale);
-
+				Graphics.Render(spr, Entity.Center + new Vector2(0, 6), a, or, scale);
 				return;
 			}
 
-			var d = p.Dying || (p.IndicateDeath && p.NearingDeath);
+			var d = p.Dying || (ShouldIndicateProjectileDeath(p) && p.NearingDeath);
 			var started = false;
+
+			bool scourged = p.HasFlag(ProjectileFlags.Scourged);
 
 			if (!d) {
 				// fixme: p.Effect.GetColor()
-				Graphics.Color = p.Color;
+				Graphics.Color = scourged ? ColorUtils.BlackColor : p.Color;
 			} else if (Light == null) {
 				var shader = Shaders.Entity;
 				Shaders.Begin(shader);
@@ -76,13 +79,13 @@ namespace BurningKnight.entity.projectile {
 			}
 
 			if (!b && Light != null) {
-				if (p.Scourged) {
-					Graphics.Color = ProjectileColor.Red;
+				if (scourged) {
+					Graphics.Color = p.Color;
 				}
 
 				Graphics.Render(Light, Entity.Center, a, or, scale);
 
-				if (p.Scourged) {
+				if (scourged) {
 					Graphics.Color = ColorUtils.WhiteColor;
 				}
 			}
@@ -92,15 +95,16 @@ namespace BurningKnight.entity.projectile {
 			if (Aura != null) {
 				var p = (Projectile) Entity;
 
-				if (p.Scourged) {
-					return;
+				if (!(p.Dying || (ShouldIndicateProjectileDeath(p) && p.NearingDeath))) {
+					Graphics.Color = p.Color;
 				}
 
-				if (!(p.Dying || (p.IndicateDeath && p.NearingDeath))) {
-					Graphics.Color = /*p.Scourged ? ProjectileColor.Red : */p.Color;
-				}
+				var a = !p.HasFlag(ProjectileFlags.BreakableByMelee) && !p.HasFlag(ProjectileFlags.Reflectable);
 
-				Graphics.Color.A = Lights.AuraAlpha;
+				Graphics.Color.A = (byte) Math.Round(Lights.AuraAlpha * (a ?
+					((Math.Sin(Engine.Time * 4f * Math.PI) * 0.5f + 0.5f) * 2)
+					: 1));
+
 				Graphics.Render(Aura, Entity.Center, Rotation, Aura.Center, new Vector2(((Projectile) Entity).Scale));
 				Graphics.Color.A = 255;
 				Graphics.Color = ColorUtils.WhiteColor;

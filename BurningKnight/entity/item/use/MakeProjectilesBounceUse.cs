@@ -14,7 +14,7 @@ namespace BurningKnight.entity.item.use {
 
 		public override bool HandleEvent(Event e) {
 			if (e is ProjectileCreatedEvent pce) {
-				pce.Projectile.BounceLeft += count;
+				pce.Projectile.Bounce += count;
 			}
 			
 			return base.HandleEvent(e);

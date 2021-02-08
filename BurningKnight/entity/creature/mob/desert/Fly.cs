@@ -20,6 +20,8 @@ namespace BurningKnight.entity.creature.mob.desert {
 			
 			var body = new SensorBodyComponent(1, 1, 10, 8);
 			AddComponent(body);
+
+			TouchDamage = 0;
 			body.Body.LinearDamping = 4;
 			
 			AddComponent(new ZAnimationComponent("fly"));
@@ -55,10 +57,13 @@ namespace BurningKnight.entity.creature.mob.desert {
 					Tween.To(1, a.Scale.Y, x => a.Scale.Y = x, 0.4f);
 				
 					var an = AngleTo(Target);
-					var projectile = Projectile.Make(this, "small", an, 8f, false, 0, null, 0.8f);
+					var builder = new ProjectileBuilder(this, "small") {
+						Scale = 0.8f,
+						LightRadius = 24
+					};
 
+					var projectile = builder.Shoot(an, 8).Build();
 					projectile.Center = Center + MathUtils.CreateVector(an, 2f);
-					projectile.AddLight(32f, Projectile.RedLight);
 				};
 			};
 		}

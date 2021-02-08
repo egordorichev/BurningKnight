@@ -60,7 +60,7 @@ namespace BurningKnight.ui.imgui {
 			}
 			
 			ImGui.Text($"Multiplayer: {InGameState.Multiplayer}");
-			ImGui.Text($"Camera targets: {Camera.Instance.Targets.Count}");
+			ImGui.Text($"Camera targets: {Camera.Instance?.Targets?.Count ?? 0}");
 
 			var current = 0;
 			var t = Engine.Instance.State.GetType();
@@ -85,10 +85,13 @@ namespace BurningKnight.ui.imgui {
 			if (ImGui.CollapsingHeader("Performance")) {
 				lastMem += Engine.Delta;
 
-				
 				ImGui.Text($"Update time: {Engine.UpdateTime} ms");
 				ImGui.Text($"Render time: {Engine.RenderTime} ms");
-				
+
+				if (Engine.Instance?.State?.Area?.Tagged?[Tags.Projectile] != null) {
+					ImGui.Text($"Projectiles: {Engine.Instance.State.Area.Tagged[Tags.Projectile].Count}");
+				}
+
 				float mem;
 
 				using (var data = Process.GetCurrentProcess()) {

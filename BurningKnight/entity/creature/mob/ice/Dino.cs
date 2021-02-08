@@ -145,14 +145,19 @@ namespace BurningKnight.entity.creature.mob.ice {
 						Tween.To(1, a.Scale.Y, x => a.Scale.Y = x, 0.2f);
 						
 						Self.GetComponent<AudioEmitterComponent>().EmitRandomized("mob_fire");
-						
-						var projectile = Projectile.Make(Self, "circle", an, 15, scale: Rnd.Float(0.5f, 1f));
+
+						var builder = new ProjectileBuilder(Self, "circle") {
+							Scale = Rnd.Float(0.5f, 1.5f),
+							LightRadius = 32f,
+							Bounce = 1
+						};
+
+						builder.RemoveFlags(ProjectileFlags.Reflectable, ProjectileFlags.BreakableByMelee);
+
+						var projectile = builder.Shoot(an, 15).Build();
 
 						projectile.Color = Rnd.Chance(70) ? ProjectileColor.Orange : ProjectileColor.Red;
-						projectile.AddLight(32f, projectile.Color);
 						projectile.Center += MathUtils.CreateVector(angle, 8);
-
-						AnimationUtil.Poof(projectile.Center);
 					};
 				}
 			}

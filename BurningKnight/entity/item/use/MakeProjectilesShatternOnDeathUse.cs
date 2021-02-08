@@ -11,8 +11,8 @@ namespace BurningKnight.entity.item.use {
 		public override bool HandleEvent(Event e) {
 			// Make sure that this is a new projectile, not created by this event
 			if (e is ProjectileCreatedEvent pce && pce.Projectile.Parent == null) {
-				pce.Projectile.OnDeath += (p, en, t) => {
-					if (Rnd.Chance(30)) {
+				ProjectileCallbacks.AttachDeathCallback(pce.Projectile,  (p, en, t) => {
+					if (Rnd.Chance(30) || p.Parent != null) {
 						return;
 					}
 					
@@ -34,11 +34,17 @@ namespace BurningKnight.entity.item.use {
 						var s = v.Length();
 						var c = p.HasComponent<CircleBodyComponent>();
 
+						var builder = new ProjectileBuilder(pce.Owner, p.Slice) {
+							Parent = p,
+							Scale = p.Scale * Rnd.Float(0.4f, 0.8f),
+							RectHitbox = !c
+						};
+
 						for (var i = 0; i < cnt; i++) {
-							Projectile.Make(pce.Owner, p.Slice, a + Rnd.Float(-1.4f, 1.4f), s * Rnd.Float(0.3f, 0.7f), c, -1, p, p.Scale * Rnd.Float(0.4f, 0.8f)).Center = p.Center;
+							builder.Shoot(a + Rnd.Float(-1.4f, 1.4f), s * Rnd.Float(0.3f, 0.7f)).Build().Center = p.Center;
 						}	
 					}
-				};
+				});
 			}
 			
 			return false;

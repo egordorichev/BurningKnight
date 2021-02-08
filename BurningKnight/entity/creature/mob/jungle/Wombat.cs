@@ -70,7 +70,12 @@ namespace BurningKnight.entity.creature.mob.jungle {
 					sinceLast = 0.2f;
 					
 					Self.GetComponent<AudioEmitterComponent>().EmitRandomized("mob_fire");
-					Projectile.Make(Self, "square", Self.GetComponent<RectBodyComponent>().Velocity.ToAngle() - Math.PI + Rnd.Float(-0.2f, 0.2f), Rnd.Float(4, 7), scale: Rnd.Float(0.4f, 0.8f));
+					var builder = new ProjectileBuilder(Self, "square") {
+						Scale = Rnd.Float(0.4f, 0.8f),
+						RectHitbox = true
+					};
+
+					builder.Shoot(Self.GetComponent<RectBodyComponent>().Velocity.ToAngle() - Math.PI + Rnd.Float(-0.2f, 0.2f), Rnd.Float(4, 7)).Build();
 				}
 				
 				if (T < 5f) {

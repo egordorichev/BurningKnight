@@ -1,14 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using BurningKnight.assets;
-using BurningKnight.assets.achievements;
-using BurningKnight.assets.lighting;
 using BurningKnight.assets.particle;
 using BurningKnight.entity.bomb;
-using BurningKnight.entity.buff;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature;
 using BurningKnight.entity.creature.mob;
+using BurningKnight.entity.creature.mob.jungle;
 using BurningKnight.entity.creature.npc;
 using BurningKnight.entity.creature.pet;
 using BurningKnight.entity.creature.player;
@@ -28,172 +25,52 @@ using BurningKnight.level.entities.decor;
 using BurningKnight.level.entities.statue;
 using BurningKnight.physics;
 using BurningKnight.state;
-using Lens.assets;
 using Lens.entity;
-using Lens.entity.component.graphics;
-using Lens.graphics;
 using Lens.util;
 using Lens.util.camera;
 using Lens.util.math;
 using Microsoft.Xna.Framework;
-using VelcroPhysics.Dynamics;
 
 namespace BurningKnight.entity.projectile {
-	public delegate void ProjectileUpdateCallback(Projectile p, float dt);
-	public delegate void ProjectileDeathCallback(Projectile p, Entity from, bool t);
-	public delegate void ProjectileNearingDeathCallback(Projectile p);
-	public delegate void ProjectileHurtCallback(Projectile p, Entity e);
-	public delegate bool ProjectileCollisionCallback(Projectile p, Entity e);
-
 	public class Projectile : Entity, CollisionFilterEntity {
-		public static Color RedLight = new Color(1f, 0.4f, 0.4f, 1f);
-		public static Color BlueLight = new Color(0.6f, 0.6f, 1f, 1f);
-		public static Color YellowLight = new Color(1f, 1f, 0.4f, 1f);
-		public static Color GreenLight = new Color(0.4f, 1f, 0.4f, 1f);
+		public const ProjectileFlags DefaultFlags = ProjectileFlags.Reflectable | ProjectileFlags.BreakableByMelee | ProjectileFlags.Fresh;
 
-		public static float MobDestrutionChance;
-
-		public bool Boost = true;
-		public ProjectilePattern Pattern;
-		public bool PreventDespawn;
-		public BodyComponent BodyComponent;
-		public float Damage = 1;
+		public Projectile Parent; // Potentially not needed
 		public Entity Owner;
-		public Entity StarterOwner;
+		public Entity FirstOwner; // Potentially not needed
 		public Item Item;
-		public float Range = -1;
-		public float T;
-		public bool Artificial;
-		public int BounceLeft;
-		public bool IndicateDeath;
-		public bool BreakOther;
-		public bool CanBeReflected = true;
-		public bool CanBeBroken = true;
-		public ProjectileDeathCallback OnDeath;
-		public ProjectileUpdateCallback Controller;
-		public ProjectileHurtCallback OnHurt;
-		public ProjectileNearingDeathCallback NearDeath;
-		public ProjectileCollisionCallback OnCollision;
-		public Projectile Parent;
 		public Color Color = ProjectileColor.Red;
-		public bool Scourged;
+		public ProjectileFlags Flags = DefaultFlags;
+		public ProjectileCallbacks Callbacks;
 		public string Slice;
+
+		public List<Entity> EntitiesHurt = new List<Entity>(); // can we get rid of it?
+
+		public float Damage = 1;
+		public float T = -1;
 		public float Scale = 1;
-		public bool BreaksFromWalls = true;
-		public float FlashTimer;
-		public bool Dying;
-		public bool DieOffscreen;
-		public bool Spectral;
-		public bool Rotates;
-		public bool IgnoreCollisions;
-		public bool ManualRotation;
-		public bool HurtsEveryone;
-		public bool PreventSpectralBreak;
-		public List<Entity> EntitiesHurt = new List<Entity>();
+		public int Bounce;
 
-		public bool NearingDeath => T >= Range - 0.9f && (Range - T) % 0.6f >= 0.3f;
+		public bool Dying {
+			get => T < -128;
+			private set => T = value ? -129 : -1;
+		}
 
-		private float deathTimer;
-		private bool nearedDeath;
+		public bool NearingDeath => T < 0.9f && T % 0.6f >= 0.3f;
+		public BodyComponent BodyComponent => GetAnyComponent<BodyComponent>();
 
-		public static Projectile Make(Entity owner, string slice, double angle = 0, 
-			float speed = 0, bool circle = true, int bounce = 0, Projectile parent = null, 
-			float scale = 1, float damage = 1, Item item = null, float range = -1) {
+		public override void Init() {
+			base.Init();
 
-			if (slice == "default") {
-				slice = "rect";
-			}
-
-			var projectile = new Projectile();
-			owner.Area.Add(projectile);
-			
-			if (owner is Mob && Rnd.Chance(MobDestrutionChance)) {
-				projectile.Done = true;
-				return projectile;
-			}
-
-			projectile.Range = range;
-			
-			if (parent != null) {
-				projectile.Color = parent.Color;
-			} else if (owner is Player) {
-				projectile.Color = ProjectileColor.Yellow;
-			}
-
-			projectile.Boost = owner is Player;
-			projectile.Damage = damage;
-			projectile.Scale = scale;
-			projectile.Slice = slice;
-			projectile.Parent = parent;
-			projectile.Owner = owner;
-			projectile.StarterOwner = owner;
-			projectile.BounceLeft = bounce;
-			
-			var graphics = new ProjectileGraphicsComponent("projectiles", slice);
-			projectile.AddComponent(graphics);
-
-			if (graphics.Sprite == null) {
-				Log.Error($"Not found projectile slice {slice}");
-				projectile.Done = true;
-				return projectile;
-			}
-			
-			owner.HandleEvent(new ProjectileCreatedEvent {
-				Owner = owner,
-				Item = item,
-				Projectile = projectile
-			});
-
-			scale = projectile.Scale;
-
-			var w = graphics.Sprite.Source.Width * scale;
-			var h = graphics.Sprite.Source.Height * scale;
-
-			projectile.Width = w;
-			projectile.Height = h;
-			projectile.Center = owner.Center;
-
-			if (owner is Mob m && m.HasPrefix) {
-				projectile.Scourged = true;
-				projectile.Color = ProjectileColor.Black;
-				projectile.AddLight(64, ProjectileColor.Black);
-			}
-
-			if (circle) {
-				projectile.AddComponent(projectile.BodyComponent = new CircleBodyComponent(0, 0, w / 2f, BodyType.Dynamic, false, true));
-			} else {
-				projectile.AddComponent(projectile.BodyComponent = new RectBodyComponent(0, 0, w, h, BodyType.Dynamic, false, true));
-			}
-			
-			projectile.BodyComponent.Body.Restitution = 1;
-			projectile.BodyComponent.Body.Friction = 0;
-			projectile.BodyComponent.Body.IsBullet = true;
-
-			projectile.BodyComponent.Body.Rotation = (float) angle;
-
-			if (owner.TryGetComponent<BuffsComponent>(out var buffs) && buffs.Has<SlowBuff>()) {
-				speed *= 0.5f;
-			}
-			
-			speed *= 10f;
-
-			if (Math.Abs(speed) > 0.01f) {
-				projectile.BodyComponent.Velocity =
-					new Vector2((float) (Math.Cos(angle) * speed), (float) (Math.Sin(angle) * speed));
-			}
-			
-			if (parent != null && parent.TryGetComponent<LightComponent>(out var l)) {
-				projectile.AddLight(l.Light.Radius, l.Light.Color);
-			}
-			
-			return projectile;
+			AlwaysActive = true;
 		}
 
 		public override void AddComponents() {
 			base.AddComponents();
-			
+
 			AddTag(Tags.Projectile);
 			AddComponent(new ShadowComponent(RenderShadow));
+
 			AlwaysActive = true;
 		}
 
@@ -201,90 +78,101 @@ namespace BurningKnight.entity.projectile {
 			GraphicsComponent.Render(true);
 		}
 
-		public void AddLight(float radius, Color color) {
-			if (HasComponent<LightComponent>() || Area.Tagged[Tags.Projectile].Count > 40) {
-				return;
-			}
-			
-			AddComponent(new LightComponent(this, radius * Scale, color));
-		}
-
 		public override void Update(float dt) {
 			base.Update(dt);
 
-			T += dt;
-
-			if (!nearedDeath && NearingDeath) {
-				nearedDeath = true;
-				NearDeath?.Invoke(this);
-			}
-
-			if (FlashTimer > 0) {
-				FlashTimer -= dt;
-			}
-
 			if (Dying) {
-				deathTimer -= dt;
 				Scale -= dt * 10;
 
-				if (deathTimer <= 0) {
+				if (Scale <= 0) {
+					Scale = 0;
 					Done = true;
 				}
-				
+
 				return;
 			}
 
-			if ((Range > -1 && T >= Range) || (!BreaksFromWalls && Spectral && !OnScreen && !PreventSpectralBreak)) {
-				AnimateDeath(null, true);
-				return;
+			if (T > 0) {
+				T -= dt;
+
+				if (T <= 0) {
+					Break(null, true);
+					return;
+				}
+			} else {
+				T -= dt;
+
+				if (T <= -8) {
+					Break(null, true);
+					return;
+				}
 			}
 
-			Controller?.Invoke(this, dt);
+			Flags &= ~ProjectileFlags.Fresh;
+			Callbacks?.OnUpdate?.Invoke(this, dt);
 
-			if (Rotates) {
-				BodyComponent.Body.Rotation += dt * 10;
-			} else if (!ManualRotation) {
-				BodyComponent.Body.Rotation = VectorExtension.ToAngle(BodyComponent.Body.LinearVelocity);
-			}
-			
-			if (!OnScreen && DieOffscreen) {
-				Break(null);
+			var bodyComponent = GetAnyComponent<BodyComponent>();
+
+			if (!Dying && (Owner is Player || Owner is Sniper)) {
+				Position += bodyComponent.Body.LinearVelocity * dt;
 			}
 
-			if (Boost) {
-				Position += BodyComponent.Body.LinearVelocity * (dt);
+			if (!HasFlag(ProjectileFlags.ManualRotation)) {
+				if (HasFlag(ProjectileFlags.AutomaticRotation)) {
+					bodyComponent.Body.Rotation += dt * 10;
+				} else {
+					bodyComponent.Body.Rotation = VectorExtension.ToAngle(bodyComponent.Body.LinearVelocity);
+				}
 			}
-			
-	    if (!PreventDespawn && Pattern == null && BodyComponent.Velocity.Length() < 0.1f) {
-		    Break(null);
-	    }
+
+			if (Owner is Mob) {
+				if (Area.Tagged[Tags.Player].Count == 0) {
+					Break();
+
+					// Future proofing return, do not remove
+					return;
+				}
+			} else if (Owner is Player) {
+				if (Area.Tagged[Tags.PlayerProjectile].Count >= 69 && HasTag(Tags.PlayerProjectile)) {
+					RemoveTag(Tags.PlayerProjectile);
+					Break();
+
+					// Future proofing return, do not remove
+					return;
+				}
+			}
 		}
 
-		public virtual bool BreaksFrom(Entity entity, BodyComponent body) {
-			if (IgnoreCollisions) {
+		public bool HasFlag(ProjectileFlags flag) {
+			return (Flags & flag) != 0;
+		}
+
+		// Aka should bounce from the object or no
+		public virtual bool ShouldCollide(Entity entity) {
+			if (entity == Owner) {
 				return false;
 			}
 
-			if (entity is Projectile p && p.BreakOther && p.Owner != Owner) {
-				p.Break(this);
-				return true;
+			if (entity is Tombstone && !(Owner is Player)) {
+				return false;
 			}
 
-			var r = false;
-			
+			return !(entity is Level || entity is HalfWall) && !(entity is Door d && d.Open) && !(((HasFlag(ProjectileFlags.FlyOverStones) || HasFlag(ProjectileFlags.FlyOverWalls)) && (entity is Prop || entity is Door || entity is HalfProjectileLevel || entity is ProjectileLevelBody)) || entity is Chasm || entity is MovingPlatform || entity is PlatformBorder || entity is Creature || entity is Item || entity is Projectile || entity is ShopStand || entity is Bomb);
+		}
+
+		// Aka should break on collision with it or no
+		public virtual bool BreaksFrom(Entity entity, BodyComponent body) {
 			if (TryGetComponent<CollisionFilterComponent>(out var c)) {
 				var rs = c.Invoke(entity);
-				
+
 				if (rs == CollisionResult.Disable) {
 					return false;
-				}
-
-				if (rs == CollisionResult.Enable) {
-					r = true;
+				} else if (rs == CollisionResult.Enable) {
+					return true;
 				}
 			}
 
-			if ((entity == Owner || (Owner is Pet pt && entity == pt.Owner) || (Owner is Orbital o && entity == o.Owner)) && (!HurtsEveryone || T < 1f)) {
+			if ((entity == Owner || (Owner is Pet pt && entity == pt.Owner) || (Owner is Orbital o && entity == o.Owner)) && (!HasFlag(ProjectileFlags.HurtsEveryone) || T < 1f)) {
 				return false;
 			}
 
@@ -292,184 +180,178 @@ namespace BurningKnight.entity.projectile {
 				return true;
 			}
 
-			if (!r && entity is creature.bk.BurningKnight) {
+			if ((Owner is RoomControllable && entity is Mob) || entity is creature.bk.BurningKnight || entity is PlatformBorder || entity is MovingPlatform || entity is Spikes || entity is ShopStand || entity is Statue) {
 				return false;
 			}
 
-			if (entity is PlatformBorder || entity is MovingPlatform || entity is Spikes || entity is ShopStand || entity is Statue) {
-				return false;
-			}
-
-			if (Owner is RoomControllable && entity is Mob) {
-				return false;
-			}
-
-			if (!BreaksFromWalls && entity is RoomControllable && entity != Owner) {
+			if (HasFlag(ProjectileFlags.FlyOverWalls) && entity is RoomControllable && entity != Owner) {
 				return true;
 			}
 
-			if (CanHitOwner && entity == Owner) {
+			if (HasFlag(ProjectileFlags.HitsOwner) && entity == Owner) {
 				return true;
 			}
 
-			if (entity is Creature && !HurtsEveryone && Owner is Mob == entity is Mob) {
+			if (entity is Creature && !HasFlag(ProjectileFlags.HurtsEveryone) && Owner is Mob == entity is Mob) {
 				return false;
 			}
-			
-			return (!(entity is Creature || entity is Level || entity is Tree)) && 
-			       (BreaksFromWalls && IsWall(entity, body))
-			        || entity.HasComponent<HealthComponent>();
+
+			return (!(entity is Creature || entity is Level || entity is Tree)) &&
+			       (!HasFlag(ProjectileFlags.FlyOverWalls) && IsWall(entity, body))
+			       || entity.HasComponent<HealthComponent>();
 		}
 
 		private bool IsWall(Entity entity, BodyComponent body) {
-			return (entity is ProjectileLevelBody || (!Spectral && entity is HalfProjectileLevel) || entity is Prop ||
+			return (entity is ProjectileLevelBody || (!(HasFlag(ProjectileFlags.FlyOverStones) || HasFlag(ProjectileFlags.FlyOverWalls)) && entity is HalfProjectileLevel) || entity is Prop ||
 			        (entity is Door d && !d.Open && !(body is DoorBodyComponent || d is CustomDoor)));
 		}
 
-		public bool CanHitOwner;
-		
+		private bool IgnoreHurtRules(Entity e) {
+			return e is ShopKeeper;
+		}
+
+		private bool ShouldHurt(Entity entity) {
+			var e = HasFlag(ProjectileFlags.HurtsEveryone);
+
+			if (entity == Owner && !(HasFlag(ProjectileFlags.HitsOwner) || e)) {
+				return false;
+			}
+
+			if (!e && Owner is Creature oc && entity is Creature ec && !IgnoreHurtRules(oc) && !IgnoreHurtRules(ec)) {
+				var ownerFriendly = oc.IsFriendly();
+				var entityFriendly = ec.IsFriendly();
+
+				if (ownerFriendly == entityFriendly) {
+					return false;
+				}
+			}
+
+			return true;
+		}
+
 		public override bool HandleEvent(Event e) {
-			if (e is CollisionStartedEvent ev) {
-				if (Dying || IgnoreCollisions) {
-					return false;
-				}
-				
-				if (ev.Entity is Creature c && c.IgnoresProjectiles()) {
-					return false;
-				}
+			if (!Dying && !HasFlag(ProjectileFlags.Fresh) && e is CollisionStartedEvent cse) {
+				var entity = cse.Entity;
 
-				if (EntitiesHurt.Contains(ev.Entity)) {
-					return false;
-				}
-
-				if (OnCollision != null && OnCollision(this, ev.Entity)) {
-					return false;
-				}
-
-				if (((HurtsEveryone && (ev.Entity != Owner) || T > 1f) || (
-					    (CanHitOwner && ev.Entity == Owner && T > 0.3f) 
-					    || (ev.Entity != Owner && (!(Owner is Pet pt) || pt.Owner != ev.Entity)
-					                           && (!(Owner is Orbital or) || or.Owner != ev.Entity)
-					        && !(Owner is RoomControllable && ev.Entity is Mob) 
-					        && (
-						        !(Owner is Creature ac) 
-						        || !(ev.Entity is Creature bc) 
-						        || (ac.IsFriendly() != bc.IsFriendly() || (bc.TryGetComponent<BuffsComponent>(out var bf) && bf.Has<CharmedBuff>())) 
-						        || bc is ShopKeeper || ac is Player
-					        )
-					    )
-				    )) && ev.Entity.TryGetComponent<HealthComponent>(out var health) && (HurtsEveryone || CanHitOwner || !(ev.Entity is Player) || !(Owner is Player))
-						&& !(Owner is Pet ppt && ppt.Owner == ev.Entity)) {
-
-					var h = health.ModifyHealth(-Damage, Owner);
-
-					if (StarterOwner is Mob && StarterOwner == ev.Entity && Owner is Player && health.Dead && T >= 0.2f) {
-						Achievements.Unlock("bk:return_to_sender");
+				if (entity is Creature creature) {
+					if (creature.IgnoresProjectiles()) {
+						return false;
 					}
-					
-					EntitiesHurt.Add(ev.Entity);
-
-					if (h) {
-						OnHurt?.Invoke(this, ev.Entity);
+				} else if (entity is Projectile projectile) {
+					if (HasFlag(ProjectileFlags.BreakOtherProjectiles)) {
+						projectile.Break(this);
+						return false;
 					}
+				}
+
+				if (EntitiesHurt.Contains(entity)) {
+					return false;
+				}
+
+				if (entity.TryGetComponent<HealthComponent>(out var hp) && ShouldHurt(entity)) {
+					hp.ModifyHealth(-Damage, Owner, DamageType.Custom);
+
+					Callbacks?.OnHurt?.Invoke(this, entity);
+					EntitiesHurt.Add(entity);
+				}
+
+				if (Callbacks?.OnCollision != null && Callbacks.OnCollision(this, entity)) {
+					return false;
 				}
 
 				var mute = false;
-				
-				if (Run.Level.Biome is IceBiome && !(Owner is creature.bk.BurningKnight) && ev.Entity is ProjectileLevelBody lvl) {
+
+				if (Run.Level.Biome is IceBiome && !(Owner is creature.bk.BurningKnight) && cse.Entity is ProjectileLevelBody lvl) {
 					if (lvl.Break(CenterX, CenterY)) {
 						mute = true;
 						AudioEmitterComponent.Dummy(Area, Center).EmitRandomizedPrefixed("level_snow_break", 3);
 					}
 				}
-				
-				if (BreaksFrom(ev.Entity, ev.Body)) {
-					if (BounceLeft > 0) {
-						BounceLeft -= 1;
-					} else {
-						if (!mute && IsWall(ev.Entity, ev.Body)) {
+
+				if (BreaksFrom(entity, cse.Body)) {
+					if (IsWall(entity, cse.Body)) {
+						if (!mute) {
 							if (Owner is Player) {
 								AudioEmitterComponent.Dummy(Area, Center).EmitRandomizedPrefixed("projectile_wall", 2, 0.5f);
 							} else {
 								AudioEmitterComponent.Dummy(Area, Center).EmitRandomized("projectile_wall_enemy", 0.5f);
 							}
 						}
-						
-						AnimateDeath(ev.Entity);
+					}
+
+					if (Bounce <= 0) {
+						Break(entity);
+					} else {
+						Bounce--;
 					}
 				}
 			}
-			
+
 			return base.HandleEvent(e);
 		}
 
-		public virtual bool ShouldCollide(Entity entity) {
-			if (IgnoreCollisions || entity == Owner) {
-				return false;
-			}
+		public virtual void Resize(float scale) {
+			var graphics = GetComponent<ProjectileGraphicsComponent>();
 
-			if (entity is Tombstone && !(Owner is Player)) {
-				return false;
+			var w = graphics.Sprite.Source.Width * scale;
+			var h = graphics.Sprite.Source.Height * scale;
+			var center = Center;
+
+			Width = w;
+			Height = h;
+			Center = center;
+
+			if (HasComponent<CircleBodyComponent>()) {
+				GetComponent<CircleBodyComponent>().Resize(0, 0, w / 2f, w / 2, true);
+			} else {
+				GetComponent<RectBodyComponent>().Resize(0, 0, w, h, true);
 			}
-			
-			return !(entity is Level || entity is HalfWall) && !(entity is Door d && d.Open) && !((Spectral && (entity is Prop || entity is Door || entity is HalfProjectileLevel || entity is ProjectileLevelBody)) || entity is Chasm || entity is MovingPlatform || entity is PlatformBorder || (entity is Creature && Owner is Mob == entity is Mob) || entity is Creature || entity is Item || entity is Projectile || entity is ShopStand || entity is Bomb);
 		}
 
-		public void Break(Entity from = null) {
-			AnimateDeath(from);
-		}
-		
-		protected virtual void AnimateDeath(Entity from, bool timeout = false) {
+		public void Break(Entity from = null, bool timeout = false) {
 			if (Dying) {
 				return;
 			}
 
 			Dying = true;
-			deathTimer = 0.1f;
-			
+
 			try {
-				var l = Math.Min(15, BodyComponent.Velocity.Length());
-				
-				if (l > 1f) {
-					var a = VectorExtension.ToAngle(BodyComponent.Velocity);
-					
+				var bodyComponent = GetAnyComponent<BodyComponent>();
+				var l = Math.Min(15, bodyComponent.Velocity.Length());
+
+				if (l > 1f && Area.Tagged[Tags.Projectile].Count < 99) {
+					var a = VectorExtension.ToAngle(bodyComponent.Velocity);
+
 					for (var i = 0; i < 4; i++) {
-						var part = new ParticleEntity(Particles.Dust());
-						
-						part.Position = Center;
+						var part = new ParticleEntity(Particles.Dust()) {
+							Position = Center
+						};
+
 						Run.Level.Area.Add(part);
 						part.Particle.Velocity = MathUtils.CreateVector(a + Rnd.Float(-0.4f, 0.4f), l);
 						part.Depth = Layers.WindFx;
 						part.Particle.Scale = 0.7f;
 					}
 				}
-				
+
 				Camera.Instance.ShakeMax(4);
-				
-				OnDeath?.Invoke(this, from, timeout);
-				BodyComponent.Velocity = Vector2.Zero;
+				Callbacks?.OnDeath?.Invoke(this, from, timeout);
+
+				bodyComponent.Velocity = Vector2.Zero;
 			} catch (Exception e) {
 				Log.Error(e);
 			}
 		}
 
-		public virtual void AdjustScale(float newScale) {
-			Scale = newScale;
+		public void AddFlags(params ProjectileFlags[] projectileFlags) {
+			foreach (var flag in projectileFlags) {
+				Flags |= flag;
+			}
+		}
 
-			var graphics = GetComponent<ProjectileGraphicsComponent>();
-			
-			var w = graphics.Sprite.Source.Width * Scale;
-			var h = graphics.Sprite.Source.Height * Scale;
-			var center = Center;
-			
-			Width = w;
-			Height = h;
-			Center = center;
-			
-			if (HasComponent<CircleBodyComponent>()) {
-				GetComponent<CircleBodyComponent>().Resize(0, 0, w / 2f, w / 2, true);
-			} else {
-				GetComponent<RectBodyComponent>().Resize(0, 0, w, h, true);
+		public void RemoveFlags(params ProjectileFlags[] projectileFlags) {
+			foreach (var flag in projectileFlags) {
+				Flags &= ~flag;
 			}
 		}
 	}

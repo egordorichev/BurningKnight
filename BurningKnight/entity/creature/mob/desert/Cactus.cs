@@ -7,7 +7,7 @@ using Lens.util.tween;
 using VelcroPhysics.Dynamics;
 
 namespace BurningKnight.entity.creature.mob.desert {
-	public class Cactus : Mob {
+	/*public class Cactus : Mob {
 		protected override void SetStats() {
 			base.SetStats();
 			
@@ -47,7 +47,7 @@ namespace BurningKnight.entity.creature.mob.desert {
 							projectile.BreaksFromWalls = false;
 							projectile.Depth = Layers.Wall + 1;
 							projectile.Controller += SlowdownProjectileController.Make(Rnd.Float(1f, 2f));
-							projectile.AddLight(32f, Projectile.GreenLight);
+							projectile.AddLight(32f, ProjectileColor.Green);
 						}, i * 0.1f);
 					}
 				}
@@ -92,5 +92,5 @@ namespace BurningKnight.entity.creature.mob.desert {
 			}
 		}
 		#endregion
-	}
+	}*/
 }

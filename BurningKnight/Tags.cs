@@ -16,7 +16,6 @@ namespace BurningKnight {
 		public static int TeleportTrigger = new BitTag("teleport_trigger");
 		public static int Lock = new BitTag("lock");
 		public static int MustBeKilled = new BitTag("must_be_killed");
-		public static int Gramophone = new BitTag("gramophone");
 		public static int Teleport = new BitTag("teleport");
 		public static int Statue = new BitTag("statue");
 
@@ -30,10 +29,12 @@ namespace BurningKnight {
 		public static int ShopKeeper = new BitTag("shop_keeper");
 		public static int Npc = new BitTag("npc");
 
-		public static int Torch = new BitTag("torch");
 		public static int Button = new BitTag("button");
 		public static int Chest = new BitTag("chest");
 		public static int Projectile = new BitTag("projectile");
+		public static int MobProjectile = new BitTag("mob_projectile");
+		public static int PlayerProjectile = new BitTag("player_projectile");
+
 		public static int Laser = new BitTag("laser");
 		public static int FireParticle = new BitTag("fire_particle");
 		public static int TextParticle = new BitTag("text_particle");

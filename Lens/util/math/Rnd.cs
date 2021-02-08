@@ -8,6 +8,7 @@ namespace Lens.util.math {
 	public static class Rnd {
 		private static System.Random random = new System.Random(Guid.NewGuid().GetHashCode());
 		private static string seed;
+		private static int intSeed;
 
 		public static System.Random Generator => random;
 		
@@ -16,10 +17,12 @@ namespace Lens.util.math {
 
 			set {
 				seed = value;
-				random = new Random(ParseSeed(seed));
+				intSeed = ParseSeed(seed);
+				random = new Random(intSeed);
 			}
 		}
 
+		public static int IntSeed => intSeed;
 		public static string SeedChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789_";
 		
 		static Rnd() {
@@ -36,7 +39,14 @@ namespace Lens.util.math {
 			var i = 0;
 
 			foreach (var c in seed) {
-				value += SeedChars.IndexOf(c) << (i * 4);
+				var index = SeedChars.IndexOf(c);
+
+				if (index == -1) {
+					Log.Error($"Unknown seed char '{c}' ({(int) c})!");
+					continue;
+				}
+
+				value += index << (i * 4);
 				i++;
 			}
 			

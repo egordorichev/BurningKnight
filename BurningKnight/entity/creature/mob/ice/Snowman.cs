@@ -55,17 +55,23 @@ namespace BurningKnight.entity.creature.mob.ice {
 
 					Tween.To(1, a.Scale.X, x => a.Scale.X = x, 0.4f);
 					Tween.To(1, a.Scale.Y, x => a.Scale.Y = x, 0.4f);
+
+					GetComponent<HealthComponent>().InvincibilityTimer = 1f;
 				
 					var an = AngleTo(Target);
-					var projectile = Projectile.Make(this, "carrot", an, 8f);
-					
-					projectile.Color = ProjectileColor.Orange;
+					var builder = new ProjectileBuilder(this, "carrot") {
+						Color = ProjectileColor.Orange,
+						Damage = 10
+					};
+
+					builder.RemoveFlags(ProjectileFlags.Reflectable, ProjectileFlags.BreakableByMelee);
+					builder.AddFlags(ProjectileFlags.HurtsEveryone);
+
+					var projectile = builder.Shoot(an, 8f).Build();
+
 					projectile.Center = Center + MathUtils.CreateVector(an, 4f);
-					projectile.Controller += TargetProjectileController.Make(Target);
-					projectile.HurtsEveryone = true;
-					// projectile.Damage = 15;
-					
-					projectile.AddLight(32f, projectile.Color);
+
+					ProjectileCallbacks.AttachUpdateCallback(projectile, TargetProjectileController.Make(Target));
 				};
 			};
 		}

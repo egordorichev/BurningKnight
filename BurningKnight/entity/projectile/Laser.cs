@@ -1,14 +1,20 @@
 using System;
+using BurningKnight.entity.buff;
 using BurningKnight.entity.component;
+using BurningKnight.entity.creature.mob;
+using BurningKnight.entity.creature.mob.boss;
+using BurningKnight.entity.creature.player;
 using BurningKnight.entity.door;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
 using BurningKnight.level;
 using BurningKnight.physics;
-using Lens;
+using BurningKnight.state;
 using Lens.entity;
 using Lens.util;
 using Microsoft.Xna.Framework;
+using VelcroPhysics.Dynamics;
+using VelcroPhysics.Dynamics.Solver;
 
 namespace BurningKnight.entity.projectile {
 	public class Laser : Projectile {
@@ -23,60 +29,56 @@ namespace BurningKnight.entity.projectile {
 			get => BodyComponent.Body.Rotation;
 			set => BodyComponent.Body.Rotation = value;
 		}
-		
-		private Laser() {
-			BreaksFromWalls = false;
-			Spectral = true;
-			CanBeBroken = false;
-			CanBeReflected = false;
-			PreventDespawn = true;
-			ManualRotation = true;
-		}
 
 		public static Laser Make(Entity owner, float a, float additional, Item item = null, float damage = 1, float scale = 1f, float range = -1, Laser parent = null) {
-			var laser = new Laser();
-
-			laser.Damage = damage;
-			laser.StarterOwner = owner;
-			laser.Owner = owner;
-			laser.Color = ProjectileColor.Red;
-			laser.DieOffscreen = false;
-			laser.PreventSpectralBreak = true;
-
-			if (parent != null) {
-				laser.Color = parent.Color;
-				laser.Parent = parent;
-				laser.Range = parent.Range * 0.5f;
+			if (owner is Item i) {
+				item = i;
+				owner = i.Owner;
 			}
 
-			owner.Area.Add(laser);
-			
+			var projectile = new Laser {
+				Owner = owner,
+				FirstOwner = owner,
+				Damage = damage,
+				Flags = 0,
+				Slice = "laser",
+				Bounce = 0,
+				Scale = scale,
+				Color = ProjectileColor.Red,
+				Parent = parent,
+				Item = item
+			};
+
+			owner.Area.Add(projectile);
+
 			var graphics = new LaserGraphicsComponent("projectiles", "laser");
-			laser.AddComponent(graphics);
-			laser.Scale = scale;
-
-			if (parent != null) {
-				laser.Scale *= 0.7f;
-			}
+			projectile.AddComponent(graphics);
 
 			if (range > 0) {
-				laser.Range = range;
+				projectile.Range = range;
 			}
+
+			if (parent != null) {
+				projectile.Scale *= 0.7f;
+				projectile.Range *= 0.5f;
+			}
+
+			projectile.Position = owner.Center;
 
 			owner.HandleEvent(new ProjectileCreatedEvent {
 				Owner = owner,
 				Item = item,
-				Projectile = laser
+				Projectile = projectile
 			});
 
-			laser.Width = 32;
-			laser.Height = 9 * laser.Scale;
+			projectile.Width = 32;
+			projectile.Height = 9 * projectile.Scale;
 
-			laser.CreateBody();
-			laser.AdditionalAngle = additional;
-			laser.BodyComponent.Body.Rotation = a + additional;
+			projectile.CreateBody();
+			projectile.AdditionalAngle = additional;
+			projectile.BodyComponent.Body.Rotation = a + additional;
 
-			return laser;
+			return projectile;
 		}
 
 		public override void AddComponents() {
@@ -85,15 +87,15 @@ namespace BurningKnight.entity.projectile {
 		}
 
 		private void CreateBody() {
-			AddComponent(BodyComponent = new RectBodyComponent(0, -Height * 0.5f, Width, Height));
-		}
-
-		public override bool BreaksFrom(Entity entity, BodyComponent body) {
-			return false;
+			AddComponent(new RectBodyComponent(0, -Height * 0.5f, Width, Height));
 		}
 
 		private static bool RayShouldCollide(Entity entity) {
 			return entity is ProjectileLevelBody || entity is Level || entity is Door;
+		}
+
+		public override bool BreaksFrom(Entity entity, BodyComponent body) {
+			return false;
 		}
 
 		public void Recalculate() {
@@ -147,7 +149,7 @@ namespace BurningKnight.entity.projectile {
 
 			lastClear += dt;
 
-			if (lastClear >= 0.1f) {
+			if (lastClear >= 0.05f) {
 				lastClear = 0;
 				EntitiesHurt.Clear();
 			}
@@ -168,7 +170,7 @@ namespace BurningKnight.entity.projectile {
 			}
 		}
 
-		public override void AdjustScale(float newScale) {
+		public override void Resize(float newScale) {
 			Scale = newScale;
 			Height = 9 * Scale;
 			GetComponent<RectBodyComponent>().Resize(0, 0, Width, Height, true);

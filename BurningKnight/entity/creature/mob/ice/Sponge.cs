@@ -40,9 +40,7 @@ namespace BurningKnight.entity.creature.mob.ice {
 				Tween.To(1, a.Scale.Y, x => a.Scale.Y = x, 0.4f);
 
 				if (Target != null) {
-					var m = new Missile(this, Target);
-					Area.Add(m);
-					m.AddLight(64f, Projectile.RedLight);
+					Area.Add(new Missile(this, Target));
 				}
 			};
 		}

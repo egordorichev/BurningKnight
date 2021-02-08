@@ -3,6 +3,7 @@ namespace BurningKnight.entity {
 		Regular,
 		Explosive,
 		Custom,
-		Contact
+		Contact,
+		Melee
 	}
 }

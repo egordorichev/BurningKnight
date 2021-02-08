@@ -142,8 +142,9 @@ namespace BurningKnight.entity.component {
 				
 				projectile.Damage *= Damage;
 
-				if (projectile.Range > 0) {
-					projectile.Range *= Range;
+				// Can turn out to be a disaster
+				if (projectile.T > 0) {
+					projectile.T *= Range;
 				}
 			} else if (e is MeleeArc.CreatedEvent mace) {
 				var arc = mace.Arc;

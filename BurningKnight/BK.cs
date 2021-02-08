@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using Aseprite;
 using BurningKnight.assets;
 using BurningKnight.assets.input;
 using BurningKnight.assets.items;
@@ -13,7 +12,6 @@ using BurningKnight.state;
 using BurningKnight.util;
 using Lens;
 using Lens.util;
-using Lens.util.file;
 using Microsoft.Xna.Framework;
 using Version = Lens.Version;
 
@@ -22,8 +20,7 @@ namespace BurningKnight {
 		public const bool StandMode = false;
 		public const bool Demo = false;
 		
-		// Name removed cuz release bois
-		public static Version Version = new Version("Xmas out-of-time update", 48, 1, 2, 0, 0, Debug);
+		public static Version Version = new Version("Mega update", 49, 1, 3, 0, 0, Debug);
 		
 		public BK(int width, int height, bool fullscreen) : base(Version, 
 			#if DEBUG
@@ -36,32 +33,6 @@ namespace BurningKnight {
 
 		protected override void Initialize() {
 			base.Initialize();
-			
-			/*AsepriteReader.GraphicsDevice = Engine.GraphicsDevice;
-			
-			var dir = FileHandle.FromRoot("Animations");
-			var outDir = new FileHandle("out");
-
-			if (!outDir.Exists()) {
-				outDir.MakeDirectory();
-			}
-
-			var outDirPath = outDir.FullPath;
-
-			foreach (var f in dir.ListFileHandles()) {
-				var fullPath = f.FullPath;
-				var file = new AsepriteFile(fullPath);
-
-				if (file.Slices.Count > 0) {
-					Console.WriteLine($"{f.NameWithoutExtension} (sliced)");
-					RunBash($"aseprite -b {fullPath} --save-as {outDirPath}/{f.NameWithoutExtension}_{{slice}}.png");
-				} else {
-					Console.WriteLine($"{f.NameWithoutExtension} (framed)");
-					RunBash($"aseprite -b {fullPath} --list-tags --save-as {outDirPath}/{f.NameWithoutExtension}_{{tag}}_{{tagframe00}}.png");
-				}
-			}
-
-			Environment.Exit(0);*/
 
 			SaveManager.Init();
 			Controls.Load();

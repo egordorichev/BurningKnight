@@ -3,14 +3,12 @@ using BurningKnight.entity.events;
 using BurningKnight.level;
 using BurningKnight.level.entities;
 using BurningKnight.physics;
-using BurningKnight.util;
 using Lens.entity;
 using Lens.graphics;
 using Lens.util.camera;
 using Lens.util.tween;
 using Microsoft.Xna.Framework;
 using MonoGame.Extended;
-using MonoGame.Extended.Sprites;
 
 namespace BurningKnight.entity.projectile {
 	public class Missile : Projectile {
@@ -36,7 +34,9 @@ namespace BurningKnight.entity.projectile {
 			AlwaysActive = true;
 			
 			var graphics = new ProjectileGraphicsComponent("projectiles", Slice);
+
 			AddComponent(graphics);
+			AddTag(Tags.MobProjectile);
 
 			var w = graphics.Sprite.Source.Width;
 			var h = graphics.Sprite.Source.Height;
@@ -44,8 +44,10 @@ namespace BurningKnight.entity.projectile {
 			Width = w;
 			Height = h;
 			Center = Owner.Center;
-			
-			AddComponent(BodyComponent = new RectBodyComponent(0, 0, w, h));
+			T = MinUpTime + 1;
+
+			RemoveFlags(ProjectileFlags.BreakableByMelee, ProjectileFlags.Reflectable);
+			AddComponent(new RectBodyComponent(0, 0, w, h));
 			
 			BodyComponent.Body.IsBullet = true;
 			BodyComponent.Body.LinearVelocity = new Vector2(0, -100f);
@@ -66,6 +68,19 @@ namespace BurningKnight.entity.projectile {
 			});
 		}
 
+		public override void Render() {
+			base.Render();
+		}
+
+		public override void PostInit() {
+			base.PostInit();
+
+			ProjectileCallbacks.AttachDeathCallback(this, (p, e, t) => {
+				ExplosionMaker.Make(this, damageOwner: HurtOwner);
+				exploded = true;
+			});
+		}
+
 		public override bool HandleEvent(Event e) {
 			if (e is CollisionStartedEvent) {
 				return false; // Ignore all collision
@@ -74,15 +89,24 @@ namespace BurningKnight.entity.projectile {
 			return base.HandleEvent(e);
 		}
 
+		public override bool BreaksFrom(Entity entity, BodyComponent body) {
+			return false;
+		}
+
+		public override bool ShouldCollide(Entity entity) {
+			return false;
+		}
+
 		public override void Update(float dt) {
 			base.Update(dt);
 			Position += BodyComponent.Velocity * dt;
 
 			if (goingDown) {
 				if (Bottom >= toY && !exploded) {
-					AnimateDeath(null);
+					Break();
 				}
-			} else if (T >= MinUpTime && Bottom < Camera.Instance.Y) {
+			} else if (T <= 1f && Bottom < Camera.Instance.Y) {
+				T = MinUpTime + 1;
 				goingDown = true;
 				CenterX = target.CenterX;
 				toY = target.Bottom;
@@ -93,26 +117,11 @@ namespace BurningKnight.entity.projectile {
 			}
 		}
 
-		protected override void AnimateDeath(Entity e, bool timeout = false) {
-			base.AnimateDeath(e, timeout);
-			
-			ExplosionMaker.Make(this, damageOwner: HurtOwner);
-			exploded = true;
-		}
-
 		protected override void RenderShadow() {
 			if (goingDown) {
 				Graphics.Batch.DrawCircle(CenterX, toY, shadowSize, 16, ColorUtils.WhiteColor, 2f);
 				Graphics.Batch.DrawCircle(CenterX, toY, shadowSize * 0.5f, 16, ColorUtils.WhiteColor, 2f);
 			}
-		}
-
-		public override bool BreaksFrom(Entity entity, BodyComponent body) {
-			return false;
-		}
-
-		public override bool ShouldCollide(Entity entity) {
-			return false;
 		}
 	}
 }

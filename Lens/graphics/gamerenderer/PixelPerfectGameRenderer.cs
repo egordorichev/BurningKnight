@@ -162,13 +162,13 @@ namespace Lens.graphics.gamerenderer {
 		public override void Resize(int width, int height) {
 			base.Resize(width, height);
 
-			if (UiTarget == null) {
-				UiTarget = new RenderTarget2D(
-					Engine.GraphicsDevice, (int) (Display.UiWidth * Engine.Instance.Upscale),
-					(int) (Display.UiHeight * Engine.Instance.Upscale), false,
-					Engine.Graphics.PreferredBackBufferFormat, DepthFormat.Depth24, 0, RenderTargetUsage.PreserveContents
-				);
-			}
+			UiTarget?.Dispose();
+
+			UiTarget = new RenderTarget2D(
+				Engine.GraphicsDevice, (int) (Display.UiWidth * Engine.Instance.Upscale),
+				(int) (Display.UiHeight * Engine.Instance.Upscale), false,
+				Engine.Graphics.PreferredBackBufferFormat, DepthFormat.Depth24, 0, RenderTargetUsage.PreserveContents
+			);
 			
 			uiScale = Matrix.Identity * Matrix.CreateScale(Engine.Instance.UiUpscale);
 		}

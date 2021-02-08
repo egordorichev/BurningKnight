@@ -11,18 +11,29 @@ using Lens;
 using Lens.assets;
 using Lens.util;
 using Lens.util.math;
-using Steamworks.Data;
 
 namespace BurningKnight.state {
 	public static class Run {
 		public static Action<int, string> SubmitScore;
 		public static int ContentEndDepth = BK.Demo ? 5 : 11;
 
-		private static int depth = BK.Version.Dev ? 0 : 0;
+		private static int depth = BK.Version.Dev ? 1 : 0;
 		public static int NextDepth = depth;
 		public static int LastDepth = depth;
-		public static int Loop;
-		public static bool CustomSeed;
+
+		private static int loop;
+
+		public static int Loop {
+			get => loop;
+
+			set {
+				LastLoop = Loop;
+				loop = value;
+			}
+		}
+
+		public static int LastLoop = Loop;
+		public static bool CustomSeed; // -934034507
 		public static int Id;
 		public static bool Redo;
 		public static int NumPlayers;
@@ -40,7 +51,7 @@ namespace BurningKnight.state {
 		public static bool HasRun;
 		
 		public static string Seed;
-		
+
 		public static bool IgnoreSeed;
 		public static int Luck;
 		public static int Scourge { get; private set; }
@@ -68,6 +79,7 @@ namespace BurningKnight.state {
 		public static void Update() {
 			if (Redo || StartingNew || depth != NextDepth) {
 				LastDepth = depth;
+				LastLoop = Loop;
 				SavingDepth = depth;
 				depth = NextDepth;
 				StartedNew = StartingNew;
