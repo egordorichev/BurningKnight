@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - release
+      - dev
 jobs:
   build:
     name: Build BurningKnight
@@ -12,11 +13,12 @@ jobs:
         shell: powershell
         run: |
           dotnet --info
-          wget -O MonoGameSetup.exe https://github.com/MonoGame/MonoGame/releases/download/v3.7/MonoGameSetup.exe
-      - name: Install MonoGame
-        shell: cmd
-        run: |
-          MonoGameSetup.exe /S
+          dotnet tool install -g dotnet-mgcb
+      #    wget -O MonoGameSetup.exe https://github.com/MonoGame/MonoGame/releases/download/v3.7/MonoGameSetup.exe
+      #- name: Install MonoGame
+      #  shell: cmd
+      #  run: |
+      #    MonoGameSetup.exe /S
       - name: Checkout
         uses: actions/checkout@v1
       - name: Install NuGet
