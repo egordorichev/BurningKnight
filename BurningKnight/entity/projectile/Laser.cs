@@ -1,13 +1,20 @@
 using System;
+using BurningKnight.entity.buff;
 using BurningKnight.entity.component;
+using BurningKnight.entity.creature.mob;
+using BurningKnight.entity.creature.mob.boss;
+using BurningKnight.entity.creature.player;
 using BurningKnight.entity.door;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
 using BurningKnight.level;
 using BurningKnight.physics;
+using BurningKnight.state;
 using Lens.entity;
 using Lens.util;
 using Microsoft.Xna.Framework;
+using VelcroPhysics.Dynamics;
+using VelcroPhysics.Dynamics.Solver;
 
 namespace BurningKnight.entity.projectile {
 	public class Laser : Projectile {
@@ -24,7 +31,7 @@ namespace BurningKnight.entity.projectile {
 		}
 
 		public static Laser Make(Entity owner, float a, float additional, Item item = null, float damage = 1, float scale = 1f, float range = -1, Laser parent = null) {
-			var laser = new Laser();
+			/*var laser = new Laser();
 
 			laser.Damage = damage;
 			laser.FirstOwner = owner;
@@ -65,9 +72,57 @@ namespace BurningKnight.entity.projectile {
 
 			laser.CreateBody();
 			laser.AdditionalAngle = additional;
-			laser.BodyComponent.Body.Rotation = a + additional;
+			laser.BodyComponent.Body.Rotation = a + additional;*/
 
-			return laser;
+			if (owner is Item i) {
+				item = i;
+				owner = i.Owner;
+			}
+
+			var projectile = new Laser {
+				Owner = owner,
+				FirstOwner = owner,
+				Damage = damage,
+				Flags = 0,
+				Slice = "laser",
+				Bounce = 0,
+				Scale = scale,
+				Color = ProjectileColor.Red,
+				Parent = parent,
+				Item = item
+			};
+
+			owner.Area.Add(projectile);
+
+			var graphics = new LaserGraphicsComponent("projectiles", "laser");
+			projectile.AddComponent(graphics);
+
+			if (range > 0) {
+				projectile.Range = range;
+			}
+
+			if (parent != null) {
+				projectile.Scale *= 0.7f;
+				projectile.Range *= 0.5f;
+			}
+
+			projectile.Center = owner.Center;
+
+			owner.HandleEvent(new ProjectileCreatedEvent {
+				Owner = owner,
+				Item = item,
+				Projectile = projectile
+			});
+
+
+			projectile.Width = 32;
+			projectile.Height = 9 * projectile.Scale;
+
+			projectile.CreateBody();
+			projectile.AdditionalAngle = additional;
+			projectile.BodyComponent.Body.Rotation = a + additional;
+
+			return projectile;
 		}
 
 		public override void AddComponents() {
@@ -81,6 +136,10 @@ namespace BurningKnight.entity.projectile {
 
 		private static bool RayShouldCollide(Entity entity) {
 			return entity is ProjectileLevelBody || entity is Level || entity is Door;
+		}
+
+		public override bool BreaksFrom(Entity entity, BodyComponent body) {
+			return false;
 		}
 
 		public void Recalculate() {
@@ -134,7 +193,7 @@ namespace BurningKnight.entity.projectile {
 
 			lastClear += dt;
 
-			if (lastClear >= 0.1f) {
+			if (lastClear >= 0.05f) {
 				lastClear = 0;
 				EntitiesHurt.Clear();
 			}

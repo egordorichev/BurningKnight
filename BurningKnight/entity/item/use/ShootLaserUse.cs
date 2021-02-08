@@ -8,7 +8,7 @@ using Lens.util.math;
 
 namespace BurningKnight.entity.item.use {
 	public class ShootLaserUse : ShootUse {
-		/*public override void Setup(JsonValue settings) {
+		public override void Setup(JsonValue settings) {
 			base.Setup(settings);
 
 			var ac = 0.1f;
@@ -52,6 +52,6 @@ namespace BurningKnight.entity.item.use {
 					laser.Recalculate();
 				}
 			};
-		}*/
+		}
 	}
 }

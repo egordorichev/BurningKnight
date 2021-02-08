@@ -1,12 +1,14 @@
 # projectile
 * fix missile class
-* go over all bosses and check attacks
 * fix lazers
 * snow is not breaking
-* bk can't be hurt??? (in boss fight)
+
+* bk death cutscene camera moves into idk where (do you hear me limpor part) 
+* bk head shooting attack broken
 
 # general
 
+* fix dollar sign in font (weird pixels on edges
 * dark mage camera transitions are weird (esp if bk is alive lol)
 * boss camera tweak
 * GRAPHICS WEIRDNESS IS BACK
