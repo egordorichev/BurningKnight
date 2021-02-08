@@ -1,12 +1,11 @@
 # projectile
 * fix missile class
-* fix lazers
-* snow is not breaking
-
-* bk death cutscene camera moves into idk where (do you hear me limpor part) 
-* bk head shooting attack broken
+* fix bk lazers
 
 # general
+
+* bk death cutscene camera moves into idk where (do you hear me limpor part)
+* bk head shooting attack broken
 
 * fix dollar sign in font (weird pixels on edges
 * dark mage camera transitions are weird (esp if bk is alive lol)

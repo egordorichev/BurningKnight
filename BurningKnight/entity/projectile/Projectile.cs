@@ -19,6 +19,7 @@ using BurningKnight.entity.room.controllable.platform;
 using BurningKnight.entity.room.controllable.spikes;
 using BurningKnight.entity.room.controllable.turret;
 using BurningKnight.level;
+using BurningKnight.level.biome;
 using BurningKnight.level.entities;
 using BurningKnight.level.entities.decor;
 using BurningKnight.level.entities.statue;
@@ -258,12 +259,23 @@ namespace BurningKnight.entity.projectile {
 					return false;
 				}
 
+				var mute = false;
+
+				if (Run.Level.Biome is IceBiome && !(Owner is creature.bk.BurningKnight) && cse.Entity is ProjectileLevelBody lvl) {
+					if (lvl.Break(CenterX, CenterY)) {
+						mute = true;
+						AudioEmitterComponent.Dummy(Area, Center).EmitRandomizedPrefixed("level_snow_break", 3);
+					}
+				}
+
 				if (BreaksFrom(entity, cse.Body)) {
 					if (IsWall(entity, cse.Body)) {
-						if (Owner is Player) {
-							AudioEmitterComponent.Dummy(Area, Center).EmitRandomizedPrefixed("projectile_wall", 2, 0.5f);
-						} else {
-							AudioEmitterComponent.Dummy(Area, Center).EmitRandomized("projectile_wall_enemy", 0.5f);
+						if (!mute) {
+							if (Owner is Player) {
+								AudioEmitterComponent.Dummy(Area, Center).EmitRandomizedPrefixed("projectile_wall", 2, 0.5f);
+							} else {
+								AudioEmitterComponent.Dummy(Area, Center).EmitRandomized("projectile_wall_enemy", 0.5f);
+							}
 						}
 					}
 
