@@ -31,49 +31,6 @@ namespace BurningKnight.entity.projectile {
 		}
 
 		public static Laser Make(Entity owner, float a, float additional, Item item = null, float damage = 1, float scale = 1f, float range = -1, Laser parent = null) {
-			/*var laser = new Laser();
-
-			laser.Damage = damage;
-			laser.FirstOwner = owner;
-			laser.Owner = owner;
-			laser.Color = ProjectileColor.Red;
-
-			laser.RemoveFlags(ProjectileFlags.BreakableByMelee, ProjectileFlags.Reflectable);
-			laser.AddFlags(ProjectileFlags.ManualRotation, ProjectileFlags.FlyOverStones);
-
-			if (parent != null) {
-				laser.Color = parent.Color;
-				laser.Parent = parent;
-				laser.Range = parent.Range * 0.5f;
-			}
-
-			owner.Area.Add(laser);
-			
-			var graphics = new LaserGraphicsComponent("projectiles", "laser");
-			laser.AddComponent(graphics);
-			laser.Scale = scale;
-
-			if (parent != null) {
-				laser.Scale *= 0.7f;
-			}
-
-			if (range > 0) {
-				laser.Range = range;
-			}
-
-			owner.HandleEvent(new ProjectileCreatedEvent {
-				Owner = owner,
-				Item = item,
-				Projectile = laser
-			});
-
-			laser.Width = 32;
-			laser.Height = 9 * laser.Scale;
-
-			laser.CreateBody();
-			laser.AdditionalAngle = additional;
-			laser.BodyComponent.Body.Rotation = a + additional;*/
-
 			if (owner is Item i) {
 				item = i;
 				owner = i.Owner;
@@ -106,14 +63,13 @@ namespace BurningKnight.entity.projectile {
 				projectile.Range *= 0.5f;
 			}
 
-			projectile.Center = owner.Center;
+			projectile.Position = owner.Center;
 
 			owner.HandleEvent(new ProjectileCreatedEvent {
 				Owner = owner,
 				Item = item,
 				Projectile = projectile
 			});
-
 
 			projectile.Width = 32;
 			projectile.Height = 9 * projectile.Scale;
