@@ -22,7 +22,7 @@ namespace BurningKnight.entity.creature.mob.castle {
 			base.SetStats();
 			
 			AddComponent(new ZAnimationComponent(GetSprite()));
-			SetMaxHp(3);
+			SetMaxHp(10);
 
 			var body = new RectBodyComponent(1, 15, 14, 1);
 			AddComponent(body);
