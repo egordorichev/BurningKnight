@@ -1,5 +1,4 @@
 # projectile
-* fix missile class
 * fix bk lazers
 
 # general
@@ -21,6 +20,8 @@
 # level
 * mob spawning changes
 * crab rave level (only crabs)
+* morshu
+* troll with explosive bullets
 
 # bugs
 * debug the guy's pixel bug not loading a pixel texture

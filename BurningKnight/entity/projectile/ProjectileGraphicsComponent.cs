@@ -48,9 +48,7 @@ namespace BurningKnight.entity.projectile {
 			var or = spr.Center;
 
 			if (shadow) {
-				Graphics.Render(spr, Entity.Center + new Vector2(0, 6),
-					a, or, scale);
-
+				Graphics.Render(spr, Entity.Center + new Vector2(0, 6), a, or, scale);
 				return;
 			}
 

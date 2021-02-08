@@ -49,3 +49,4 @@
 * Buffed cupguy by a lot
 * Buffed post-first area wall crawler
 * Buffed maggot
+* Player hitbox is now smaller

@@ -34,7 +34,9 @@ namespace BurningKnight.entity.projectile {
 			AlwaysActive = true;
 			
 			var graphics = new ProjectileGraphicsComponent("projectiles", Slice);
+
 			AddComponent(graphics);
+			AddTag(Tags.MobProjectile);
 
 			var w = graphics.Sprite.Source.Width;
 			var h = graphics.Sprite.Source.Height;
@@ -42,7 +44,9 @@ namespace BurningKnight.entity.projectile {
 			Width = w;
 			Height = h;
 			Center = Owner.Center;
-			
+			T = MinUpTime + 1;
+
+			RemoveFlags(ProjectileFlags.BreakableByMelee, ProjectileFlags.Reflectable);
 			AddComponent(new RectBodyComponent(0, 0, w, h));
 			
 			BodyComponent.Body.IsBullet = true;
@@ -64,6 +68,10 @@ namespace BurningKnight.entity.projectile {
 			});
 		}
 
+		public override void Render() {
+			base.Render();
+		}
+
 		public override void PostInit() {
 			base.PostInit();
 
@@ -81,6 +89,14 @@ namespace BurningKnight.entity.projectile {
 			return base.HandleEvent(e);
 		}
 
+		public override bool BreaksFrom(Entity entity, BodyComponent body) {
+			return false;
+		}
+
+		public override bool ShouldCollide(Entity entity) {
+			return false;
+		}
+
 		public override void Update(float dt) {
 			base.Update(dt);
 			Position += BodyComponent.Velocity * dt;
@@ -89,7 +105,8 @@ namespace BurningKnight.entity.projectile {
 				if (Bottom >= toY && !exploded) {
 					Break();
 				}
-			} else if (T >= MinUpTime && Bottom < Camera.Instance.Y) {
+			} else if (T <= 1f && Bottom < Camera.Instance.Y) {
+				T = MinUpTime + 1;
 				goingDown = true;
 				CenterX = target.CenterX;
 				toY = target.Bottom;

@@ -48,7 +48,7 @@ namespace BurningKnight.entity.projectile {
 
 		public float Damage = 1;
 		public float T = -1;
-		public float Scale;
+		public float Scale = 1;
 		public int Bounce;
 
 		public bool Dying {
@@ -148,7 +148,7 @@ namespace BurningKnight.entity.projectile {
 		}
 
 		// Aka should bounce from the object or no
-		public bool ShouldCollide(Entity entity) {
+		public virtual bool ShouldCollide(Entity entity) {
 			if (entity == Owner) {
 				return false;
 			}
