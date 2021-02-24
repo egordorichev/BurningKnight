@@ -50,3 +50,4 @@
 * Buffed post-first area wall crawler
 * Buffed maggot
 * Player hitbox is now smaller
+* New gang painting
