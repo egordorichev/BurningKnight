@@ -11,12 +11,13 @@ using Microsoft.Xna.Framework;
 
 namespace Desktop {
 	public class DesktopApp : BK {
+		private const int Scale = 3;
 		public static string In = "20sw479alxyc1";
 		
 		private List<Integration> integrations = new List<Integration>();
 		private TwitchIntegration twitchIntegration;
 		
-		public DesktopApp() : base(Display.Width * 3, Display.Height * 3, !BK.Version.Dev) {
+		public DesktopApp() : base(Display.Width * Scale, Display.Height * Scale, !BK.Version.Dev) {
 			
 		}
 

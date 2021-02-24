@@ -125,7 +125,7 @@ namespace BurningKnight.state {
 				if (Settings.Fullscreen) {
 					Engine.Instance.SetFullscreen();
 				} else {
-					Engine.Instance.SetWindowed(Display.Width * 3, Display.Height * 3);
+					Engine.Instance.SetWindowed(Display.Width * 2, Display.Height * 2);
 				}
 			}
 
@@ -135,7 +135,7 @@ namespace BurningKnight.state {
 				if (Settings.Fullscreen) {
 					Engine.Instance.SetFullscreen();
 				} else {
-					Engine.Instance.SetWindowed(Display.Width * 3, Display.Height * 3);
+					Engine.Instance.SetWindowed(Display.Width * 2, Display.Height * 2);
 				}
 
 				Engine.Instance.StateRenderer.UiEffect = Shaders.Ui;

@@ -1047,7 +1047,7 @@ namespace BurningKnight.state {
 				return;
 			}
 
-			if (Input.Keyboard.WasPressed(Keys.NumPad9)) {
+			if (Input.Keyboard.WasPressed(Keys.Insert)) {
 				SaveManager.Delete(SaveType.Game, SaveType.Level, SaveType.Player);
 				Run.StartNew(1, Run.Type);
 				Died = true;
@@ -1161,7 +1161,7 @@ namespace BurningKnight.state {
 				p.Center = p.GetComponent<CursorComponent>().Cursor.GamePosition;
 			}
 
-			if (Input.Keyboard.WasPressed(Keys.NumPad3)) {
+			if (Input.Keyboard.WasPressed(Keys.PageUp)) {
 				var level = Run.Level;
 
 				for (var i = 0; i < level.Explored.Length; i++) {
@@ -1173,7 +1173,7 @@ namespace BurningKnight.state {
 				GlobalSave.ResetControlKnowldge();
 			}
 
-			if (Input.Keyboard.WasPressed(Keys.NumPad0)) {
+			if (Input.Keyboard.WasPressed(Keys.PageDown)) {
 				Camera.Instance.Detached = !Camera.Instance.Detached;
 
 				if (!Camera.Instance.Detached) {

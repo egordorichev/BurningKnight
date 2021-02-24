@@ -196,14 +196,17 @@ namespace BurningKnight.entity.projectile {
 				return false;
 			}
 
-			return (!(entity is Creature || entity is Level || entity is Tree)) &&
-			       (!HasFlag(ProjectileFlags.FlyOverWalls) && IsWall(entity, body))
-			       || entity.HasComponent<HealthComponent>();
+			if (IsWall(entity, body)) {
+				return !HasFlag(ProjectileFlags.FlyOverWalls);
+			}
+
+			return (!(entity is Chasm || entity is Projectile || entity is Creature || entity is Level || entity is Tree)) || entity.HasComponent<HealthComponent>();
 		}
 
 		private bool IsWall(Entity entity, BodyComponent body) {
-			return (entity is ProjectileLevelBody || (!(HasFlag(ProjectileFlags.FlyOverStones) || HasFlag(ProjectileFlags.FlyOverWalls)) && entity is HalfProjectileLevel) || entity is Prop ||
-			        (entity is Door d && !d.Open && !(body is DoorBodyComponent || d is CustomDoor)));
+			return ((entity is ProjectileLevelBody || (!(HasFlag(ProjectileFlags.FlyOverStones) || HasFlag(ProjectileFlags.FlyOverWalls)) && entity is HalfProjectileLevel))
+				|| entity is Prop ||
+				(entity is Door d && !d.Open && !(body is DoorBodyComponent || d is CustomDoor)));
 		}
 
 		private bool IgnoreHurtRules(Entity e) {
