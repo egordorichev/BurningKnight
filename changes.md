@@ -51,3 +51,5 @@
 * Buffed maggot
 * Player hitbox is now smaller
 * New gang painting
+* Dialog options are now instant-printed, improved ui dialog in general
+* Nerfed pharaoh 300 => 250
