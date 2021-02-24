@@ -1475,7 +1475,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\Mods\test\mod.lua" />
     <Content Include="Content\Shaders\bk.fx" />
     <Content Include="Content\Shaders\chasm.fx" />
     <Content Include="Content\Shaders\entity.fx" />

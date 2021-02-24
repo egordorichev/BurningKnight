@@ -4,11 +4,9 @@
 * bk head shooting attack broken
 * fix bk lazers
 
-* fix dollar sign in font (weird pixels on edges
 * dark mage camera transitions are weird (esp if bk is alive lol)
 * boss camera tweak
 * GRAPHICS WEIRDNESS IS BACK
-* bump build script to monogame 3.8
 * menu needs more love
 * add pickup sound to permanent item stands
 * update controller input sheme
