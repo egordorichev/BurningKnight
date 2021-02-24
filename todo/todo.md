@@ -1,5 +1,7 @@
-# general
+# gamepad
+* cursor is trying to stick to bottom left corner if aim stick is not touched
 
+# general
 * bk death cutscene camera moves into idk where (do you hear me limpor part)
 * bk head shooting attack broken
 * fix bk lazers

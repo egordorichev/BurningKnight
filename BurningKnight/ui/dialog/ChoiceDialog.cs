@@ -24,7 +24,7 @@ namespace BurningKnight.ui.dialog {
 			var builder = new StringBuilder();
 			var i = 0;
 
-			builder.Append(dialog).Append("\n");
+			builder.Append(dialog).Append("\n[skp]");
 
 			foreach (var option in Options) {
 				builder.Append($"[rn {i}]  ").Append(Locale.Get(option));

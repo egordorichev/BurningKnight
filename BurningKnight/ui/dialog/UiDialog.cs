@@ -141,8 +141,14 @@ namespace BurningKnight.ui.dialog {
 			}
 			
 			Position = Camera.Instance.CameraToUi(new Vector2(Owner.CenterX, Owner.Y - 4 - (!(Owner is Player) && Owner.TryGetComponent<ZComponent>(out var z) ? z.Z : 0)));
-			Height += (Str.Height + 12 - Height) * dt * 10;
-			Width += (Str.Width + 16 - Width) * dt * 10;
+			var s = dt * 10;
+
+			if (DoneSaying || JustStarted) {
+				s = 1;
+			}
+
+			Height += (Str.Height + 12 - Height) * s;
+			Width += (Str.Width + 16 - Width) * s;
 			X -= Width / 2;
 			Y -= Height;
 

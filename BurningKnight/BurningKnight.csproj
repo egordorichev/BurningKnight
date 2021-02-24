@@ -1356,6 +1356,7 @@
     <Compile Include="ui\str\effect\WaveEffect.cs" />
     <Compile Include="ui\str\event\DelayEvent.cs" />
     <Compile Include="ui\str\event\GlyphEvent.cs" />
+    <Compile Include="ui\str\event\SkipEvent.cs" />
     <Compile Include="ui\str\event\SpeedEvent.cs" />
     <Compile Include="ui\str\event\UserEvent.cs" />
     <Compile Include="ui\str\Glyph.cs" />
