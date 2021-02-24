@@ -53,3 +53,4 @@
 * New gang painting
 * Dialog options are now instant-printed, improved ui dialog in general
 * Nerfed pharaoh 300 => 250
+* Shells and some other particles will disappear in 5 instead of 10 seconds
