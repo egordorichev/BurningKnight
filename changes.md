@@ -56,3 +56,4 @@
 * Shells and some other particles will disappear in 5 instead of 10 seconds
 * Changed statues voice
 * Ice crawler projectile size buffed
+* Reverted to old map
