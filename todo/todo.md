@@ -17,7 +17,6 @@
 
 # level
 * mob spawning changes
-* crab rave level (only crabs)
 * morshu
 * troll with explosive bullets
 

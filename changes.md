@@ -57,3 +57,4 @@
 * Changed statues voice
 * Ice crawler projectile size buffed
 * Reverted to old map
+* Rave Cave level variant added

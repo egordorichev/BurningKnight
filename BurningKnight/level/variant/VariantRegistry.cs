@@ -17,6 +17,7 @@ namespace BurningKnight.level.variant {
 			Define(new WebbedLevelVariant(), 0.02f, Biome.Castle, Biome.Desert, Biome.Jungle, Biome.Ice, Biome.Library);
 			Define(new SandLevelVariant(), 0.05f, Biome.Castle, Biome.Desert, Biome.Jungle, Biome.Ice, Biome.Library);
 			Define(new GoldLevelVariant(), 0.005f, Biome.Castle);
+			Define(new RaveCaveVariant(), 0.01f, Biome.Castle);
 		}
 
 		public static void Define(LevelVariant variant, float chance, params string[] biomes) {

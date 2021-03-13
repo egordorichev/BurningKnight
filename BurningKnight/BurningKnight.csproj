@@ -1222,6 +1222,7 @@
     <Compile Include="level\variant\ForestLevelVariant.cs" />
     <Compile Include="level\variant\GoldLevelVariant.cs" />
     <Compile Include="level\variant\LevelVariant.cs" />
+    <Compile Include="level\variant\RaveCaveVariant.cs" />
     <Compile Include="level\variant\RegularLevelVariant.cs" />
     <Compile Include="level\variant\SandLevelVariant.cs" />
     <Compile Include="level\variant\SnowLevelVariant.cs" />
