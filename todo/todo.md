@@ -5,15 +5,13 @@
 * bk death cutscene camera moves into idk where (do you hear me limpor part)
 * bk head shooting attack broken
 * fix bk lazers
-
 * dark mage camera transitions are weird (esp if bk is alive lol)
 * boss camera tweak
+
 * GRAPHICS WEIRDNESS IS BACK
 * menu needs more love
-* add pickup sound to permanent item stands
 * update controller input sheme
 * flak cannon bump projectile size
-* nerf red key
 
 # level
 * mob spawning changes

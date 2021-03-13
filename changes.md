@@ -58,3 +58,5 @@
 * Ice crawler projectile size buffed
 * Reverted to old map
 * Rave Cave level variant added
+* Nerfed red key attack speed, added 1 damage
+* Fixed permanent item stands missing their pickup sounds

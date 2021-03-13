@@ -11,6 +11,7 @@ using BurningKnight.state;
 using BurningKnight.util;
 using ImGuiNET;
 using Lens;
+using Lens.assets;
 using Lens.entity;
 using Lens.graphics;
 using Lens.util;
@@ -161,6 +162,7 @@ namespace BurningKnight.entity.item.stand {
 							var item = c.Item;
 
 							c.Set(Items.CreateAndAdd(Item.Id, Area), false);
+							Audio.PlaySfx("item_pickup");
 
 							if (item != null) {
 								item.Done = true;
@@ -172,6 +174,7 @@ namespace BurningKnight.entity.item.stand {
 							var item = c.Item;
 
 							c.Set(Items.CreateAndAdd(Item.Id, Area), false);
+							Audio.PlaySfx("item_pickup");
 
 							if (item != null) {
 								item.Done = true;
@@ -183,6 +186,7 @@ namespace BurningKnight.entity.item.stand {
 							var item = c.Item;
 
 							c.Set(Items.CreateAndAdd(Item.Id, Area), false);
+							Audio.PlaySfx("item_pickup");
 
 							if (item != null) {
 								item.Done = true;
