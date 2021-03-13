@@ -3,12 +3,12 @@
 * update controller input sheme
 
 # general
-* bk death cutscene camera moves into idk where (do you hear me limpor part)
+* bk death cutscene (player hitbox flies away lol)
 * bk head shooting attack broken
-* fix bk lazers
-* dark mage camera transitions are weird (esp if bk is alive lol)
-* boss camera tweak
-
+* bk lazers broken
+* bk can't be hit?
+* tweak initial boss camera showdown
+  
 * GRAPHICS WEIRDNESS IS BACK
 * menu needs more love
 * flak cannon bump projectile size

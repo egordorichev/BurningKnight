@@ -60,3 +60,4 @@
 * Rave Cave level variant added
 * Nerfed red key attack speed, added 1 damage
 * Fixed permanent item stands missing their pickup sounds
+* Fixed a bunch of brain based softlocks

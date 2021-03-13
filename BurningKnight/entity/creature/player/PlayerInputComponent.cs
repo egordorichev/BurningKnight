@@ -3,6 +3,7 @@ using BurningKnight.assets;
 using BurningKnight.assets.input;
 using BurningKnight.entity.buff;
 using BurningKnight.entity.component;
+using BurningKnight.entity.creature.mob.boss;
 using BurningKnight.entity.events;
 using BurningKnight.level.tile;
 using BurningKnight.save;
@@ -63,6 +64,10 @@ namespace BurningKnight.entity.creature.player {
 			if (GetComponent<BuffsComponent>().Has<FrozenBuff>()) {
 				EnableUpdates = true;
 				return;
+			}
+
+			if (DialogComponent.Talking != null || Boss.Exploding) {
+				EnableUpdates = true;
 			}
 			
 			var idle = true;
@@ -331,6 +336,7 @@ namespace BurningKnight.entity.creature.player {
 				body.Acceleration = Vector2.Zero;
 			}
 
+			EnableUpdates = true;
 			Entity.GetComponent<StateComponent>().Become<Player.IdleState>();
 		}
 	}
