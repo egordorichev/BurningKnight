@@ -1,5 +1,6 @@
 # gamepad
 * cursor is trying to stick to bottom left corner if aim stick is not touched
+* update controller input sheme
 
 # general
 * bk death cutscene camera moves into idk where (do you hear me limpor part)
@@ -10,7 +11,6 @@
 
 * GRAPHICS WEIRDNESS IS BACK
 * menu needs more love
-* update controller input sheme
 * flak cannon bump projectile size
 
 # level
