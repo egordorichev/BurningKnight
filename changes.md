@@ -62,3 +62,4 @@
 * Fixed permanent item stands missing their pickup sounds
 * Fixed a bunch of brain based softlocks
 * Made gunners/bullet slimes a bit more rare / fat in the desert biome
+* Shops & treasure rooms will now appear in emerald caves
