@@ -5,6 +5,7 @@ using BurningKnight.entity.bomb;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature;
 using BurningKnight.entity.creature.mob;
+using BurningKnight.entity.creature.mob.ice;
 using BurningKnight.entity.creature.mob.jungle;
 using BurningKnight.entity.creature.npc;
 using BurningKnight.entity.creature.pet;
@@ -252,7 +253,7 @@ namespace BurningKnight.entity.projectile {
 				}
 
 				if (entity.TryGetComponent<HealthComponent>(out var hp) && ShouldHurt(entity)) {
-					hp.ModifyHealth(-Damage, Owner, DamageType.Custom);
+					hp.ModifyHealth(-Damage, Owner, !(Owner is Snowman) ? DamageType.Custom : DamageType.Regular);
 
 					Callbacks?.OnHurt?.Invoke(this, entity);
 					EntitiesHurt.Add(entity);
