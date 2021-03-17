@@ -64,3 +64,4 @@
 * Made gunners/bullet slimes a bit more rare / fat in the desert biome
 * Shops & treasure rooms will now appear in emerald caves
 * Melee arcs will not be affected by range downs that go below 1
+* Nerfed ghost chase a tiny bit
