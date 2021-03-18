@@ -1,23 +1,20 @@
-# general
-
-* bk death cutscene camera moves into idk where (do you hear me limpor part)
-* bk head shooting attack broken
-* fix bk lazers
-
-* fix dollar sign in font (weird pixels on edges
-* dark mage camera transitions are weird (esp if bk is alive lol)
-* boss camera tweak
-* GRAPHICS WEIRDNESS IS BACK
-* bump build script to monogame 3.8
-* menu needs more love
-* add pickup sound to permanent item stands
+# gamepad
+* cursor is trying to stick to bottom left corner if aim stick is not touched
 * update controller input sheme
+
+# general
+* bk death cutscene (player hitbox flies away lol)
+* bk head shooting attack broken
+* bk lazers broken
+* bk can't be hit?
+* tweak initial boss camera showdown
+  
+* GRAPHICS WEIRDNESS IS BACK
+* menu needs more love
 * flak cannon bump projectile size
-* nerf red key
 
 # level
 * mob spawning changes
-* crab rave level (only crabs)
 * morshu
 * troll with explosive bullets
 

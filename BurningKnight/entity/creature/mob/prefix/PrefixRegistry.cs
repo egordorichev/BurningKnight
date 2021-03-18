@@ -10,7 +10,7 @@ namespace BurningKnight.entity.creature.mob.prefix {
 			Define<ExplosivePrefix>("explosive");
 			Define<DeathShotPrefix>("death_shot");
 			Define<HealthyPrefix>("healthy_shot");
-			Define<EmeraldPrefix>("emerald");
+			// Define<EmeraldPrefix>("emerald");
 			Define<FragilePrefix>("fragile");
 			Define<GoldPrefix>("gold");
 		}

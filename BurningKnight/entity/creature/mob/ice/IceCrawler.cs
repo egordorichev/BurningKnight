@@ -106,7 +106,7 @@ namespace BurningKnight.entity.creature.mob.ice {
 
 							for (var i = 0; i < 5; i++) {
 								builder.Slice = i == 0 ? "circle" : "small";
-								builder.Scale = i == 0 ? 1 : Rnd.Float(0.5f, 0.7f);
+								builder.Scale = i == 0 ? 1 : Rnd.Float(0.7f, 1f);
 
 								var projectile = builder.Shoot(angle + (i == 0 ? 0 : Rnd.Float(-0.5f, 0.5f)), i == 0 ? 5f : Rnd.Float(6, 10f)).Build();
 

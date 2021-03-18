@@ -71,7 +71,7 @@ namespace BurningKnight.entity.creature.player {
 			angle += (target - angle) * Engine.Delta * 3f;
 
 			var state = GetComponent<StateComponent>().StateInstance;
-			var a = (state is Player.RollState || state is Player.DuckState || state is Player.PostRollState || state is Player.SittingState) ? 0 : angle;
+			var a = 0; // (state is Player.RollState || state is Player.DuckState || state is Player.PostRollState || state is Player.SittingState) ? 0 : angle;
 
 			if (shadow) {
 				a *= -1;

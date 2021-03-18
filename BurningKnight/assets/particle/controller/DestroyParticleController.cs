@@ -40,7 +40,7 @@ namespace BurningKnight.assets.particle.controller {
 
 			particle.Update(dt);
 
-			if (particle.T >= 10f) {
+			if (particle.T >= 5f) {
 				particle.Alpha -= dt * 0.3f;
 
 				if (particle.Alpha <= 0) {

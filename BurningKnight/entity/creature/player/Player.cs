@@ -164,7 +164,7 @@ namespace BurningKnight.entity.creature.player {
 				CanCollide = false
 			});
 			
-			AddComponent(new SensorBodyComponent(3, 2, Width - 6, Height - 3, BodyType.Dynamic, true));
+			AddComponent(new SensorBodyComponent(2, 1, Width - 4, Height - 1, BodyType.Dynamic, true));
 			GetComponent<SensorBodyComponent>().Body.SleepingAllowed = false;
 			
 			AddComponent(new InteractorComponent {

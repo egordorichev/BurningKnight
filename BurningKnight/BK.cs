@@ -20,7 +20,7 @@ namespace BurningKnight {
 		public const bool StandMode = false;
 		public const bool Demo = false;
 		
-		public static Version Version = new Version("Mega update", 49, 1, 3, 0, 1, Debug);
+		public static Version Version = new Version("Bad rock update", 49, 1, 3, 1, 1, Debug);
 		
 		public BK(int width, int height, bool fullscreen) : base(Version, 
 			#if DEBUG

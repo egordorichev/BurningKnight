@@ -1222,6 +1222,7 @@
     <Compile Include="level\variant\ForestLevelVariant.cs" />
     <Compile Include="level\variant\GoldLevelVariant.cs" />
     <Compile Include="level\variant\LevelVariant.cs" />
+    <Compile Include="level\variant\RaveCaveVariant.cs" />
     <Compile Include="level\variant\RegularLevelVariant.cs" />
     <Compile Include="level\variant\SandLevelVariant.cs" />
     <Compile Include="level\variant\SnowLevelVariant.cs" />
@@ -1356,6 +1357,7 @@
     <Compile Include="ui\str\effect\WaveEffect.cs" />
     <Compile Include="ui\str\event\DelayEvent.cs" />
     <Compile Include="ui\str\event\GlyphEvent.cs" />
+    <Compile Include="ui\str\event\SkipEvent.cs" />
     <Compile Include="ui\str\event\SpeedEvent.cs" />
     <Compile Include="ui\str\event\UserEvent.cs" />
     <Compile Include="ui\str\Glyph.cs" />
@@ -1475,7 +1477,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\Mods\test\mod.lua" />
     <Content Include="Content\Shaders\bk.fx" />
     <Content Include="Content\Shaders\chasm.fx" />
     <Content Include="Content\Shaders\entity.fx" />

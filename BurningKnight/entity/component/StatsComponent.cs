@@ -1,3 +1,4 @@
+using System;
 using BurningKnight.assets.achievements;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item.util;
@@ -150,7 +151,7 @@ namespace BurningKnight.entity.component {
 				var arc = mace.Arc;
 
 				arc.Damage *= Damage;
-				arc.Width *= Range;
+				arc.Width *= Math.Max(1, Range);
 			} else if (e is RoomClearedEvent rr) {
 				if (!UsedWeaponInRoom && rr.Room != null) {
 					var t = rr.Room.Type;

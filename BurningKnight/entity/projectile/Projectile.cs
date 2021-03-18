@@ -5,6 +5,7 @@ using BurningKnight.entity.bomb;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature;
 using BurningKnight.entity.creature.mob;
+using BurningKnight.entity.creature.mob.ice;
 using BurningKnight.entity.creature.mob.jungle;
 using BurningKnight.entity.creature.npc;
 using BurningKnight.entity.creature.pet;
@@ -196,14 +197,17 @@ namespace BurningKnight.entity.projectile {
 				return false;
 			}
 
-			return (!(entity is Creature || entity is Level || entity is Tree)) &&
-			       (!HasFlag(ProjectileFlags.FlyOverWalls) && IsWall(entity, body))
-			       || entity.HasComponent<HealthComponent>();
+			if (IsWall(entity, body)) {
+				return !HasFlag(ProjectileFlags.FlyOverWalls);
+			}
+
+			return (!(entity is Chasm || entity is Projectile || entity is Creature || entity is Level || entity is Tree)) || entity.HasComponent<HealthComponent>();
 		}
 
 		private bool IsWall(Entity entity, BodyComponent body) {
-			return (entity is ProjectileLevelBody || (!(HasFlag(ProjectileFlags.FlyOverStones) || HasFlag(ProjectileFlags.FlyOverWalls)) && entity is HalfProjectileLevel) || entity is Prop ||
-			        (entity is Door d && !d.Open && !(body is DoorBodyComponent || d is CustomDoor)));
+			return ((entity is ProjectileLevelBody || (!(HasFlag(ProjectileFlags.FlyOverStones) || HasFlag(ProjectileFlags.FlyOverWalls)) && entity is HalfProjectileLevel))
+				|| entity is Prop ||
+				(entity is Door d && !d.Open && !(body is DoorBodyComponent || d is CustomDoor)));
 		}
 
 		private bool IgnoreHurtRules(Entity e) {
@@ -249,7 +253,7 @@ namespace BurningKnight.entity.projectile {
 				}
 
 				if (entity.TryGetComponent<HealthComponent>(out var hp) && ShouldHurt(entity)) {
-					hp.ModifyHealth(-Damage, Owner, DamageType.Custom);
+					hp.ModifyHealth(-Damage, Owner, !(Owner is Snowman) ? DamageType.Custom : DamageType.Regular);
 
 					Callbacks?.OnHurt?.Invoke(this, entity);
 					EntitiesHurt.Add(entity);

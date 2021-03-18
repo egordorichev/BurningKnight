@@ -3,6 +3,7 @@ using BurningKnight.entity.component;
 using BurningKnight.entity.creature.npc;
 using BurningKnight.entity.fx;
 using BurningKnight.entity.projectile;
+using BurningKnight.ui.dialog;
 using Lens;
 using Lens.assets;
 using Lens.entity;
@@ -45,6 +46,10 @@ namespace BurningKnight.level.entities.statue {
 			}
 
 			AddSensor();
+
+			if (TryGetComponent<DialogComponent>(out var c)) {
+				c.Dialog.Voice = 30;
+			}
 		}
 
 		protected virtual void AddSensor() {

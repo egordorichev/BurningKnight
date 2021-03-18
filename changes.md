@@ -50,3 +50,19 @@
 * Buffed post-first area wall crawler
 * Buffed maggot
 * Player hitbox is now smaller
+* New gang painting
+* Dialog options are now instant-printed, improved ui dialog in general
+* Nerfed pharaoh 300 => 250
+* Shells and some other particles will disappear in 5 instead of 10 seconds
+* Changed statues voice
+* Ice crawler projectile size buffed
+* Reverted to old map
+* Rave Cave level variant added
+* Nerfed red key attack speed, added 1 damage
+* Fixed permanent item stands missing their pickup sounds
+* Fixed a bunch of brain based softlocks
+* Made gunners/bullet slimes a bit more rare / fat in the desert biome
+* Shops & treasure rooms will now appear in emerald caves
+* Melee arcs will not be affected by range downs that go below 1
+* Nerfed ghost chase a tiny bit
+* Nerfed amurs arrow

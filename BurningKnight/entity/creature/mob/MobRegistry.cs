@@ -37,8 +37,8 @@ namespace BurningKnight.entity.creature.mob {
 
 				// Desert
 				MobInfo.New<Bandit>(new SpawnChance(1f, Biome.Desert, Biome.Jungle)).SetWeight(0.5f),
-				MobInfo.New<Gunner>(new SpawnChance(2f, Biome.Desert)).SetWeight(1.5f),
-				MobInfo.New<DesertSlime>(new SpawnChance(1f, Biome.Desert)),
+				MobInfo.New<Gunner>(new SpawnChance(0.8f, Biome.Desert)).SetWeight(2f),
+				MobInfo.New<DesertSlime>(new SpawnChance(0.7f, Biome.Desert)).SetWeight(1.5f),
 				MobInfo.New<Maggot>(new SpawnChance(1f, Biome.Desert)).RequiresNearWall(),
 				MobInfo.New<Mummy>(new SpawnChance(1f, Biome.Desert)),
 				MobInfo.New<Worm>(new SpawnChance(1f, Biome.Desert)),
