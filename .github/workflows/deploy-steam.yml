@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - release
+      - dev
 jobs:
   build:
     name: Build BurningKnight
@@ -52,7 +53,7 @@ jobs:
         shell: bash
         run: |
           cd $GITHUB_WORKSPACE/BurningKnight/Content/
-          "C:/Program Files (x86)/MSBuild/MonoGame/v3.0/Tools/MGCB.exe" "Content.mgcb" /platform:DesktopGL
+          mgcb "Content.mgcb" /platform:DesktopGL
           ls -l
       - name: Building Solution
         shell: bash
