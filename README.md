@@ -34,7 +34,9 @@ my dev branch into release, and 10 minutes later press a few buttons on Itch/Ste
 
 Hey, so I saw a bunch of people complain online about no building instructions. I couldn't be surprised more, since you just open the .sln file in your C# IDE of choice and compile & run the Desktop project. But just in case anyone is still curious, here you go.  
 
-Or if you preffer to do it from the terminal: install the packages:
+If you don't have a ready environment for compiling .NET Framework code, check [this](https://github.com/egordorichev/BurningKnight/blob/dev/CompileNetFrameworkOnLinux.md) page. It explains how to install and use all tools needed to compile Burning Knight on Linux.
+
+Or if you prefer to do it from the terminal: install the packages:
 
 ```bash
 nuget restore
