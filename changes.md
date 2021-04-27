@@ -66,3 +66,4 @@
 * Melee arcs will not be affected by range downs that go below 1
 * Nerfed ghost chase a tiny bit
 * Nerfed amurs arrow
+* Lowered default screenshake
