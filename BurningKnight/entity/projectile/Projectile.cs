@@ -158,7 +158,19 @@ namespace BurningKnight.entity.projectile {
 				return false;
 			}
 
-			return !(entity is Level || entity is HalfWall) && !(entity is Door d && d.Open) && !(((HasFlag(ProjectileFlags.FlyOverStones) || HasFlag(ProjectileFlags.FlyOverWalls)) && (entity is Prop || entity is Door || entity is HalfProjectileLevel || entity is ProjectileLevelBody)) || entity is Chasm || entity is MovingPlatform || entity is PlatformBorder || entity is Creature || entity is Item || entity is Projectile || entity is ShopStand || entity is Bomb);
+			if (entity is Chasm || entity is MovingPlatform || entity is PlatformBorder || entity is Creature
+			    || entity is Item || entity is Projectile || entity is ShopStand || entity is Bomb) {
+
+				return false;
+			}
+
+			return !(entity is Level || entity is HalfWall)
+				&& !(entity is Door d && d.Open)
+				&& !(
+				 (
+				   HasFlag(ProjectileFlags.FlyOverStones) || HasFlag(ProjectileFlags.FlyOverWalls)
+				 ) && (entity is Prop || entity is Door || entity is HalfProjectileLevel || entity is ProjectileLevelBody)
+				);
 		}
 
 		// Aka should break on collision with it or no
