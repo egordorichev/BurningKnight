@@ -13,11 +13,6 @@
 * menu needs more love
 * flak cannon bump projectile size
 
-# level
-* mob spawning changes
-* morshu
-* troll with explosive bullets
-
 # bugs
 * debug the guy's pixel bug not loading a pixel texture
 
