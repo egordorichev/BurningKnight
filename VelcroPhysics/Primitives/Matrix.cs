@@ -1,10 +1,13 @@
+// To prevent https://github.com/egordorichev/BurningKnight/issues/228 (for some reason MONOGAME flag is not always set?)
+#define MONOGAME
+
 #if !XNA && !WINDOWS_PHONE && !XBOX && !ANDROID && !MONOGAME
 
 #region License
 
 /*
 MIT License
-Copyright © 2006 The Mono.Xna Team
+Copyright ï¿½ 2006 The Mono.Xna Team
 
 All rights reserved.
 

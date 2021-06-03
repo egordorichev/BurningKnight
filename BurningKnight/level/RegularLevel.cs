@@ -166,6 +166,10 @@ namespace BurningKnight.level {
 				rooms.Add(new DesertWellRoom());
 			}
 
+			if (cave) {
+				rooms.Add(RoomRegistry.Generate(RoomType.Treasure, biome));
+			}
+
 			if (final) {
 				Log.Info("Prepare for the final!");
 			}
@@ -242,7 +246,7 @@ namespace BurningKnight.level {
 					rooms.Add(RoomRegistry.Generate(RoomType.Connection, biome));
 				}
 
-				if (!cave && !rush && !final && Run.Type != RunType.Challenge) {
+				if (!rush && !final && Run.Type != RunType.Challenge) {
 					if (!loop && !LevelSave.GenerateShops && first) {
 						if (LevelSave.XL) {
 							rooms.Add(RoomRegistry.Generate(RoomType.Treasure, biome));
@@ -256,14 +260,12 @@ namespace BurningKnight.level {
 					}
 				}
 
-				if (!cave) {
-					if (!LevelSave.GenerateShops && LevelSave.GenerateTreasure && !first) {
-						rooms.Add(RoomRegistry.Generate(RoomType.Treasure, biome));
-					}
+				if (!LevelSave.GenerateShops && LevelSave.GenerateTreasure && !first) {
+					rooms.Add(RoomRegistry.Generate(RoomType.Treasure, biome));
+				}
 
-					if (!LevelSave.GenerateShops && loop && Run.Depth == 1 && Run.Type != RunType.Challenge) {
-						rooms.Add(RoomRegistry.Generate(RoomType.Treasure, biome));
-					}
+				if (!LevelSave.GenerateShops && loop && Run.Depth == 1 && Run.Type != RunType.Challenge) {
+					rooms.Add(RoomRegistry.Generate(RoomType.Treasure, biome));
 				}
 
 				if (rush) {
@@ -290,7 +292,7 @@ namespace BurningKnight.level {
 					rooms.Add(new SecretEmeraldGolemRoom());
 				}
 				
-				if (!cave && !rush) {
+				if (!rush) {
 					if (Rnd.Chance(95)) {
 						if (Rnd.Chance(2 + Run.Scourge * 5)) {
 							rooms.Add(new ScourgedRoom());

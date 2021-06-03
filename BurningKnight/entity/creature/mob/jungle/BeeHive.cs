@@ -109,13 +109,19 @@ namespace BurningKnight.entity.creature.mob.jungle {
 					Self.GetComponent<AudioEmitterComponent>().StopAll();
 					
 					var am = 16;
+
+					var builder = new ProjectileBuilder(Self, "circle") {
+						Color = ProjectileColor.Orange,
+						Bounce = 5
+					};
 			
 					for (var i = 0; i < am; i++) {
 						var a = Math.PI * 2 * (((float) i) / am) + Rnd.Float(-1f, 1f);
-						var p = Projectile.Make(Self, "circle", a, Rnd.Float(3f, 10f), scale: Rnd.Float(0.4f, 1f));
-						p.Color = ProjectileColor.Orange;
-						p.BounceLeft = 5;
-						p.Controller += SlowdownProjectileController.Make(0.25f, 0.5f, 1f);
+
+						builder.Scale = Rnd.Float(0.4f, 1f);
+						var p = builder.Shoot(a, Rnd.Float(3f, 10f)).Build();
+
+						ProjectileCallbacks.AttachUpdateCallback(p, SlowdownProjectileController.Make(0.25f, 0.5f, 1f));
 					}
 
 					for (var i = 0; i < Rnd.Int(4, 10); i++) {

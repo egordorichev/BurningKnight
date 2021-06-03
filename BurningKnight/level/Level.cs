@@ -280,18 +280,10 @@ namespace BurningKnight.level {
 			}
 
 			MarkForBodyUpdate(x, y);
-			
-			if (x % LevelBodyComponent.ChunkSize == 0) {
-				MarkForBodyUpdate(x - 1, y);
-			} else if (x % LevelBodyComponent.ChunkSize == LevelBodyComponent.ChunkSize - 1) {
-				MarkForBodyUpdate(x + 1, y);
-			}
-			
-			if (y % LevelBodyComponent.ChunkSize == 0) {
-				MarkForBodyUpdate(x, y - 1);
-			} else if (y % LevelBodyComponent.ChunkSize == LevelBodyComponent.ChunkSize - 1) {
-				MarkForBodyUpdate(x, y + 1);
-			}
+			MarkForBodyUpdate(x - 1, y);
+			MarkForBodyUpdate(x + 1, y);
+			MarkForBodyUpdate(x, y - 1);
+			MarkForBodyUpdate(x, y + 1);
 		}
 		
 		private void MarkForBodyUpdate(int x, int y) {

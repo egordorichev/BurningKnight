@@ -197,12 +197,6 @@ namespace Lens.util.camera {
 			Instance = null;
 		}
 
-		public void RoundPosition() {
-			position.X = (float) System.Math.Round(position.X);
-			position.Y = (float) System.Math.Round(position.Y);
-			changed = true;
-		}
-
 		public Vector2 ScreenToCamera(Vector2 position) {
 			return Vector2.Transform(position, Matrix.Invert(Engine.ScreenMatrix) * scaledInverseMatrix);
 		}

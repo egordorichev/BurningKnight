@@ -78,16 +78,18 @@ namespace BurningKnight.entity.twitch {
 		public override bool HandleEvent(Event e) {
 			if (e is ItemUsedEvent iue && iue.Item.Type == ItemType.Weapon && cooldown <= 0.01f) {
 				cooldown = 2f;
-				
 				Owner.GetComponent<AudioEmitterComponent>().EmitRandomizedPrefixed("item_meatguy", 4, 0.5f);
 						
 				var a = AngleTo(Owner.GetComponent<AimComponent>().RealAim);
-				var projectile = Projectile.Make(Owner, "small", a, 8f, scale: 0.8f);
 				var an = GetComponent<AnimationComponent>();
 
-				projectile.Color = an.Tint;
+				var projectile = new ProjectileBuilder(Owner, "small") {
+					Scale = 0.8f,
+					LightRadius = 32f,
+					Color = an.Tint
+				}.Shoot(a, 8f).Build();
+
 				projectile.Center = Center + MathUtils.CreateVector(a, 5f);
-				projectile.AddLight(32f, projectile.Color);
 
 				an.Animate();
 				

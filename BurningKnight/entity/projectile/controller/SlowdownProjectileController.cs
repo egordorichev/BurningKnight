@@ -3,7 +3,7 @@ using Lens.util.timer;
 
 namespace BurningKnight.entity.projectile.controller {
 	public static class SlowdownProjectileController {
-		public static ProjectileUpdateCallback Make(float speed = 1, float time = 1f, float vmin = 0.1f) {
+		public static ProjectileCallbacks.UpdateCallback Make(float speed = 1, float time = 1f, float vmin = 0.1f) {
 			var stopped = false;
 			
 			return (p, dt) => {

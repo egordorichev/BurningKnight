@@ -33,14 +33,14 @@ namespace BurningKnight.level {
 			y += 8;
 			var a = Check((int) (x / 16), (int) (y / 16));
 			
-			a = a || Check((int) (x / 16 - 0.5f), (int) (y / 16));
-			a = a || Check((int) (x / 16 + 0.5f), (int) (y / 16));
-			a = a || Check((int) (x / 16), (int) (y / 16 - 0.5f));
-			a = a || Check((int) (x / 16), (int) (y / 16 + 0.5f));
-			a = a || Check((int) (x / 16 - 0.5f), (int) (y / 16 + 0.5f));
-			a = a || Check((int) (x / 16 + 0.5f), (int) (y / 16 + 0.5f));
-			a = a || Check((int) (x / 16 - 0.5f), (int) (y / 16 - 0.5f));
-			a = a || Check((int) (x / 16 + 0.5f), (int) (y / 16 - 0.5f));
+			a = Check((int) (x / 16 - 0.5f), (int) (y / 16)) || a;
+			a = Check((int) (x / 16 + 0.5f), (int) (y / 16)) || a;
+			a = Check((int) (x / 16), (int) (y / 16 - 0.5f)) || a;
+			a = Check((int) (x / 16), (int) (y / 16 + 0.5f)) || a;
+			a = Check((int) (x / 16 - 0.5f), (int) (y / 16 + 0.5f)) || a;
+			a = Check((int) (x / 16 + 0.5f), (int) (y / 16 + 0.5f)) || a;
+			a = Check((int) (x / 16 - 0.5f), (int) (y / 16 - 0.5f)) || a;
+			a = Check((int) (x / 16 + 0.5f), (int) (y / 16 - 0.5f)) || a;
 
 			return a;
 		}

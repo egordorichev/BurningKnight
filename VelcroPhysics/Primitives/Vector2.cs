@@ -1,5 +1,4 @@
-﻿#if !XNA && !WINDOWS_PHONE && !XBOX && !ANDROID && !MONOGAME
-
+﻿#if false
 #region License
 
 /*

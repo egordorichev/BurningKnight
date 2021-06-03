@@ -206,12 +206,11 @@ namespace Desktop.integration.steam {
 					Log.Error(e);
 				}
 
-				SteamFriends.OnGameOverlayActivated += () => {
+				SteamFriends.OnGameOverlayActivated += (a) => {
 					Engine.Instance.State.Paused = true;
 				};
 				
 			} catch (Exception e) {
-				Log.Error(e);
 				Log.Info("No steam no fire :/");
 			}
 		}

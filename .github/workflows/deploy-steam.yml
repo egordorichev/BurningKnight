@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - release
+      - dev
 jobs:
   build:
     name: Build BurningKnight
@@ -12,11 +13,12 @@ jobs:
         shell: powershell
         run: |
           dotnet --info
-          wget -O MonoGameSetup.exe https://github.com/MonoGame/MonoGame/releases/download/v3.7/MonoGameSetup.exe
-      - name: Install MonoGame
-        shell: cmd
-        run: |
-          MonoGameSetup.exe /S
+          dotnet tool install -g dotnet-mgcb
+      #    wget -O MonoGameSetup.exe https://github.com/MonoGame/MonoGame/releases/download/v3.7/MonoGameSetup.exe
+      #- name: Install MonoGame
+      #  shell: cmd
+      #  run: |
+      #    MonoGameSetup.exe /S
       - name: Checkout
         uses: actions/checkout@v1
       - name: Install NuGet
@@ -45,13 +47,13 @@ jobs:
         run: |
           cd $GITHUB_WORKSPACE
           ls -l
-          "C:/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/MSBuild/Current/Bin/MSBuild.exe" ./Lens.sln /target:Aseprite
+          "C:/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/MSBuild/Current/Bin/MSBuild.exe" ./Aseprite/Aseprite.csproj
           ls -l
       - name: Building Resources
         shell: bash
         run: |
           cd $GITHUB_WORKSPACE/BurningKnight/Content/
-          "C:/Program Files (x86)/MSBuild/MonoGame/v3.0/Tools/MGCB.exe" "Content.mgcb" /platform:DesktopGL
+          mgcb "Content.mgcb" /platform:DesktopGL
           ls -l
       - name: Building Solution
         shell: bash

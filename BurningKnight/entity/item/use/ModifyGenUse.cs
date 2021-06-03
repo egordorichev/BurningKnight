@@ -23,7 +23,7 @@ namespace BurningKnight.entity.item.use {
 			}
 
 			LevelSave.ChestRewardChance += chestRewardChance;
-			Projectile.MobDestrutionChance += mobDest;
+			LevelSave.MobDestructionChance += mobDest;
 			LevelSave.MimicChance += mimicChance;
 			LevelSave.GenerateMarket = genMarket;
 			LevelSave.GenerateShops = shops;

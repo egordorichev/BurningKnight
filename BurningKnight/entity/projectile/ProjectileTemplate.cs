@@ -18,15 +18,19 @@ namespace BurningKnight.entity.projectile {
 			var c = new Vector2();
 			var d = 0.2f;
 
+			var builder = new ProjectileBuilder(owner, texture);
+			builder.Shoot(angle, speed);
+			builder.Bounce = bounce;
+
 			for (var x = 0; x < width; x++) {
 				var x1 = x;
 
 				Timer.Add(() => {
 					for (var y = 0; y < height; y++) {
 						if (data[y][x1] != ' ') {
-							var p = Projectile.Make(owner, texture, angle, speed, true, bounce);
+							var p = builder.Build();
+
 							p.Center = center + MathUtils.RotateAround(new Vector2(0, (y - height / 2f) * 10), angle, c);
-							
 							modifier?.Invoke(p);
 						}
 					}	
@@ -45,6 +49,8 @@ namespace BurningKnight.entity.projectile {
 			var c = new Vector2();
 			var first = true;
 
+			var builder = new ProjectileBuilder(owner, texture);
+
 			for (var x = 0; x < width; x++) {
 				for (var y = 0; y < height; y++) {
 					if (data[y][x] != ' ') {
@@ -54,7 +60,7 @@ namespace BurningKnight.entity.projectile {
 						var y1 = y;
 
 						Timer.Add(() => {
-							var p = Projectile.Make(owner, texture);
+							var p = builder.Build();
 							p.Center = center + MathUtils.RotateAround(new Vector2(x2 * 10, (y1 - height / 2f) * 10), angle, c);
 
 							modifier?.Invoke(p);

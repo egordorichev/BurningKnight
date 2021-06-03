@@ -125,7 +125,6 @@ namespace BurningKnight.state {
 		private float timeWas;
 		private double startTime;
 
-
 		public static bool Ready;
 		public static bool InMenu;
 		
@@ -215,16 +214,6 @@ namespace BurningKnight.state {
 
 			Audio.Speed = 1f;
 
-			try {
-				if (Run.Depth >= 10) {
-					Audio.Preload("Last chance");
-				}
-			
-				Audio.Preload(((Biome) Activator.CreateInstance(BiomeRegistry.GenerateForDepth(Run.Depth + 1).Type)).Music);
-			} catch (Exception e) {
-				Log.Error(e);
-			}
-			
 			Engine.Graphics.SynchronizeWithVerticalRetrace = Settings.Vsync;
 			Engine.Graphics.ApplyChanges();
 
@@ -346,8 +335,10 @@ namespace BurningKnight.state {
 				}
 			}
 
-			foreach (var e in TopUi.Tagged[Tags.Cursor]) {
-				Camera.Instance.Follow(e, CursorPriority);
+			if (!Menu) {
+				foreach (var e in TopUi.Tagged[Tags.Cursor]) {
+					Camera.Instance.Follow(e, CursorPriority);
+				}
 			}
 		}
 
@@ -888,7 +879,7 @@ namespace BurningKnight.state {
 			}
 
 			if (Menu && !menuExited) {
-				if (Input.WasPressed(Controls.GameStart, GamepadComponent.Current, true) || Input.Keyboard.State.GetPressedKeys().Length > 0) {
+				if (Input.WasPressed(Controls.GameStart, GamepadComponent.Current, true)) {
 					menuExited = true;
 					InMenu = false;
 					Input.Blocked = 0;
@@ -897,12 +888,26 @@ namespace BurningKnight.state {
 					Audio.PlayMusic("Hub", true);
 
 					CloseBlackBars();
+
 					Tween.To(this, new {blur = 0}, 0.5f).OnEnd = () => {
 						foreach (var e in TopUi.Tagged[Tags.Cursor]) {
 							Camera.Instance.Follow(e, CursorPriority);
 						}
 					};
-					Tween.To(-Display.UiHeight, offset, x => offset = x, 0.5f, Ease.QuadIn).OnEnd = () => Menu = false;
+
+					Camera.Instance.Detached = false;
+					Tween.To(-Display.UiHeight, offset, x => offset = x, 0.5f, Ease.QuadIn).OnEnd = () => {
+						Menu = false;
+
+						Timer.Add(() => {
+							foreach (var n in Area.Tagged[Tags.Npc]) {
+								if (n is OldMan m) {
+									m.GetComponent<DialogComponent>().StartAndClose("shopkeeper_6", 3);
+									break;
+								}
+							}
+						}, 0.5f);
+					};
 				}
 			}
 			
@@ -1032,7 +1037,7 @@ namespace BurningKnight.state {
 				return;
 			}
 
-			if (Input.Keyboard.WasPressed(Keys.NumPad9)) {
+			if (Input.Keyboard.WasPressed(Keys.Insert)) {
 				SaveManager.Delete(SaveType.Game, SaveType.Level, SaveType.Player);
 				Run.StartNew(1, Run.Type);
 				Died = true;
@@ -1146,7 +1151,7 @@ namespace BurningKnight.state {
 				p.Center = p.GetComponent<CursorComponent>().Cursor.GamePosition;
 			}
 
-			if (Input.Keyboard.WasPressed(Keys.NumPad3)) {
+			if (Input.Keyboard.WasPressed(Keys.PageUp)) {
 				var level = Run.Level;
 
 				for (var i = 0; i < level.Explored.Length; i++) {
@@ -1158,7 +1163,7 @@ namespace BurningKnight.state {
 				GlobalSave.ResetControlKnowldge();
 			}
 
-			if (Input.Keyboard.WasPressed(Keys.NumPad0)) {
+			if (Input.Keyboard.WasPressed(Keys.PageDown)) {
 				Camera.Instance.Detached = !Camera.Instance.Detached;
 
 				if (!Camera.Instance.Detached) {
@@ -3126,7 +3131,7 @@ namespace BurningKnight.state {
 
 			gameOverMenu.Add(stats);
 
-			stats.Add(Locale.Get("run_type"), Locale.Get($"run_{Run.Type.ToString().ToLower()}"));
+			stats.Add(Locale.Get("run_type"), Locale.Get($"run_{Run.Type.ToString().ToLower()}") + (Run.CustomSeed ? " " + Locale.Get("seeded") : ""));
 			stats.Add(Locale.Get("seed"), Run.Seed, false, bt => {
 				var b = (UiTableEntry) bt;
 				b.RealLocaleLabel = "copied_to_clipboard";

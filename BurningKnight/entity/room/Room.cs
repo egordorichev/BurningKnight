@@ -185,7 +185,7 @@ namespace BurningKnight.entity.room {
 		}
 
 		private void SpawnReward() {
-			if (Run.Depth < 1 || Type != RoomType.Regular || Rnd.Chance(35 - Run.Luck)) {
+			if (Run.Depth < 1 || Type != RoomType.Regular || Rnd.Chance(40 - Run.Luck)) {
 				return;
 			}
 

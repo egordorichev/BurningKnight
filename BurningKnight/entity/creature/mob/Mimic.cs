@@ -96,6 +96,13 @@ namespace BurningKnight.entity.creature.mob {
 		protected override void OnJump() {
 			base.OnJump();
 
+			var builder = new ProjectileBuilder(this, "circle") {
+				LightRadius = 32f
+			};
+
+			builder.AddFlags(ProjectileFlags.FlyOverStones);
+			builder.RemoveFlags(ProjectileFlags.BreakableByMelee, ProjectileFlags.Reflectable);
+
 			for (var i = 0; i < 3; i++) {
 				Timer.Add(() => {
 					if (Target == null) {
@@ -105,13 +112,9 @@ namespace BurningKnight.entity.creature.mob {
 					GetComponent<AudioEmitterComponent>().EmitRandomized("mob_fire");
 
 					var a = AngleTo(Target) + Rnd.Float(-0.1f, 0.1f);
-					var projectile = Projectile.Make(this, "circle", a, 9f);
+					var projectile = builder.Shoot(a, 9f).Build();
 
-					projectile.Spectral = true;
 					projectile.Center = Center + MathUtils.CreateVector(a, 5f) - new Vector2(0, GetComponent<ZComponent>().Z);
-					projectile.AddLight(32f, Projectile.RedLight);
-					projectile.CanBeBroken = false;
-					projectile.CanBeReflected = false;
 				}, i * 0.3f);
 			}
 		}
@@ -124,15 +127,20 @@ namespace BurningKnight.entity.creature.mob {
 			var am = 16;
 			GetComponent<AudioEmitterComponent>().EmitRandomized("mob_fire");
 
+			var builder = new ProjectileBuilder(this, "small") {
+				LightRadius = 32f
+			};
+
+			builder.RemoveFlags(ProjectileFlags.BreakableByMelee, ProjectileFlags.Reflectable);
+
 			for (var i = 0; i < am; i++) {
 				var a = Math.PI * 2 * (((float) i) / am);
 				var fast = i % 2 == 0;
-				var projectile = Projectile.Make(this, fast ? "small" : "circle", a, fast ? 7f : 4f);
+
+				builder.Slice = fast ? "small" : "circle";
+				var projectile = builder.Shoot(a, fast ? 7f : 4f).Build();
 					
 				projectile.Center = BottomCenter;
-				projectile.AddLight(32f, Projectile.RedLight);
-				projectile.CanBeBroken = false;
-				projectile.CanBeReflected = false;
 			}
 		}
 		

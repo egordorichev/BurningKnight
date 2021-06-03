@@ -102,8 +102,7 @@ namespace BurningKnight.assets.lighting {
 				state.RasterizerState, null, Camera.Instance?.Matrix);
 			
 			
-			Graphics.Render(surface, Camera.Instance.TopLeft - new Vector2(Camera.Instance.Position.X % 1, 
-				                         Camera.Instance.Position.Y % 1));
+			Graphics.Render(surface, Camera.Instance.TopLeft - new Vector2(Camera.Instance.Position.X % 1, Camera.Instance.Position.Y % 1));
 			
 			state.End();
 			Graphics.Color.A = 255;

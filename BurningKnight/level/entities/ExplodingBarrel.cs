@@ -39,12 +39,12 @@ namespace BurningKnight.level.entities {
 			var h = new HealthComponent();
 			
 			AddComponent(h);
+			AddTag(Tags.Bomb);
 
 			h.InitMaxHealth = 1; // 3;
 			h.RenderInvt = true;
 			
 			AddComponent(new ExplodableComponent());
-			AddTag(Tags.Bomb);
 		}
 
 		public override void PostInit() {
@@ -69,6 +69,10 @@ namespace BurningKnight.level.entities {
 
 				return true;
 			} else if (e is HealthModifiedEvent hme) {
+				if (TryGetComponent<RoomComponent>(out var room) && room.Room != null && room.Room.Tagged[Tags.Player].Count == 0) {
+					return true;
+				}
+
 				hme.Amount = -1;
 			}
 			

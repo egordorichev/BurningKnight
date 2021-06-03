@@ -105,14 +105,17 @@ namespace BurningKnight.entity.creature.mob.jungle {
 						}
 								
 						Self.GetComponent<AudioEmitterComponent>().EmitRandomized("mob_fire_static");
+						var builder = new ProjectileBuilder(Self, "rect") {
+							RectHitbox = true,
+							Scale = 1.5f,
+							Damage = 2
+						};
+
+						builder.AddFlags(ProjectileFlags.FlyOverStones);
 
 						for (var i = 0; i < 3; i++) {
 							var angle = Self.lastAngle + (i - 1) * 0.1f;
-							var projectile = Projectile.Make(Self, "rect", angle, 30f, scale: 1.5f);
-
-							projectile.Spectral = true;
-							projectile.Boost = true;
-							projectile.Damage = 2;
+							builder.Shoot(angle, 30f).Build();
 						}
 					};
 				};

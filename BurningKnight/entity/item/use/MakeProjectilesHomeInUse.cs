@@ -1,4 +1,3 @@
-using BurningKnight.entity.component;
 using BurningKnight.entity.events;
 using BurningKnight.entity.projectile;
 using BurningKnight.entity.projectile.controller;
@@ -6,10 +5,6 @@ using BurningKnight.util;
 using ImGuiNET;
 using Lens.entity;
 using Lens.lightJson;
-using Lens.util;
-using Lens.util.math;
-using Lens.util.timer;
-using Lens.util.tween;
 
 namespace BurningKnight.entity.item.use {
 	public class MakeProjectilesHomeInUse : ItemUse {
@@ -18,26 +13,29 @@ namespace BurningKnight.entity.item.use {
 		
 		public override bool HandleEvent(Event e) {
 			if (e is ProjectileCreatedEvent pce) {
-				if (pce.Projectile is Laser l) {
-					var room = pce.Owner.GetComponent<RoomComponent>().Room;
-					var ent = room?.FindClosest(l.Position, Tags.MustBeKilled);
+				/* if (pce.Projectile is Laser l) {
+					Timer.Add(() => {
+						var room = pce.Owner.GetComponent<RoomComponent>().Room;
+						var ent = room?.FindClosest(l.Position, Tags.MustBeKilled);
 
-					if (ent != null) {
-						
-						Timer.Add(() => {
-							var ac = better ? 0.05f : 0.15f;
+						if (ent == null) {
+							return;
+						}
 
-							l.PlayerRotated = false;
-							l.BodyComponent.Body.Rotation = (ent.Center - l.Position).ToAngle() + Rnd.Float(-ac, ac);
-						}, 0.05f);
-					}
-				} else {
+						Log.Debug(ent.GetType().FullName);
+
+						var ac = better ? 0.05f : 0.15f;
+
+						l.PlayerRotated = false;
+						l.BodyComponent.Body.Rotation = MathUtils.Angle(ent.Center.Y - l.Position.Y, ent.Center.X - l.Position.X);
+					}, 0.05f);
+				} else { */
 					if (better) {
-						pce.Projectile.Controller += TargetProjectileController.MakeBetter(speed);
+						ProjectileCallbacks.AttachUpdateCallback(pce.Projectile, TargetProjectileController.MakeBetter(speed));
 					} else {
-						pce.Projectile.Controller += TargetProjectileController.Make(null, speed);
+						ProjectileCallbacks.AttachUpdateCallback(pce.Projectile, TargetProjectileController.Make(null, speed));
 					}
-				}
+				// }
 			}
 			
 			return base.HandleEvent(e);

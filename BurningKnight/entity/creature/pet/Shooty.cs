@@ -1,6 +1,5 @@
 using System;
 using BurningKnight.entity.component;
-using BurningKnight.entity.events;
 using BurningKnight.entity.projectile;
 using Lens.util;
 using Lens.util.math;
@@ -32,21 +31,19 @@ namespace BurningKnight.entity.creature.pet {
 					var o = Owner;
 						
 					GetComponent<AudioEmitterComponent>().EmitRandomizedPrefixed("item_meatguy", 4, 0.5f);
+
+					var builder = new ProjectileBuilder(o, "small") {
+						Color = ProjectileColor.Yellow,
+						Range = 32f
+					};
+
+					builder.AddFlags(ProjectileFlags.FlyOverStones);
 					
 					for (var i = 0; i < 4; i++) {
-						var a = (float) i * Math.PI * 0.5f;
-						var projectile = Projectile.Make(o, "small", a, 4f);
+						var a = i * Math.PI * 0.5f;
+						var projectile = builder.Shoot(a, 4f).Build();
 
-						projectile.Color = ProjectileColor.Yellow;
 						projectile.Center = Center + MathUtils.CreateVector(a, 5f);
-						projectile.AddLight(32f, Projectile.YellowLight);
-						projectile.Spectral = true;
-
-						o.HandleEvent(new ProjectileCreatedEvent {
-							Projectile = projectile,
-							Owner = o
-						});
-						
 						projectile.Owner = this;
 					}
 					

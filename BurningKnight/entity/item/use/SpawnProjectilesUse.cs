@@ -17,17 +17,19 @@ namespace BurningKnight.entity.item.use {
 		
 		public override void Use(Entity entity, Item item) {
 			var s = range * 0.5f / speed;
-			
+			var builder = new ProjectileBuilder(entity, slice) {
+				LightRadius = 32f,
+				Color = ProjectileColor.Yellow,
+				Damage = damage
+			};
+
+			if (range > 0.01f) {
+				builder.Range = s;
+			}
+
 			for (var i = 0; i < amount; i++) {
 				var angle = (float) i / amount * Math.PI * 2;
-				var projectile = Projectile.Make(entity, slice, angle, speed);
-
-				projectile.AddLight(32f, Projectile.YellowLight);
-				projectile.Damage = damage;
-
-				if (range > 0.01f) {
-					projectile.Range = s;
-				}
+				builder.Shoot(angle, speed).Build();
 			}
 		}
 

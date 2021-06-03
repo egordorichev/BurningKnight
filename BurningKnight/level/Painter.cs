@@ -25,12 +25,10 @@ using BurningKnight.level.rooms.regular;
 using BurningKnight.level.rooms.secret;
 using BurningKnight.level.rooms.treasure;
 using BurningKnight.level.tile;
-using BurningKnight.level.walls;
 using BurningKnight.save;
 using BurningKnight.state;
 using BurningKnight.util;
 using BurningKnight.util.geometry;
-using Lens.entity;
 using Lens.util;
 using Lens.util.math;
 using Microsoft.Xna.Framework;
@@ -49,7 +47,8 @@ namespace BurningKnight.level {
 		public List<Action<Level, RoomDef, int, int>> Modifiers = new List<Action<Level, RoomDef, int, int>>();
 		public static Rect Clip;
 		public Tile DirtTile = Tile.Dirt;
-		
+		public Action<List<MobInfo>> ModifyMobs;
+
 		public Painter() {
 			AllGold = false;
 			
@@ -441,7 +440,7 @@ namespace BurningKnight.level {
 				room.Generate();
 			}
 			
-			PlaceMobs(Level, rms);
+			PlaceMobs(Level, rms, ModifyMobs);
 			return true;
 		}
 
@@ -552,7 +551,7 @@ namespace BurningKnight.level {
 			}
 		}
 
-		public static void PlaceMobs(Level level, Room room) {
+		public static void PlaceMobs(Level level, Room room, Action<List<MobInfo>> modifier = null) {
 			var parent = room.Parent;
 			var w = parent.GetWidth() - 2;
 			var h = parent.GetHeight() - 2;
@@ -591,6 +590,13 @@ namespace BurningKnight.level {
 						break;
 					}
 				}
+			}
+
+			modifier?.Invoke(types);
+
+			// A hack to get around RaveCaveVariant having just crab in there
+			while (spawnChances.Count > types.Count) {
+				spawnChances.RemoveAt(spawnChances.Count - 1);
 			}
 
 			if (types.Count == 0) {
@@ -701,7 +707,7 @@ namespace BurningKnight.level {
 			var weight = (count / 19f + Rnd.Float(0f, 1f)) * room.Parent.GetWeightModifier() * (curseOfBlood ? 2 : 1);
 
 			if (Run.Loop > 0) {
-				weight *= Run.Loop * 0.75f + 1f;
+				weight *= Run.Loop * 1.5f + 1f;
 			}
 			
 			while (weight > 0 && (points.Count > 0 || wallPoints.Count > 0)) {
@@ -769,13 +775,13 @@ namespace BurningKnight.level {
 			}
 		}
 		
-		private void PlaceMobs(Level level, List<Room> rooms) {
+		private void PlaceMobs(Level level, List<Room> rooms, Action<List<MobInfo>> modifier = null) {
 			MobRegistry.SetupForBiome(level.Biome.Id);
 			// level.CreatePassable(true);
 			
 			foreach (var room in rooms) {
 				if (room.Parent.ShouldSpawnMobs()) {
-					PlaceMobs(level, room);
+					PlaceMobs(level, room, modifier);
 				}
 			}	
 		}

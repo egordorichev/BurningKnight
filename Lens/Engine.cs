@@ -159,7 +159,6 @@ namespace Lens {
 			var t = DateTime.Now.Millisecond;
 			
 			base.Update(gameTime);
-			Audio.UpdateAudio();
 
 			GameTime = gameTime;
 			var dt = (float) gameTime.ElapsedGameTime.TotalSeconds * Speed;
@@ -182,6 +181,9 @@ namespace Lens {
 			// }
 
 			MouseData.HadClick = false;
+
+			// Make sure we don't have to process more than ~15 frames in 1 frame
+			time = Math.Min(time, 0.25f);
 
 			while (time >= FixedUpdateTime) {
 				time -= FixedUpdateTime;
@@ -242,7 +244,6 @@ namespace Lens {
 		}
 
 		public void SetFullscreen() {
-			
 			core.SetFullscreen();
 			UpdateView();
 		}
@@ -252,7 +253,7 @@ namespace Lens {
 				return GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
 			}
 
-			return Math.Max(Display.Width, base.GraphicsDevice.PresentationParameters.BackBufferWidth);
+			return Math.Max(Display.Width, Graphics.PreferredBackBufferWidth);
 		}
 
 		public float GetScreenHeight() {
@@ -260,7 +261,7 @@ namespace Lens {
 				return GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
 			}
 
-			return Math.Max(Display.Height, base.GraphicsDevice.PresentationParameters.BackBufferHeight);
+			return Math.Max(Display.Height, Graphics.PreferredBackBufferHeight);
 		}
 		
 		public void UpdateView() {

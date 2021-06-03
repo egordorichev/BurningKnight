@@ -1,24 +1,20 @@
 using System;
-using System.Numerics;
 using BurningKnight.assets.achievements;
 using BurningKnight.assets.items;
+using BurningKnight.entity.buff;
 using BurningKnight.entity.component;
 using BurningKnight.entity.creature.drop;
 using BurningKnight.entity.creature.player;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
 using BurningKnight.entity.item.stand;
-using BurningKnight.entity.room;
-using BurningKnight.level.entities;
 using BurningKnight.level.entities.machine;
 using BurningKnight.save;
 using BurningKnight.state;
 using BurningKnight.ui.dialog;
 using Lens;
 using Lens.entity;
-using Lens.entity.component.logic;
 using Lens.util;
-using Lens.util.camera;
 using Lens.util.file;
 using Lens.util.math;
 using Lens.util.timer;
@@ -33,7 +29,7 @@ namespace BurningKnight.entity.creature.npc {
 			get => _mood;
 
 			set {
-				if (_mood == value) {
+				if (_mood == value || (TryGetComponent<RoomComponent>(out var room) && room.Room != null && room.Room.Tagged[Tags.Player].Count == 0)) {
 					return;
 				}
 				
@@ -201,6 +197,10 @@ namespace BurningKnight.entity.creature.npc {
 				}
 			} else if (e is DiedEvent) {
 				Achievements.Unlock("bk:marauder");
+
+				for (var i = 0; i < 3; i++) {
+					Run.AddScourge(true);
+				}
 			}
 
 			return base.HandleEvent(e);
@@ -234,7 +234,7 @@ namespace BurningKnight.entity.creature.npc {
 		}
 
 		public override bool IsFriendly() {
-			return !raging;
+			return !raging || GetComponent<BuffsComponent>().Has<CharmedBuff>();
 		}
 		
 		private float delay;

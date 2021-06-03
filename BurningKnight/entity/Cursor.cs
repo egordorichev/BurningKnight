@@ -23,6 +23,7 @@ namespace BurningKnight.entity {
 		private bool needsAdjusting = true;
 		private bool readTint = true;
 		private Color tint;
+		private Vector2 lastPos;
 
 		public Player Player;
 		public Vector2 GamePosition;
@@ -76,11 +77,16 @@ namespace BurningKnight.entity {
 				readTint = false;
 				tint = Player.Tint;
 			}
-			
+
 			var input = Player.GetComponent<InputComponent>();
 			
 			if (input.KeyboardEnabled && (Input.Mouse.WasMoved || !input.GamepadEnabled || input.GamepadData == null || input.GamepadData.Attached)) {
-				Position = Camera.Instance.CameraToUi(GamePosition = Camera.Instance.ScreenToCamera(Input.Mouse.ScreenPosition));
+				var pos = Input.Mouse.ScreenPosition;
+
+				if (pos != lastPos) {
+					lastPos = pos;
+					Position = Camera.Instance.CameraToUi(GamePosition = Camera.Instance.ScreenToCamera(pos));
+				}
 			}
 
 			var controller = input.GamepadEnabled ? input.GamepadData : null;
@@ -107,6 +113,7 @@ namespace BurningKnight.entity {
 
         if (l > 0.25f) {
       		var target = MathUtils.CreateVector(Math.Atan2(dy, dx), 1f);
+
       		dx = target.X - stickOffset.X;
       		dy = target.Y - stickOffset.Y;
 

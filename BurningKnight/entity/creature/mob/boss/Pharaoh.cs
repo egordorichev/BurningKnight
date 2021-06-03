@@ -49,7 +49,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 			body.Body.LinearDamping = 4;
 
 			AddAnimation("pharaoh");
-			SetMaxHp(300);
+			SetMaxHp(250);
 		}
 
 		protected override void AddPhases() {
@@ -114,6 +114,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 				Become<FriendlyState>();
 			}
 		}
+
 		#region Pharaoh States
 		public class IdleState : SmartState<Pharaoh> {
 			public override void Update(float dt) {
@@ -167,16 +168,19 @@ namespace BurningKnight.entity.creature.mob.boss {
 					sinceLast = 0.2f;
 					var amount = 2 + (Self.Phase - 1);
 
+					var builder = new ProjectileBuilder(Self, "small");
+
+					builder.RemoveFlags(ProjectileFlags.Reflectable, ProjectileFlags.BreakableByMelee);
+
 					for (var i = 0; i < amount; i++) {
 						var a = Math.PI * 2 * ((float) i / amount) + Math.Cos(Self.t * 0.8f) * Math.PI;
-						var projectile = Projectile.Make(Self, "small", a, 8f, scale: count % 2 == 0 ? 1.5f : 2f);
 
-						projectile.Color = count % 4 == 0 ? ProjectileColor.Orange : ProjectileColor.Red;
-						projectile.CanBeBroken = false;
-						projectile.CanBeReflected = false;
-						Self.GetComponent<AudioEmitterComponent>().EmitRandomized("mob_pharaoh_shot");
+						builder.Color = count % 4 == 0 ? ProjectileColor.Orange : ProjectileColor.Red;
+						builder.Scale = count % 2 == 0 ? 1.5f : 2f;
+						builder.Shoot(a, 8f).Build();
 					}
 
+					Self.GetComponent<AudioEmitterComponent>().EmitRandomized("mob_pharaoh_shot");
 					count++;
 				}
 
@@ -198,16 +202,21 @@ namespace BurningKnight.entity.creature.mob.boss {
 					sinceLast = Self.InFirstPhase ? 0.6f : 0.4f;
 					var amount = 8;
 
+					var builder = new ProjectileBuilder(Self, "small") {
+						Scale = 1.5f
+					};
+
+					builder.RemoveFlags(ProjectileFlags.Reflectable, ProjectileFlags.BreakableByMelee);
+
 					for (var i = 0; i < amount; i++) {
 						var a = Math.PI * 2 * ((float) i / amount) + (Math.Cos(Self.t * 1) * Math.PI * 0.25f) * (i % 2 == 1 ? -1 : 1);
-						var projectile = Projectile.Make(Self, "small", a, 6f + (float) Math.Cos(Self.t * 1) * 2f, scale: 1.5f);
-						Self.GetComponent<AudioEmitterComponent>().EmitRandomized("mob_pharaoh_shot_wave");
 
-						projectile.CanBeBroken = false;
-						projectile.CanBeReflected = false;
-						projectile.Color = ProjectileColor.DesertRainbow[count % ProjectileColor.DesertRainbow.Length];
+						builder.Color = ProjectileColor.DesertRainbow[count % ProjectileColor.DesertRainbow.Length];
+
+						builder.Shoot(a, 6f + (float) Math.Cos(Self.t * 1) * 2f).Build();
 					}
 
+					Self.GetComponent<AudioEmitterComponent>().EmitRandomized("mob_pharaoh_shot_wave");
 					count++;
 				}
 				
@@ -227,15 +236,19 @@ namespace BurningKnight.entity.creature.mob.boss {
 
 				if (sinceLast <= 0) {
 					sinceLast = Self.InFirstPhase ? 0.4f : 0.2f;
+
 					var amount = 4;
+					var builder = new ProjectileBuilder(Self, "small") {
+						Scale = 1.5f
+					};
+
+					builder.RemoveFlags(ProjectileFlags.Reflectable, ProjectileFlags.BreakableByMelee);
 
 					for (var i = 0; i < amount; i++) {
+						builder.Color = ProjectileColor.DesertRainbow[Rnd.Int(ProjectileColor.DesertRainbow.Length)];
+
 						var a = Math.PI * 2 * ((float) i / amount) + (Math.Cos(Self.t * 2f) * Math.PI) * (i % 2 == 0 ? -1 : 1);
-						var projectile = Projectile.Make(Self, "small", a, 7f + (float) Math.Cos(Self.t * 2f) * 2f, scale: 1.5f);
-						
-						projectile.CanBeBroken = false;
-						projectile.CanBeReflected = false;
-						projectile.Color = ProjectileColor.DesertRainbow[Rnd.Int(ProjectileColor.DesertRainbow.Length)];
+						builder.Shoot(a, 7f + (float) Math.Cos(Self.t * 2f) * 2f).Build();
 					}
 				}
 
@@ -334,7 +347,10 @@ namespace BurningKnight.entity.creature.mob.boss {
 		public class SwitchPhaseState : SmartState<Pharaoh> {
 			public override void Init() {
 				base.Init();
+
 				var am = 24;
+				var builder = new ProjectileBuilder(Self, "small");
+				builder.RemoveFlags(ProjectileFlags.Reflectable, ProjectileFlags.BreakableByMelee);
 
 				for (var j = 0; j < 2; j++) {
 					var j1 = j;
@@ -344,13 +360,12 @@ namespace BurningKnight.entity.creature.mob.boss {
 						
 						for (var i = 0; i < z; i++) {
 							var a = Math.PI * 2 * ((i + j1 * 0.5f) / z);
-							var projectile = Projectile.Make(Self, "small", a, 7f + j1 * 2f, scale: j1 == 0 ? 1f : 2f);
 
-							projectile.CanBeBroken = false;
-							projectile.CanBeReflected = false;
-							Self.GetComponent<AudioEmitterComponent>().EmitRandomized("mob_pharaoh_shot");
-
+							builder.Scale = j1 == 0 ? 1f : 2f;
+							builder.Shoot(a, 7f + j1 * 2).Build();
 						}
+
+						Self.GetComponent<AudioEmitterComponent>().EmitRandomized("mob_pharaoh_shot");
 					}, j);
 				}
 

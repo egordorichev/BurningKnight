@@ -35,8 +35,8 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Facepunch.Steamworks.Win64, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\packages\Facepunch.Steamworks.2.2.0\lib\net46\Facepunch.Steamworks.Win64.dll</HintPath>
+    <Reference Include="Facepunch.Steamworks.Win64, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\packages\Facepunch.Steamworks.2.3.3\lib\net46\Facepunch.Steamworks.Win64.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="ImGui.NET, Version=1.70.0.0, Culture=neutral, PublicKeyToken=null">
@@ -55,20 +55,16 @@
       <HintPath>..\packages\Microsoft.Win32.Primitives.4.3.0\lib\net46\Microsoft.Win32.Primitives.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="MonoGame.Extended, Version=3.7.0.0, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\packages\MonoGame.Extended.3.7.0\lib\netstandard2.0\MonoGame.Extended.dll</HintPath>
+    <Reference Include="MonoGame.Extended, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\packages\MonoGame.Extended.3.8.0\lib\netstandard2.0\MonoGame.Extended.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="MonoGame.Extended.Content.Pipeline, Version=3.7.0.0, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\packages\MonoGame.Extended.Content.Pipeline.3.7.0\lib\netstandard2.0\MonoGame.Extended.Content.Pipeline.dll</HintPath>
+    <Reference Include="MonoGame.Extended.Graphics, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\packages\MonoGame.Extended.Graphics.3.8.0\lib\netstandard2.0\MonoGame.Extended.Graphics.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="MonoGame.Extended.Graphics, Version=3.7.0.0, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\packages\MonoGame.Extended.Graphics.3.7.0\lib\netstandard2.0\MonoGame.Extended.Graphics.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="MonoGame.Extended.Tiled, Version=3.7.0.0, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\packages\MonoGame.Extended.Tiled.3.7.0\lib\netstandard2.0\MonoGame.Extended.Tiled.dll</HintPath>
+    <Reference Include="MonoGame.Extended.Tiled, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\packages\MonoGame.Extended.Tiled.3.8.0\lib\netstandard2.0\MonoGame.Extended.Tiled.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="MonoGame.Framework, Version=3.8.0.13, Culture=neutral, PublicKeyToken=null">
@@ -81,8 +77,8 @@
     </Reference>
     <Reference Include="mscorlib" />
     <Reference Include="netstandard, Version=2.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51" />
-    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed">
-      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="SharpDX, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b4dcf0f35e5521f1">
@@ -420,20 +416,9 @@
     <Compile Include="entity\component\ZAnimationComponent.cs" />
     <Compile Include="entity\component\ZComponent.cs" />
     <Compile Include="entity\component\ZSliceComponent.cs" />
-    <Compile Include="entity\creature\bk\attacks\ArrowAttack.cs" />
-    <Compile Include="entity\creature\bk\attacks\AutoSkullAttack.cs" />
-    <Compile Include="entity\creature\bk\attacks\AutoWallAttack.cs" />
-    <Compile Include="entity\creature\bk\attacks\BulletRingAttack.cs" />
-    <Compile Include="entity\creature\bk\attacks\MissileAttack.cs" />
-    <Compile Include="entity\creature\bk\attacks\FourArrowAttack.cs" />
-    <Compile Include="entity\creature\bk\attacks\HugeSplittingBulletAttack.cs" />
-    <Compile Include="entity\creature\bk\attacks\ShootAttack.cs" />
-    <Compile Include="entity\creature\bk\attacks\SpawnSkullOrbitalAttack.cs" />
-    <Compile Include="entity\creature\bk\attacks\SpinningHellAttack.cs" />
     <Compile Include="entity\creature\bk\BkGraphicsComponent.cs" />
     <Compile Include="entity\creature\bk\BkOrbital.cs" />
     <Compile Include="entity\creature\bk\BurningKnight.cs" />
-    <Compile Include="entity\creature\bk\BurningKnightAttackRegistry.cs" />
     <Compile Include="entity\creature\bk\SpawnTrigger.cs" />
     <Compile Include="entity\creature\Creature.cs" />
     <Compile Include="entity\creature\Decoy.cs" />
@@ -464,7 +449,6 @@
     <Compile Include="entity\creature\mob\boss\rooms\DmRoom.cs" />
     <Compile Include="entity\creature\mob\boss\rooms\DmRoomRegistry.cs" />
     <Compile Include="entity\creature\mob\boss\rooms\DmSpikeRoom.cs" />
-    <Compile Include="entity\creature\mob\boss\SimpleAttackRegistry.cs" />
     <Compile Include="entity\creature\mob\castle\BigSlime.cs" />
     <Compile Include="entity\creature\mob\castle\BlueBulletSlime.cs" />
     <Compile Include="entity\creature\mob\castle\Caster.cs" />
@@ -497,8 +481,6 @@
     <Compile Include="entity\creature\mob\jungle\BuffedFlower.cs" />
     <Compile Include="entity\creature\mob\jungle\Explobee.cs" />
     <Compile Include="entity\creature\mob\jungle\Flower.cs" />
-    <Compile Include="entity\creature\mob\jungle\ManEater.cs" />
-    <Compile Include="entity\creature\mob\jungle\ManShooter.cs" />
     <Compile Include="entity\creature\mob\jungle\Sniper.cs" />
     <Compile Include="entity\creature\mob\jungle\Wombat.cs" />
     <Compile Include="entity\creature\mob\LoopChance.cs" />
@@ -517,7 +499,6 @@
     <Compile Include="entity\creature\mob\prefix\Prefix.cs" />
     <Compile Include="entity\creature\mob\prefix\PrefixRegistry.cs" />
     <Compile Include="entity\creature\mob\prefix\RegenerativePrefix.cs" />
-    <Compile Include="entity\creature\mob\summons\KingBlade.cs" />
     <Compile Include="entity\creature\npc\AccessoryTrader.cs" />
     <Compile Include="entity\creature\npc\ActiveTrader.cs" />
     <Compile Include="entity\creature\npc\Bird.cs" />
@@ -567,12 +548,8 @@
     <Compile Include="entity\creature\pet\Wallet.cs" />
     <Compile Include="entity\creature\player\LampComponent.cs" />
     <Compile Include="entity\creature\SmartState.cs" />
-    <Compile Include="entity\creature\mob\boss\BossPatternRegistry.cs" />
     <Compile Include="entity\creature\mob\boss\Boss.cs" />
     <Compile Include="entity\creature\mob\boss\BossAttack.cs" />
-    <Compile Include="entity\creature\mob\boss\BossPattern.cs" />
-    <Compile Include="entity\creature\mob\boss\BossPatternSet.cs" />
-    <Compile Include="entity\creature\mob\boss\BossPatternSetRegistry.cs" />
     <Compile Include="entity\creature\mob\castle\BabySlime.cs" />
     <Compile Include="entity\creature\mob\castle\Bandit.cs" />
     <Compile Include="entity\creature\mob\castle\BulletSlime.cs" />
@@ -589,7 +566,6 @@
     <Compile Include="entity\creature\mob\MobInfo.cs" />
     <Compile Include="entity\creature\mob\MobPair.cs" />
     <Compile Include="entity\creature\mob\MobRegistry.cs" />
-    <Compile Include="entity\creature\mob\orbital\SkullOrbital.cs" />
     <Compile Include="entity\creature\mob\prefabs\Slime.cs" />
     <Compile Include="entity\creature\mob\prefabs\WallWalker.cs" />
     <Compile Include="entity\creature\mob\SpawnChance.cs" />
@@ -922,13 +898,17 @@
     <Compile Include="entity\projectile\pattern\CircleWithCenterProjectilePattern.cs" />
     <Compile Include="entity\projectile\pattern\ExpandingCirclePattern.cs" />
     <Compile Include="entity\projectile\pattern\KeepShapePattern.cs" />
-    <Compile Include="entity\projectile\Projectile.cs" />
+    <Compile Include="entity\projectile\OldProjectile.cs" />
+    <Compile Include="entity\projectile\ProjectileBuilder.cs" />
+    <Compile Include="entity\projectile\ProjectileCallbacks.cs" />
     <Compile Include="entity\projectile\ProjectileColor.cs" />
+    <Compile Include="entity\projectile\ProjectileFlags.cs" />
     <Compile Include="entity\projectile\ProjectileGraphicsComponent.cs" />
     <Compile Include="entity\projectile\ProjectileGraphicsEffect.cs" />
     <Compile Include="entity\projectile\ProjectilePattern.cs" />
     <Compile Include="entity\projectile\ProjectileRegistry.cs" />
     <Compile Include="entity\projectile\ProjectileTemplate.cs" />
+    <Compile Include="entity\projectile\Projectile.cs" />
     <Compile Include="entity\RenderTrigger.cs" />
     <Compile Include="entity\RenderTriggerManager.cs" />
     <Compile Include="entity\room\controllable\AlwaysOnSpikes.cs" />
@@ -1242,6 +1222,7 @@
     <Compile Include="level\variant\ForestLevelVariant.cs" />
     <Compile Include="level\variant\GoldLevelVariant.cs" />
     <Compile Include="level\variant\LevelVariant.cs" />
+    <Compile Include="level\variant\RaveCaveVariant.cs" />
     <Compile Include="level\variant\RegularLevelVariant.cs" />
     <Compile Include="level\variant\SandLevelVariant.cs" />
     <Compile Include="level\variant\SnowLevelVariant.cs" />
@@ -1376,6 +1357,7 @@
     <Compile Include="ui\str\effect\WaveEffect.cs" />
     <Compile Include="ui\str\event\DelayEvent.cs" />
     <Compile Include="ui\str\event\GlyphEvent.cs" />
+    <Compile Include="ui\str\event\SkipEvent.cs" />
     <Compile Include="ui\str\event\SpeedEvent.cs" />
     <Compile Include="ui\str\event\UserEvent.cs" />
     <Compile Include="ui\str\Glyph.cs" />
@@ -1495,7 +1477,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\Mods\test\mod.lua" />
     <Content Include="Content\Shaders\bk.fx" />
     <Content Include="Content\Shaders\chasm.fx" />
     <Content Include="Content\Shaders\entity.fx" />
@@ -1504,7 +1485,20 @@
     <Content Include="Content\Shaders\screen.fx" />
     <Content Include="Content\Shaders\terrain.fx" />
     <Content Include="Content\Shaders\ui.fx" />
+    <Content Include="CppNet.dll" />
+    <Content Include="libmojoshader_64.dll" />
+    <Content Include="mgfxc.deps.json" />
+    <Content Include="mgfxc.dll" />
+    <Content Include="mgfxc.exe" />
+    <Content Include="mgfxc.pdb" />
+    <Content Include="mgfxc.runtimeconfig.dev.json" />
+    <Content Include="mgfxc.runtimeconfig.json" />
     <Content Include="README.md" />
+    <Content Include="SharpDX.D3DCompiler.dll" />
+    <Content Include="SharpDX.D3DCompiler.xml" />
+    <Content Include="SharpDX.dll" />
+    <Content Include="SharpDX.xml" />
+    <Content Include="steam_api64.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\ImGui.NET.1.70.0\build\net40\ImGui.NET.targets" Condition="Exists('..\packages\ImGui.NET.1.70.0\build\net40\ImGui.NET.targets')" />

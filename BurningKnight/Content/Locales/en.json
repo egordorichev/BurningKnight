@@ -16,6 +16,7 @@
 	"painting_grannylisa": "Grannylisa",
 	"painting_maanex": "Thinker",
 	"painting_bk": "Roasted Knight",
+	"painting_bgang": "The Gang",
 	"painting_failpositive": "Party Maker",
 	"painting_old_man": "Really Old Man",
 	"painting_arthouse": "Art House",
@@ -809,7 +810,7 @@
 	"ach_bk:20_challenges_desc": "Complete 20 challenges",
 	"ach_bk:30_challenges": "Challenger 3.0",
 	"ach_bk:30_challenges_desc": "Complete 30 challenges",
-	"ach_bk:bk_no_more": "BK no more",
+	"ach_bk:bk_no_more": "Burning no more",
 	"ach_bk:bk_no_more_desc": "Defeat the Burning Knight himself",
 	"ach_bk:dm_no_more": "DM no more",
 	"ach_bk:dm_no_more_desc": "Defeat the Dark Mage",
@@ -1279,5 +1280,6 @@
 	"bk:pumpkin_juice": "Pumpkin Juice",
 	"bk:pumpkin_juice_desc": "Exciting",
 	"bk:bouncy_glove": "Bouncy Glove",
-	"bk:bouncy_glove_desc": "Bonk"
+	"bk:bouncy_glove_desc": "Bonk",
+	"seeded": "(seeded)"
 }

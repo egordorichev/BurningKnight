@@ -200,7 +200,7 @@ namespace BurningKnight.entity.creature.bk {
 
 					Painter.Rect(Run.Level, xx - 3, xy - 3, 6, 6, Tile.Chasm);
 
-					var torches = GetComponent<RoomComponent>().Room.Tagged[Tags.Torch];
+					/*var torches = GetComponent<RoomComponent>().Room.Tagged[Tags.Torch];
 
 					foreach (var t in torches) {
 						((Torch) t).On = false;
@@ -216,7 +216,7 @@ namespace BurningKnight.entity.creature.bk {
 							tr.On = true;
 							tr.XSpread = 0.1f;
 						}
-					}, 3f);
+					}, 3f);*/
 					
 					HandleEvent(new TriggeredEvent {
 						Trigger = this,

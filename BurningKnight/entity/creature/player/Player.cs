@@ -19,6 +19,7 @@ using BurningKnight.entity.events;
 using BurningKnight.entity.fx;
 using BurningKnight.entity.item;
 using BurningKnight.entity.item.stand;
+using BurningKnight.entity.projectile;
 using BurningKnight.entity.room;
 using BurningKnight.entity.twitch;
 using BurningKnight.level;
@@ -303,7 +304,7 @@ namespace BurningKnight.entity.creature.player {
 					var rm = (Room) r;
 
 					if (rm.Type == RoomType.Boss) {
-						Center = r.Center + new Vector2(0, 32);
+						Center = r.Center + new Vector2(0, 32) + Rnd.Vector(-0.5f, 0.5f);
 						rm.Discover();
 						Log.Debug("Teleported to boss room");
 						return true;
@@ -312,13 +313,13 @@ namespace BurningKnight.entity.creature.player {
 			}
 			
 			foreach (var cc in Area.Tagged[Tags.Checkpoint]) {
-				Center = cc.Center;
+				Center = cc.Center + Rnd.Vector(-0.5f, 0.5f);
 				Log.Debug("Teleported to spawn point");
 				return true;
 			}
 
 			foreach (var cc in Area.Tagged[Tags.Entrance]) {
-				Center = cc.Center + new Vector2(0, 4);
+				Center = cc.Center + new Vector2(0, 4) + Rnd.Vector(-0.5f, 0.5f);
 				Log.Debug("Teleported to entrance");
 				return true;
 			}
@@ -327,7 +328,7 @@ namespace BurningKnight.entity.creature.player {
 				var rm = (Room) r;
 
 				if (rm.Type == RoomType.Entrance) {
-					Center = r.Center;
+					Center = r.Center + Rnd.Vector(-0.5f, 0.5f);
 					rm.Discover();
 					Log.Debug("Teleported to entrance room");
 					return true;
@@ -339,7 +340,7 @@ namespace BurningKnight.entity.creature.player {
 
 				if (rm.Type == RoomType.Exit) {
 					Log.Debug("Teleported to exit room");
-					Center = new Vector2(rm.CenterX, rm.Bottom - 1.4f * 16);
+					Center = new Vector2(rm.CenterX, rm.Bottom - 1.4f * 16) + Rnd.Vector(-0.5f, 0.5f);
 					rm.Discover();
 
 					return true;
@@ -351,7 +352,7 @@ namespace BurningKnight.entity.creature.player {
 				var rm = (Room) r;
 
 				Log.Debug("Teleported to random room");
-				Center = new Vector2(rm.CenterX, rm.Bottom - 1.4f * 16);
+				Center = new Vector2(rm.CenterX, rm.Bottom - 1.4f * 16) + Rnd.Vector(-0.5f, 0.5f);
 				rm.Discover();
 
 				return true;
@@ -922,7 +923,7 @@ namespace BurningKnight.entity.creature.player {
 				GetComponent<HealthComponent>().Unhittable = true;
 			} else if (e is ProjectileCreatedEvent pce) {
 				if (Flying || HasFlight) {
-					pce.Projectile.Spectral = true;
+					pce.Projectile.AddFlags(ProjectileFlags.FlyOverStones);
 				}
 			} else if (e is FlagCollisionStartEvent fcse) {
 				if (fcse.Flag == Flag.Burning) {
@@ -1140,16 +1141,14 @@ namespace BurningKnight.entity.creature.player {
 			if (!Dead) {
 				return;
 			}
-			
+
 			var inventory = GetComponent<InventoryComponent>();
 
 			foreach (var i in inventory.Items) {
 				if (i.Id != "bk:no_lamp") {
-					drops.Add(i);
+					drops.Add(Items.Create(i.Id));
 				}
 			}
-
-			inventory.Items.Clear();
 
 			foreach (var c in Components.Values) {
 				if (c is ItemComponent i && i.Item != null && i.Item.Type != ItemType.Hat && i.Item.Id != "bk:no_lamp") {

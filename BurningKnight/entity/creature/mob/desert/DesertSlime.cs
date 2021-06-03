@@ -38,11 +38,13 @@ namespace BurningKnight.entity.creature.mob.desert {
 			}
 
 			var a = AngleTo(Target);
-			var projectile = Projectile.Make(this, "small", a, 5f);
+			var builder = new ProjectileBuilder(this, "small") {
+				LightRadius = 48
+			};
 
-			projectile.Center = Center + MathUtils.CreateVector(a, 5f);
-			projectile.AddLight(32f, Projectile.RedLight);
-			
+			builder.Shoot(a, 5f);
+			builder.Build().Center = Center + MathUtils.CreateVector(a, 5f);
+
 			GetComponent<RectBodyComponent>().KnockbackFrom(a - (float) Math.PI, 0.3f);
 		}
 	}

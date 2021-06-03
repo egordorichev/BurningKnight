@@ -13,10 +13,12 @@ using BurningKnight.entity.events;
 using BurningKnight.entity.item;
 using BurningKnight.entity.projectile;
 using BurningKnight.level;
+using BurningKnight.level.biome;
 using BurningKnight.level.entities;
 using BurningKnight.level.paintings;
 using BurningKnight.level.rooms;
 using BurningKnight.level.tile;
+using BurningKnight.level.variant;
 using BurningKnight.physics;
 using BurningKnight.save;
 using BurningKnight.state;
@@ -69,6 +71,14 @@ namespace BurningKnight.entity.creature.mob {
 
 			if (!(this is Boss)) {
 				GetComponent<StateComponent>().Pause++;
+			}
+		}
+
+		public override void PostInit() {
+			base.PostInit();
+
+			if (Run.Level?.Variant is SnowLevelVariant || Run.Level?.Biome is IceBiome) {
+				GetComponent<BuffsComponent>().AddImmunity<FrozenBuff>();
 			}
 		}
 
@@ -203,7 +213,11 @@ namespace BurningKnight.entity.creature.mob {
 				if (!de.BlockClear) {
 					GetComponent<RoomComponent>().Room?.CheckCleared(who);
 				}
-			} else if (e is HealthModifiedEvent hme && hme.Amount < 0) {				
+			} else if (e is HealthModifiedEvent hme && hme.Amount < 0) {
+				if (!(this is bk.BurningKnight) && TryGetComponent<RoomComponent>(out var room) && room.Room != null && room.Room.Tagged[Tags.Player].Count == 0) {
+					return true;
+				}
+
 				if (!rotationApplied) {
 					rotationApplied = true;
 					var a = GetAnyComponent<AnimationComponent>();
@@ -553,7 +567,13 @@ namespace BurningKnight.entity.creature.mob {
 					drops.Add(Items.Create("bk:copper_coin"));
 				}
 			}
-			
+
+			foreach (var p in Area.Tagged[Tags.Player]) {
+				if (p.GetComponent<LampComponent>().Item?.Id == "bk:explosive_lamp") {
+					drops.Add(Items.Create("bk:bomb"));
+					break;
+				}
+			}
 		}
 	}
 }

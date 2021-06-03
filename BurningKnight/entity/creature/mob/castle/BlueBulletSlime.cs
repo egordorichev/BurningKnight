@@ -27,29 +27,40 @@ namespace BurningKnight.entity.creature.mob.castle {
 			var am = 8;
 			GetComponent<AudioEmitterComponent>().EmitRandomized("mob_fire");
 
+			var builder = new ProjectileBuilder(this, "small") {
+				Color = ProjectileColor.Cyan,
+				LightRadius = 32f
+			};
+
 			for (var i = 0; i < am; i++) {
 				var a = Math.PI * 2 * (((float) i) / am);
-				var projectile = Projectile.Make(this, "small", a + Rnd.Float(-0.1f, 0.1f), 5f);
+				var projectile = builder.Shoot(a + Rnd.Float(-0.1f, 0.1f), 5f).Build();
 					
 				projectile.Center = BottomCenter;
-				projectile.Color = ProjectileColor.Cyan;
-				projectile.CanBeReflected = false;
-				projectile.AddLight(32f, ProjectileColor.Cyan);
 			}
 
 			Timer.Add(() => {
+				if (GetComponent<HealthComponent>().Dead) {
+					return;
+				}
+
 				GetComponent<AudioEmitterComponent>().EmitRandomized("mob_fire");
 				GetComponent<ZAnimationComponent>().Animate();
 
+				var b = new ProjectileBuilder(this, "small") {
+					Color = ProjectileColor.Blue,
+					LightRadius = 48f
+				};
+
+				b.AddFlags(ProjectileFlags.FlyOverStones);
+				b.RemoveFlags(ProjectileFlags.Reflectable, ProjectileFlags.BreakableByMelee);
+
 				for (var i = 0; i < am; i++) {
 					var a = Math.PI * 2 * (((float) i) / am + 0.5f);
-					var projectile = Projectile.Make(this, "circle", a + Rnd.Float(-0.1f, 0.1f), 8f);
+					var projectile = b.Shoot(a + Rnd.Float(-0.1f, 0.1f), 8f).Build();
 					
 					projectile.Center = BottomCenter;
 					projectile.Color = ProjectileColor.Blue;
-					projectile.Spectral = true;
-					projectile.CanBeReflected = false;
-					projectile.AddLight(48f, ProjectileColor.Blue);
 				}
 			}, 1f);
 		}

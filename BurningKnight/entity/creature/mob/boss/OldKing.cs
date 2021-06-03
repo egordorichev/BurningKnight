@@ -9,6 +9,7 @@ using BurningKnight.level;
 using BurningKnight.util;
 using Lens.entity;
 using Lens.entity.component.logic;
+using Lens.util.camera;
 using Lens.util.math;
 using Lens.util.tween;
 using Microsoft.Xna.Framework;
@@ -145,35 +146,30 @@ namespace BurningKnight.entity.creature.mob.boss {
 							return;
 						}
 
-						var skull = Projectile.Make(Self, "skull", Self.AngleTo(Self.Target), 8);
-
-						skull.NearDeath += p => {
-							var c = new AudioEmitterComponent {
-								DestroySounds = false
-							};
-							
-							p.AddComponent(c);
-							c.Emit("mob_oldking_explode");
+						var builder = new ProjectileBuilder(Self, "skull") {
+							Range = 5f
 						};
-						
-						skull.OnDeath += (p, e, t) => {
+
+						builder.RemoveFlags(ProjectileFlags.Reflectable, ProjectileFlags.BreakableByMelee);
+						var skull = builder.Shoot(Self.AngleTo(Self.Target), 8).Build();
+
+						ProjectileCallbacks.AttachDeathCallback(skull, (p, e, t) => {
 							if (!t) {
 								return;
 							}
+
+							Camera.Instance.ShakeMax(8);
+
+							var b = new ProjectileBuilder(Self, "small");
+							b.RemoveFlags(ProjectileFlags.Reflectable, ProjectileFlags.BreakableByMelee);
 					
 							for (var i = 0; i < 8; i++) {
-								var bullet = Projectile.Make(Self, "small", 
-									((float) i) / 4 * (float) Math.PI, (i % 2 == 0 ? 2 : 1) * 4 + 3);
-
-								bullet.CanBeReflected = false;
+								var bullet = b.Shoot(((float) i) / 4 * (float) Math.PI, (i % 2 == 0 ? 2 : 1) * 4 + 3).Build();
 								bullet.Center = p.Center;
 							}
-						};
+						});
 
-						skull.Controller += TargetProjectileController.Make(Self.Target, 0.5f);
-						skull.Range = 5f;
-						skull.IndicateDeath = true;
-						skull.CanBeReflected = false;
+						ProjectileCallbacks.AttachUpdateCallback(skull, TargetProjectileController.Make(Self.Target, 0.5f));
 						skull.GetComponent<ProjectileGraphicsComponent>().IgnoreRotation = true;
 						
 						if (count == (Self.Raging ? 6 : 4)) {
@@ -257,6 +253,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 				var a = Self.GetComponent<ZAnimationComponent>();
 				a.SetAutoStop(true);
 
+				Camera.Instance.ShakeMax(12);
 				
 				Self.GetComponent<AudioEmitterComponent>().EmitRandomized("mob_oldking_land");
 				
@@ -267,7 +264,10 @@ namespace BurningKnight.entity.creature.mob.boss {
 				};
 				
 				Self.GetComponent<RectBodyComponent>().Velocity = Vector2.Zero;
-					
+				var bb = new ProjectileBuilder(Self, "small");
+
+				bb.RemoveFlags(ProjectileFlags.Reflectable, ProjectileFlags.BreakableByMelee);
+
 				for (var i = 0; i < SmallCount; i++) {
 					var an = (float) (((float) i) / SmallCount * Math.PI * 2);
 						
@@ -276,11 +276,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 					};
 
 					for (var j = 0; j < 2; j++) {
-						var b = Projectile.Make(Self, "small");
-						pp.Add(b);
-						b.AddLight(32f, Projectile.RedLight);
-						b.CanBeReflected = false;
-						b.CanBeBroken = false;
+						pp.Add(bb.Build());
 					}
 				
 					pp.Launch(an, 40);
@@ -288,16 +284,18 @@ namespace BurningKnight.entity.creature.mob.boss {
 				}
 
 				var aa = Self.AngleTo(Self.Target);
+				var builder = new ProjectileBuilder(Self, "small") {
+					Color = ProjectileColor.Green,
+					Bounce = 2
+				};
+
+				builder.RemoveFlags(ProjectileFlags.Reflectable, ProjectileFlags.BreakableByMelee);
 					
 				for (var i = 0; i < InnerCount; i++) {
-					var s = Rnd.Chance(40);
-					var b = Projectile.Make(Self, "small", aa + Rnd.Float(-0.3f, 0.3f), Rnd.Float(2, 12), true, 1, null, Rnd.Float(0.5f, 1f));
+					builder.Scale = Rnd.Float(0.5f, 1f);
+					var b = builder.Shoot(aa + Rnd.Float(-0.3f, 0.3f), Rnd.Float(2, 12)).Build();
 						
-					b.Color = ProjectileColor.Green;
 					b.Center = Self.BottomCenter;
-					b.CanBeReflected = false;
-					b.CanBeBroken = false;
-					b.AddLight(s ? 16f : 32f, Projectile.GreenLight);
 				}
 			}
 

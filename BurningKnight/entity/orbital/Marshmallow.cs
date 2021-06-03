@@ -27,16 +27,21 @@ namespace BurningKnight.entity.orbital {
 				Owner.GetComponent<AudioEmitterComponent>().EmitRandomizedPrefixed("item_meatguy", 4, 0.5f);
 
 				var a = GetComponent<OrbitalComponent>().CurrentAngle;
-				var projectile = Projectile.Make(Owner, "small", a, 6f);
 
-				projectile.Color = ProjectileColor.White;
-				projectile.Center = Center + MathUtils.CreateVector(a, 5f);
-				projectile.AddLight(32f, ProjectileColor.White);
+				var builder = new ProjectileBuilder(Owner, "small") {
+					Color = ProjectileColor.White,
+					LightRadius = 32f
+				};
 
-				Owner.HandleEvent(new ProjectileCreatedEvent {
+				builder.Shoot(a, 6f);
+				builder.Move(a, 5f);
+
+				var projectile = builder.Build();
+
+				/*Owner.HandleEvent(new ProjectileCreatedEvent {
 					Projectile = projectile,
 					Owner = Owner
-				});
+				});*/
 				
 				projectile.Owner = this;
 				GetComponent<AnimationComponent>().Animate();

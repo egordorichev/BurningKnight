@@ -73,17 +73,16 @@ namespace BurningKnight.entity.creature.pet {
 						o.GetComponent<AudioEmitterComponent>().EmitRandomizedPrefixed("item_meatguy", 4, 0.5f);
 						
 						var a = pet.AngleTo(o.GetComponent<AimComponent>().RealAim);
-						var projectile = Projectile.Make(o, "small", a, 10f);
+						var builder = new ProjectileBuilder(o, "small") {
+							LightRadius = 32f,
+							Color = ProjectileColor.Yellow
+						};
 
-						projectile.Color = ProjectileColor.Yellow;
+						builder.Shoot(a, 10f);
+
+						var projectile = builder.Build();
+
 						projectile.Center = pet.Center + MathUtils.CreateVector(a, 5f);
-						projectile.AddLight(32f, Projectile.YellowLight);
-
-						o.HandleEvent(new ProjectileCreatedEvent {
-							Projectile = projectile,
-							Owner = o
-						});
-
 						projectile.Owner = pet;
 					}
 				};
@@ -111,19 +110,16 @@ namespace BurningKnight.entity.creature.pet {
 						o.GetComponent<AudioEmitterComponent>().EmitRandomizedPrefixed("item_meatguy", 4, 0.5f);
 						
 						var a = pet.AngleTo(o.GetComponent<AimComponent>().RealAim) - Math.PI;
+						var builder = new ProjectileBuilder(o, "circle") {
+							Scale = Rnd.Float(0.6f, 1f),
+							LightRadius = 32f,
+							Color = ProjectileColor.Red
+						};
 
 						for (var i = 0; i < 3; i++) {
-							var projectile = Projectile.Make(o, "circle", a + (i - 1) * 0.3f + Rnd.Float(-0.1f, 0.1f), Rnd.Float(4, 6), scale: Rnd.Float(0.6f, 1f));
+							var projectile = builder.Shoot(a + (i - 1) * 0.3f + Rnd.Float(-0.1f, 0.1f), Rnd.Float(4, 6)).Build();
 
-							projectile.Color = ProjectileColor.Red;
 							projectile.Center = pet.Center + MathUtils.CreateVector(a, 5f);
-							projectile.AddLight(32f, Projectile.RedLight);
-
-							o.HandleEvent(new ProjectileCreatedEvent {
-								Projectile = projectile,
-								Owner = o
-							});
-							
 							projectile.Owner = pet;
 						}
 					}

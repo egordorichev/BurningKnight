@@ -9,6 +9,7 @@ using Lens.entity;
 using Lens.util;
 using Lens.util.camera;
 using Lens.util.tween;
+using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.creature.player {
 	public class LocalPlayer : Player {
@@ -42,6 +43,11 @@ namespace BurningKnight.entity.creature.player {
 					
 					Achievements.Unlock("bk:rip");
 					Items.Unlock("bk:dagger");
+
+					var body = GetComponent<RectBodyComponent>();
+
+					body.KnockbackModifier = 0;
+					body.Velocity = Vector2.Zero;
 
 					if (InGameState.EveryoneDied(this)) {
 						Audio.FadeOut();

@@ -31,6 +31,7 @@ namespace BurningKnight.ui.str {
 	 *
 	 * [event_name var1 var2] starts an event
 	 *  + [dl time] delays
+	 *  + [skp] finishes printing out the string
 	 *  + [sp speed] sets speed
 	 *  + [ev event] fires user event
 	 *  + [vr variable_name] replaced with user variable
@@ -158,6 +159,11 @@ namespace BurningKnight.ui.str {
 						GlyphEvent e = null;
 
 						switch (parts[0]) {
+							case "skp": {
+								e = new SkipEvent();
+								break;
+							}
+
 							case "sp": {
 								e = new SpeedEvent();
 								break;

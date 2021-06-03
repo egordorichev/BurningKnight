@@ -131,22 +131,30 @@ namespace BurningKnight.entity.creature.mob.cave {
 						Tween.To(1, a.Scale.Y, x => a.Scale.Y = x, 0.2f);
 						
 						Self.GetComponent<AudioEmitterComponent>().EmitRandomized("mob_fire", sz: 0.2f);
-						
-						var projectile = Projectile.Make(Self, "circle", an, 7f);
 
-						projectile.Color = ProjectileColor.Green;
-						projectile.AddLight(32f, projectile.Color);
-						projectile.Center += MathUtils.CreateVector(angle, 8);
-							
+						var builder = new ProjectileBuilder(Self, "circle") {
+							LightRadius = 32f,
+							Color = ProjectileColor.Green
+						};
+
+						builder.Shoot(an, 7f);
+						builder.Move(angle, 8);
+
+						builder.Build();
+
+						var b = new ProjectileBuilder(Self, "circle") {
+							Color = ProjectileColor.DarkGreen,
+							LightRadius = 32f
+						};
+
+						b.Move(angle, 8);
+
 						for (var i = 0; i < 4; i++) {
-							var pp = Projectile.Make(Self, "circle", an + Rnd.Float(-Accuracy * 3, Accuracy * 3), Rnd.Float(7, 10f), scale: Rnd.Float(0.4f, 0.7f));
+							builder.Scale = Rnd.Float(0.4f, 0.7f);
 
-							pp.Color = ProjectileColor.DarkGreen;
-							pp.AddLight(32f, pp.Color);
-							pp.Center += MathUtils.CreateVector(angle, 8);
+							builder.Shoot(an + Rnd.Float(-Accuracy * 3, Accuracy * 3), Rnd.Float(7, 10f));
+							builder.Build();
 						}
-
-						AnimationUtil.Poof(projectile.Center);
 					};
 				}
 			}

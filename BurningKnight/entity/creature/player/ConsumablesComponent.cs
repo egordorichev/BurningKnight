@@ -110,7 +110,6 @@ namespace BurningKnight.entity.creature.player {
 					
 					switch (type) {
 						case ItemType.Bomb: {
-						
 							if (Run.Depth > 0 && GlobalSave.IsFalse("control_bomb")) {
 								var dialog = GetComponent<DialogComponent>();
 
@@ -170,7 +169,7 @@ namespace BurningKnight.entity.creature.player {
 						}
 						
 						case ItemType.Battery: {
-							Audio.PlaySfx("item_battery");
+							Audio.PlaySfx("item_charge");
 							break;
 						}
 
@@ -217,37 +216,41 @@ namespace BurningKnight.entity.creature.player {
 			base.Update(dt);
 
 			if (Run.Depth > 0 && Input.WasPressed(Controls.Bomb, GetComponent<InputComponent>())) {
-				if (GetComponent<PlayerInputComponent>().InDialog) {
-					return;
-				}
-				
-				if (GetComponent<StateComponent>().StateInstance is Player.SleepingState) {
-					GetComponent<StateComponent>().Become<Player.IdleState>();
-				}
+				SpawnBomb();
+			}
+		}
 
-				var spawn = false;
+		public void SpawnBomb() {
+			if (GetComponent<PlayerInputComponent>().InDialog) {
+				return;
+			}
 
-				if (bombs > 0) {
-					Bombs--;
+			if (GetComponent<StateComponent>().StateInstance is Player.SleepingState) {
+				GetComponent<StateComponent>().Become<Player.IdleState>();
+			}
 
+			var spawn = false;
+
+			if (bombs > 0) {
+				Bombs--;
+
+				spawn = true;
+			} else {
+				var h = GetComponent<HeartsComponent>();
+
+				if (h.Bombs > 0) {
+					h.ModifyBombs(-1, Entity, true);
 					spawn = true;
-				} else {
-					var h = GetComponent<HeartsComponent>();
-
-					if (h.Bombs > 0) {
-						h.ModifyBombs(-1, Entity, true);
-						spawn = true;
-					}
 				}
+			}
 
-				if (spawn) {
-					var bomb = new Bomb(Entity);
-					Entity.Area.Add(bomb);
-					bomb.Center = Entity.Center;
-					bomb.MoveToMouse();
-				} else {
-					AnimationUtil.ActionFailed();
-				}
+			if (spawn) {
+				var bomb = new Bomb(Entity);
+				Entity.Area.Add(bomb);
+				bomb.Center = Entity.Center;
+				bomb.MoveToMouse();
+			} else {
+				AnimationUtil.ActionFailed();
 			}
 		}
 

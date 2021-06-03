@@ -99,26 +99,27 @@ namespace BurningKnight.entity.creature.mob.cave {
 							
 							var ac = 0.1f;
 							var angle = Self.AngleTo(Self.Target);
-							var projectile = Projectile.Make(Self, "circle", angle + Rnd.Float(-ac, ac), 9f);
+							var builder = new ProjectileBuilder(Self, "circle") {
+								Color = ProjectileColor.White,
+								LightRadius = 32f
+							};
 
-							projectile.Color = ProjectileColor.White;
-							projectile.Center += MathUtils.CreateVector(angle, 8f);
-							projectile.AddLight(32f, projectile.Color);
-							projectile.Spectral = true;
+							builder.AddFlags(ProjectileFlags.FlyOverStones);
+							builder.Move(angle, 8);
+							builder.Shoot(angle + Rnd.Float(-ac, ac), 9f);
 
-							AnimationUtil.Poof(projectile.Center);
+							builder.Build();
 
 							Timer.Add(() => {
 								if (Self.Done) {
 									return;
 								}
 								
-								laser = Laser.Make(Self, 0, 0, scale: 2, range: 16);
+								laser = Laser.Make(Self, 0, angle + Rnd.Float(-ac * 3f, ac * 3f), scale: 2, range: 16);
 
 								laser.LifeTime = 2f;
 								laser.Color = ProjectileColor.Green;
 								laser.Position = Self.Center;
-								laser.Angle = angle + Rnd.Float(-ac * 3f, ac * 3f);
 
 								Self.GetComponent<AudioEmitterComponent>().EmitRandomizedPrefixed("item_laser", 4);
 

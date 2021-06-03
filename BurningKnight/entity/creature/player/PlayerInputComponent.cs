@@ -1,30 +1,22 @@
 using System;
 using BurningKnight.assets;
 using BurningKnight.assets.input;
-using BurningKnight.assets.lighting;
-using BurningKnight.assets.particle;
-using BurningKnight.assets.particle.custom;
 using BurningKnight.entity.buff;
 using BurningKnight.entity.component;
+using BurningKnight.entity.creature.mob.boss;
 using BurningKnight.entity.events;
-using BurningKnight.entity.fx;
-using BurningKnight.entity.projectile;
 using BurningKnight.level.tile;
 using BurningKnight.save;
 using BurningKnight.state;
 using BurningKnight.ui.dialog;
 using BurningKnight.util;
-using ImGuiNET;
 using Lens;
 using Lens.assets;
-using Lens.entity;
 using Lens.entity.component;
 using Lens.entity.component.logic;
-using Lens.graphics;
 using Lens.input;
 using Lens.util;
 using Lens.util.camera;
-using Lens.util.tween;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 
@@ -72,6 +64,10 @@ namespace BurningKnight.entity.creature.player {
 			if (GetComponent<BuffsComponent>().Has<FrozenBuff>()) {
 				EnableUpdates = true;
 				return;
+			}
+
+			if (DialogComponent.Talking != null || Boss.Exploding) {
+				EnableUpdates = true;
 			}
 			
 			var idle = true;
@@ -324,8 +320,8 @@ namespace BurningKnight.entity.creature.player {
 			var ac = acceleration * s;
 			var st = (GetComponent<StatsComponent>().Speed);
 			
-			body.Acceleration = ac * st;
-			body.Velocity -= body.Velocity * dt * sp - body.Acceleration;
+			body.Acceleration = ac * st * 1.5f;
+			body.Velocity -= body.Velocity * dt * sp * 1.5f - body.Acceleration;
 
 			if (st > 1) {
 				body.Position += ac * (0.5f * dt * (st - 1));
@@ -340,6 +336,7 @@ namespace BurningKnight.entity.creature.player {
 				body.Acceleration = Vector2.Zero;
 			}
 
+			EnableUpdates = true;
 			Entity.GetComponent<StateComponent>().Become<Player.IdleState>();
 		}
 	}

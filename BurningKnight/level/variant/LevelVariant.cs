@@ -8,6 +8,7 @@ namespace BurningKnight.level.variant {
 		public static string Chasm = "chasm";
 		public static string Gold = "gold";
 		public static string Forest = "forest";
+		public static string RaveCave = "rave_cave";
 		
 		private string id;
 

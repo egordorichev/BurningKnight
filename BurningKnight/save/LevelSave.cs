@@ -30,6 +30,7 @@ namespace BurningKnight.save {
 		public static bool GenerateShops;
 		public static bool GenerateTreasure;
 		public static bool MeleeOnly;
+		public static float MobDestructionChance;
 
 		private static int I;
 
@@ -48,7 +49,7 @@ namespace BurningKnight.save {
 				return path;
 			}
 			
-			return $"{path}level-{(old ? Run.LastDepth : Run.Depth)}.lvl";
+			return $"{path}level-{(old ? Run.LastDepth : Run.Depth)}-l{(old ? Run.LastLoop : Run.Loop)}.lvl";
 		}
 
 		private RegularLevel CreateLevel() {
@@ -69,9 +70,10 @@ namespace BurningKnight.save {
 
 		public static Biome BiomeGenerated;
 
-		private bool GenerationThread(Area area, int c = 0) {
+		private bool GenerationThread(string seed, Area area, int c = 0) {
 			var a = new Area();
-			Rnd.Seed = $"{Run.Seed}{Run.Depth}{c}{Run.Loop}"; 
+			Rnd.Seed = $"{seed}{Run.Depth}{c}{Run.Loop}";
+			Log.Debug($"Thread seed is {Rnd.Seed} (int {Rnd.IntSeed})");
 		
 			try {
 				Items.GeneratedOnFloor.Clear();
@@ -103,24 +105,30 @@ namespace BurningKnight.save {
 
 				if (I > 10) {
 					I = 0;
-					return GenerationThread(area, c + 1);
+					return GenerationThread(seed, area, c + 1);
 				}
 				
-				return GenerationThread(area);
+				return GenerationThread(seed, area);
 			}
 
 			BiomeGenerated = null;
 			return true;
 		}
 
+		private string sd;
+
 		public override void Generate(Area area) {
+			if (sd == null) {
+				sd = Run.Seed;
+			}
+
 			var done = false;
 			var finished = false;
 			var aborted = false;
 			
 			var thread = new Thread(() => {
 				try {
-					done = GenerationThread(area);
+					done = GenerationThread(sd, area);
 					finished = true;
 				} catch (ThreadInterruptedException e) {
 					Physics.Destroy();
@@ -162,6 +170,7 @@ namespace BurningKnight.save {
 
 				Log.Debug($"Generation done, took {i} cycles, {FailedAttempts} failed attempts)");
 				FailedAttempts = 0;
+				sd = null;
 			}
 		}
 
@@ -190,7 +199,7 @@ namespace BurningKnight.save {
 		public static void ResetGen() {
 			XL = false;
 			ChestRewardChance = 5;
-			Projectile.MobDestrutionChance = 0;
+			MobDestructionChance = 0;
 			MimicChance = 5;
 			GenerateMarket = false;
 			GenerateTreasure = false;

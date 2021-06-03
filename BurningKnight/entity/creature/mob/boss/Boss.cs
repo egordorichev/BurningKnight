@@ -1,10 +1,7 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using BurningKnight.assets.achievements;
 using BurningKnight.assets.items;
-using BurningKnight.assets.particle;
-using BurningKnight.assets.particle.controller;
 using BurningKnight.assets.particle.custom;
 using BurningKnight.entity.buff;
 using BurningKnight.entity.component;
@@ -26,7 +23,6 @@ using Lens;
 using Lens.assets;
 using Lens.entity;
 using Lens.entity.component.logic;
-using Lens.graphics;
 using Lens.util;
 using Lens.util.camera;
 using Lens.util.math;
@@ -35,6 +31,8 @@ using Microsoft.Xna.Framework;
 
 namespace BurningKnight.entity.creature.mob.boss {
 	public class Boss : Mob {
+		// Dirty hack, I'm running out of time, don't kill me
+		public static bool Exploding;
 		public bool Awoken;
 		
 		protected bool HasHealthbar = true;
@@ -281,6 +279,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 			if (e is DiedEvent de) {
 				if (de.Who == this) {
 					if (!Died) {
+						Exploding = true;
 						Died = true;
 						HealthBar?.Remove();
 
@@ -301,6 +300,8 @@ namespace BurningKnight.entity.creature.mob.boss {
 
 		public virtual void PlaceRewards() {
 			var exit = new Exit();
+
+			Exploding = false;
 			Area.Add(exit);
 
 			exit.To = Run.Depth + 1;
@@ -375,11 +376,15 @@ namespace BurningKnight.entity.creature.mob.boss {
 		public class FriendlyState : SmartState<Boss> {
 			public override void Init() {
 				base.Init();
+
+				Exploding = false;
 				Self.GetComponent<HealthComponent>().Unhittable = true;
 			}
 
 			public override void Destroy() {
 				base.Destroy();
+
+				Exploding = false;
 				Self.GetComponent<HealthComponent>().Unhittable = false;
 			}
 		}
@@ -392,7 +397,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 			public Boss Boss;
 		}
 		
-		public override void Kill(Entity w) {
+		public override void Kill(Entity w, DamageType type = DamageType.Regular) {
 			
 		}
 

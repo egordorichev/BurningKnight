@@ -24,7 +24,7 @@ namespace BurningKnight.ui {
 		private static Vector2 scale = new Vector2(1f);
 		private static Vector2 bigScale = new Vector2(3f);
 		private static Color doorColor = new Color(93, 44, 40);
-		
+
 		private Player player;
 		private TextureRegion slice;
 
@@ -36,7 +36,7 @@ namespace BurningKnight.ui {
 		public UiMap(Player pl) {
 			player = pl;
 			target = new RenderTarget2D(Engine.GraphicsDevice, W, H, false, Engine.Graphics.PreferredBackBufferFormat, DepthFormat.Depth24);
-			
+
 			Width = W;
 			Height = H;
 
@@ -70,7 +70,7 @@ namespace BurningKnight.ui {
 			var x = (int) Math.Floor(fx);
 			var y = (int) Math.Floor(fy);
 			var level = Run.Level;
-			
+
 			var sx = MathUtils.Clamp(0, level.Width - 1, x - W / 2);
 			var sy = MathUtils.Clamp(0, level.Height - 1, y - H / 2);
 			var tx = MathUtils.Clamp(0, level.Width - 1, x + W / 2);
@@ -88,7 +88,7 @@ namespace BurningKnight.ui {
 			Graphics.Color.A = 150;
 			Graphics.Render(slice, Vector2.Zero, 0, Vector2.Zero, new Vector2(W, H));
 			Graphics.Color.A = 255;
-			
+
 			foreach (var rm in level.Area.Tagged[Tags.Room]) {
 				var room = (Room) rm;
 
@@ -104,7 +104,7 @@ namespace BurningKnight.ui {
 					}
 				}
 			}
-			
+
 			var cl = Run.Level.Biome.GetMapColor();
 			Graphics.Color = cl;
 
@@ -119,15 +119,15 @@ namespace BurningKnight.ui {
 							if (level.Explored[i] && !level.Get(i).IsWall() && xx >= sx && xx <= tx && yy >= sy && yy <= ty) {
 								Graphics.Render(slice, new Vector2((int) Math.Floor(W / 2 + (xx - fx)), (int) Math.Floor(H / 2 + (yy - fy))), 0, Vector2.Zero, scale);
 							}
-							
-							
+
+
 							if (room.Explored && !(room.Type == RoomType.Granny || room.Type == RoomType.OldMan || room.Type == RoomType.Boss)) {
 								Graphics.Color = doorColor;
-								
+
 								foreach (var d in room.Doors) {
 									Graphics.Render(slice, new Vector2((int) Math.Floor(W / 2 - fx + (int) Math.Floor(d.CenterX / 16)), (int) Math.Floor(H / 2 - fy + (int) Math.Floor(d.Bottom / 16))));
 								}
-								
+
 								Graphics.Color = cl;
 							}
 						}
@@ -136,14 +136,14 @@ namespace BurningKnight.ui {
 			}
 
 			Graphics.Color = ColorUtils.WhiteColor;
-			
+
 			foreach (var rm in level.Area.Tagged[Tags.Room]) {
 				var room = (Room) rm;
 
 				if (!room.Explored) {
 					continue;
 				}
-				
+
 				var tp = room.Type;
 
 				if (tp == RoomType.Exit ? Run.Depth % 2 == 1 : RoomTypeHelper.ShouldBeDisplayOnMap(tp)) {

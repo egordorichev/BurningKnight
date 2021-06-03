@@ -1,11 +1,15 @@
+using System;
+using System.Text;
 using BurningKnight.assets;
 using BurningKnight.entity.component;
 using BurningKnight.state;
 using BurningKnight.ui.dialog;
 using Lens.entity;
 using Lens.entity.component.logic;
+using Lens.input;
 using Lens.util;
 using Lens.util.math;
+using Microsoft.Xna.Framework.Input;
 
 namespace BurningKnight.entity.creature.npc {
 	public class Beet : Npc {
@@ -40,9 +44,8 @@ namespace BurningKnight.entity.creature.npc {
 
 				return null;
 			});
-
 		}
-	
+
 		public override void AddComponents() {
 			base.AddComponents();
 
@@ -66,6 +69,42 @@ namespace BurningKnight.entity.creature.npc {
 					GetComponent<StateComponent>().Become<HideState>();
 				}
 			};
+		}
+
+		public override void Update(float dt) {
+			base.Update(dt);
+
+			if (GetComponent<DialogComponent>().Current?.Id == "beet_2" && Input.Keyboard.WasPressed(Keys.V) && (Input.Keyboard.IsDown(Keys.LeftControl) || Input.Keyboard.IsDown(Keys.RightControl))) {
+				Log.Info("Pasting the seed");
+				var seed = "ERROR";
+
+				try {
+					// Needs xclip on linux
+					seed = TextCopy.Clipboard.GetText().ToUpper();
+				} catch (Exception e) {
+					Log.Error(e);
+				}
+
+				if (seed.Length == 0) {
+					return;
+				}
+
+				if (seed.Length > 8) {
+					seed = seed.Substring(0, 8);
+				}
+
+				var builder = new StringBuilder();
+
+				for (var i = 0; i < seed.Length; i++) {
+					var c = seed[i];
+					builder.Append(Rnd.SeedChars.IndexOf(c) != -1 && c != '_' ? c : 'X');
+				}
+
+				var result = builder.ToString();
+				Log.Info($"Initial seed {seed} converted to {result}");
+
+				((AnswerDialog) GetComponent<DialogComponent>().Current).Answer = result;
+			}
 		}
 
 		private bool Interact(Entity e) {
