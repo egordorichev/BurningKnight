@@ -12,6 +12,7 @@ using BurningKnight.state;
 using BurningKnight.util;
 using Lens;
 using Lens.util;
+using Lens.util.math;
 using Microsoft.Xna.Framework;
 using Version = Lens.Version;
 
@@ -28,7 +29,7 @@ namespace BurningKnight {
 			#else
 				new AssetLoadState(),
 			#endif
-			 $"Burning Knight{(Demo ? " Demo" : "")}: {Titles.Generate()}", width, height, fullscreen) {
+			 Rnd.Chance(60) ? "Burning Knight" : $"Burning Knight{(Demo ? " Demo" : "")}: {Titles.Generate()}", width, height, fullscreen) {
 		}
 
 		protected override void Initialize() {
