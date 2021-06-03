@@ -3,9 +3,10 @@
 * update controller input sheme
 
 # general
-* bk head shooting attack broken
-* bk lazers broken
+* lasers dont update their position with owner
+* laser angling is broken
 
+* fix up bk laser attacks
 # before release
 * update item hash in assets
 * give emerald caves a purpose

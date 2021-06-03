@@ -74,7 +74,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 
 			t += dt;
 			
-			if (Target != null) {
+			if (Target != null && !Died) {
 				var force = 40f * dt;
 				var a = AngleTo(Target);
 

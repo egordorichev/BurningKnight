@@ -14,6 +14,7 @@ using BurningKnight.entity.door;
 using BurningKnight.entity.events;
 using BurningKnight.entity.item;
 using BurningKnight.entity.item.stand;
+using BurningKnight.entity.item.util;
 using BurningKnight.entity.orbital;
 using BurningKnight.entity.room.controllable;
 using BurningKnight.entity.room.controllable.platform;
@@ -213,7 +214,7 @@ namespace BurningKnight.entity.projectile {
 				return !HasFlag(ProjectileFlags.FlyOverWalls);
 			}
 
-			return (!(entity is Chasm || entity is Projectile || entity is Creature || entity is Level || entity is Tree)) || entity.HasComponent<HealthComponent>();
+			return (!(entity is MeleeArc || entity is Chasm || entity is Projectile || entity is Creature || entity is Level || entity is Tree)) || entity.HasComponent<HealthComponent>();
 		}
 
 		private bool IsWall(Entity entity, BodyComponent body) {

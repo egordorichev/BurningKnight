@@ -1197,10 +1197,11 @@ namespace BurningKnight.entity.creature.bk {
 					Self.GetComponent<AudioEmitterComponent>().EmitRandomizedPrefixed("item_laser", 4);
 					
 					for (var i = 0; i < 8; i++) {
-						var laser = Laser.Make(Self, 0, 0, damage: 2, scale: 3, range: 64);
+						var laser = Laser.Make(Self, 0, (float) laserAngles[i], damage: 2, scale: 3, range: 64);
+
 						laser.LifeTime = 10f;
 						laser.Position = spot + laserOffsets[i];
-						laser.Angle = (float) laserAngles[i];
+
 						lasers[i] = laser;
 					}
 				}, 1);
@@ -1218,9 +1219,15 @@ namespace BurningKnight.entity.creature.bk {
 				for (var i = 0; i < 8; i++) {
 					var laser = lasers[i];
 
+					if (laser == null) {
+						continue;
+					}
+
 					if (laser.Done) {
 						foreach (var l in lasers) {
-							l.Done = true;
+							if (l != null) {
+								l.Done = true;
+							}
 						}
 						
 						Become<FightState>();
