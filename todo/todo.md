@@ -18,4 +18,3 @@
 
 # before release
 * update item hash in assets
-* music streaming instead of loading

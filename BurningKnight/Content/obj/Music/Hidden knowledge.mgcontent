@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PipelineBuildEvent xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <SourceFile>C:/Users/egord/Lens/BurningKnight/Content/Music/Hidden knowledge.ogg</SourceFile>
-  <SourceTime>2019-10-13T13:25:28.1381197+03:00</SourceTime>
-  <DestFile>C:/Users/egord/Lens/BurningKnight/Content/bin/Music/Hidden knowledge.xnb</DestFile>
-  <DestTime>2019-10-14T17:01:15.953518+03:00</DestTime>
-  <Importer>AudioImporter</Importer>
-  <ImporterTime>2019-10-13T14:10:43.2040363+03:00</ImporterTime>
-  <Processor>AudioProcessor</Processor>
-  <ProcessorTime>2019-10-13T14:10:43.2040363+03:00</ProcessorTime>
+  <SourceFile>/home/eugor/Lens/BurningKnight/Content/Music/Hidden knowledge.ogg</SourceFile>
+  <SourceTime>2020-10-08T03:49:36.5638035-04:00</SourceTime>
+  <DestFile>/home/eugor/Lens/BurningKnight/Content/bin/Music/Hidden knowledge.xnb</DestFile>
+  <DestTime>2021-04-27T03:18:54.8767964-04:00</DestTime>
+  <Importer>OggImporter</Importer>
+  <ImporterTime>2020-10-19T02:32:07.6087708-04:00</ImporterTime>
+  <Processor>SongProcessor</Processor>
+  <ProcessorTime>2020-10-19T02:32:07.6087708-04:00</ProcessorTime>
+  <Parameters>
+    <Key>Quality</Key>
+    <Value>Best</Value>
+  </Parameters>
   <Dependencies />
   <BuildAsset />
-  <BuildOutput />
+  <BuildOutput>
+    <string>/home/eugor/Lens/BurningKnight/Content/bin/Music/Hidden knowledge.ogg</string>
+  </BuildOutput>
 </PipelineBuildEvent>

@@ -159,7 +159,6 @@ namespace Lens {
 			var t = DateTime.Now.Millisecond;
 			
 			base.Update(gameTime);
-			Audio.UpdateAudio();
 
 			GameTime = gameTime;
 			var dt = (float) gameTime.ElapsedGameTime.TotalSeconds * Speed;

@@ -68,17 +68,9 @@
       <HintPath>..\packages\NAudio.1.10.0\lib\net35\NAudio.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="NAudio.Vorbis, Version=1.1.0.0, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\packages\NAudio.Vorbis.1.1.0\lib\net45\NAudio.Vorbis.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="netstandard, Version=2.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51" />
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed">
       <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="NVorbis, Version=0.9.1.0, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\packages\NVorbis.0.9.1\lib\net45\NVorbis.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="SharpFNT, Version=1.1.0.0, Culture=neutral, PublicKeyToken=null">
@@ -216,7 +208,6 @@
     <Compile Include="assets\Audio.cs" />
     <Compile Include="assets\Effects.cs" />
     <Compile Include="assets\Locale.cs" />
-    <Compile Include="assets\Music.cs" />
     <Compile Include="assets\Textures.cs" />
     <Compile Include="Cloner.cs" />
     <Compile Include="core\ConsoleCore.cs" />
@@ -304,7 +295,6 @@
     <Compile Include="Version.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="LICENSE" />
     <None Include="MonoGame.Framework.dll.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
