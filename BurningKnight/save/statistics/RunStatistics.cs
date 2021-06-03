@@ -195,11 +195,13 @@ namespace BurningKnight.save.statistics {
 			}
 
 			foreach (var p in Area.Tagged[Tags.Player]) {
-				leftOver += (p.GetComponent<RectBodyComponent>().Velocity * dt).Length();
+				if (p.TryGetComponent<RectBodyComponent>(out var c)) {
+					leftOver += (c.Velocity * dt).Length();
 
-				var amount = (uint) Math.Floor(leftOver / 16f);
-				leftOver -= amount * 16;
-				TilesWalked += amount;
+					var amount = (uint) Math.Floor(leftOver / 16f);
+					leftOver -= amount * 16;
+					TilesWalked += amount;
+				}
 			}
 		}
 

@@ -3,7 +3,6 @@
 * update controller input sheme
 
 # general
-* bk death cutscene (player hitbox flies away lol)
 * bk head shooting attack broken
 * bk lazers broken
 
