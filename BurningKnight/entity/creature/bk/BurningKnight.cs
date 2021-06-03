@@ -122,9 +122,7 @@ namespace BurningKnight.entity.creature.bk {
 
 		public override void Destroy() {
 			base.Destroy();
-			
 			GetComponent<AudioEmitterComponent>().StopAll();
-			Log.Debug("Bk destroyed");
 		}
 
 		protected override void OnTargetChange(Entity target) {
