@@ -67,3 +67,4 @@
 * Nerfed ghost chase a tiny bit
 * Nerfed amurs arrow
 * Lowered default screenshake
+* Added an extra treasure room to the emerald caves
