@@ -74,7 +74,7 @@ namespace BurningKnight.entity.creature.mob.boss {
 
 			t += dt;
 			
-			if (Target != null) {
+			if (Target != null && !Died) {
 				var force = 40f * dt;
 				var a = AngleTo(Target);
 
@@ -482,9 +482,11 @@ namespace BurningKnight.entity.creature.mob.boss {
 					heinur.Callback = () => {
 						Camera.Instance.Targets.Clear();
 						Camera.Instance.Follow(dm, 1f);
-						
+						Camera.Instance.MainTarget = dm;
+
 						foreach (var p in Area.Tagged[Tags.Player]) {
 							p.GetComponent<PlayerGraphicsComponent>().Hidden = true;
+							p.RemoveComponent<RectBodyComponent>();
 						}
 						
 						var bk = new bk.BurningKnight() {

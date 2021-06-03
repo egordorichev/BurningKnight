@@ -115,12 +115,11 @@ namespace BurningKnight.entity.creature.mob.cave {
 									return;
 								}
 								
-								laser = Laser.Make(Self, 0, 0, scale: 2, range: 16);
+								laser = Laser.Make(Self, 0, angle + Rnd.Float(-ac * 3f, ac * 3f), scale: 2, range: 16);
 
 								laser.LifeTime = 2f;
 								laser.Color = ProjectileColor.Green;
 								laser.Position = Self.Center;
-								laser.Angle = angle + Rnd.Float(-ac * 3f, ac * 3f);
 
 								Self.GetComponent<AudioEmitterComponent>().EmitRandomizedPrefixed("item_laser", 4);
 

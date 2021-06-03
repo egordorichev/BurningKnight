@@ -214,7 +214,7 @@ namespace BurningKnight.entity.creature.mob {
 					GetComponent<RoomComponent>().Room?.CheckCleared(who);
 				}
 			} else if (e is HealthModifiedEvent hme && hme.Amount < 0) {
-				if (TryGetComponent<RoomComponent>(out var room) && room.Room != null && room.Room.Tagged[Tags.Player].Count == 0) {
+				if (!(this is bk.BurningKnight) && TryGetComponent<RoomComponent>(out var room) && room.Room != null && room.Room.Tagged[Tags.Player].Count == 0) {
 					return true;
 				}
 

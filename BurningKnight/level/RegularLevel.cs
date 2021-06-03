@@ -166,6 +166,10 @@ namespace BurningKnight.level {
 				rooms.Add(new DesertWellRoom());
 			}
 
+			if (cave) {
+				rooms.Add(RoomRegistry.Generate(RoomType.Treasure, biome));
+			}
+
 			if (final) {
 				Log.Info("Prepare for the final!");
 			}
@@ -288,7 +292,7 @@ namespace BurningKnight.level {
 					rooms.Add(new SecretEmeraldGolemRoom());
 				}
 				
-				if (!cave && !rush) {
+				if (!rush) {
 					if (Rnd.Chance(95)) {
 						if (Rnd.Chance(2 + Run.Scourge * 5)) {
 							rooms.Add(new ScourgedRoom());

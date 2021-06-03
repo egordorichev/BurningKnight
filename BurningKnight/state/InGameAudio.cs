@@ -12,6 +12,7 @@ using BurningKnight.level.entities;
 using BurningKnight.level.rooms;
 using Lens.assets;
 using Lens.entity;
+using Lens.util;
 using Lens.util.camera;
 using Lens.util.math;
 using Lens.util.timer;
@@ -49,7 +50,7 @@ namespace BurningKnight.state {
 			Subscribe<SpawnTrigger.TriggeredEvent>();
 
 			if (!InGameState.InMenu && Run.Level != null) {
-				Audio.PlayMusic(Run.Level.GetMusic(), Run.Depth < 1 || Run.Depth % 2 == 1);
+				Audio.PlayMusic(Run.Level.GetMusic()/*, Run.Depth < 1 || Run.Depth % 2 == 1*/);
 			}
 			
 			// Audio.PlayMusic("Disk 6", Camera.Instance.Listener, LocalPlayer.Locate(Area).GetComponent<AudioEmitterComponent>().Emitter);

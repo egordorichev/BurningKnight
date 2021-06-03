@@ -62,6 +62,10 @@ namespace BurningKnight.entity.creature.player {
 		private float angle;
 
 		protected override void CallRender(Vector2 pos, bool shadow) {
+			if (Hidden) {
+				return;
+			}
+
 			var region = Animation.GetCurrentTexture();
 			var origin = new Vector2(region.Source.Width / 2f, FlippedVerticaly ? 0 : region.Source.Height);
 			var s = scale * Scale;
@@ -164,7 +168,7 @@ namespace BurningKnight.entity.creature.player {
 			if (Hidden) {
 				return;
 			}
-			
+
 			var o = (shadow ? -1 : 1) * (offsets[Math.Min(offsets.Length - 1, Animation.Frame + Animation.StartFrame)] - 11);
 			var s = GetComponent<StateComponent>().StateInstance;
 			var w = !(s is Player.RollState || s is Player.SleepingState);

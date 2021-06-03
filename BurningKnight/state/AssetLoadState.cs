@@ -80,12 +80,7 @@ namespace BurningKnight.state {
 				}
 
 				LoadSection(() => Assets.Load(ref progress), "Assets");
-
-				if (Assets.LoadMusic) {
-					LoadSection(() => Audio.ThreadLoad("Menu", false), "More audio");
-				} else {
-					progress++;
-				}
+				progress++;
 
 				LoadSection(Dialogs.Load, "Dialogs");
 

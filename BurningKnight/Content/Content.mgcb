@@ -47,6 +47,144 @@
 /processorParam:TextureFormat=Color
 /build:Fonts/small.png
 
+#begin Music/Believer.ogg
+/importer:OggImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Music/Believer.ogg
+
+#begin Music/BK.ogg
+/importer:OggImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Music/BK.ogg
+
+#begin Music/Born to do rogueries.ogg
+/importer:OggImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Music/Born to do rogueries.ogg
+
+#begin Music/Botanical Expedition.ogg
+/importer:OggImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Music/Botanical Expedition.ogg
+
+#begin Music/chip.ogg
+/importer:OggImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Music/chip.ogg
+
+#begin Music/Cursed legend.ogg
+/importer:OggImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Music/Cursed legend.ogg
+
+#begin Music/Fatiga.ogg
+/importer:OggImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Music/Fatiga.ogg
+
+#begin Music/Frozen to the bones.ogg
+/importer:OggImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Music/Frozen to the bones.ogg
+
+#begin Music/Gobbeon.ogg
+/importer:OggImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Music/Gobbeon.ogg
+
+#begin Music/Hidden knowledge.ogg
+/importer:OggImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Music/Hidden knowledge.ogg
+
+#begin Music/Hub.ogg
+/importer:OggImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Music/Hub.ogg
+
+#begin Music/Last chance.ogg
+/importer:OggImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Music/Last chance.ogg
+
+#begin Music/Ma Precious.ogg
+/importer:OggImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Music/Ma Precious.ogg
+
+#begin Music/Menu.ogg
+/importer:OggImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Music/Menu.ogg
+
+#begin Music/My precious.ogg
+/importer:OggImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Music/My precious.ogg
+
+#begin Music/Nostalgia.ogg
+/importer:OggImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Music/Nostalgia.ogg
+
+#begin Music/Outsider.ogg
+/importer:OggImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Music/Outsider.ogg
+
+#begin Music/piano.ogg
+/importer:OggImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Music/piano.ogg
+
+#begin Music/Pirate Bay.ogg
+/importer:OggImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Music/Pirate Bay.ogg
+
+#begin Music/Reckless.ogg
+/importer:OggImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Music/Reckless.ogg
+
+#begin Music/Serendipity.ogg
+/importer:OggImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Music/Serendipity.ogg
+
+#begin Music/Shopkeeper.ogg
+/importer:OggImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Music/Shopkeeper.ogg
+
+#begin Music/Void.ogg
+/importer:OggImporter
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:Music/Void.ogg
+
 #begin Sfx/airhorn.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor

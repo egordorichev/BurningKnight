@@ -19,7 +19,7 @@ namespace BurningKnight.entity.creature.npc {
 			
 			AddComponent(new AnimationComponent("dark_mage"));
 
-			if (!(Run.Level.Biome is LibraryBiome)) {
+			if (!(Run.Level?.Biome is LibraryBiome)) {
 				AddComponent(new CloseDialogComponent("dm_0"));
 			}
 

@@ -25,9 +25,17 @@ namespace BurningKnight.entity.projectile {
 		public Vector2 End;
 		public bool PlayerRotated;
 
+		private float angle;
+
 		public float Angle {
-			get => BodyComponent.Body.Rotation;
-			set => BodyComponent.Body.Rotation = value;
+			get => angle;
+			set {
+				angle = value;
+
+				if (BodyComponent?.Body != null) {
+					BodyComponent.Body.Rotation = angle + AdditionalAngle;
+				}
+			}
 		}
 
 		public static Laser Make(Entity owner, float a, float additional, Item item = null, float damage = 1, float scale = 1f, float range = -1, Laser parent = null) {
@@ -75,8 +83,9 @@ namespace BurningKnight.entity.projectile {
 			projectile.Height = 9 * projectile.Scale;
 
 			projectile.CreateBody();
+
 			projectile.AdditionalAngle = additional;
-			projectile.BodyComponent.Body.Rotation = a + additional;
+			projectile.Angle = a;
 
 			return projectile;
 		}
@@ -104,18 +113,16 @@ namespace BurningKnight.entity.projectile {
 			Vector2 closest;
 			var aim = Owner.GetComponent<AimComponent>();
 
-			if (PlayerRotated) {
-				Position = aim.Center;
-			}
-			
+			Position = aim.Center;
+
 			var from = Position;
 			
 			if (PlayerRotated) {
-				closest = Position + MathUtils.CreateVector((aim.RealAim - from).ToAngle(), Range * 5);
-			} else {
-				closest = Position + MathUtils.CreateVector(BodyComponent.Body.Rotation, Range * 5);
+				BodyComponent.Body.Rotation = angle = (aim.RealAim - from).ToAngle();
 			}
-				
+
+			closest = Position + MathUtils.CreateVector(BodyComponent.Body.Rotation, Range * 5);
+
 			Physics.World.RayCast((fixture, point, normal, fraction) => {
 				if (min > fraction && fixture.Body.UserData is BodyComponent b && RayShouldCollide(b.Entity)) {
 					min = fraction;
@@ -133,13 +140,8 @@ namespace BurningKnight.entity.projectile {
 				BodyComponent.Resize(0, -Height * 0.5f, Width, Height);
 			}
 
-			var a = v.ToAngle() - Math.PI + AdditionalAngle;
-
-			if (PlayerRotated) {
-				BodyComponent.Body.Rotation = (float) a;
-			}
-
-			End = Position + MathUtils.CreateVector(a, Width);
+			BodyComponent.Body.Rotation = angle + AdditionalAngle;
+			End = Position + MathUtils.CreateVector(BodyComponent.Body.Rotation, Width);
 		}
 
 		private float lastClear;
@@ -173,6 +175,7 @@ namespace BurningKnight.entity.projectile {
 		public override void Resize(float newScale) {
 			Scale = newScale;
 			Height = 9 * Scale;
+
 			GetComponent<RectBodyComponent>().Resize(0, 0, Width, Height, true);
 		}
 	}
