@@ -27,7 +27,7 @@ namespace Lens.assets {
 			}
 		}
 
-		public const int ItemData = 7029427;
+		public const int ItemData = 6617551;
 	
 #if DEBUG
 		public static bool LoadOriginalFiles = true;
