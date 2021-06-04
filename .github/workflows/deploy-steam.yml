@@ -47,7 +47,7 @@ jobs:
         run: |
           cd $GITHUB_WORKSPACE
           ls -l
-          "C:/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/MSBuild/Current/Bin/MSBuild.exe" ./Lens.sln /target:Aseprite
+          "C:/Program Files (x86)/Microsoft Visual Studio/2019/Enterprise/MSBuild/Current/Bin/MSBuild.exe" ./Aseprite/Aseprite.csproj
           ls -l
       - name: Building Resources
         shell: bash
