@@ -159,8 +159,8 @@ namespace BurningKnight.state {
 				}
 			} else if (e is Boss.DefeatedEvent) {
 				Audio.Stop();
-				Audio.Repeat = false;
 				Audio.PlayMusic("Reckless");
+				Audio.Repeat = false;
 			}
 
 			return false;
