@@ -28,7 +28,11 @@ namespace Lens.assets {
 		private static Dictionary<string, Song> musicInstances = new Dictionary<string, Song>();
 		private static Dictionary<string, SoundEffect> sounds = new Dictionary<string, SoundEffect>();
 
-		public static bool Repeat = true;
+		public static bool Repeat {
+			get => MediaPlayer.IsRepeating;
+			set => MediaPlayer.IsRepeating = value;
+		}
+
 		public static DynamicSoundEffectInstance SoundEffectInstance;
 
 		public static float Speed = 1;
@@ -117,6 +121,8 @@ namespace Lens.assets {
 				return;
 			}
 
+			Repeat = true;
+
 			if (!fromStart) {
 				FadeOut(() => {
 					LoadAndPlayMusic(music, fromStart);
@@ -150,11 +156,7 @@ namespace Lens.assets {
 					musicInstances[music] = currentPlaying;
 				}
 
-				Repeat = true;
-
 				MediaPlayer.Volume = 0;
-				MediaPlayer.IsRepeating = Repeat;
-
 				MediaPlayer.Play(currentPlaying);
 
 				Tween.To(musicVolume, MediaPlayer.Volume, x => MediaPlayer.Volume = x, fromStart ? 0.05f : CrossFadeTime);

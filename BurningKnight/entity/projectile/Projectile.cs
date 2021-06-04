@@ -214,7 +214,7 @@ namespace BurningKnight.entity.projectile {
 				return !HasFlag(ProjectileFlags.FlyOverWalls);
 			}
 
-			return (!(entity is MeleeArc || entity is Chasm || entity is Projectile || entity is Creature || entity is Level || entity is Tree)) || entity.HasComponent<HealthComponent>();
+			return (!(entity is MeleeArc || entity is Item || ((entity is Orbital oo && oo.Owner == Owner) || (entity is Pet pp && pp.Owner == Owner)) || entity is Chasm || entity is Projectile || entity is Creature || entity is Level || entity is Tree)) || entity.HasComponent<HealthComponent>();
 		}
 
 		private bool IsWall(Entity entity, BodyComponent body) {
